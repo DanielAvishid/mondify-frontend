@@ -1,0 +1,36 @@
+.app-sidebar {
+    height: 100vh;
+    width: max-content;
+    background-color: white;
+    padding: 10px 20px;
+    font-size: 15px;
+    border-radius: 10px;
+
+    i {
+        margin-inline-end: 10px;
+    }
+
+    section {
+        &>* {
+            margin-block-end: 5px;
+        }
+
+        div {
+            padding: 10px;
+            &:hover{
+                background-color: rgb(215,218,230);
+                cursor: pointer;
+            }
+        }
+    }
+
+    button {
+        background-color: white;
+        border: 0;
+        border-radius: 5px;
+        &:hover{
+            background-color: rgb(215,218,230);
+            cursor: pointer;
+        }
+    }
+}
