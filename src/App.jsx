@@ -9,6 +9,7 @@ import { BoardDetails } from './pages/BoardDetails'
 import { TaskDetails } from './pages/TaskDetails'
 import { AppIndex } from './pages/AppIndex'
 import { store } from './store/store'
+import { GroupList } from './cmps/GroupList';
 
 export function App() {
   return (

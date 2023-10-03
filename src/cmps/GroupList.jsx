@@ -1,22 +1,22 @@
-// import { useOutletContext } from "react-router-dom";
-
+import { useOutletContext } from "react-router";
 import { GroupPreview } from "./GroupPreview"
 
-export function GroupList({ board = {} }) {
-    // const [] = useOutletContext()
+export function GroupList() {
+    const [board] = useOutletContext()
+    console.log(board, 'LIST')
 
-    const demoBoard = _createBoardDemo()
-    console.log(demoBoard);
+    // const demoBoard = _createBoardDemo()
+    // console.log(demoBoard);
 
-    const groups = demoBoard.groups
+    const groups = board.groups
 
     return (
         <section className="group-list">
             <h1>GroupList</h1>
             {groups.map((group, index) => (
-                <div>
+                <div key={index}>
                     <h1 className="full-row">{group.title}</h1>
-                    <GroupPreview key={index} group={group} />
+                    <GroupPreview group={group} />
                 </div>
             ))}
             <button>+ Add new group</button>

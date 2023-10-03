@@ -9,7 +9,6 @@ export function BoardDetails() {
     const [board, setBoard] = useState(null)
     const { boardId } = useParams()
     const navigate = useNavigate()
-    const [] = useOutletContext()
 
     useEffect(() => {
         loadBoard()
