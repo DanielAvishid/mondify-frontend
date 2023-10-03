@@ -1,0 +1,15 @@
+.board-header {
+    background-color: yellow;
+    height: 20vh;
+
+    .board-header-non-collapse {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .title-container {
+        display: flex;
+        align-items: center;
+    }
+}

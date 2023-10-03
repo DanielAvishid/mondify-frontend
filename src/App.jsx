@@ -1,8 +1,6 @@
 import { Route, HashRouter as Router, Routes } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import { AppHeader } from './cmps/AppHeader'
 
-// import { store } from './store/store'
 import { Home } from './pages/Home'
 import { BoardDetails } from './pages/BoardDetails'
 import { TaskDetails } from './pages/TaskDetails'
@@ -18,9 +16,11 @@ export function App() {
           <Routes>
             <Route element={<Home />} path="/" />
             <Route element={<AppIndex />} path="/board">
-              {/* <Route element={<BoardSlector />} path='/' /> */}
+              {/* <Route element={<BoardSelector />} path='/' /> */}
               <Route element={<BoardDetails />} path=":boardId">
-                <Route element={<TaskDetails />} path="task/:taskId" />
+                <Route element={<GroupList />} path="">
+                  <Route element={<TaskDetails />} path="task/:taskId" />
+                </Route>
               </Route>
             </Route>
           </Routes>
@@ -29,3 +29,20 @@ export function App() {
     </Provider>
   )
 }
+
+{/* <Routes>
+  <Route element={<Home />} path="/" />
+  <Route element={<AppIndex />} path="/board">
+    <Route element={<BoardList />} path="" />
+    <Route element={<BoardDetails />} path=":boardId">
+      <Route element={<BoardTable />} path="">
+        <Route element={<TaskDetails />} path="task/:taskId" />
+        <Route element={<ActivityLog />} path="activity_log" />
+      </Route>
+      <Route element={<BoardKanban />} path="views/kanban">
+        <Route element={<TaskDetails />} path="task/:taskId" />
+        <Route element={<ActivityLog />} path="activity_log" />
+      </Route>
+    </Route>
+  </Route>
+</Routes>  */}
