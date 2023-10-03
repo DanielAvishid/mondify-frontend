@@ -1,6 +1,10 @@
+// import { useOutletContext } from "react-router-dom";
+
 import { GroupPreview } from "./GroupPreview"
 
 export function GroupList({ board = {} }) {
+    // const [] = useOutletContext()
+
     const demoBoard = _createBoardDemo()
     console.log(demoBoard);
 

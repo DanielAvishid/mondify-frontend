@@ -9,7 +9,6 @@ import { TaskDetails } from './pages/TaskDetails'
 import './assets/styles/main.scss'
 import { AppIndex } from './pages/AppIndex'
 import { store } from './store/store'
-import { GroupList } from './cmps/GroupList'
 
 export function App() {
   return (
@@ -18,7 +17,6 @@ export function App() {
         <main>
           <Routes>
             <Route element={<Home />} path="/" />
-            <Route element={<GroupList />} path="/" />
             <Route element={<AppIndex />} path="/board">
               {/* <Route element={<BoardSlector />} path='/' /> */}
               <Route element={<BoardDetails />} path=":boardId">
