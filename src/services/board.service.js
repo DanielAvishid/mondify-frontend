@@ -15,7 +15,7 @@ export const boardService = {
 }
 
 async function query(filterBy = {}) {
-    var boards = await storageService.query(STORAGE_KEY)
+    let boards = await storageService.query(STORAGE_KEY)
     // if (filterBy.txt) {
     //     const regex = new RegExp(filterBy.txt, 'i')
     //     boards = boards.filter(car => regex.test(car.vendor) || regex.test(car.description))
@@ -36,7 +36,7 @@ async function remove(boardId) {
 }
 
 async function save(board) {
-    var savedBoard
+    let savedBoard
     if (board._id) {
         savedBoard = await storageService.put(STORAGE_KEY, board)
     } else {
