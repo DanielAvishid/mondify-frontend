@@ -76,5 +76,22 @@
                 width: 50px;
             }
         }
+
+        .board-label {
+            border-radius: 5px;
+          
+            &:hover,
+            .board-menu[aria-expanded="true"] {
+              background-color: $primary-background-hover-color;
+          
+              .board-menu {
+                opacity: 1;
+              }
+            }
+          
+            .board-menu {
+              opacity: 0;
+            }
+          }
     }
 }

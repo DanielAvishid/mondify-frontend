@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Button, Icon, Menu, MenuButton, MenuItem, MenuTitle, Search, SplitButton } from "monday-ui-react-core";
-import { Home, MyWeek, Filter, Board, Gantt, Add, DropdownChevronDown, DropdownChevronLeft, DropdownChevronRight } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
+import { Home, MyWeek, Filter, Board,Duplicate, Gantt,Delete, Add, DropdownChevronDown, DropdownChevronLeft, DropdownChevronRight } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { useState } from "react";
 
 export function AppSidebar({ boards, onDuplicate, onRemove }) {
@@ -42,14 +42,23 @@ export function AppSidebar({ boards, onDuplicate, onRemove }) {
                 </article>
                 <Button leftIcon={Gantt} kind="tertiary" className="test_board btn">Test_board</Button>
                 {boards.map(board =>
-                    <Button
-                        key={board._id}
-                        onClick={() => navigate(`/board/${board._id}`)}
-                        leftIcon={Board}
-                        kind="tertiary"
-                        className="board btn">
-                        {board.title}
-                    </Button>
+                    <article key={board._id} className="flex align-center justify-between board-label">
+                        <Button
+                            key={board._id}
+                            onClick={() => navigate(`/board/${board._id}`)}
+                            leftIcon={Board}
+                            kind="tertiary"
+                            className="board btn">
+                            {board.title}
+
+                        </Button>
+                        <MenuButton className="board-menu">
+                            <Menu id="menu" size="large">
+                                <MenuItem icon={Duplicate} title="Duplicate Boarder" onClick={() => onDuplicate({boardId:board._id})} />
+                                <MenuItem icon={Delete} title="Delete" onClick={() => onRemove({boardId:board._id})} />
+                            </Menu>
+                        </MenuButton>
+                    </article>
                 )}
 
             </section>
