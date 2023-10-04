@@ -36,9 +36,10 @@ export function BoardDetails() {
         }
     }
 
-    async function onUpdateBoard(boardToSave) {
+    async function onUpdateBoard(key, val, boardId) {
         try {
-            saveBoard(boardToSave)
+            const newBoard = await saveBoard(boardToSave)
+            setBoard(newBoard)
             console.log('ShowSuccsesMsg')
         } catch (err) {
             console.log('Had issues in board details', err)
@@ -46,12 +47,13 @@ export function BoardDetails() {
         }
     }
 
+
     if (!board) return <span></span>
     return (
         <section className="board-details">
             <BoardHeader board={board} onRemoveBoard={onRemoveBoard} onUpdateBoard={onUpdateBoard} />
             <h1>BoardDetails</h1>
-            <Outlet context={[board]} />
+            <Outlet context={[board, onUpdateBoard]} />
         </section>
     )
 }

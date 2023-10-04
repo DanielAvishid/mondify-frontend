@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import Button from "monday-ui-react-core/dist/Button";
+// import Button from "monday-ui-react-core/dist/Button";
+import { Button } from "monday-ui-react-core";
 
 export function AppSidebar({ boards }) {
     const navigate = useNavigate()
@@ -27,6 +28,7 @@ export function AppSidebar({ boards }) {
                     </button>
                 )}
 
+                <Button>carmel</Button>
             </section>
 
         </section >
