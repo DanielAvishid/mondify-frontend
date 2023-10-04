@@ -13,8 +13,8 @@ export function GroupPreview({ group }) {
 
     return (
         <section className="group-preview">
-            <div className="full-row">
-                <div className="left-border-container"><span></span></div>
+            <div className="full-row header">
+                <div className="check-row"><input type="checkbox" name="" id="" /></div>
                 <div className="item-container"><span>Item</span></div>
                 <div className="person-container"><span>Person</span></div>
                 <div className="status-container"><span>Status</span></div>
@@ -22,11 +22,9 @@ export function GroupPreview({ group }) {
                 <div className="timeline-container"><span>Timeline</span></div>
                 <div className="add-colomn-container"><span>+</span></div>
             </div>
-            <div className="full-row">
-                {tasks.map((task, index) => (
-                    <TaskPreview key={index} task={task} />
-                ))}
-            </div>
+            {tasks.map((task, index) => (
+                <TaskPreview key={index} task={task} />
+            ))}
 
         </section>
     )

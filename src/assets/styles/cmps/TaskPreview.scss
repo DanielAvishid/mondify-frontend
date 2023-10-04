@@ -1,3 +1,7 @@
 .task-preview {
-    background-color: beige;
+
+    &>.item-container {
+        display: flex;
+        justify-content: space-between;
+    }
 }

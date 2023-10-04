@@ -4,7 +4,7 @@ import { userService } from './user.service.js'
 
 const STORAGE_KEY = 'boardDB'
 
-// _createBoard()
+console.log(STORAGE_KEY);
 
 export const boardService = {
     query,
@@ -92,12 +92,15 @@ function _createBoard() {
                 "tasks": [
                     {
                         "id": "c101",
-                        "title": "Replace logo"
-
+                        "title": "Replace logo",
+                        "status": "Done", // monday
+                        "priority": "Critical",
                     },
                     {
                         "id": "c102",
-                        "title": "Add Samples"
+                        "title": "Add Samples",
+                        "status": "Waiting for QA", // monday
+                        "priority": "Medium",
                     }
                 ],
                 "style": {}
@@ -110,12 +113,14 @@ function _createBoard() {
                         "id": "c103",
                         "title": "Do that",
                         "archivedAt": 1589983468418,
+                        "status": "Done", // monday
+                        "priority": "Critical",
                     },
                     {
                         "id": "c104",
                         "title": "Help me",
-                        "status": "in-progress", // monday
-                        "priority": "high",
+                        "status": "Working on it", // monday
+                        "priority": "High",
                         "description": "description",
                         "comments": [
                             {
