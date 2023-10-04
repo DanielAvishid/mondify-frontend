@@ -3,14 +3,6 @@ import { TaskPreview } from "./TaskPreview";
 export function GroupPreview({ group }) {
     const { style, tasks, title } = group
 
-    const uniqueKeys = new Set();
-    tasks.forEach((task) => {
-        Object.keys(task).forEach((key) => {
-            uniqueKeys.add(key);
-        });
-    });
-    const uniqueKeysArray = Array.from(uniqueKeys);
-
     return (
         <section className="group-preview">
             <div className="full-row header">

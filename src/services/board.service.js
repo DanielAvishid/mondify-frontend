@@ -61,9 +61,9 @@ function _createBoard() {
         isStarred: false,
         archivedAt: 1589983468418,
         createdBy: {
-            "_id": "u101",
-            "fullname": "Abi Abambi",
-            "imgUrl": "http://some-img"
+            "_id": "UjCos",
+            "fullname": "Carmel Amarillio",
+            "imgUrl": "https://hips.hearstapps.com/ghk.h-cdn.co/assets/16/08/gettyimages-464163411.jpg?crop=1.0xw:1xh;center,top&resize=980:*"
         },
         style: {
             backgroundImage: ""
@@ -82,9 +82,9 @@ function _createBoard() {
         ],
         members: [
             {
-                "_id": "u101",
-                "fullname": "Tal Tarablus",
-                "imgUrl": "https://www.google.com"
+                "_id": "DOGWC",
+                "fullname": "Daniel Avishid",
+                "imgUrl": "https://hips.hearstapps.com/hmg-prod/images/happy-dog-outdoors-royalty-free-image-1652927740.jpg?crop=0.447xw:1.00xh;0.187xw,0&resize=980:*"
             }
         ],
         groups: [
@@ -98,12 +98,16 @@ function _createBoard() {
                         "title": "Replace logo",
                         "status": "Done", // monday
                         "priority": "Critical",
+                        "dueDate": [1696107932000, 1696418275139],
+                        "memberIds": ["UjCos"],
                     },
                     {
                         "id": "c102",
                         "title": "Add Samples",
                         "status": "Waiting for QA", // monday
                         "priority": "Medium",
+                        "dueDate": [1696418275139, 1696907932000],
+                        "memberIds": ["DOGWC", "UjCos"],
                     }
                 ],
                 "style": {}
@@ -118,6 +122,8 @@ function _createBoard() {
                         "archivedAt": 1589983468418,
                         "status": "Done", // monday
                         "priority": "Critical",
+                        "dueDate": [1696418275139, 1697407100000],
+                        "memberIds": ["UjCos", "tZQiB", "DOGWC"],
                     },
                     {
                         "id": "c104",
@@ -131,9 +137,9 @@ function _createBoard() {
                                 "txt": "also @yaronb please CR this",
                                 "createdAt": 1590999817436,
                                 "byMember": {
-                                    "_id": "u101",
-                                    "fullname": "Tal Tarablus",
-                                    "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
+                                    "_id": "UjCos",
+                                    "fullname": "Carmel Amarillio",
+                                    "imgUrl": "ttps://hips.hearstapps.com/ghk.h-cdn.co/assets/16/08/gettyimages-464163411.jpg?crop=1.0xw:1xh;center,top&resize=980:*"
                                 }
                             }
                         ],
@@ -150,14 +156,14 @@ function _createBoard() {
                                 ]
                             }
                         ],
-                        "memberIds": ["u101"],
+                        "memberIds": ["UjCos", "DOGWC", "tZQiB"],
                         "labelIds": ["l101", "l102"],
-                        "dueDate": 16156215211,
+                        "dueDate": [1695418275139, 1698407932000],
                         "byMember": {
-                            "_id": "u101",
-                            "username": "Tal",
-                            "fullname": "Tal Tarablus",
-                            "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
+                            "_id": "DOGWC",
+                            "username": "danielavishid",
+                            "fullname": "Daniel Avishid",
+                            "imgUrl": "https://hips.hearstapps.com/hmg-prod/images/happy-dog-outdoors-royalty-free-image-1652927740.jpg?crop=0.447xw:1.00xh;0.187xw,0&resize=980:*"
                         },
                         "style": {
                             "backgroundColor": "#26de81"
@@ -173,9 +179,9 @@ function _createBoard() {
                 "txt": "Changed Color",
                 "createdAt": 154514,
                 "byMember": {
-                    "_id": "u101",
-                    "fullname": "Abi Abambi",
-                    "imgUrl": "http://some-img"
+                    "_id": "tZQiB",
+                    "fullname": "Ofir Kaspi",
+                    "imgUrl": "https://hips.hearstapps.com/hmg-prod/images/lonely-pug-royalty-free-image-1652974264.jpg?crop=0.447xw:1.00xh;0.355xw,0&resize=980:*"
                 },
                 "group": {
                     "id": "g101",
@@ -191,4 +197,56 @@ function _createBoard() {
         cmpsOrder: ["StatusPicker", "MemberPicker", "DatePicker"]
     }
     save(board)
+}
+
+// CHECK WITH ME BEFORE USING !!!! (OFIR)
+
+async function saveUser(user) {
+    const savedUsers = await storageService.post('userDB', user)
+    return savedUsers
+}
+
+// _createUser()
+
+function _createUser() {
+    const user =
+        // {
+        //     "fullname": "Daniel Avishid",
+        //     "username": "danielavishid",
+        //     "email": "danielavishid@mondify.com",
+        //     "password": "danielavishid",
+        //     "imgUrl": "https://hips.hearstapps.com/hmg-prod/images/happy-dog-outdoors-royalty-free-image-1652927740.jpg?crop=0.447xw:1.00xh;0.187xw,0&resize=980:*",
+        //     // "mentions": [{ //optional
+        //     //     "id": "m101",
+        //     //     "boardId": "m101",
+        //     //     "taskId": "t101"
+        //     // }]
+        // }
+
+        // {
+        //     "fullname": "Ofir Kaspi",
+        //     "username": "ofirkaspi",
+        //     "email": "ofirkaspi@mondify.com",
+        //     "password": "ofirkaspi",
+        //     "imgUrl": "https://hips.hearstapps.com/hmg-prod/images/lonely-pug-royalty-free-image-1652974264.jpg?crop=0.447xw:1.00xh;0.355xw,0&resize=980:*",
+        //     // "mentions": [{ //optional
+        //     //     "id": "m101",
+        //     //     "boardId": "m101",
+        //     //     "taskId": "t101"
+        //     // }]
+        // }
+
+        // {
+        //     "fullname": "Carmel Amarillio",
+        //     "username": "carmelamarillio",
+        //     "email": "carmelamarillio@mondify.com",
+        //     "password": "carmelamarillio",
+        //     "imgUrl": "https://hips.hearstapps.com/ghk.h-cdn.co/assets/16/08/gettyimages-464163411.jpg?crop=1.0xw:1xh;center,top&resize=980:*",
+        //     // "mentions": [{ //optional
+        //     //     "id": "m101",
+        //     //     "boardId": "m101",
+        //     //     "taskId": "t101"
+        //     // }]
+        // }
+        saveUser(user)
 }

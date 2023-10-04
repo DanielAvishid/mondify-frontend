@@ -6,17 +6,12 @@
         grid-template-columns: repeat(auto-fill, minmax(min-content, 1fr)) 1fr;
         justify-content: start;
         border-block-end: 1px solid gray;
+        height: 2.25rem;
 
-        &.header {
-            height: 2.25rem;
-        }
-
-        &.row {
-            height: 2rem;
-        }
 
         &>* {
-            display: flex;
+            display: grid;
+            grid-template-columns: fit-content;
             justify-content: center;
             align-items: center;
             border-right: 1px solid gray;
@@ -36,7 +31,7 @@
 
         & .item-container {
             grid-column: 2;
-            width: 22.5rem;
+            width: 16.25rem;
         }
 
 
