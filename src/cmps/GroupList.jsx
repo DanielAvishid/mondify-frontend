@@ -2,7 +2,7 @@ import { useOutletContext } from "react-router";
 import { GroupPreview } from "./GroupPreview"
 
 export function GroupList() {
-    const [board] = useOutletContext()
+    const [board, onSaveBoard, onDuplicate, onRemove] = useOutletContext()
     console.log(board, 'LIST')
 
     // const demoBoard = _createBoardDemo()

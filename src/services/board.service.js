@@ -5,13 +5,17 @@ import { userService } from './user.service.js'
 const STORAGE_KEY = 'boardDB'
 
 console.log(STORAGE_KEY);
+// _createBoard()
 
 export const boardService = {
     query,
     getById,
-    save,
+    update,
     remove,
-    getEmptyBoard
+    getEmptyBoard,
+    duplicate,
+    addBoard,
+    addTaskFromHeader
 }
 
 async function query(filterBy = {}) {
@@ -26,27 +30,101 @@ async function query(filterBy = {}) {
     return boards
 }
 
-function getById(boardId) {
-    return storageService.get(STORAGE_KEY, boardId)
-}
-
-async function remove(boardId) {
-    // throw new Error('Nope')
-    await storageService.remove(STORAGE_KEY, boardId)
-}
-
-async function save(key, val, board) {
-    let savedBoard
-    console.log(board, 'SERVICE1')
-    if (board._id) {
-        board[key] = val
-        console.log(board[key], 'SERVICE2')
-        savedBoard = await storageService.put(STORAGE_KEY, board)
+async function getById({ boardId, taskId }) {
+    if (taskId) {
+        const board = await storageService.get(STORAGE_KEY, boardId)
+        return board.groups.find((group) => group.tasks.find((task) => task.id === taskId))
     } else {
-        board.owner = userService.getLoggedinUser()
-        savedBoard = await storageService.post(STORAGE_KEY, board)
+        return storageService.get(STORAGE_KEY, boardId)
     }
+}
+
+async function remove({ board, boardId, groupId, taskId }) {
+    if (!board) {
+        board = await storageService.get(STORAGE_KEY, boardId)
+    }
+    if (taskId) {
+        const groupsToSave = board.groups.map(group => group.tasks.filter(task => task.id !== taskId))
+        board.groups = groupsToSave
+    } else if (groupId) {
+        const groupIdx = board.groups.findIndex((group) => group.id === groupId)
+        board.groups.splice(groupIdx, 1)
+    } else {
+        return await storageService.remove(STORAGE_KEY, boardId)
+    }
+    return await storageService.put(STORAGE_KEY, board)
+}
+
+async function addBoard(board) {
+    board.createdBy = userService.getLoggedinUser() || {
+        "_id": "UjCos",
+        "fullname": "Carmel Amarillio",
+        "imgUrl": "https://hips.hearstapps.com/ghk.h-cdn.co/assets/16/08/gettyimages-464163411.jpg?crop=1.0xw:1xh;center,top&resize=980:*"
+    }
+    return await storageService.post(STORAGE_KEY, board)
+}
+
+async function addTaskFromHeader(board, task) {
+    board.groups[0].tasks.push(task)
+    const savedBoard = await storageService.put(STORAGE_KEY, board)
     return savedBoard
+}
+// update({ board, boardId, groupId, value: task }) === addTask()
+// update({ board, boardId, taskId, key: title, value: "new title" }) === updateTask()
+async function update({ board, boardId, groupId, taskId, key, value }) {
+    if (!board) {
+        board = await storageService.get(STORAGE_KEY, boardId)
+    }
+    let savedBoard
+    let groupsToSave
+    if (taskId) {
+        if (!groupId) {
+            groupsToSave = board.groups.map(group => group.tasks.map(task => task.id === taskId ? task[key] = value : task))
+            board.groups = groupsToSave
+        } else {
+            const groupIdx = board.groups.findIndex((group) => group.id === groupId)
+            const taskIdx = board.groups[groupIdx].tasks.findIndex((task) => task.id === taskId)
+            board.groups[groupIdx].tasks[taskIdx][key] = value
+        }
+    } else if (groupId) {
+        const groupIdx = board.groups.findIndex((group) => group.id === groupId)
+        if (!key) {
+            board.groups[groupIdx].tasks.push(value)
+        } else {
+            board.groups[groupIdx][key] = value
+        }
+    } else {
+        if (!key) {
+            board.groups.push(value)
+        } else {
+            board[key] = value
+        }
+    }
+
+    savedBoard = await storageService.put(STORAGE_KEY, board)
+    return savedBoard
+}
+
+async function duplicate({ boardId, groupId, taskId }) {
+    const board = await storageService.get(STORAGE_KEY, boardId)
+    console.log(boardId, 'SERVICE')
+    if (taskId) {
+        const groupIdx = board.groups.findIndex((group) => group.id === groupId)
+        const task = board.groups[groupIdx].tasks.find((task) => task.id === taskId)
+        task.id = utilService.makeId()
+        task.title += '(copy)'
+        board.groups[groupIdx].tasks.push(task)
+    } else if (groupId) {
+        const group = board.groups.find(group => group.id === groupId)
+        group.id = utilService.makeId()
+        group.title = 'Duplicate of ' + group.title
+        board.groups.push(group)
+    } else {
+        board.title = 'Duplicate of ' + board.title
+        return await addBoard(board)
+    }
+
+    return await storageService.put(STORAGE_KEY, board)
 }
 
 function getEmptyBoard() {
@@ -197,7 +275,7 @@ function _createBoard() {
 
         cmpsOrder: ["TaskTitle", "Members", "Status", 'Priority', "Date"]
     }
-    save(board)
+    addBoard(board)
 }
 
 // CHECK WITH ME BEFORE USING !!!! (OFIR)

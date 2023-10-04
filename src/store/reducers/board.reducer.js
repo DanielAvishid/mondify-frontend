@@ -24,6 +24,7 @@ export function boardReducer(state = initialState, action) {
             return { ...state, boards, lastBoards }
 
         case ADD_BOARD:
+            console.log(action.board)
             boards = [...state.boards, action.board]
             return { ...state, boards }
 

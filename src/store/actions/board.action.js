@@ -28,25 +28,59 @@ export async function loadBoards() {
     }
 }
 
-export async function removeBoardOptimistic(boardId) {
+export async function getById({ boardId, taskId }) {
     try {
-        store.dispatch({ type: REMOVE_BOARD, boardId })
-        await boardService.remove(boardId)
+        return await boardService.getById({ boardId, taskId })
     } catch (err) {
-        store.dispatch({ type: BOARD_UNDO })
+        console.log('board action -> Cannot load board/task', err)
+    }
+
+}
+
+export async function remove({ board, boardId, groupId, taskId }) {
+    try {
+        // store.dispatch({ type: REMOVE_BOARD, boardId }) // Optimistic
+        const savedBoard = await boardService.remove({ board, boardId, groupId, taskId })
+        if (groupId || taskId) {
+            store.dispatch({ type: UPDATE_BOARD, savedBoard })
+        } else {
+            store.dispatch({ type: REMOVE_BOARD, boardId })
+        }
+    } catch (err) {
+        // store.dispatch({ type: BOARD_UNDO }) // Optimistic
         console.log('board action -> Cannot remove board', err)
         throw err
     }
 }
 
-export async function saveBoard(key, val, board) {
+export async function saveBoard({ board, boardId, groupId, taskId, key, value }) {
     try {
-        const type = board._id ? UPDATE_BOARD : ADD_BOARD
-        const boardToSave = await boardService.save(key, val, board)
+        let boardToSave
+        const type = (board._id || boardId) ? UPDATE_BOARD : ADD_BOARD
+        if (board._id) {
+            boardToSave = await boardService.update({ board, boardId, groupId, taskId, key, value })
+        } else {
+            boardToSave = await boardService.addBoard(board)
+        }
         store.dispatch({ type, board: boardToSave })
         return boardToSave
     } catch (error) {
         console.log('board action -> Cannot save board', err)
+        throw err
+    }
+}
+
+export async function duplicate({ boardId, groupId, taskId }) {
+    try {
+        const savedBoard = await boardService.duplicate({ boardId, groupId, taskId })
+        console.log(savedBoard, 'ACTION')
+        if (groupId || taskId) {
+            store.dispatch({ type: UPDATE_BOARD, board: savedBoard })
+        } else {
+            store.dispatch({ type: ADD_BOARD, board: savedBoard })
+        }
+    } catch (err) {
+        console.log('board action -> Cannot duplicate board', err)
         throw err
     }
 }
