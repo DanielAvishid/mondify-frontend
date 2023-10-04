@@ -95,7 +95,7 @@ function _createBoard() {
                         "title": "Replace logo",
                         "status": "Done", // monday
                         "priority": "Critical",
-                        "dueDate": 1696107932000,
+                        "dueDate": [1696107932000, 1696418275139],
                         "memberIds": ["UjCos"],
                     },
                     {
@@ -103,7 +103,7 @@ function _createBoard() {
                         "title": "Add Samples",
                         "status": "Waiting for QA", // monday
                         "priority": "Medium",
-                        "dueDate": 1696907932000,
+                        "dueDate": [1696418275139, 1696907932000],
                         "memberIds": ["DOGWC", "UjCos"],
                     }
                 ],
@@ -119,7 +119,7 @@ function _createBoard() {
                         "archivedAt": 1589983468418,
                         "status": "Done", // monday
                         "priority": "Critical",
-                        "dueDate": 1697407100000,
+                        "dueDate": [1696418275139, 1697407100000],
                         "memberIds": ["UjCos", "tZQiB", "DOGWC"],
                     },
                     {
@@ -155,7 +155,7 @@ function _createBoard() {
                         ],
                         "memberIds": ["UjCos", "DOGWC", "tZQiB"],
                         "labelIds": ["l101", "l102"],
-                        "dueDate": 1698407932000,
+                        "dueDate": [1695418275139, 1698407932000],
                         "byMember": {
                             "_id": "DOGWC",
                             "username": "danielavishid",
