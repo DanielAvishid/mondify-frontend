@@ -1,20 +1,23 @@
 .app-header {
     padding: 10px;
-    font-size: 20px;
-
-    section>* {
-        padding: 10px 15px;
-        border-radius: 5px;
-
-        &:hover {
-            background-color: rgb(219, 222, 235);
-            cursor: pointer;
-        }
-    }
 
     .logo {
         span {
             font-weight: bold;
+        }
+    }
+
+    .apps-icon {
+        position: relative;
+        &::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translate(-50%, -50%);
+            height: 60%;
+            width: .5px;
+            background-color: #51515135;
         }
     }
 

@@ -1,36 +1,58 @@
 import { useNavigate } from "react-router-dom";
-// import Button from "monday-ui-react-core/dist/Button";
-import { Button } from "monday-ui-react-core";
+import { Button, Icon, Menu, MenuButton, MenuItem, MenuTitle, Search, SplitButton } from "monday-ui-react-core";
+import { Home, MyWeek, Filter, Board, Gantt, Add, DropdownChevronDown, DropdownChevronLeft, DropdownChevronRight } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
+import { useState } from "react";
 
 export function AppSidebar({ boards }) {
     const navigate = useNavigate()
+    const [showSidebar, setShowSidebar] = useState(true)
+
+    function toggleSidebar(){
+        setShowSidebar(!showSidebar)
+    }
 
     if (!boards.length) return <div>loading..</div>
-    console.log(boards[0]);
     return (
-        <section className="app-sidebar">
-            <section>
-                <div>
-                    <i className="fa-solid fa-house"></i>
-                    <span>Home</span>
-                </div>
-                <div>
-                    <i className="fa-regular fa-calendar"></i>
-                    <span>My work</span>
-                </div>
-            </section>
-            <section>
-                <p>Main workspace</p>
+        <section className="app-sidebar flex column">
+            <button className="close-btn" onClick={toggleSidebar}>
+                <Icon icon={showSidebar? DropdownChevronLeft:DropdownChevronRight} />
+            </button>
+            <section className={`flex column main-sidebar ${showSidebar? '':'close'}`}>
+                <Button leftIcon={Home} kind="tertiary" className="home btn">Home</Button>
+                <Button leftIcon={MyWeek} kind="tertiary" className="my-week btn">My Week</Button>
+
+                <article className="flex align-center justify-between main-sec">
+                    <Button kind="tertiary" rightIcon={DropdownChevronDown}>
+                        <span></span>Main workspace
+                    </Button>
+                    <MenuButton>
+                        <Menu id="menu" size="large">
+                            <MenuItem icon={Add} title="Add new Workspace" />
+                            <MenuItem icon={Home} title="Add new Workspace" />
+                            <MenuItem icon={Home} title="Add new Workspace" />
+                        </Menu>
+                    </MenuButton>
+
+                </article>
+                <article className="flex align-center justify-between search-sec">
+                    <Search placeholder="Search" iconName={Filter} className="search" />
+                    <span><Button size="md" >
+                        <Add />
+                    </Button></span>
+                </article>
+                <Button leftIcon={Gantt} kind="tertiary" className="test_board btn">Test_board</Button>
                 {boards.map(board =>
-                    <button key={board._id} onClick={() => navigate(`/board/${board._id}`)} >
-                        <i className="fa-solid fa-tag"></i>
-                        <span>{board.title}</span>
-                    </button>
+                    <Button
+                        key={board._id}
+                        onClick={() => navigate(`/board/${board._id}`)}
+                        leftIcon={Board}
+                        kind="tertiary"
+                        className="board btn">
+                        {board.title}
+                    </Button>
                 )}
 
-                <Button>carmel</Button>
             </section>
-
         </section >
     )
 }

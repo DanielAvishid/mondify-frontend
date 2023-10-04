@@ -1,5 +1,20 @@
-.app-index{
-    background-color: $bgClr1;
-    width: 100vw;
+// .app-index{
+//     width: 100vw;
+//     height: 100vh;
+
+//     display: grid;
+// }
+
+.app-index {
+    display: grid;
+    grid-template-rows: auto 1fr;
     height: 100vh;
+    background-color: $grey-background-color;
+}
+
+.main-container {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 10px;
+    // background-color: $primary-background-color;
 }

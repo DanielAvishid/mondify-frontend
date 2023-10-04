@@ -26,7 +26,7 @@ export function AppIndex() {
     return (
         <section className="app-index">
             <AppHeader />
-            <section className="main-container flex">
+            <section className="main-container">
                 <AppSidebar boards={boards} />
                 <Outlet />
             </section>
