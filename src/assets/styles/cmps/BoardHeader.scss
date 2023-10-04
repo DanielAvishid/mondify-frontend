@@ -1,15 +1,46 @@
 .board-header {
-    background-color: yellow;
+    // background-color: yellow;
+    width: 97%;
     height: 20vh;
 
-    .board-header-non-collapse {
-        display: flex;
-        align-items: center;
+    .container {
+        display: grid;
+        grid-auto-flow: column;
         justify-content: space-between;
     }
 
-    .title-container {
-        display: flex;
+    .options-container {
+        display: grid;
+        grid-auto-flow: column;
         align-items: center;
+
+        .menu-button {
+            margin-inline-start: rem(8px);
+        }
+
+        .invite-btn {
+            padding-inline: rem(8px);
+        }
+
+    }
+
+    .title-container {
+        display: grid;
+        grid-auto-flow: column;
+        align-items: center;
+
+        .menu-button {
+            width: rem(26px);
+            height: rem(32px);
+            margin-inline-start: rem(5px);
+        }
+    }
+
+    .board-view-container {
+        .menu-button {
+            .menu-title {
+                padding-block-end: 300px;
+            }
+        }
     }
 }

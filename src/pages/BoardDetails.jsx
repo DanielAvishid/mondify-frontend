@@ -36,10 +36,10 @@ export function BoardDetails() {
         }
     }
 
-    async function onUpdateBoard(key, val, boardId) {
+    async function onUpdateBoard(key, val, board) {
         try {
-            const newBoard = await saveBoard(boardToSave)
-            setBoard(newBoard)
+            const boardToSave = await saveBoard(key, val, board)
+            setBoard(boardToSave)
             console.log('ShowSuccsesMsg')
         } catch (err) {
             console.log('Had issues in board details', err)

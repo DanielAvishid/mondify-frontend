@@ -39,10 +39,10 @@ export async function removeBoardOptimistic(boardId) {
     }
 }
 
-export async function saveBoard(board) {
+export async function saveBoard(key, val, board) {
     try {
         const type = board._id ? UPDATE_BOARD : ADD_BOARD
-        const boardToSave = await boardService.save(board)
+        const boardToSave = await boardService.save(key, val, board)
         store.dispatch({ type, board: boardToSave })
         return boardToSave
     } catch (error) {
