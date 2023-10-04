@@ -1,12 +1,20 @@
 .board-header {
     // background-color: yellow;
     width: 97%;
-    height: 20vh;
+    height: 15vh;
 
     .container {
         display: grid;
         grid-auto-flow: column;
         justify-content: space-between;
+    }
+
+    .first-container {
+        margin-block-end: rem(15px);
+    }
+
+    .second-container {
+        margin-block-end: rem(15px)
     }
 
     .options-container {
@@ -37,10 +45,35 @@
     }
 
     .board-view-container {
-        .menu-button {
-            .menu-title {
-                padding-block-end: 300px;
-            }
+        display: flex;
+        align-items: center;
+
+        .tabsList_d5873650d7 {
+            padding: 0;
+        }
+
+        .tab-list {
+            padding: 0;
+        }
+    }
+
+    .menu-divider {
+        margin: 0;
+        margin-block-start: rem(-15px);
+        margin-block-end: rem(15px);
+    }
+
+    .third-container {
+        display: flex;
+        align-items: center;
+
+        .split-button {
+            margin-inline-end: rem(18px);
+        }
+
+        .btns-container {
+            display: flex;
+            gap: rem(7px);
         }
     }
 }
