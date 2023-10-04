@@ -35,9 +35,12 @@ async function remove(boardId) {
     await storageService.remove(STORAGE_KEY, boardId)
 }
 
-async function save(board) {
+async function save(key, val, board) {
     let savedBoard
+    console.log(board, 'SERVICE1')
     if (board._id) {
+        board[key] = val
+        console.log(board[key], 'SERVICE2')
         savedBoard = await storageService.put(STORAGE_KEY, board)
     } else {
         board.owner = userService.getLoggedinUser()

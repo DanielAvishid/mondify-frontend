@@ -1,5 +1,8 @@
 .board-details {
+    padding-block-start: rem(20px);
+    padding-inline-start: rem(40px);
     width: 100%;
-     background-color: $primary-background-color;
-     overflow-x: hidden;
+    background-color: $primary-background-color;
+    //  overflow-x: hidden;
+    border-top-left-radius: rem(8px);
 }
