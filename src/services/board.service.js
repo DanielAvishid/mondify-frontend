@@ -69,8 +69,9 @@ async function addTaskFromHeader(board, task) {
     const savedBoard = await storageService.put(STORAGE_KEY, board)
     return savedBoard
 }
-
-async function update({ board, boardId, groupId, taskId, key, value, isHeader }) {
+// update({ board, boardId, groupId, value: task }) === addTask()
+// update({ board, boardId, taskId, key: title, value: "new title" }) === updateTask()
+async function update({ board, boardId, groupId, taskId, key, value }) {
     if (!board) {
         board = await storageService.get(STORAGE_KEY, boardId)
     }

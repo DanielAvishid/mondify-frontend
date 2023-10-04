@@ -14,7 +14,6 @@ export function AppSidebar({ boards, onDuplicate, onRemove }) {
     if (!boards.length) return <div>loading..</div>
     return (
         <section className="app-sidebar flex column">
-            <button onClick={() => onRemove({ boardId: 'dKXjZ' })}>TEST</button>
             <button className="close-btn" onClick={toggleSidebar}>
                 <Icon icon={showSidebar ? DropdownChevronLeft : DropdownChevronRight} />
             </button>

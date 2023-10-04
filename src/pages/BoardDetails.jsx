@@ -41,7 +41,7 @@ export function BoardDetails() {
         <section className="board-details">
             <BoardHeader onDuplicate={onDuplicate} board={board} onRemove={onRemove} onSaveBoard={onSaveBoard} />
             <h1>BoardDetails</h1>
-            <Outlet context={[board, onSaveBoard, onDuplicate]} />
+            <Outlet context={[board, onSaveBoard, onDuplicate, onRemove]} />
         </section>
     )
 }
