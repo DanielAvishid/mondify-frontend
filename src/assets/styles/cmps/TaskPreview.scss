@@ -1,7 +1,32 @@
 .task-preview {
 
+    &>.person-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, 22px);
+
+        &>* {
+            height: 1.875rem;
+            display: grid;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 1px solid gray;
+            margin: 0rem -0.25rem;
+            background-color: lightcoral;
+        }
+
+    }
+
     &>.item-container {
-        display: flex;
-        justify-content: space-between;
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+
+        &>:nth-child(2) {
+            display: grid;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            border-inline-start: 1px solid gray;
+        }
     }
 }
