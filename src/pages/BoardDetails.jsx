@@ -2,9 +2,10 @@ import { Outlet, useNavigate, useOutletContext, useParams } from "react-router-d
 import { BoardHeader } from "../cmps/BoardHeader";
 import { useEffect, useState } from "react";
 import { saveBoard, getById } from "../store/actions/board.action";
+import { useSelector } from "react-redux";
 
 export function BoardDetails() {
-
+    const boards = useSelector(storeState => storeState.boardModule.boards)
     const [onDuplicate, onRemove] = useOutletContext()
     const [board, setBoard] = useState(null)
     const { boardId } = useParams()
@@ -12,7 +13,7 @@ export function BoardDetails() {
 
     useEffect(() => {
         loadBoard()
-    }, [boardId])
+    }, [boardId, boards])
 
     async function loadBoard() {
         try {

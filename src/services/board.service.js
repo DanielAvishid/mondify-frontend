@@ -30,10 +30,14 @@ async function query(filterBy = {}) {
     return boards
 }
 
-async function getById({ boardId, taskId }) {
+async function getById({ board, boardId, taskId }) {
+    if (!board) {
+        board = await storageService.get(STORAGE_KEY, boardId)
+    }
     if (taskId) {
-        const board = await storageService.get(STORAGE_KEY, boardId)
-        return board.groups.find((group) => group.tasks.find((task) => task.id === taskId))
+        return board.groups.map(group => group.tasks.find(task => task.id === taskId))
+            .filter(Boolean)[0];
+
     } else {
         return storageService.get(STORAGE_KEY, boardId)
     }
@@ -75,12 +79,18 @@ async function update({ board, boardId, groupId, taskId, key, value }) {
     if (!board) {
         board = await storageService.get(STORAGE_KEY, boardId)
     }
-    let savedBoard
-    let groupsToSave
     if (taskId) {
         if (!groupId) {
-            groupsToSave = board.groups.map(group => group.tasks.map(task => task.id === taskId ? task[key] = value : task))
-            board.groups = groupsToSave
+            const updatedGroups = board.groups.map(group => {
+                const updatedTasks = group.tasks.map(task => {
+                    if (task.id === taskId) {
+                        return { ...task, [key]: value }
+                    }
+                    return task;
+                })
+                return { ...group, tasks: updatedTasks }
+            })
+            board = { ...board, groups: updatedGroups }
         } else {
             const groupIdx = board.groups.findIndex((group) => group.id === groupId)
             const taskIdx = board.groups[groupIdx].tasks.findIndex((task) => task.id === taskId)
@@ -100,9 +110,8 @@ async function update({ board, boardId, groupId, taskId, key, value }) {
             board[key] = value
         }
     }
-
-    savedBoard = await storageService.put(STORAGE_KEY, board)
-    return savedBoard
+    console.log('SERVICE', board);
+    return await storageService.put(STORAGE_KEY, board)
 }
 
 async function duplicate({ boardId, groupId, taskId }) {

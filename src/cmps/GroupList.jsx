@@ -1,4 +1,4 @@
-import { useOutletContext } from "react-router";
+import { Outlet, useOutletContext } from "react-router";
 import { GroupPreview } from "./GroupPreview"
 
 export function GroupList() {
@@ -20,6 +20,8 @@ export function GroupList() {
                 </div>
             ))}
             <button>+ Add new group</button>
+
+            <Outlet />
         </section>
     );
 }

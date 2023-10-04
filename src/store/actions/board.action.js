@@ -56,15 +56,15 @@ export async function remove({ board, boardId, groupId, taskId }) {
 export async function saveBoard({ board, boardId, groupId, taskId, key, value }) {
     try {
         let boardToSave
-        const type = (board._id || boardId) ? UPDATE_BOARD : ADD_BOARD
-        if (board._id) {
+        const type = (boardId || board._id) ? UPDATE_BOARD : ADD_BOARD
+        if (boardId || board._id) {
             boardToSave = await boardService.update({ board, boardId, groupId, taskId, key, value })
         } else {
             boardToSave = await boardService.addBoard(board)
         }
         store.dispatch({ type, board: boardToSave })
         return boardToSave
-    } catch (error) {
+    } catch (err) {
         console.log('board action -> Cannot save board', err)
         throw err
     }

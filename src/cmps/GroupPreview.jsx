@@ -3,6 +3,8 @@ import { TaskPreview } from "./TaskPreview";
 export function GroupPreview({ group }) {
     const { style, tasks, title } = group
 
+    console.log(group);
+    console.log(tasks);
     return (
         <section className="group-preview">
             <div className="full-row header">

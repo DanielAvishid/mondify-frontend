@@ -1,4 +1,10 @@
+import { Icon } from "monday-ui-react-core";
+import { AddUpdate } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
+import { useNavigate } from "react-router";
+
+
 export function TaskPreview({ task }) {
+    const navigate = useNavigate()
     const { title = '', memberIds = [], priority = '', status = '', dueDate = [] } = task
 
     function getDate(dueDate) {
@@ -48,7 +54,7 @@ export function TaskPreview({ task }) {
             <div className="check-row"><input type="checkbox" name="" id="" /></div>
             <div className="item-container">
                 <div><span>{title}</span></div>
-                <div><span>🔗</span></div>
+                <div><Icon icon={AddUpdate} onClick={() => navigate(`task/${task.id}`)} /></div>
             </div>
             <div className="person-container">
                 {memberIds.map((memberId) => (
