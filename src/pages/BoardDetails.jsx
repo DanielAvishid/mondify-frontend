@@ -1,11 +1,11 @@
 import { Outlet, useNavigate, useOutletContext, useParams } from "react-router-dom";
 import { BoardHeader } from "../cmps/BoardHeader";
-import { boardService } from "../services/board.service";
 import { useEffect, useState } from "react";
-import { removeBoardOptimistic, saveBoard } from "../store/actions/board.action";
+import { saveBoard, getById } from "../store/actions/board.action";
 
 export function BoardDetails() {
 
+    const [onDuplicate, onRemove] = useOutletContext()
     const [board, setBoard] = useState(null)
     const { boardId } = useParams()
     const navigate = useNavigate()
@@ -16,8 +16,7 @@ export function BoardDetails() {
 
     async function loadBoard() {
         try {
-            const board = await boardService.getById(boardId)
-            console.log(board)
+            const board = await getById({ boardId })
             setBoard(board)
         } catch (err) {
             console.log('Had issues in board details', err)
@@ -26,19 +25,9 @@ export function BoardDetails() {
         }
     }
 
-    async function onRemoveBoard() {
+    async function onSaveBoard({ board, boardId, groupId, taskId, key, value }) {
         try {
-            removeBoardOptimistic(boardId)
-            console.log('ShowSuccsessMsg')
-        } catch (err) {
-            console.log('Had issues in board details', err)
-            console.log('ShowErrorMsg')
-        }
-    }
-
-    async function onUpdateBoard(key, val, board) {
-        try {
-            const boardToSave = await saveBoard(key, val, board)
+            const boardToSave = await saveBoard({ board, boardId, groupId, taskId, key, value })
             setBoard(boardToSave)
             console.log('ShowSuccsesMsg')
         } catch (err) {
@@ -47,13 +36,12 @@ export function BoardDetails() {
         }
     }
 
-
     if (!board) return <span></span>
     return (
         <section className="board-details">
-            <BoardHeader board={board} onRemoveBoard={onRemoveBoard} onUpdateBoard={onUpdateBoard} />
+            <BoardHeader onDuplicate={onDuplicate} board={board} onRemove={onRemove} onSaveBoard={onSaveBoard} />
             <h1>BoardDetails</h1>
-            <Outlet context={[board, onUpdateBoard]} />
+            <Outlet context={[board, onSaveBoard, onDuplicate]} />
         </section>
     )
 }
