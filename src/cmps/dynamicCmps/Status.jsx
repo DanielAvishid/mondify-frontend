@@ -1,7 +1,7 @@
-export function Status(status) {
+export function Status({ info }) {
     return (
         <div>
-            <span>{status}</span>
+            <span>{info}</span>
         </div>
     )
 }

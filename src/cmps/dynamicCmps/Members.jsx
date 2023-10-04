@@ -1,7 +1,8 @@
-export function Members(memberIds) {
+export function Members({ info }) {
+    const membersIds = info
     return (
         <div>
-            {memberIds.map((memberId) => (
+            {membersIds.map((memberId) => (
                 <span key={memberId}>{memberId.charAt(0)}</span>
             ))}
         </div>

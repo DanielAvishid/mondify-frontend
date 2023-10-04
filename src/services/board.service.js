@@ -199,10 +199,10 @@ function _createBoard() {
                         "id": "c103",
                         "TaskTitle": "Do that",
                         "archivedAt": 1589983468418,
-                        "status": "Done", // monday
-                        "priority": "Critical",
-                        "dueDate": [1696418275139, 1697407100000],
-                        "memberIds": ["UjCos", "tZQiB", "DOGWC"],
+                        "Status": "Done", // monday
+                        "Priority": "Critical",
+                        "Date": [1696418275139, 1697407100000],
+                        "Members": ["UjCos", "tZQiB", "DOGWC"],
                     },
                     {
                         "id": "c104",

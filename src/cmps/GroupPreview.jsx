@@ -1,4 +1,4 @@
-import { Date } from "./dynamicCmps/Date";
+import { DateCmp } from "./dynamicCmps/Date";
 import { Members } from "./dynamicCmps/Members";
 import { Status } from "./dynamicCmps/Status";
 import { TaskTitle } from "./dynamicCmps/TaskTitle";
@@ -56,19 +56,20 @@ export function GroupPreview({ group, progress }) {
 }
 
 const DynamicCmp = ({ cmpType, info }) => {
-    console.log(cmpType, info);
+    // console.log(cmpType, info);
+    info = { info }
 
     switch (cmpType) {
         case "Priority":
             return <Priority {...info} />;
-        // case "TaskTitle":
-        //     return <TaskTitle {...info} />;
-        // case "Status":
-        //     return <Status {...info} />;
-        // case "Members":
-        //     return <Member {...info} />;
-        // case "Date":
-        //     return <Date {...info} />;
+        case "TaskTitle":
+            return <TaskTitle {...info} />;
+        case "Status":
+            return <Status {...info} />;
+        case "Members":
+            return <Members {...info} />;
+        case "Date":
+            return <DateCmp {...info} />;
 
         default:
             break;

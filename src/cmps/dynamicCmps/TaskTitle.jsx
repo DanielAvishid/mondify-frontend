@@ -1,9 +1,7 @@
-export function TaskTitle(tasks) {
+export function TaskTitle({ info }) {
     return (
         <div>
-            {tasks.map((task) => (
-                <div key={task.id}><span>{task.title}</span></div>
-            ))}
+            <span>{info}</span>
         </div>
     )
 }
