@@ -1,12 +1,14 @@
 .group-list {
     padding: 5px;
+    overflow-x: auto;
+    white-space: nowrap;
 
     &::-webkit-scrollbar {
         position: absolute;
-        width: 12px; 
+        width: 12px;
     }
 
     &::-webkit-scrollbar-thumb {
-        background: rgb(204,204,204); 
+        background: rgb(204, 204, 204);
     }
 }

@@ -3,10 +3,11 @@
     grid-template-rows: auto 1fr;
     height: 100vh;
     background-color: $grey-background-color;
-}
+    overflow-x: hidden;
 
-.main-container {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 10px;
+    .main-container {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 10px;
+    }
 }
