@@ -45,7 +45,7 @@ export function BoardDetails() {
 
     if (!board) return <span></span>
     return (
-        <section className="board-details">
+        <section className="board-details main-layout">
             <BoardHeader onAddTaskFromHeader={onAddTaskFromHeader} onDuplicate={onDuplicate} board={board} onRemove={onRemove} onSaveBoard={onSaveBoard} />
             <Outlet context={[board, onSaveBoard, onDuplicate, onRemove]} />
         </section>

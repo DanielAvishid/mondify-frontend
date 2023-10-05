@@ -11,7 +11,7 @@ export function GroupList() {
     const groups = board.groups
 
     return (
-        <section className="group-list">
+        <section className="group-list full">
             <h1>GroupList</h1>
             {groups.map((group, index) => (
                 <div key={index}>

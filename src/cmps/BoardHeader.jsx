@@ -17,7 +17,7 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemove, onSaveBoard,
     }
 
     return (
-        <section className="board-header">
+        <section className="board-header middle">
             {!isCollapse && <section className="container first-container">
                 <div className="title-container">
                     <EditableHeading

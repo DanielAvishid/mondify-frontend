@@ -17,7 +17,7 @@ export function GroupPreview({ group, progress }) {
     console.log(group);
     console.log(tasks);
     return (
-        <section className="group-preview">
+        <section className="group-preview full">
             <section className="group-preview">
                 {/* Render group labels by labels array */}
                 <section className="full-row">
@@ -62,14 +62,14 @@ export function GroupPreview({ group, progress }) {
 
 const DynamicCmp = ({ cmpType, info, taskId }) => {
     // console.log(cmpType, info, taskId);
-    info = { info}
-    taskId = { taskId}
+    info = { info }
+    taskId = { taskId }
 
     switch (cmpType) {
         case "Priority":
             return <Priority {...info} />;
         case "TaskTitle":
-            return <TaskTitle {...{ ...info, ...taskId}} />;
+            return <TaskTitle {...{ ...info, ...taskId }} />;
         case "Status":
             return <Status {...info} />;
         case "Members":
