@@ -3,6 +3,7 @@ import { BoardHeader } from "../cmps/BoardHeader";
 import { useEffect, useState } from "react";
 import { saveBoard, getById } from "../store/actions/board.action";
 import { useSelector } from "react-redux";
+import { boardService } from "../services/board.service";
 
 export function BoardDetails() {
     const boards = useSelector(storeState => storeState.boardModule.boards)
@@ -37,10 +38,15 @@ export function BoardDetails() {
         }
     }
 
+    async function onAddTaskFromHeader(board) {
+        const taskToAdd = boardService.getEmptyTask()
+        await boardService.addTaskFromHeader(board, taskToAdd)
+    }
+
     if (!board) return <span></span>
     return (
         <section className="board-details">
-            <BoardHeader onDuplicate={onDuplicate} board={board} onRemove={onRemove} onSaveBoard={onSaveBoard} />
+            <BoardHeader onAddTaskFromHeader={onAddTaskFromHeader} onDuplicate={onDuplicate} board={board} onRemove={onRemove} onSaveBoard={onSaveBoard} />
             <Outlet context={[board, onSaveBoard, onDuplicate, onRemove]} />
         </section>
     )

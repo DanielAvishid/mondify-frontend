@@ -3,7 +3,7 @@ import { NavigationChevronDown, Home, Delete, Download, Group, Search, PersonRou
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 
-export function BoardHeader({ board, onRemove, onSaveBoard, onDuplicate }) {
+export function BoardHeader({ onAddTaskFromHeader, board, onRemove, onSaveBoard, onDuplicate }) {
 
     const [isCollapse, setIsCollapse] = useState(false)
     const [isEditMode, setIsEditMode] = useState(false)
@@ -84,6 +84,7 @@ export function BoardHeader({ board, onRemove, onSaveBoard, onDuplicate }) {
             <MenuDivider className='menu-divider' />
             <section className="third-container">
                 <SplitButton className='split-button' children="New Item" size={SplitButton.sizes.MEDIUM}
+                    onClick={() => onAddTaskFromHeader(board)}
                     secondaryDialogContent={<SplitButtonMenu id="split-menu">
                         <MenuItem icon={Group} title="New group of Items" />
                         <MenuItem icon={Download} title="import Items" />

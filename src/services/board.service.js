@@ -15,6 +15,7 @@ export const boardService = {
     getEmptyBoard,
     duplicate,
     addBoard,
+    getEmptyTask,
     addTaskFromHeader
 }
 
@@ -139,6 +140,17 @@ async function duplicate({ boardId, groupId, taskId }) {
 function getEmptyBoard() {
     return {
 
+    }
+}
+
+function getEmptyTask() {
+    return {
+        id: utilService.makeId(),
+        TaskTitle: "New Item",
+        Status: "Done",
+        Priority: "Critical",
+        Members: ["UjCos"],
+        Date: [1696107932000, 1696418275139]
     }
 }
 
