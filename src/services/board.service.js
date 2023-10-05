@@ -142,6 +142,7 @@ function getEmptyBoard() {
     }
 }
 
+
 function _createBoard() {
     const board = {
         title: "Robot dev proj",
@@ -182,19 +183,19 @@ function _createBoard() {
                 "tasks": [
                     {
                         "id": "c101",
-                        "title": "Replace logo",
-                        "status": "Done", // monday
-                        "priority": "Critical",
-                        "dueDate": [1696107932000, 1696418275139],
-                        "memberIds": ["UjCos"],
+                        "TaskTitle": "Replace logo",
+                        "Status": "Done", // monday
+                        "Priority": "Critical",
+                        "Date": [1696107932000, 1696418275139],
+                        "Members": ["UjCos"],
                     },
                     {
                         "id": "c102",
-                        "title": "Add Samples",
-                        "status": "Waiting for QA", // monday
-                        "priority": "Medium",
-                        "dueDate": [1696418275139, 1696907932000],
-                        "memberIds": ["DOGWC", "UjCos"],
+                        "TaskTitle": "Add Samples",
+                        "Status": "Waiting for QA", // monday
+                        "Priority": "Medium",
+                        "Date": [1696418275139, 1696907932000],
+                        "Members": ["DOGWC", "UjCos"],
                     }
                 ],
                 "style": {}
@@ -205,18 +206,18 @@ function _createBoard() {
                 "tasks": [
                     {
                         "id": "c103",
-                        "title": "Do that",
+                        "TaskTitle": "Do that",
                         "archivedAt": 1589983468418,
-                        "status": "Done", // monday
-                        "priority": "Critical",
-                        "dueDate": [1696418275139, 1697407100000],
-                        "memberIds": ["UjCos", "tZQiB", "DOGWC"],
+                        "Status": "Done", // monday
+                        "Priority": "Critical",
+                        "Date": [1696418275139, 1697407100000],
+                        "Members": ["UjCos", "tZQiB", "DOGWC"],
                     },
                     {
                         "id": "c104",
-                        "title": "Help me",
-                        "status": "Working on it", // monday
-                        "priority": "High",
+                        "TaskTitle": "Help me",
+                        "Status": "Working on it", // monday
+                        "Priority": "High",
                         "description": "description",
                         "comments": [
                             {
@@ -243,9 +244,9 @@ function _createBoard() {
                                 ]
                             }
                         ],
-                        "memberIds": ["UjCos", "DOGWC", "tZQiB"],
+                        "Members": ["UjCos", "DOGWC", "tZQiB"],
                         "labelIds": ["l101", "l102"],
-                        "dueDate": [1695418275139, 1698407932000],
+                        "Date": [1695418275139, 1698407932000],
                         "byMember": {
                             "_id": "DOGWC",
                             "username": "danielavishid",
@@ -281,7 +282,7 @@ function _createBoard() {
             }
         ],
 
-        cmpsOrder: ["StatusPicker", "MemberPicker", "DatePicker"]
+        cmpsOrder: ["TaskTitle", "Members", "Status", 'Priority', "Date"]
     }
     addBoard(board)
 }
