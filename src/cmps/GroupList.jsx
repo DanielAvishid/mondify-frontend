@@ -19,7 +19,7 @@ export function GroupList() {
                     <GroupPreview group={group} />
                 </div>
             ))}
-            <button>+ Add new group</button>
+            {/* <button>+ Add new group</button> */}
 
             <Outlet />
         </section>
