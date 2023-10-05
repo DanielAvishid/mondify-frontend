@@ -54,7 +54,7 @@ export function TaskPreview({ task }) {
             <div className="check-row"><input type="checkbox" name="" id="" /></div>
             <div className="item-container">
                 <div><span>{title}</span></div>
-                <div><Icon icon={AddUpdate} onClick={() => navigate(`task/${task.id}`)} /></div>
+                <div><Icon  onClick={() => navigate(`task/${task.id}`)} /></div>
             </div>
             <div className="person-container">
                 {memberIds.map((memberId) => (

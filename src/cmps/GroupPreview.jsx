@@ -34,7 +34,7 @@ export function GroupPreview({ group, progress }) {
                     <section className="full-row" key={task.id}>
                         {cmpsOrder.map((cmp, idx) => (
                             <section key={idx} className={`col-${idx + 1}`}>
-                                <DynamicCmp cmpType={cmp} info={task[cmp]} />
+                                <DynamicCmp cmpType={cmp} info={task[cmp]} taskId={task.id} />
                             </section>
                         ))}
                     </section>
@@ -60,15 +60,16 @@ export function GroupPreview({ group, progress }) {
     )
 }
 
-const DynamicCmp = ({ cmpType, info }) => {
-    // console.log(cmpType, info);
-    info = { info }
+const DynamicCmp = ({ cmpType, info, taskId }) => {
+    // console.log(cmpType, info, taskId);
+    info = { info}
+    taskId = { taskId}
 
     switch (cmpType) {
         case "Priority":
             return <Priority {...info} />;
         case "TaskTitle":
-            return <TaskTitle {...info} />;
+            return <TaskTitle {...{ ...info, ...taskId}} />;
         case "Status":
             return <Status {...info} />;
         case "Members":

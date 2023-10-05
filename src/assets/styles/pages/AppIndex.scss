@@ -1,10 +1,3 @@
-// .app-index{
-//     width: 100vw;
-//     height: 100vh;
-
-//     display: grid;
-// }
-
 .app-index {
     display: grid;
     grid-template-rows: auto 1fr;
@@ -16,5 +9,4 @@
     display: grid;
     grid-template-columns: auto 1fr;
     gap: 10px;
-    // background-color: $primary-background-color;
 }
