@@ -6,7 +6,7 @@ export function Status({ info }) {
     console.log(statusClass);
 
     return (
-        <div className={`status-col grid align-center justify-center ${statusClass}`}>
+        <div className={`status-cell status-col grid align-center justify-center ${statusClass}`}>
             <span>{status}</span>
         </div>
     )

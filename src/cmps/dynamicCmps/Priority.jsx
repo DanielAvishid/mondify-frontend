@@ -5,7 +5,7 @@ export function Priority({ info }) {
     const priorityClass = utilService.formatString(priority)
 
     return (
-        <div className={`priority-col grid align-center justify-center ${priorityClass}`}>
+        <div className={`priority-cell priority-col grid align-center justify-center ${priorityClass}`}>
             <span>{priority}</span>
         </div>
     )

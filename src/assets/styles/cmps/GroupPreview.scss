@@ -1,64 +1,65 @@
 .group-preview {
-    border-block-start: 1px solid gray;
 
-    & .full-row {
+    .table-header {
+        border-block-start: 1px solid gray;
+    }
+
+    .table-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill) 1fr;
         justify-content: start;
         border-block-end: 1px solid gray;
+
         // ERASE WHEN ADDED THE COLOR DIV {1ST DIV)
         border-inline-start: 6px solid gray;
         height: 2.25rem;
 
-
-        &>* {
+        >* {
             border-right: 1px solid gray;
         }
 
-        & .col-1 {
+        .title-col {
             grid-column: 1;
             width: 22.25rem;
         }
 
 
-        & .col-2 {
+        .members-col {
             grid-column: 2;
             width: 6.25rem;
         }
 
-        & .col-3 {
+        .status-col {
             grid-column: 3;
             width: 8.75rem;
         }
 
-        & .col-4 {
+        .priority-col {
             grid-column: 4;
             width: 8.75rem;
         }
 
-        & .col-5 {
+        .timeline-col {
             grid-column: 5;
             width: 8.75rem;
         }
 
-        & .col-end {
+        &>.col-end {
             grid-column: 6;
             min-width: 4.25rem;
-            justify-content: start;
             border-inline-end: 0;
-
         }
-
-        // & .left-border-container {
-        //     background-color: blue;
-        //     grid-column: 1;
-        //     width: 0.375rem;
-        // }
-
-        // & .check-row {
-        //     grid-column: 1;
-        //     width: 2rem;
-        //     border-inline-start: 6px solid blue;
-        // }
     }
+
+    // & .left-border-container {
+    //     background-color: blue;
+    //     grid-column: 1;
+    //     width: 0.375rem;
+    // }
+
+    // & .check-row {
+    //     grid-column: 1;
+    //     width: 2rem;
+    //     border-inline-start: 6px solid blue;
+    // }
 }

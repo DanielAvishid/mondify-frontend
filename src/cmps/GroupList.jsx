@@ -11,15 +11,11 @@ export function GroupList() {
     const groups = board.groups
 
     return (
-        <section className="group-list full">
-            <h1>GroupList</h1>
-            {groups.map((group, index) => (
-                <div key={index}>
-                    <h1 className="full-row">{group.title}</h1>
-                    <GroupPreview group={group} />
-                </div>
+        <section className="group-list main-layout full">
+            {groups.map((group) => (
+                <GroupPreview key={group.id} group={group} />
             ))}
-            {/* <button>+ Add new group</button> */}
+            <button className="middle">+ Add new group</button>
 
             <Outlet />
         </section>

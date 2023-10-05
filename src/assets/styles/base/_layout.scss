@@ -2,19 +2,19 @@
     display: grid;
     grid-template-columns: rem(40px) minmax(auto, 1fr) rem(40px);
 
-    .full {
+    >.full {
         grid-column: 1/-1;
     }
 
-    .middle {
+    >.middle {
         grid-column: 2;
     }
 
-    .start {
+    >.start {
         grid-column: 1;
     }
 
-    .table {
+    >.table {
         grid-column: 2/ -1;
     }
 }

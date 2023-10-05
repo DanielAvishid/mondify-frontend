@@ -1,29 +1,27 @@
 import { IconButton } from "monday-ui-react-core"
 import { Add } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
-import { DateCmp } from "./dynamicCmps/Date";
-import { Members } from "./dynamicCmps/Members";
-import { Status } from "./dynamicCmps/Status";
-import { TaskTitle } from "./dynamicCmps/TaskTitle";
-import { Priority } from "./dynamicCmps/Priority";
 import { TaskPreview } from "./TaskPreview";
 
 export function GroupPreview({ group, progress }) {
     // DELETE THIS LINES WHEN GIVEN CURRECT PROP
-    const cmpsOrder = ['TaskTitle', 'Members', 'Status', 'Priority', 'Date']
-    const labels = ["Item", "Members", "Status", "Priority", "Timeline"];
+    const cmpsOrder = ['Members', 'Status', 'Priority', 'Date']
+    const labels = ["Members", "Status", "Priority", "Timeline"];
 
     const { style, tasks, title } = group
 
     console.log(group);
     console.log(tasks);
     return (
-        <section className="group-preview full">
-            <section className="group-preview">
-                {/* Render group labels by labels array */}
-                <section className="full-row">
+        <section className="group-preview main-layout full">
+            <h4 className="middle">{title}</h4>
+            <section className="table">
+                <section className="table-header table-grid">
+                    <div className="title-col grid align-center justify-center"><span>Item</span></div>
+
                     {labels.map((label, idx) => (
-                        <div key={idx} className={`col-${idx + 1} grid align-center justify-center`}><span>{label}</span></div>
+                        <div key={idx} className={`${label.toLowerCase()}-col grid align-center justify-center`}><span>{label}</span></div>
                     ))}
+
                     <div className="col-end">
                         <IconButton icon={Add} kind={IconButton.kinds.TERTIARY} ariaLabel="Add Column" size={IconButton.sizes.SMALL} />
                     </div>
@@ -31,13 +29,7 @@ export function GroupPreview({ group, progress }) {
 
                 {/* Render tasks by cmp order */}
                 {tasks.map((task) => (
-                    <section className="full-row" key={task.id}>
-                        {cmpsOrder.map((cmp, idx) => (
-                            <section key={idx} className={`col-${idx + 1}`}>
-                                <DynamicCmp cmpType={cmp} info={task[cmp]} taskId={task.id} />
-                            </section>
-                        ))}
-                    </section>
+                    <TaskPreview key={task.id} task={task} cmpsOrder={cmpsOrder} />
                 ))}
 
                 {/* Render progress by progress array */}
@@ -59,25 +51,3 @@ export function GroupPreview({ group, progress }) {
         </section>
     )
 }
-
-const DynamicCmp = ({ cmpType, info, taskId }) => {
-    // console.log(cmpType, info, taskId);
-    info = { info }
-    taskId = { taskId }
-
-    switch (cmpType) {
-        case "Priority":
-            return <Priority {...info} />;
-        case "TaskTitle":
-            return <TaskTitle {...{ ...info, ...taskId }} />;
-        case "Status":
-            return <Status {...info} />;
-        case "Members":
-            return <Members {...info} />;
-        case "Date":
-            return <DateCmp {...info} />;
-
-        default:
-            break;
-    }
-};
