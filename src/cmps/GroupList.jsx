@@ -1,5 +1,7 @@
 import { Outlet, useOutletContext } from "react-router";
 import { GroupPreview } from "./GroupPreview"
+import { Add } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
+import { Button } from "monday-ui-react-core";
 
 export function GroupList() {
     const [board, onSaveBoard, onDuplicate, onRemove] = useOutletContext()
@@ -12,9 +14,11 @@ export function GroupList() {
     return (
         <section className="group-list main-layout full">
             {groups.map((group) => (
-                <GroupPreview key={group.id} group={group} />
+                <GroupPreview key={group.id} boardId={board._id} group={group} onSaveBoard={onSaveBoard} />
             ))}
-            <button className="middle">+ Add new group</button>
+            <div className="middle">
+                <Button kind={Button.kinds.SECONDARY} leftIcon={Add}>Add new group</Button>
+            </div>
 
             <Outlet />
         </section>

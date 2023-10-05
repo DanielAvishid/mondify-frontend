@@ -9,6 +9,7 @@
         grid-template-columns: repeat(auto-fill) 1fr;
         justify-content: start;
         border-block-end: 1px solid gray;
+        // border-block-start: 1px solid gray;
 
         // ERASE WHEN ADDED THE COLOR DIV {1ST DIV)
         border-inline-start: 6px solid gray;
@@ -50,6 +51,30 @@
             border-inline-end: 0;
         }
     }
+
+    >.main-layout {
+        >* {
+            height: 2.25rem;
+        }
+    }
+
+    .start {
+        width: 100%;
+        opacity: 0;
+
+        >* {
+            display: grid;
+            justify-content: center;
+        }
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+
+    // >.m2 {
+    //     height: 2rem;
+    // }
 
     // & .left-border-container {
     //     background-color: blue;

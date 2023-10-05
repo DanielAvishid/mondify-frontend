@@ -1,33 +1,61 @@
-import { IconButton } from "monday-ui-react-core"
-import { Add } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
+import { EditableHeading, IconButton, Menu, MenuButton, MenuItem } from "monday-ui-react-core"
+import { Add, Duplicate, Delete } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { TaskPreview } from "./TaskPreview";
 
-export function GroupPreview({ group, progress }) {
+export function GroupPreview({ boardId, group, onSaveBoard, progress }) {
     // DELETE THIS LINES WHEN GIVEN CURRECT PROP
     const cmpsOrder = ['Members', 'Status', 'Priority', 'Date']
     const labels = ["Members", "Status", "Priority", "Timeline"];
 
     const { style, tasks, title } = group
 
-    return (
-        <section className="group-preview main-layout full">
-            <h4 className="middle">{title}</h4>
-            <section className="table">
+    function handleKeyPress(ev) {
+        if (ev.key === 'Enter') {
+            onSaveBoard(({ key: 'title', value: ev.target.value, boardId, groupId: group.id }))
+            ev.target.blur()
+        }
+    }
 
-                <section className="table-header table-grid">
-                    <div className="title-col grid align-center justify-center"><span>Item</span></div>
+    return (
+        <section className="group-preview main-layout full grid align-center justify-center">
+            <div className="start grid justify-center">
+                <MenuButton className="board-menu">
+                    <Menu id="menu" size="large">
+                        <MenuItem icon={Duplicate} title="Duplicate Boarder" />
+                        <MenuItem icon={Delete} title="Delete" />
+                        {/* <MenuItem icon={Duplicate} title="Duplicate Boarder" onClick={() => onDuplicate({ boardId: board._id })} />
+                        <MenuItem icon={Delete} title="Delete" onClick={() => onRemove({ boardId: board._id })} /> */}
+                    </Menu>
+                </MenuButton>
+            </div>
+            <div>
+                <EditableHeading
+                    type={EditableHeading.types.h4}
+                    value={title}
+                    tooltip='Click to Edit'
+                    tooltipPosition="bottom"
+                    customColor="#323338"
+                    onBlur={(ev) => onSaveBoard({ key: 'title', value: ev.target.value, boardId, groupId: group.id })}
+                    onKeyDown={handleKeyPress}
+                />
+            </div>
+
+            <section className="main-layout full">
+                <div className="start"></div>
+                <div className="table-grid  middle">
+                    <div className="title-col table-header grid align-center justify-center"><span>Item</span></div>
 
                     {labels.map((label, idx) => (
-                        <div key={idx} className={`${label.toLowerCase()}-col grid align-center justify-center`}><span>{label}</span></div>
+                        <div key={idx} className={`${label.toLowerCase()}-col table-header grid align-center justify-center`}><span>{label}</span></div>
                     ))}
 
-                    <div className="col-end">
+                    <div className="col-end table-header grid align-center">
                         <IconButton icon={Add} kind={IconButton.kinds.TERTIARY} ariaLabel="Add Column" size={IconButton.sizes.SMALL} />
                     </div>
-                </section>
+                </div>
 
                 {tasks.map((task) => (
-                    <TaskPreview key={task.id} task={task} cmpsOrder={cmpsOrder} />
+                    <TaskPreview key={task.id} boardId={boardId} task={task} cmpsOrder={cmpsOrder} onSaveBoard={onSaveBoard} />
                 ))}
 
             </section>
