@@ -11,56 +11,97 @@
 
     .first-container {
         margin-block-end: rem(15px);
+
+        .title-container {
+            display: grid;
+            grid-auto-flow: column;
+            align-items: center;
+
+            .menu-button {
+                width: rem(26px);
+                height: rem(32px);
+                margin-inline-start: rem(5px);
+            }
+        }
+
+        .options-container {
+            display: grid;
+            grid-auto-flow: column;
+            align-items: center;
+
+            .menu-button {
+                margin-inline-start: rem(8px);
+            }
+
+            .invite-btn {
+                padding-inline: rem(8px);
+            }
+
+        }
     }
 
     .second-container {
-        margin-block-end: rem(15px)
-    }
-
-    .options-container {
-        display: grid;
-        grid-auto-flow: column;
-        align-items: center;
-
-        .menu-button {
-            margin-inline-start: rem(8px);
-        }
-
-        .invite-btn {
-            padding-inline: rem(8px);
-        }
-
-    }
-
-    .title-container {
-        display: grid;
-        grid-auto-flow: column;
-        align-items: center;
-
-        .menu-button {
-            width: rem(26px);
-            height: rem(32px);
-            margin-inline-start: rem(5px);
-        }
-    }
-
-    .board-view-container {
-        display: flex;
-        align-items: center;
-
-        .tabsList_d5873650d7 {
-            padding: 0;
-        }
-
-        .tab-list {
-            padding: 0;
-        }
-    }
-
-    .menu-divider {
-        margin: 0;
-        margin-block-start: rem(-15px);
         margin-block-end: rem(15px);
+
+        .icon-btn {
+            margin-inline-start: rem(20px);
+            border-radius: 100%;
+        }
+
+        .title-container {
+            display: grid;
+            grid-auto-flow: column;
+            align-items: center;
+
+            .menu-button {
+                width: rem(26px);
+                height: rem(32px);
+                margin-inline-start: rem(5px);
+                margin-inline-end: rem(15px);
+            }
+        }
+
+        .board-view-container {
+            display: grid;
+            grid-auto-flow: column;
+            justify-content: space-between;
+
+            .tabsList_d5873650d7 {
+                padding: 0;
+            }
+
+            .tab-list {
+                padding: 0;
+
+                .tab {
+                    &::after {
+                        content: '';
+                        position: absolute;
+                        top: 50%;
+                        right: 0;
+                        transform: translate(-50%, -50%);
+                        height: 60%;
+                        width: .5px;
+                        background-color: #51515135;
+                    }
+                }
+            }
+        }
+
+        .options-container {
+            display: grid;
+            grid-auto-flow: column;
+            align-items: center;
+
+            .menu-button {
+                margin-inline-start: rem(8px);
+            }
+
+            .invite-btn {
+                padding-inline: rem(8px);
+            }
+
+        }
     }
 
     .third-container {
@@ -76,4 +117,11 @@
             gap: rem(7px);
         }
     }
+
+    .menu-divider {
+        margin: 0;
+        margin-block-start: rem(-15px);
+        margin-block-end: rem(15px);
+    }
+
 }

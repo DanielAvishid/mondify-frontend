@@ -1,5 +1,5 @@
 import { Menu, MenuButton, MenuItem, EditableHeading, MenuTitle, Button, MenuDivider, TabList, Tab, Table, SplitButton, SplitButtonMenu, IconButton, Icon } from "monday-ui-react-core"
-import { NavigationChevronDown, Home, Delete, Download, Group, Search, PersonRound, CloseSmall, Chart, Edit, Favorite, ShortText, Info, AddSmall, Duplicate, Table as TableIcon, Menu as MenuIcon } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
+import { NavigationChevronDown, DropdownChevronDown, DropdownChevronUp, Home, Delete, Download, Group, Search, PersonRound, CloseSmall, Chart, Edit, Favorite, ShortText, Info, AddSmall, Duplicate, Table as TableIcon, Menu as MenuIcon } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 
@@ -18,7 +18,7 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemove, onSaveBoard,
 
     return (
         <section className="board-header">
-            <section className="container first-container">
+            {!isCollapse && <section className="container first-container">
                 <div className="title-container">
                     <EditableHeading
                         type={EditableHeading.types.h2}
@@ -58,9 +58,28 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemove, onSaveBoard,
                         </Menu>
                     </MenuButton>
                 </div>
-            </section>
+            </section>}
             <section className="container second-container">
                 <div className="board-view-container">
+                    {isCollapse && <div className="title-container">
+                        <EditableHeading
+                            type={EditableHeading.types.h2}
+                            value={board.title}
+                            tooltip='Click to Edit'
+                            tooltipPosition="bottom"
+                            customColor="#323338" //change to variable
+                            onBlur={(ev) => onSaveBoard({ board, key: 'title', value: ev.target.value })}
+                            onKeyDown={handleKeyPress}
+                        />
+                        <MenuButton className="menu-button" component={NavigationChevronDown} size={MenuButton.sizes.XS}>
+                            <Menu id="menu" size={Menu.sizes.MEDIUM}>
+                                <MenuItem icon={Edit} iconType={MenuItem.iconType.SVG} title="Rename" />
+                                <MenuItem icon={Favorite} iconType={MenuItem.iconType.SVG} title="Add to favorites" />
+                                <MenuItem icon={ShortText} iconType={MenuItem.iconType.SVG} title="Description" />
+                                <MenuItem icon={Info} iconType={MenuItem.iconType.SVG} title="Board info" />
+                            </Menu>
+                        </MenuButton>
+                    </div>}
                     <TabList className="tab-list">
                         <Tab tabInnerClassName='tab' icon={Home}>Main Table</Tab>
                         <Tab>Kanban</Tab>
@@ -78,7 +97,24 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemove, onSaveBoard,
                         <Tab icon={TableIcon}>Chart</Tab>
                         <Tab icon={TableIcon}>Calendar</Tab>
                     </TabList> */}
-
+                </div>
+                <div className="options-container">
+                    {isCollapse && <Link className="btn" to='#'>
+                        <Button className="invite-btn" size={Button.sizes.SMALL} noSidePadding={true} kind={Button.kinds.SECONDARY}>Invite / 1</Button>
+                    </Link>}
+                    {isCollapse && <MenuButton tooltipContent='Options' tooltipPosition="top"
+                        className="menu-button" component={MenuIcon}>
+                        <Menu id="menu">
+                            <MenuTitle caption="Board options" captionPosition={MenuTitle.positions.TOP} />
+                            <MenuItem icon={Edit} iconType={MenuItem.iconType.SVG} title="Rename board" />
+                            <MenuItem icon={Duplicate} iconType={MenuItem.iconType.SVG}
+                                title="Duplicate board" onClick={() => onDuplicate({ boardId: board._id })} />
+                            <MenuItem icon={Delete} iconType={MenuItem.iconType.SVG} title="Delete board"
+                                onClick={() => { onRemove({ board, boardId: board._id }); navigate('/board') }} />
+                        </Menu>
+                    </MenuButton>}
+                    <IconButton key="large" className='icon-btn' icon={DropdownChevronUp} kind={IconButton.kinds.SECONDARY}
+                        size={IconButton.sizes.SMALL} ariaLabel="Collapse header" onClick={() => setIsCollapse(!isCollapse)} />
                 </div>
             </section>
             <MenuDivider className='menu-divider' />
