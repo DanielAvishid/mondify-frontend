@@ -9,12 +9,11 @@ export function GroupPreview({ group, progress }) {
 
     const { style, tasks, title } = group
 
-    console.log(group);
-    console.log(tasks);
     return (
         <section className="group-preview main-layout full">
             <h4 className="middle">{title}</h4>
             <section className="table">
+
                 <section className="table-header table-grid">
                     <div className="title-col grid align-center justify-center"><span>Item</span></div>
 
@@ -27,27 +26,11 @@ export function GroupPreview({ group, progress }) {
                     </div>
                 </section>
 
-                {/* Render tasks by cmp order */}
                 {tasks.map((task) => (
                     <TaskPreview key={task.id} task={task} cmpsOrder={cmpsOrder} />
                 ))}
 
-                {/* Render progress by progress array */}
-                {/* <section className="progress-grid">
-                    {progress.map((item, idx) => (
-                        <div key={idx}>{item}</div>
-                    ))}
-                </section> */}
             </section>
-
-            {/* {cmpsOrder.map((Cmp, index) => (
-                <Cmp key={index} tasks={tasks} />
-            ))}
-
-            {tasks.map((task, index) => (
-                <TaskPreview key={index} task={task} />
-            ))} */}
-
         </section>
     )
 }

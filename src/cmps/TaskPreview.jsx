@@ -5,12 +5,12 @@ import { Status } from "./dynamicCmps/Status";
 import { Members } from "./dynamicCmps/Members";
 import { DateCmp } from "./dynamicCmps/Date";
 
-export function TaskPreview({ key, task, cmpsOrder }) {
+export function TaskPreview({ task, cmpsOrder }) {
     return (
-        <div key={key} className="task-preview table-grid">
+        <div key={task.id} className="task-preview table-grid">
             <TaskTitle title={task.TaskTitle} taskId={task.id} />
-            {cmpsOrder.map((cmp) => (
-                <DynamicCmp cmpType={cmp} info={task[cmp]} />
+            {cmpsOrder.map((cmp, idx) => (
+                <DynamicCmp key={idx} cmpType={cmp} info={task[cmp]} />
             ))}
         </div>
     )
