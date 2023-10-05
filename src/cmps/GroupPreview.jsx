@@ -1,3 +1,5 @@
+import { IconButton } from "monday-ui-react-core"
+import { Add } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { DateCmp } from "./dynamicCmps/Date";
 import { Members } from "./dynamicCmps/Members";
 import { Status } from "./dynamicCmps/Status";
@@ -14,21 +16,22 @@ export function GroupPreview({ group, progress }) {
 
     return (
         <section className="group-preview">
-            <h2>{title}</h2>
-
-            <section className="group-list">
+            <section className="group-preview">
                 {/* Render group labels by labels array */}
-                <section className="labels-grid">
-                    {labels.map((label, index) => (
-                        <div key={index}>{label}</div>
+                <section className="full-row">
+                    {labels.map((label, idx) => (
+                        <div key={idx} className={`col-${idx + 1} grid align-center justify-center`}><span>{label}</span></div>
                     ))}
+                    <div className="col-end">
+                        <IconButton icon={Add} kind={IconButton.kinds.TERTIARY} ariaLabel="Add Column" size={IconButton.sizes.SMALL} />
+                    </div>
                 </section>
 
                 {/* Render tasks by cmp order */}
                 {tasks.map((task) => (
-                    <section className="group grid" key={task.id}>
+                    <section className="full-row" key={task.id}>
                         {cmpsOrder.map((cmp, idx) => (
-                            <section className="grid-item" key={idx}>
+                            <section key={idx} className={`col-${idx + 1}`}>
                                 <DynamicCmp cmpType={cmp} info={task[cmp]} />
                             </section>
                         ))}
@@ -75,20 +78,3 @@ const DynamicCmp = ({ cmpType, info }) => {
             break;
     }
 };
-
-
-// FUNC THAT GET EVERY UNIQUE KEY OF A TASK
-
-// const uniqueKeys = new Set();
-// tasks.forEach((task) => {
-//     Object.keys(task).forEach((key) => {
-//         uniqueKeys.add(key);
-//     });
-// });
-// const uniqueKeysArray = Array.from(uniqueKeys);
-
-// EXECUTE THE FUNC
-
-{/* {uniqueKeysArray.map((task, index) => (
-    <div key={index}>{task}</div>
-))} */}

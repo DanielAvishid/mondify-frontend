@@ -18,3 +18,17 @@
 .flex.justify-between {
     justify-content: space-between;
 }
+
+// GRID
+
+.grid {
+    display: grid;
+}
+
+.grid.align-center {
+    align-items: center;
+}
+
+.grid.justify-center {
+    justify-content: center;
+}

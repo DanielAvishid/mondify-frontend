@@ -7,7 +7,8 @@ export const utilService = {
     saveToStorage,
     loadFromStorage,
     getAssetSrc,
-    getDateToShow
+    getDateToShow,
+    formatString
 }
 
 function makeId(length = 6) {
@@ -112,4 +113,10 @@ function getDateToShow(timeStamps = []) {
     const year2 = date2.getFullYear()
 
     return `${formatDateMonth(date1)} ${formatDateDay(date1)}, '${year1} - ${formatDateMonth(date2)} ${formatDateDay(date2)}, '${year2}`
+}
+
+function formatString(inputString) {
+    // Remove spaces and convert to lowercase
+    const formattedString = inputString.replace(/ /g, "-").toLowerCase();
+    return formattedString;
 }

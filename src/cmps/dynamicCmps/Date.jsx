@@ -4,7 +4,7 @@ export function DateCmp({ info }) {
     const date = utilService.getDateToShow(info)
 
     return (
-        <div>
+        <div className="date-col grid align-center justify-center">
             <div>
                 <span>{date}</span>
             </div>
