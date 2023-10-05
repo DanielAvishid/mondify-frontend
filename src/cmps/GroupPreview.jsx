@@ -14,8 +14,6 @@ export function GroupPreview({ group, progress }) {
 
     const { style, tasks, title } = group
 
-    console.log(group);
-    console.log(tasks);
     return (
         <section className="group-preview">
             <section className="group-preview">

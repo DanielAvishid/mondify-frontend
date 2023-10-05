@@ -1,0 +1,105 @@
+.task-details {
+    background-color: $primary-background-color;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 600px;
+    box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+
+    &>* {
+        margin-bottom: 20px;
+    }
+
+    .close-btn {
+        padding: 0;
+    }
+
+
+    .update-list {
+        border-bottom: 1px solid $primary-background-hover-color;
+        padding: 0;
+
+        ul {
+            padding: 0;
+        }
+    }
+
+    .write-update-btn {
+        border: $primary-color solid 0.5px;
+        border-radius: 10px;
+        justify-content: start;
+        margin-block-end: 120px;
+        cursor: text;
+    }
+
+    .add-update {
+        margin-block-end: 100px;
+
+        .text-sec {
+            border: $primary-color solid 1px;
+            border-radius: 10px;
+            min-height: 200px;
+            margin-block-end: 10px;
+
+            .text-tools{
+                border-bottom: 1px solid $primary-background-hover-color;
+                padding: 10px;
+            }
+
+            .update-btn {
+                left: 0;
+            }
+        }
+    }
+
+    .updates-container {
+        width: 100%;
+        .update-txt {
+            min-height: 200px;
+            max-height: 300px;
+            border: $primary-background-hover-color solid 1px;
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 20PX;
+        }
+        div{
+            gap: 5px;
+        }
+        h3{
+            font-weight: normal;
+        }
+        a{
+            color:$inverted-color-background;
+        }
+    }
+
+    textarea {
+        background-color: $primary-background-color;
+        font-family: 'Poppins', 'Roboto', 'Noto Sans Hebrew', 'Noto Kufi Arabic', 'Noto Sans JP', sans-serif;
+        width: 100%;
+        outline: none;
+        border: none;
+        resize: none;
+        height: 100px;
+        max-height: 400px;
+        padding: 10px;
+    }
+
+    img {
+        width: 400px;
+        margin-inline: auto;
+    }
+
+    .no-updates-text {
+        text-align: center;
+
+        h1 {
+            font-size: 1.7em;
+            margin: 0;
+            margin-block-end: 20px;
+            font-weight: normal;
+        }
+    }
+}

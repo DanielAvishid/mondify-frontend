@@ -8,7 +8,8 @@ export const utilService = {
     loadFromStorage,
     getAssetSrc,
     getDateToShow,
-    formatString
+    formatString,
+    getTimePassed
 }
 
 function makeId(length = 6) {
@@ -119,4 +120,22 @@ function formatString(inputString) {
     // Remove spaces and convert to lowercase
     const formattedString = inputString.replace(/ /g, "-").toLowerCase();
     return formattedString;
+}
+
+function getTimePassed(timestamp) {
+    const now = new Date().getTime();
+    const timeDifference = now - timestamp;
+    if (timeDifference < 0) return "Invalid timestamp";
+
+    const minutes = Math.floor(timeDifference / 60 / 1000);
+    const hours = Math.floor(minutes / 60);
+    if (minutes < 1) return "just now";
+    if (minutes < 60) return `${minutes}m`;
+    if (hours < 24) return `${hours}h`;
+
+    const date = new Date(timestamp);
+    const month = date.toLocaleString("default", { month: "short" });
+    const day = date.getDate();
+    return `${month} ${day}`;
+
 }

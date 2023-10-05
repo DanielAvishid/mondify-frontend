@@ -3,7 +3,6 @@ import { utilService } from "../../services/util.service"
 export function Status({ info }) {
     const status = info
     const statusClass = utilService.formatString(status)
-    console.log(statusClass);
 
     return (
         <div className={`status-col grid align-center justify-center ${statusClass}`}>

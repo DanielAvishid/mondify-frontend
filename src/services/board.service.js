@@ -49,8 +49,11 @@ async function remove({ board, boardId, groupId, taskId }) {
         board = await storageService.get(STORAGE_KEY, boardId)
     }
     if (taskId) {
-        const groupsToSave = board.groups.map(group => group.tasks.filter(task => task.id !== taskId))
-        board.groups = groupsToSave
+        const groupsToSave = board.groups.map(group => {
+            const updatedTasks = group.tasks.filter(task => task.id !== taskId)
+            return { ...group, tasks: updatedTasks }
+        })
+        board = { ...board, groups: groupsToSave }        
     } else if (groupId) {
         const groupIdx = board.groups.findIndex((group) => group.id === groupId)
         board.groups.splice(groupIdx, 1)
