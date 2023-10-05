@@ -42,7 +42,7 @@ export async function remove({ board, boardId, groupId, taskId }) {
         // store.dispatch({ type: REMOVE_BOARD, boardId }) // Optimistic
         const savedBoard = await boardService.remove({ board, boardId, groupId, taskId })
         if (groupId || taskId) {
-            store.dispatch({ type: UPDATE_BOARD, savedBoard })
+            store.dispatch({ type: UPDATE_BOARD, board: savedBoard })
         } else {
             store.dispatch({ type: REMOVE_BOARD, boardId })
         }
