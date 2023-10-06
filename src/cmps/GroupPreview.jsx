@@ -19,6 +19,7 @@ export function GroupPreview({ boardId, group, onSaveBoard, progress, onRemove, 
 
     return (
         <section className="group-preview main-layout full grid align-center justify-center">
+
             <div className="start grid justify-center">
                 <MenuButton className="board-menu">
                     <Menu id="menu" size="large">
@@ -28,6 +29,7 @@ export function GroupPreview({ boardId, group, onSaveBoard, progress, onRemove, 
                     </Menu>
                 </MenuButton>
             </div>
+
             <div>
                 <EditableHeading
                     type={EditableHeading.types.h4}
@@ -41,21 +43,50 @@ export function GroupPreview({ boardId, group, onSaveBoard, progress, onRemove, 
             </div>
 
             <section className="main-layout full">
-                <div className="start"></div>
-                <div className="table-grid  middle">
-                    <div className="title-col table-header grid align-center justify-center"><span>Item</span></div>
+                <div className="table-header table-grid middle">
+                    <div className="side"></div>
+                    <div className="checkbox grid"><input type="checkbox" /></div>
+                    <div className="title-col grid align-center justify-center"><span>Item</span></div>
 
                     {labels.map((label, idx) => (
-                        <div key={idx} className={`${utilService.formatString(label)}-col table-header grid align-center justify-center`}><span>{label}</span></div>
+                        <div key={idx} className={`${utilService.formatString(label)}-col grid align-center justify-center`}>
+                            <span>{label}</span>
+                        </div>
                     ))}
 
-                    <div className="col-end table-header grid align-center">
+                    <div className="last-col grid align-center">
                         <IconButton icon={Add} kind={IconButton.kinds.TERTIARY} ariaLabel="Add Column" size={IconButton.sizes.SMALL} />
                     </div>
                 </div>
+
                 {tasks.map((task) => (
-                    <TaskPreview key={task.id} boardId={boardId} groupId={group.id} task={task} cmpsOrder={cmpsOrder} onSaveBoard={onSaveBoard} onDuplicate={onDuplicate} onRemove={onRemove} />
+                    <TaskPreview
+                        key={task.id}
+                        boardId={boardId}
+                        groupId={group.id}
+                        task={task}
+                        cmpsOrder={cmpsOrder}
+                        onSaveBoard={onSaveBoard}
+                        onDuplicate={onDuplicate}
+                        onRemove={onRemove} />
                 ))}
+
+                <div className="start"></div>
+                <div className="add-task table-grid middle">
+                    <div className="side"></div>
+                    <div className="checkbox grid"><input type="checkbox" /></div>
+                    <div className="grid justify-center align-center">
+                        <EditableHeading
+                            type={EditableHeading.types.h5}
+                            value={"+Add Item"}
+                            tooltip='Click to Edit'
+                            tooltipPosition="bottom"
+                            customColor="#323338"
+                        // onBlur={(ev) => onSaveBoard({ key: 'TaskTitle', value: ev.target.value, boardId, taskId })}
+                        // onKeyDown={handleKeyPress}
+                        />
+                    </div>
+                </div>
 
             </section>
         </section>
