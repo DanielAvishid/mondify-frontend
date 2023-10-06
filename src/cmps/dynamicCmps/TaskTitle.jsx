@@ -3,13 +3,11 @@ import { AddUpdate, Update } from "/node_modules/monday-ui-react-core/src/compon
 import { useNavigate } from "react-router"
 
 export function TaskTitle({ boardId, task, onSaveBoard }) {
-    const { id: taskId, updates, TaskTitle } = task
-    console.log(updates
-    );
+    const { id: taskId, updates, title } = task
 
     function handleKeyPress(ev) {
         if (ev.key === 'Enter') {
-            onSaveBoard({ boardId, taskId, key: 'TaskTitle', value: ev.target.value })
+            onSaveBoard({ boardId, taskId, key: 'title', value: ev.target.value })
             ev.target.blur()
         }
     }
@@ -20,11 +18,11 @@ export function TaskTitle({ boardId, task, onSaveBoard }) {
             <div>
                 <EditableHeading
                     type={EditableHeading.types.h5}
-                    value={TaskTitle}
+                    value={title}
                     tooltip='Click to Edit'
                     tooltipPosition="bottom"
                     customColor="#323338"
-                    onBlur={(ev) => onSaveBoard({ key: 'TaskTitle', value: ev.target.value, boardId, taskId })}
+                    onBlur={(ev) => onSaveBoard({ key: 'title', value: ev.target.value, boardId, taskId })}
                     onKeyDown={handleKeyPress}
                 />
             </div>

@@ -89,7 +89,7 @@ export function TaskDetails() {
 
     if (!task) return <span></span>
     console.log(task);
-    const { id, TaskTitle, Members, updates } = task
+    const { id, title, members, updates } = task
     console.log(updates);
     return (
         <section className='task-details flex column'>
@@ -107,17 +107,17 @@ export function TaskDetails() {
                 <article>
                     <EditableHeading
                         type={EditableHeading.types.h4}
-                        value={TaskTitle}
+                        value={title}
                         tooltip='Click to Edit'
                         tooltipPosition="bottom"
                         customColor="#323338"
-                        onBlur={(ev) => saveBoard({ key: 'TaskTitle', value: ev.target.value, boardId, taskId })}
+                        onBlur={(ev) => saveBoard({ key: 'title', value: ev.target.value, boardId, taskId })}
                         onKeyDown={handleKeyPress}
                     />
                 </article>
                 <article className="flex align-center justify-between">
                     <AvatarGroup size="small" type="img" max={3}>
-                        {Members.map(member =>
+                        {members.map(member =>
                             <Avatar
                                 key={member}
                                 ariaLabel={member}
