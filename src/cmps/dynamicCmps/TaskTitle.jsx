@@ -26,11 +26,11 @@ export function TaskTitle({ boardId, task, onSaveBoard }) {
                     onKeyDown={handleKeyPress}
                 />
             </div>
-            <div className="grid align-center justify-center">
+            <div className="chat-cell grid align-center justify-center">
                 {(!updates || updates.length < 1) ?
-                    <Icon icon={AddUpdate} iconSize="36" ariaLabel="Start conversation" onClick={() => navigate(`task/${taskId}`)} /> :
+                    <Icon icon={AddUpdate} iconSize="22" ariaLabel="Start conversation" onClick={() => navigate(`task/${taskId}`)} /> :
                     <div onClick={() => navigate(`task/${taskId}`)}>
-                        <Icon icon={Update} iconSize="36" ariaLabel="Start conversation" />
+                        <Icon icon={Update} iconSize="22" ariaLabel="Start conversation" />
                         <Counter count={updates.length} />
                     </div>}
             </div>
