@@ -124,7 +124,7 @@ async function duplicate({ boardId, groupId, taskId }) {
         const groupIdx = board.groups.findIndex((group) => group.id === groupId)
         const task ={... board.groups[groupIdx].tasks.find((task) => task.id === taskId)}
         task.id = utilService.makeId()
-        task.TaskTitle += '(copy)'
+        task.title += '(copy)'
         console.log(task);
         board.groups[groupIdx].tasks.push(task)
     } else if (groupId) {
@@ -151,7 +151,7 @@ function getEmptyBoard() {
 function getEmptyTask() {
     return {
         id: utilService.makeId(),
-        TaskTitle: "New Item",
+        title: "New Item",
         Status: "Done",
         Priority: "Critical",
         Members: ["UjCos"],
