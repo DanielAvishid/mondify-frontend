@@ -1,12 +1,16 @@
 import { utilService } from "../../services/util.service"
+import { useState } from "react"
+import { LabelModal } from "./LabelModal"
 
 export function Status({ info }) {
     const status = info
     const statusClass = utilService.formatString(status)
+    const [isModalOpen, setIsModalOpen] = useState(false)
 
     return (
-        <div className={`status-cell status-col grid align-center justify-center ${statusClass}`}>
+        <div className={`status status-cell status-col grid align-center justify-center ${statusClass}`} onClick={() => setIsModalOpen(!isModalOpen)}>
             <span>{status}</span>
+            {isModalOpen && <LabelModal labels={['Done', 'Waiting for QA', 'Waiting for dev', 'Waiting for QA and Waiting for dev', 'Working on it', 'Almost', 'Need help', 'Cheers']} />}
         </div>
     )
 }

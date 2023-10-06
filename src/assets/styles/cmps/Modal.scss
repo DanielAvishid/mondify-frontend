@@ -1,0 +1,47 @@
+.modal {
+    z-index: 10;
+    position: absolute;
+    min-width: 200px;
+    max-width: 880px;
+    overflow-x: auto;
+    top: 40px;
+    left: 50%;
+    transform: translate(-50%);
+    height: max-content;
+
+    .label-container {
+        margin-block-start: 8px;
+        display: grid;
+        grid-auto-flow: column;
+        gap: 10px;
+
+        .label-btn {
+            width: 152px;
+            height: 32px;
+            white-space: nowrap;
+            overflow: hidden;
+            font-size: rem(14px);
+
+            .label {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+            }
+        }
+    }
+
+    .add-label-container {
+        height: 40px;
+    }
+
+    .divider {
+        margin-block-start: 18px;
+    }
+
+    border-radius: 8px;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, .32);
+    padding-inline: 24px;
+    padding-block-start: 16px;
+    background-color: white;
+    width: fit-content;
+}
