@@ -23,7 +23,7 @@ export function AppIndex() {
 
     async function onSaveBoard({ board, boardId, groupId, taskId, key, value }) {
         try {
-            await saveBoard({ board, boardId, groupId, taskId })
+            await saveBoard({ board, boardId, groupId, taskId, key, value })
             console.log('ShowSuccessesMsg')
         } catch (err) {
             console.log('Had issues in save board', err)
@@ -58,7 +58,7 @@ export function AppIndex() {
             <AppHeader />
             <section className="main-container">
                 <AppSidebar boards={boards} onDuplicate={onDuplicate} onRemove={onRemove} onSaveBoard={onSaveBoard} />
-                <Outlet context={[onDuplicate, onRemove]} />
+                <Outlet context={[ onSaveBoard, onDuplicate, onRemove]} />
             </section>
         </section>
     )

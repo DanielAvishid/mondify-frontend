@@ -9,14 +9,16 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicate, onRemove }) {
     const [showSidebar, setShowSidebar] = useState(true)
 
     function onAddBoard() {
-        const newBoard = boardService.getEmptyBoard()
+        const board = boardService.getEmptyBoard()
+        onSaveBoard({ board })
     }
 
     function toggleSidebar() {
         setShowSidebar(!showSidebar)
     }
 
-    if (!boards.length) return <div>loading..</div>
+    console.log(boards);
+    // if (!boards.length) return <div>loading..</div>
     return (
         <section className="app-sidebar flex column">
             <button className="close-btn" onClick={toggleSidebar}>
@@ -43,11 +45,12 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicate, onRemove }) {
                     <Search placeholder="Search" iconName={Filter} className="search" />
                     <span><Button
                         size="md"
-                        onClick={() => onAddBoard}
-                    ><Add /> </Button></span>
+                        onClick={onAddBoard}>
+                        <Add />
+                    </Button></span>
                 </article>
                 <Button leftIcon={Gantt} kind="tertiary" className="test_board btn">Test_board</Button>
-                {boards.map(board =>
+                {boards.length > 0 && boards.map(board =>
                     <article key={board._id} className="flex align-center justify-between board-label">
                         <Button
                             key={board._id}

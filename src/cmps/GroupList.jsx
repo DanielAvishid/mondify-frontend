@@ -2,29 +2,39 @@ import { Outlet, useOutletContext } from "react-router";
 import { GroupPreview } from "./GroupPreview"
 import { Add } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { Button } from "monday-ui-react-core";
+import { boardService } from "../services/board.service";
 
 export function GroupList() {
     const [board, onSaveBoard, onDuplicate, onRemove] = useOutletContext()
 
     // const demoBoard = _createBoardDemo()
     // console.log(demoBoard);
+    function onAddGroup() {
+        const newGroup = boardService.getEmptyGroup()
+        const value = [...board.groups, newGroup]
+        onSaveBoard({ boardId: board._id, key: 'groups', value })
+    }
 
     const groups = board.groups
-
     return (
         <section className="group-list main-layout full">
             {groups.map((group) => (
-                <GroupPreview 
-                key={group.id} 
-                boardId={board._id} 
-                group={group} 
-                onSaveBoard={onSaveBoard}
-                onDuplicate={onDuplicate}
-                onRemove={onRemove}
-                 />
+                <GroupPreview
+                    key={group.id}
+                    boardId={board._id}
+                    group={group}
+                    onSaveBoard={onSaveBoard}
+                    onDuplicate={onDuplicate}
+                    onRemove={onRemove}
+                />
             ))}
             <div className="middle">
-                <Button kind={Button.kinds.SECONDARY} leftIcon={Add}>Add new group</Button>
+                <Button
+                    kind={Button.kinds.SECONDARY}
+                    leftIcon={Add}
+                    onClick={onAddGroup}>
+                    Add new group
+                </Button>
             </div>
 
             <Outlet />

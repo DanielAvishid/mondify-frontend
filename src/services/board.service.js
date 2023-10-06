@@ -69,6 +69,12 @@ async function addBoard(board) {
         "fullname": "Carmel Amarillio",
         "imgUrl": "https://hips.hearstapps.com/ghk.h-cdn.co/assets/16/08/gettyimages-464163411.jpg?crop=1.0xw:1xh;center,top&resize=980:*"
     }
+    board.members = [userService.getLoggedinUser() || {
+        "_id": "UjCos",
+        "fullname": "Carmel Amarillio",
+        "imgUrl": "https://hips.hearstapps.com/ghk.h-cdn.co/assets/16/08/gettyimages-464163411.jpg?crop=1.0xw:1xh;center,top&resize=980:*"
+    }]
+    console.log(board);
     return await storageService.post(STORAGE_KEY, board)
 }
 
@@ -123,15 +129,15 @@ async function duplicate({ boardId, groupId, taskId }) {
     console.log(boardId, 'SERVICE')
     if (taskId) {
         const groupIdx = board.groups.findIndex((group) => group.id === groupId)
-        const task ={... board.groups[groupIdx].tasks.find((task) => task.id === taskId)}
+        const task = { ...board.groups[groupIdx].tasks.find((task) => task.id === taskId) }
         task.id = utilService.makeId()
         task.title += '(copy)'
         console.log(task);
         board.groups[groupIdx].tasks.push(task)
     } else if (groupId) {
-        const group ={... board.groups.find(group => group.id === groupId)}
+        const group = { ...board.groups.find(group => group.id === groupId) }
         console.log(group)
-        group.tasks = group.tasks.map(task => ({...task, id:utilService.makeId()}))
+        group.tasks = group.tasks.map(task => ({ ...task, id: utilService.makeId() }))
         group.id = utilService.makeId()
         group.title = 'Duplicate of ' + group.title
         board.groups.push(group)
@@ -148,16 +154,93 @@ function getEmptyBoard() {
     return {
         title: "New Board",
         isStarred: false,
+        archivedAt: Date.now(),
         style: {
             backgroundImage: ""
         },
-        
+        labels: [
+            {
+                "id": "l101",
+                "title": "Done",
+                "color": "#61bd4f"
+            },
+            {
+                "id": "l102",
+                "title": "Progress",
+                "color": "#61bd33"
+            }
+        ],
+        groups: [
+            {
+                "id": utilService.makeId(),
+                "title": "Group Title",
+                "archivedAt": Date.now(),
+                "tasks": [
+                    {
+                        "id": utilService.makeId(),
+                        "title": "Item 1",
+                        "status": "Working on it",
+                        "priority": "Medium",
+                        "dueDate": [1696107932000, 1696418275139],
+                        "members": [],
+                    },
+                    {
+                        "id": utilService.makeId(),
+                        "title": "Item 2",
+                        "status": "Done",
+                        "priority": "Medium",
+                        "dueDate": [1696107932000, 1696418275139],
+                        "members": [],
+                    },
+                    {
+                        "id": utilService.makeId(),
+                        "title": "Item 3",
+                        "status": "Done",
+                        "priority": "Medium",
+                        "dueDate": [1696107932000, 1696418275139],
+                        "members": [],
+                    },
+
+                ],
+                "style": {}
+            },
+            {
+                "id": utilService.makeId(),
+                "title": "Group Title",
+                "archivedAt": Date.now(),
+                "tasks": [
+                    {
+                        "id": utilService.makeId(),
+                        "title": "Item 3",
+                        "status": "Done",
+                        "priority": "Medium",
+                        "dueDate": [1696107932000, 1696418275139],
+                        "members": [],
+                    },
+                    {
+                        "id": utilService.makeId(),
+                        "title": "Item 4",
+                        "status": "Done",
+                        "priority": "Medium",
+                        "dueDate": [1696107932000, 1696418275139],
+                        "members": [],
+                    },
+                ],
+                "style": {}
+            }
+        ],
+        activities: [],
+        cmpsOrder: ["TaskTitle", "Members", "Status", 'Priority', "Date"]
     }
 }
 
-function getEmptyBoard() {
+function getEmptyGroup() {
     return {
-
+        "id": utilService.makeId(),
+        "title": "New Group",
+        "archivedAt": Date.now(),
+        "tasks": [],
+        "style": {}
     }
 }
 
@@ -165,9 +248,9 @@ function getEmptyTask() {
     return {
         id: utilService.makeId(),
         title: "New Item",
-        Status: "Done",
-        Priority: "Critical",
-        Members: ["UjCos"],
+        status: "Done",
+        priority: "Critical",
+        members: ["UjCos"],
         Date: [1696107932000, 1696418275139]
     }
 }
