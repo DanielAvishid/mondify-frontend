@@ -1,0 +1,33 @@
+.title-cell {
+    grid-template-columns: 5.625fr 1fr;
+    position: relative;
+
+    &>.chat-cell {
+        height: 100%;
+        border-inline-start: 1px solid $primary-background-hover-color;
+
+        &:hover {
+            color: $primary-color;
+
+        }
+    }
+
+    .updates-icon {
+        color: $primary-color;
+    }
+
+    .updates-counter {
+        position: absolute;
+        top: 10px;
+        right: 12px;
+        padding: 0px;
+
+        div {
+            padding: 0px;
+            font-size: 10px;
+            height: 13px;
+            min-width: 13px;
+        }
+    }
+
+}

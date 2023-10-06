@@ -24,3 +24,10 @@
 @import "cmps/BoardHeader.scss";
 @import "cmps/Status.scss";
 @import "cmps/Modal.scss";
+
+//dynamicCmps
+@import "cmps/dynamicCmps/TaskTitle.scss";
+@import "cmps/dynamicCmps/Members.scss";
+@import "cmps/dynamicCmps/DueDate.scss";
+@import "cmps/dynamicCmps/Priority.scss";
+@import "cmps/dynamicCmps/Status.scss";

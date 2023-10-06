@@ -81,7 +81,6 @@ function getDateToShow(timeStamps = []) {
     }
 
     if (timeStamps.length === 1) {
-        // If there's only one timestamp, extract it from the array
         timeStamps = timeStamps[0]
     }
 
@@ -89,32 +88,29 @@ function getDateToShow(timeStamps = []) {
     const date1 = new Date(timeStamps[0])
     const date2 = new Date(timeStamps[1])
 
-    // Function to format a date in 'Month Day' format
     const formatDateDay = (date) => {
         const day = date.getDate()
         return day
     }
+    const percentage = (((formatDateDay(currentDate) - formatDateDay(date1)) / (formatDateDay(date2) - formatDateDay(date1))) * 100).toFixed(0);
 
     const formatDateMonth = (date) => {
         const month = date.toLocaleString('en-US', { month: 'short' })
         return month
     }
 
-    // Check if both dates are from the same year and month
     if (date1.getFullYear() === currentDate.getFullYear() && date1.getMonth() === date2.getMonth()) {
-        return `${formatDateMonth(date1)} ${formatDateDay(date1)} - ${formatDateDay(date2)}`
+        return { text: `${formatDateMonth(date1)} ${formatDateDay(date1)} - ${formatDateDay(date2)}`, percentage }
     }
 
-    // Check if both dates are from the same year
     if (date1.getFullYear() === date2.getFullYear()) {
-        return `${formatDateMonth(date1)} ${formatDateDay(date1)} - ${formatDateMonth(date2), formatDateDay(date2)}`
+        return { text: `${formatDateMonth(date1)} ${formatDateDay(date1)} - ${formatDateMonth(date2), formatDateDay(date2)}`, percentage }
     }
 
-    // If one of the dates is from a different year
     const year1 = date1.getFullYear()
     const year2 = date2.getFullYear()
 
-    return `${formatDateMonth(date1)} ${formatDateDay(date1)}, '${year1} - ${formatDateMonth(date2)} ${formatDateDay(date2)}, '${year2}`
+    return { text: `${formatDateMonth(date1)} ${formatDateDay(date1)}, '${year1} - ${formatDateMonth(date2)} ${formatDateDay(date2)}, '${year2}`, percentage }
 }
 
 function formatString(inputString) {
@@ -147,3 +143,6 @@ function lowercaseFirstLetter(inputString) {
     }
     return inputString.charAt(0).toLowerCase() + inputString.slice(1);
 }
+
+
+

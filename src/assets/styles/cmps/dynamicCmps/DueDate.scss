@@ -1,0 +1,11 @@
+.due-date-cell {
+    & div {
+        display: grid;
+        align-items: center;
+        justify-content: center;
+        width: 6.875rem;
+        height: 1.375rem;
+        border-radius: 2em;
+        color: white;
+    }
+}

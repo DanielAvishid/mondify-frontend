@@ -1,0 +1,12 @@
+.members-cell {
+    grid-template-columns: auto max-content auto;
+
+    &>* {
+        height: 1.875rem;
+        width: 1.875rem;
+        border-radius: 50%;
+        border: 1px solid gray;
+        margin: 0rem -0.25rem;
+        color: $secondary-background-color;
+    }
+}

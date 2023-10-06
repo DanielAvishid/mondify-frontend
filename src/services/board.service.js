@@ -234,7 +234,7 @@ function getEmptyBoard() {
                         "title": "Item 1",
                         "status": "Working on it",
                         "priority": "Medium",
-                        "dueDate": [1696107932000, 1696418275139],
+                        "dueDate": [1696280400000, 1679040000000],
                         "members": [],
                     },
                     {
@@ -242,7 +242,7 @@ function getEmptyBoard() {
                         "title": "Item 2",
                         "status": "Done",
                         "priority": "Medium",
-                        "dueDate": [1696107932000, 1696418275139],
+                        "dueDate": [1696280400000, 1679040000000],
                         "members": [],
                     },
                     {
@@ -250,7 +250,7 @@ function getEmptyBoard() {
                         "title": "Item 3",
                         "status": "Done",
                         "priority": "Medium",
-                        "dueDate": [1696107932000, 1696418275139],
+                        "dueDate": [1696280400000, 1679040000000],
                         "members": [],
                     },
 
@@ -267,7 +267,7 @@ function getEmptyBoard() {
                         "title": "Item 3",
                         "status": "Done",
                         "priority": "Medium",
-                        "dueDate": [1696107932000, 1696418275139],
+                        "dueDate": [1696280400000, 1679040000000],
                         "members": [],
                     },
                     {
@@ -275,7 +275,7 @@ function getEmptyBoard() {
                         "title": "Item 4",
                         "status": "Done",
                         "priority": "Medium",
-                        "dueDate": [1696107932000, 1696418275139],
+                        "dueDate": [1696280400000, 1679040000000],
                         "members": [],
                     },
                 ],
@@ -306,7 +306,7 @@ function getEmptyTask(title = 'New Item') {
         status: "Done",
         priority: "Critical",
         members: ["UjCos"],
-        Date: [1696107932000, 1696418275139]
+        Date: [1696280400000, 1679040000000]
     }
 }
 
@@ -399,7 +399,7 @@ function _createBoard() {
                         "title": "Replace logo",
                         "status": "Done", // monday
                         "priority": "Critical",
-                        "dueDate": [1696107932000, 1696418275139],
+                        "dueDate": [1696280400000, 1679040000000],
                         "members": ["UjCos"],
                     },
                     {
@@ -407,7 +407,7 @@ function _createBoard() {
                         "title": "Add Samples",
                         "status": "Waiting for QA", // monday
                         "priority": "Medium",
-                        "dueDate": [1696418275139, 1696907932000],
+                        "dueDate": [1679040000000, 1696907932000],
                         "members": ["DOGWC", "UjCos"],
                     }
                 ],
@@ -423,7 +423,7 @@ function _createBoard() {
                         "archivedAt": 1589983468418,
                         "status": "Done", // monday
                         "priority": "Critical",
-                        "dueDate": [1696418275139, 1697407100000],
+                        "dueDate": [1679040000000, 1697407100000],
                         "members": ["UjCos", "tZQiB", "DOGWC"],
                     },
                     {

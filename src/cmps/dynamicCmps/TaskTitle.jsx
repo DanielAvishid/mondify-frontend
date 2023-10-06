@@ -30,8 +30,12 @@ export function TaskTitle({ boardId, task, onSaveBoard }) {
                 {(!updates || updates.length < 1) ?
                     <Icon icon={AddUpdate} iconSize="22" ariaLabel="Start conversation" onClick={() => navigate(`task/${taskId}`)} /> :
                     <div onClick={() => navigate(`task/${taskId}`)}>
-                        <Icon icon={Update} iconSize="22" ariaLabel="Start conversation" />
-                        <Counter count={updates.length} />
+                        <Icon
+                            className="updates-icon"
+                            icon={Update}
+                            iconSize="22"
+                            ariaLabel="Start conversation" />
+                        <Counter   count={updates.length} className="updates-counter" />
                     </div>}
             </div>
         </div>
