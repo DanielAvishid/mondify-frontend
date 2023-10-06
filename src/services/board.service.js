@@ -12,11 +12,12 @@ export const boardService = {
     getById,
     update,
     remove,
-    getEmptyBoard,
     duplicate,
     addBoard,
+    addTaskFromHeader,
+    getEmptyBoard,
+    getEmptyGroup,
     getEmptyTask,
-    addTaskFromHeader
 }
 
 async function query(filterBy = {}) {
@@ -142,6 +143,18 @@ async function duplicate({ boardId, groupId, taskId }) {
     return await storageService.put(STORAGE_KEY, board)
 }
 
+////////////////////////////////////////////////////////////////////////////// get empty
+function getEmptyBoard() {
+    return {
+        title: "New Board",
+        isStarred: false,
+        style: {
+            backgroundImage: ""
+        },
+        
+    }
+}
+
 function getEmptyBoard() {
     return {
 
@@ -160,6 +173,10 @@ function getEmptyTask() {
 }
 
 
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
 function _createBoard() {
     const board = {
         title: "Robot dev proj",
