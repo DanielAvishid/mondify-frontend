@@ -9,7 +9,8 @@ export const utilService = {
     getAssetSrc,
     getDateToShow,
     formatString,
-    getTimePassed
+    getTimePassed,
+    lowercaseFirstLetter
 }
 
 function makeId(length = 6) {
@@ -138,4 +139,11 @@ function getTimePassed(timestamp) {
     const day = date.getDate();
     return `${month} ${day}`;
 
+}
+
+function lowercaseFirstLetter(inputString) {
+    if (inputString.length === 0) {
+        return inputString; // Return an empty string if input is empty
+    }
+    return inputString.charAt(0).toLowerCase() + inputString.slice(1);
 }
