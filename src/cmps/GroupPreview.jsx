@@ -4,10 +4,8 @@ import { TaskPreview } from "./TaskPreview";
 import { utilService } from "../services/util.service";
 import { boardService } from "../services/board.service";
 
-export function GroupPreview({ boardId, group, onSaveBoard, progress, onRemove, onDuplicate }) {
+export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, onDuplicate }) {
     // DELETE THIS LINES WHEN GIVEN CURRECT PROP
-    const cmpsOrder = ['Members', 'Status', 'Priority', 'DueDate']
-    const labels = ["Members", "Status", "Priority", "Due Date"];
 
     const { style, tasks, title } = group
 
@@ -15,13 +13,12 @@ export function GroupPreview({ boardId, group, onSaveBoard, progress, onRemove, 
         if (title === '') return
         const newTask = boardService.getEmptyTask(title)
         const value = [...group.tasks, newTask]
-        console.log({ boardId, groupId: group.id, key: 'tasks', value, title })
-        onSaveBoard({ boardId, groupId: group.id, key: 'tasks', value })
+        onSaveBoard({ boardId: board._id, groupId: group.id, key: 'tasks', value })
     }
 
     function handleKeyPress(ev) {
         if (ev.key === 'Enter') {
-            onSaveBoard(({ key: 'title', value: ev.target.value, boardId, groupId: group.id }))
+            onSaveBoard(({ key: 'title', value: ev.target.value, boardId: board._id, groupId: group.id }))
             ev.target.blur()
         }
     }
@@ -33,8 +30,8 @@ export function GroupPreview({ boardId, group, onSaveBoard, progress, onRemove, 
                 <MenuButton className="board-menu">
                     <Menu id="menu" size="large">
                         {/* <MenuItem icon={Duplicate} title="Duplicate Boarder" /> */}
-                        <MenuItem icon={Duplicate} title="Duplicate Boarder" onClick={() => onDuplicate({ boardId, groupId: group.id })} />
-                        <MenuItem icon={Delete} title="Delete" onClick={() => onRemove({ boardId, groupId: group.id })} />
+                        <MenuItem icon={Duplicate} title="Duplicate this group" onClick={() => onDuplicate({ boardId: board._id, groupId: group.id })} />
+                        <MenuItem icon={Delete} title="Delete" onClick={() => onRemove({ boardId: board._id, groupId: group.id })} />
                     </Menu>
                 </MenuButton>
             </div>
@@ -46,7 +43,7 @@ export function GroupPreview({ boardId, group, onSaveBoard, progress, onRemove, 
                     tooltip='Click to Edit'
                     tooltipPosition="bottom"
                     customColor="#323338"
-                    onBlur={(ev) => onSaveBoard({ key: 'title', value: ev.target.value, boardId, groupId: group.id })}
+                    onBlur={(ev) => onSaveBoard({ key: 'title', value: ev.target.value, boardId: board._id, groupId: group.id })}
                     onKeyDown={handleKeyPress}
                 />
             </div>
@@ -57,7 +54,7 @@ export function GroupPreview({ boardId, group, onSaveBoard, progress, onRemove, 
                     <div className="checkbox grid"><input type="checkbox" /></div>
                     <div className="title-col grid align-center justify-center"><span>Item</span></div>
 
-                    {labels.map((label, idx) => (
+                    {board.cmpsOrder.map((label, idx) => (
                         <div key={idx} className={`${utilService.formatString(label)}-col grid align-center justify-center`}>
                             <span>{label}</span>
                         </div>
@@ -71,10 +68,9 @@ export function GroupPreview({ boardId, group, onSaveBoard, progress, onRemove, 
                 {tasks.map((task) => (
                     <TaskPreview
                         key={task.id}
-                        boardId={boardId}
-                        groupId={group.id}
+                        board={board}
+                        group={group}
                         task={task}
-                        cmpsOrder={cmpsOrder}
                         onSaveBoard={onSaveBoard}
                         onDuplicate={onDuplicate}
                         onRemove={onRemove} />

@@ -10,7 +10,7 @@ import { Menu, MenuButton, MenuItem } from "monday-ui-react-core";
 import { utilService } from "../services/util.service";
 
 
-export function TaskPreview({ boardId, groupId, task, cmpsOrder, onSaveBoard, onDuplicate, onRemove }) {
+export function TaskPreview({ board, group, task, onSaveBoard, onDuplicate, onRemove }) {
 
     return (
         <>
@@ -18,17 +18,17 @@ export function TaskPreview({ boardId, groupId, task, cmpsOrder, onSaveBoard, on
                 <MenuButton className="board-menu">
                     <Menu id="menu" size="large">
                         {/* <MenuItem icon={Duplicate} title="Duplicate Boarder" /> */}
-                        <MenuItem icon={Duplicate} title="Duplicate Boarder" onClick={() => onDuplicate({ boardId, groupId, taskId: task.id })} />
-                        <MenuItem icon={Delete} title="Delete" onClick={() => onRemove({ boardId, taskId: task.id })} />
+                        <MenuItem icon={Duplicate} title="Duplicate Boarder" onClick={() => onDuplicate({ boardId: board._id, groupId: group.id, taskId: task.id })} />
+                        <MenuItem icon={Delete} title="Delete" onClick={() => onRemove({ boardId: board._id, taskId: task.id })} />
                     </Menu>
                 </MenuButton>
             </div>
             <div key={task.id} className="task-preview table-grid middle">
                 <div className="side"></div>
                 <div className="checkbox grid"><input type="checkbox" /></div>
-                <TaskTitle boardId={boardId} task={task} onSaveBoard={onSaveBoard} />
-                {cmpsOrder.map((cmp, idx) => (
-                    <DynamicCmp key={idx} boardId={boardId} cmpType={cmp} info={task[utilService.lowercaseFirstLetter(cmp)]} onSaveBoard={onSaveBoard} />
+                <TaskTitle boardId={board._id} task={task} onSaveBoard={onSaveBoard} />
+                {board.cmpsOrder.map((cmp, idx) => (
+                    <DynamicCmp key={idx} boardId={board._id} cmpType={cmp} info={task[utilService.lowercaseFirstLetter(cmp)]} onSaveBoard={onSaveBoard} />
                 ))}
             </div>
         </>

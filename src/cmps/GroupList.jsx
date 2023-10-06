@@ -21,7 +21,7 @@ export function GroupList() {
             {groups.map((group) => (
                 <GroupPreview
                     key={group.id}
-                    boardId={board._id}
+                    board={board}
                     group={group}
                     onSaveBoard={onSaveBoard}
                     onDuplicate={onDuplicate}

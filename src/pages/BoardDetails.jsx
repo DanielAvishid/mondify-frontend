@@ -1,7 +1,7 @@
 import { Outlet, useNavigate, useOutletContext, useParams } from "react-router-dom";
 import { BoardHeader } from "../cmps/BoardHeader";
 import { useEffect, useState } from "react";
-import { saveBoard, getById } from "../store/actions/board.action";
+import { getById } from "../store/actions/board.action";
 import { useSelector } from "react-redux";
 import { boardService } from "../services/board.service";
 

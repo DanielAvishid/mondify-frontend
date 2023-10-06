@@ -230,7 +230,7 @@ function getEmptyBoard() {
             }
         ],
         activities: [],
-        cmpsOrder: ["TaskTitle", "Members", "Status", 'Priority', "Date"]
+        cmpsOrder: ["Members", "Status", 'Priority', "Date"]
     }
 }
 
@@ -399,7 +399,7 @@ function _createBoard() {
             }
         ],
 
-        cmpsOrder: ["TaskTitle", "Members", "Status", 'Priority', "Date"]
+        cmpsOrder: ["Members", "Status", 'Priority', "Date"]
     }
     addBoard(board)
 }
