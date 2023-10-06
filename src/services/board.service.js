@@ -53,7 +53,7 @@ async function remove({ board, boardId, groupId, taskId }) {
             const updatedTasks = group.tasks.filter(task => task.id !== taskId)
             return { ...group, tasks: updatedTasks }
         })
-        board = { ...board, groups: groupsToSave }        
+        board = { ...board, groups: groupsToSave }
     } else if (groupId) {
         const groupIdx = board.groups.findIndex((group) => group.id === groupId)
         board.groups.splice(groupIdx, 1)
@@ -198,19 +198,19 @@ function _createBoard() {
                 "tasks": [
                     {
                         "id": "c101",
-                        "TaskTitle": "Replace logo",
-                        "Status": "Done", // monday
-                        "Priority": "Critical",
-                        "Date": [1696107932000, 1696418275139],
-                        "Members": ["UjCos"],
+                        "title": "Replace logo",
+                        "status": "Done", // monday
+                        "priority": "Critical",
+                        "dueDate": [1696107932000, 1696418275139],
+                        "members": ["UjCos"],
                     },
                     {
                         "id": "c102",
-                        "TaskTitle": "Add Samples",
-                        "Status": "Waiting for QA", // monday
-                        "Priority": "Medium",
-                        "Date": [1696418275139, 1696907932000],
-                        "Members": ["DOGWC", "UjCos"],
+                        "title": "Add Samples",
+                        "status": "Waiting for QA", // monday
+                        "priority": "Medium",
+                        "dueDate": [1696418275139, 1696907932000],
+                        "members": ["DOGWC", "UjCos"],
                     }
                 ],
                 "style": {}
@@ -221,18 +221,18 @@ function _createBoard() {
                 "tasks": [
                     {
                         "id": "c103",
-                        "TaskTitle": "Do that",
+                        "title": "Do that",
                         "archivedAt": 1589983468418,
-                        "Status": "Done", // monday
-                        "Priority": "Critical",
-                        "Date": [1696418275139, 1697407100000],
-                        "Members": ["UjCos", "tZQiB", "DOGWC"],
+                        "status": "Done", // monday
+                        "priority": "Critical",
+                        "dueDate": [1696418275139, 1697407100000],
+                        "members": ["UjCos", "tZQiB", "DOGWC"],
                     },
                     {
                         "id": "c104",
-                        "TaskTitle": "Help me",
-                        "Status": "Working on it", // monday
-                        "Priority": "High",
+                        "title": "Help me",
+                        "status": "Working on it", // monday
+                        "priority": "High",
                         "description": "description",
                         "comments": [
                             {
@@ -259,9 +259,9 @@ function _createBoard() {
                                 ]
                             }
                         ],
-                        "Members": ["UjCos", "DOGWC", "tZQiB"],
+                        "members": ["UjCos", "DOGWC", "tZQiB"],
                         "labelIds": ["l101", "l102"],
-                        "Date": [1695418275139, 1698407932000],
+                        "dueDate": [1695418275139, 1698407932000],
                         "byMember": {
                             "_id": "DOGWC",
                             "username": "danielavishid",

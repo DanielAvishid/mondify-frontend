@@ -3,13 +3,14 @@ import { Priority } from "./dynamicCmps/Priority";
 import { TaskTitle } from "./dynamicCmps/TaskTitle";
 import { Status } from "./dynamicCmps/Status";
 import { Members } from "./dynamicCmps/Members";
-import { DateCmp } from "./dynamicCmps/Date";
+import { DueDate } from "./dynamicCmps/DueDate";
 
 import { Duplicate, Delete } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { Menu, MenuButton, MenuItem } from "monday-ui-react-core";
+import { utilService } from "../services/util.service";
+
 
 export function TaskPreview({ boardId, task, cmpsOrder, onSaveBoard }) {
-
 
     return (
         <>
@@ -24,9 +25,9 @@ export function TaskPreview({ boardId, task, cmpsOrder, onSaveBoard }) {
                 </MenuButton>
             </div>
             <div key={task.id} className="task-preview table-grid middle">
-                <TaskTitle boardId={boardId} title={task.TaskTitle} taskId={task.id} onSaveBoard={onSaveBoard} />
+                <TaskTitle boardId={boardId} title={task.title} taskId={task.id} onSaveBoard={onSaveBoard} />
                 {cmpsOrder.map((cmp, idx) => (
-                    <DynamicCmp key={idx} boardId={boardId} cmpType={cmp} info={task[cmp]} onSaveBoard={onSaveBoard} />
+                    <DynamicCmp key={idx} boardId={boardId} cmpType={cmp} info={task[utilService.lowercaseFirstLetter(cmp)]} onSaveBoard={onSaveBoard} />
                 ))}
             </div>
         </>
@@ -34,7 +35,6 @@ export function TaskPreview({ boardId, task, cmpsOrder, onSaveBoard }) {
 }
 
 const DynamicCmp = ({ boardId, cmpType, info, onSaveBoard }) => {
-
     // NEED TO ADD BOARD ID AND ON SAVE BOARD TO THE CMPS PROPS
 
     switch (cmpType) {
@@ -44,8 +44,8 @@ const DynamicCmp = ({ boardId, cmpType, info, onSaveBoard }) => {
             return <Status info={info} />;
         case "Members":
             return <Members info={info} />;
-        case "Date":
-            return <DateCmp info={info} />
+        case "DueDate":
+            return <DueDate info={info} />
         default:
             break;
     }

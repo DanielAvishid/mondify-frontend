@@ -1,11 +1,12 @@
 import { EditableHeading, IconButton, Menu, MenuButton, MenuItem } from "monday-ui-react-core"
 import { Add, Duplicate, Delete } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { TaskPreview } from "./TaskPreview";
+import { utilService } from "../services/util.service";
 
 export function GroupPreview({ boardId, group, onSaveBoard, progress }) {
     // DELETE THIS LINES WHEN GIVEN CURRECT PROP
-    const cmpsOrder = ['Members', 'Status', 'Priority', 'Date']
-    const labels = ["Members", "Status", "Priority", "Timeline"];
+    const cmpsOrder = ['Members', 'Status', 'Priority', 'DueDate']
+    const labels = ["Members", "Status", "Priority", "Due Date"];
 
     const { style, tasks, title } = group
 
@@ -46,7 +47,7 @@ export function GroupPreview({ boardId, group, onSaveBoard, progress }) {
                     <div className="title-col table-header grid align-center justify-center"><span>Item</span></div>
 
                     {labels.map((label, idx) => (
-                        <div key={idx} className={`${label.toLowerCase()}-col table-header grid align-center justify-center`}><span>{label}</span></div>
+                        <div key={idx} className={`${utilService.formatString(label)}-col table-header grid align-center justify-center`}><span>{label}</span></div>
                     ))}
 
                     <div className="col-end table-header grid align-center">
