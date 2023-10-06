@@ -24,6 +24,8 @@ export function TaskPreview({ boardId, groupId, task, cmpsOrder, onSaveBoard, on
                 </MenuButton>
             </div>
             <div key={task.id} className="task-preview table-grid middle">
+                <div className="side"></div>
+                <div className="checkbox grid"><input type="checkbox" /></div>
                 <TaskTitle boardId={boardId} task={task} onSaveBoard={onSaveBoard} />
                 {cmpsOrder.map((cmp, idx) => (
                     <DynamicCmp key={idx} boardId={boardId} cmpType={cmp} info={task[utilService.lowercaseFirstLetter(cmp)]} onSaveBoard={onSaveBoard} />
