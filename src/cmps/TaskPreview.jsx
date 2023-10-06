@@ -13,7 +13,7 @@ import { utilService } from "../services/util.service";
 export function TaskPreview({ board, group, task, onSaveBoard, onDuplicate, onRemove }) {
 
     return (
-        <>
+        <div className="task-preview main-layout full">
             <div className="start grid align-center justify-center">
                 <MenuButton className="board-menu">
                     <Menu id="menu" size="large">
@@ -36,7 +36,7 @@ export function TaskPreview({ board, group, task, onSaveBoard, onDuplicate, onRe
                         onSaveBoard={onSaveBoard} />
                 ))}
             </div>
-        </>
+        </div>
     )
 }
 
