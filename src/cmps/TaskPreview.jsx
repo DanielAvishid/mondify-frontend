@@ -28,21 +28,26 @@ export function TaskPreview({ board, group, task, onSaveBoard, onDuplicate, onRe
                 <div className="checkbox grid"><input type="checkbox" /></div>
                 <TaskTitle boardId={board._id} task={task} onSaveBoard={onSaveBoard} />
                 {board.cmpsOrder.map((cmp, idx) => (
-                    <DynamicCmp key={idx} boardId={board._id} cmpType={cmp} info={task[utilService.lowercaseFirstLetter(cmp)]} onSaveBoard={onSaveBoard} />
+                    <DynamicCmp
+                        key={idx}
+                        board={board}
+                        cmpType={cmp}
+                        info={task[utilService.lowercaseFirstLetter(cmp)]}
+                        onSaveBoard={onSaveBoard} />
                 ))}
             </div>
         </>
     )
 }
 
-const DynamicCmp = ({ boardId, cmpType, info, onSaveBoard }) => {
+const DynamicCmp = ({ board, cmpType, info, onSaveBoard }) => {
     // NEED TO ADD BOARD ID AND ON SAVE BOARD TO THE CMPS PROPS
 
     switch (cmpType) {
         case "Priority":
-            return <Priority info={info} />;
+            return <Priority info={info} board={board} onSaveBoard={onSaveBoard} />;
         case "Status":
-            return <Status info={info} />;
+            return <Status info={info} board={board} onSaveBoard={onSaveBoard} />;
         case "Members":
             return <Members info={info} />;
         case "DueDate":
