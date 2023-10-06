@@ -22,6 +22,7 @@ export function AppIndex() {
     }
 
     async function onDuplicate({ boardId, groupId, taskId }) {
+        console.log( boardId, groupId, taskId);
         try {
             await duplicate({ boardId, groupId, taskId })
         } catch (err) {

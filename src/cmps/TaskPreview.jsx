@@ -8,7 +8,7 @@ import { DateCmp } from "./dynamicCmps/Date";
 import { Duplicate, Delete } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { Menu, MenuButton, MenuItem } from "monday-ui-react-core";
 
-export function TaskPreview({ boardId, task, cmpsOrder, onSaveBoard }) {
+export function TaskPreview({ boardId, groupId, task, cmpsOrder, onSaveBoard, onDuplicate, onRemove }) {
 
 
     return (
@@ -16,10 +16,9 @@ export function TaskPreview({ boardId, task, cmpsOrder, onSaveBoard }) {
             <div className="start grid align-center justify-center">
                 <MenuButton className="board-menu">
                     <Menu id="menu" size="large">
-                        <MenuItem icon={Duplicate} title="Duplicate Boarder" />
-                        <MenuItem icon={Delete} title="Delete" />
-                        {/* <MenuItem icon={Duplicate} title="Duplicate Boarder" onClick={() => onDuplicate({ boardId: board._id })} />
-                        <MenuItem icon={Delete} title="Delete" onClick={() => onRemove({ boardId: board._id })} /> */}
+                        {/* <MenuItem icon={Duplicate} title="Duplicate Boarder" /> */}
+                        <MenuItem icon={Duplicate} title="Duplicate Boarder" onClick={() => onDuplicate({ boardId,groupId, taskId: task.id })} />
+                        <MenuItem icon={Delete} title="Delete" onClick={() => onRemove({ boardId, taskId: task.id })} />
                     </Menu>
                 </MenuButton>
             </div>

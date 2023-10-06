@@ -2,7 +2,7 @@ import { EditableHeading, IconButton, Menu, MenuButton, MenuItem } from "monday-
 import { Add, Duplicate, Delete } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { TaskPreview } from "./TaskPreview";
 
-export function GroupPreview({ boardId, group, onSaveBoard, progress }) {
+export function GroupPreview({ boardId, group, onSaveBoard, progress, onRemove, onDuplicate }) {
     // DELETE THIS LINES WHEN GIVEN CURRECT PROP
     const cmpsOrder = ['Members', 'Status', 'Priority', 'Date']
     const labels = ["Members", "Status", "Priority", "Timeline"];
@@ -21,10 +21,9 @@ export function GroupPreview({ boardId, group, onSaveBoard, progress }) {
             <div className="start grid justify-center">
                 <MenuButton className="board-menu">
                     <Menu id="menu" size="large">
-                        <MenuItem icon={Duplicate} title="Duplicate Boarder" />
-                        <MenuItem icon={Delete} title="Delete" />
-                        {/* <MenuItem icon={Duplicate} title="Duplicate Boarder" onClick={() => onDuplicate({ boardId: board._id })} />
-                        <MenuItem icon={Delete} title="Delete" onClick={() => onRemove({ boardId: board._id })} /> */}
+                        {/* <MenuItem icon={Duplicate} title="Duplicate Boarder" /> */}
+                        <MenuItem icon={Duplicate} title="Duplicate Boarder" onClick={() => onDuplicate({ boardId, groupId: group.id })} />
+                        <MenuItem icon={Delete} title="Delete" onClick={() => onRemove({ boardId, groupId: group.id })} />
                     </Menu>
                 </MenuButton>
             </div>
@@ -53,9 +52,8 @@ export function GroupPreview({ boardId, group, onSaveBoard, progress }) {
                         <IconButton icon={Add} kind={IconButton.kinds.TERTIARY} ariaLabel="Add Column" size={IconButton.sizes.SMALL} />
                     </div>
                 </div>
-
                 {tasks.map((task) => (
-                    <TaskPreview key={task.id} boardId={boardId} task={task} cmpsOrder={cmpsOrder} onSaveBoard={onSaveBoard} />
+                    <TaskPreview key={task.id} boardId={boardId} groupId={group.id} task={task} cmpsOrder={cmpsOrder} onSaveBoard={onSaveBoard} onDuplicate={onDuplicate} onRemove={onRemove} />
                 ))}
 
             </section>

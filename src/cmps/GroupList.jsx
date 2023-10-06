@@ -14,7 +14,14 @@ export function GroupList() {
     return (
         <section className="group-list main-layout full">
             {groups.map((group) => (
-                <GroupPreview key={group.id} boardId={board._id} group={group} onSaveBoard={onSaveBoard} />
+                <GroupPreview 
+                key={group.id} 
+                boardId={board._id} 
+                group={group} 
+                onSaveBoard={onSaveBoard}
+                onDuplicate={onDuplicate}
+                onRemove={onRemove}
+                 />
             ))}
             <div className="middle">
                 <Button kind={Button.kinds.SECONDARY} leftIcon={Add}>Add new group</Button>

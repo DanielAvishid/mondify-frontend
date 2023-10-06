@@ -55,8 +55,7 @@ async function remove({ board, boardId, groupId, taskId }) {
         })
         board = { ...board, groups: groupsToSave }        
     } else if (groupId) {
-        const groupIdx = board.groups.findIndex((group) => group.id === groupId)
-        board.groups.splice(groupIdx, 1)
+        board.groups = board.groups.filter((group) => group.id !== groupId)
     } else {
         return await storageService.remove(STORAGE_KEY, boardId)
     }
@@ -123,12 +122,15 @@ async function duplicate({ boardId, groupId, taskId }) {
     console.log(boardId, 'SERVICE')
     if (taskId) {
         const groupIdx = board.groups.findIndex((group) => group.id === groupId)
-        const task = board.groups[groupIdx].tasks.find((task) => task.id === taskId)
+        const task ={... board.groups[groupIdx].tasks.find((task) => task.id === taskId)}
         task.id = utilService.makeId()
-        task.title += '(copy)'
+        task.TaskTitle += '(copy)'
+        console.log(task);
         board.groups[groupIdx].tasks.push(task)
     } else if (groupId) {
-        const group = board.groups.find(group => group.id === groupId)
+        const group ={... board.groups.find(group => group.id === groupId)}
+        console.log(group)
+        group.tasks = group.tasks.map(task => ({...task, id:utilService.makeId()}))
         group.id = utilService.makeId()
         group.title = 'Duplicate of ' + group.title
         board.groups.push(group)

@@ -81,7 +81,7 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemove, onSaveBoard,
                         </MenuButton>
                     </div>}
                     <TabList className="tab-list">
-                        <Tab tabInnerClassName='tab' icon={Home}>Main Table</Tab>
+                        <Tab tabInnerClassName='tab' icon={Home}>Main Table </Tab>
                         <Tab>Kanban</Tab>
                     </TabList>
                     <MenuButton className="menu-button" component={AddSmall} size={MenuButton.sizes.SMALL}>
