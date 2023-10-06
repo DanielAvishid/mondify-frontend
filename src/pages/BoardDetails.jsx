@@ -7,7 +7,7 @@ import { boardService } from "../services/board.service";
 
 export function BoardDetails() {
     const boards = useSelector(storeState => storeState.boardModule.boards)
-    const [onDuplicate, onRemove] = useOutletContext()
+    const [onSaveBoard, onDuplicate, onRemove] = useOutletContext()
     const [board, setBoard] = useState(null)
     const { boardId } = useParams()
     const navigate = useNavigate()
@@ -24,17 +24,6 @@ export function BoardDetails() {
             console.log('Had issues in board details', err)
             console.log('ShowErrorMsg')
             navigate('/board')
-        }
-    }
-
-    async function onSaveBoard({ board, boardId, groupId, taskId, key, value }) {
-        try {
-            const boardToSave = await saveBoard({ board, boardId, groupId, taskId, key, value })
-            setBoard(boardToSave)
-            console.log('ShowSuccsesMsg')
-        } catch (err) {
-            console.log('Had issues in board details', err)
-            console.log('ShowErrorMsg')
         }
     }
 

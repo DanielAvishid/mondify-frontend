@@ -1,7 +1,7 @@
 .title-cell {
     grid-template-columns: 5.625fr 1fr;
 
-    &>:nth-child(2) {
+    &>.chat-cell {
         height: 100%;
         border-inline-start: 1px solid gray;
     }
@@ -20,7 +20,7 @@
     }
 }
 
-.timeline-cell {
+.due-date-cell {
     & div {
         display: grid;
         align-items: center;
