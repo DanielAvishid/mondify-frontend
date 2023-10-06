@@ -244,10 +244,10 @@ function getEmptyGroup() {
     }
 }
 
-function getEmptyTask() {
+function getEmptyTask(title = 'New Item') {
     return {
         id: utilService.makeId(),
-        title: "New Item",
+        title,
         status: "Done",
         priority: "Critical",
         members: ["UjCos"],

@@ -2,6 +2,7 @@ import { EditableHeading, IconButton, Menu, MenuButton, MenuItem } from "monday-
 import { Add, Duplicate, Delete } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { TaskPreview } from "./TaskPreview";
 import { utilService } from "../services/util.service";
+import { boardService } from "../services/board.service";
 
 export function GroupPreview({ boardId, group, onSaveBoard, progress, onRemove, onDuplicate }) {
     // DELETE THIS LINES WHEN GIVEN CURRECT PROP
@@ -9,6 +10,14 @@ export function GroupPreview({ boardId, group, onSaveBoard, progress, onRemove, 
     const labels = ["Members", "Status", "Priority", "Due Date"];
 
     const { style, tasks, title } = group
+
+    function onAddTask(title) {
+        if (title === '') return
+        const newTask = boardService.getEmptyTask(title)
+        const value = [...group.tasks, newTask]
+        console.log({ boardId, groupId: group.id, key: 'tasks', value, title })
+        onSaveBoard({ boardId, groupId: group.id, key: 'tasks', value })
+    }
 
     function handleKeyPress(ev) {
         if (ev.key === 'Enter') {
@@ -78,12 +87,11 @@ export function GroupPreview({ boardId, group, onSaveBoard, progress, onRemove, 
                     <div className="grid justify-center align-center">
                         <EditableHeading
                             type={EditableHeading.types.h5}
-                            value={"+Add Item"}
+                            placeholder={"+Add Item"}
                             tooltip='Click to Edit'
                             tooltipPosition="bottom"
                             customColor="#323338"
-                        // onBlur={(ev) => onSaveBoard({ key: 'TaskTitle', value: ev.target.value, boardId, taskId })}
-                        // onKeyDown={handleKeyPress}
+                            onFinishEditing={onAddTask}
                         />
                     </div>
                 </div>
