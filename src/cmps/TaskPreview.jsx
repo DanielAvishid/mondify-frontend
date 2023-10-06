@@ -23,7 +23,7 @@ export function TaskPreview({ boardId, groupId, task, cmpsOrder, onSaveBoard, on
                 </MenuButton>
             </div>
             <div key={task.id} className="task-preview table-grid middle">
-                <TaskTitle boardId={boardId} title={task.TaskTitle} taskId={task.id} onSaveBoard={onSaveBoard} />
+                <TaskTitle boardId={boardId} task ={task} onSaveBoard={onSaveBoard} />
                 {cmpsOrder.map((cmp, idx) => (
                     <DynamicCmp key={idx} boardId={boardId} cmpType={cmp} info={task[cmp]} onSaveBoard={onSaveBoard} />
                 ))}

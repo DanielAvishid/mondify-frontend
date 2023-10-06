@@ -1,8 +1,11 @@
-import { EditableHeading, IconButton } from "monday-ui-react-core"
-import { AddUpdate } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
+import { Counter, EditableHeading, Icon, IconButton } from "monday-ui-react-core"
+import { AddUpdate, Update } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { useNavigate } from "react-router"
 
-export function TaskTitle({ boardId, title, taskId, onSaveBoard }) {
+export function TaskTitle({ boardId, task, onSaveBoard }) {
+    const { id: taskId, updates, TaskTitle } = task
+    console.log(updates
+    );
 
     function handleKeyPress(ev) {
         if (ev.key === 'Enter') {
@@ -17,7 +20,7 @@ export function TaskTitle({ boardId, title, taskId, onSaveBoard }) {
             <div>
                 <EditableHeading
                     type={EditableHeading.types.h5}
-                    value={title}
+                    value={TaskTitle}
                     tooltip='Click to Edit'
                     tooltipPosition="bottom"
                     customColor="#323338"
@@ -26,12 +29,12 @@ export function TaskTitle({ boardId, title, taskId, onSaveBoard }) {
                 />
             </div>
             <div className="grid align-center justify-center">
-                <IconButton
-                    icon={AddUpdate}
-                    kind={IconButton.kinds.TERTIARY}
-                    ariaLabel="Start conversation"
-                    size={IconButton.sizes.SMALL}
-                    onClick={() => navigate(`task/${taskId}`)} />
+                {(!updates || updates.length < 1) ?
+                    <Icon icon={AddUpdate} iconSize="36" ariaLabel="Start conversation" onClick={() => navigate(`task/${taskId}`)} /> :
+                    <div onClick={() => navigate(`task/${taskId}`)}>
+                        <Icon icon={Update} iconSize="36" ariaLabel="Start conversation" />
+                        <Counter count={updates.length} />
+                    </div>}
             </div>
         </div>
     )
