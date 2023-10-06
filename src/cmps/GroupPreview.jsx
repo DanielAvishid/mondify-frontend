@@ -35,7 +35,7 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, on
                 </MenuButton>
             </div>
 
-            <div>
+            <div className="group-title grid align-center">
                 <EditableHeading
                     type={EditableHeading.types.h4}
                     value={title}

@@ -1,5 +1,15 @@
 .group-preview {
 
+    margin-block-end: 2.5rem;
+
+    &:first-child {
+        margin-block-start: 1rem;
+    }
+
+    .group-title {
+        height: 2.5rem;
+    }
+
     .table-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill) 1fr;
