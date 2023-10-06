@@ -1,9 +1,9 @@
 .app-index {
     display: grid;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: 5vh 95vh;
     height: 100vh;
     background-color: $grey-background-color;
-    overflow-x: hidden;
+    overflow-y: hidden;
 
     .main-container {
         display: grid;

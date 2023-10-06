@@ -3,7 +3,12 @@
 
     &>.chat-cell {
         height: 100%;
-        border-inline-start: 1px solid gray;
+        border-inline-start: 1px solid $primary-background-hover-color;
+
+        &:hover {
+            color: $primary-color;
+
+        }
     }
 }
 

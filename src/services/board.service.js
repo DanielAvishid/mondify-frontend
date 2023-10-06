@@ -255,7 +255,7 @@ function getEmptyBoard() {
                     },
 
                 ],
-                "style": {}
+                "style": {backgroundImage: "#579BFC"}
             },
             {
                 "id": utilService.makeId(),
@@ -279,11 +279,13 @@ function getEmptyBoard() {
                         "members": [],
                     },
                 ],
-                "style": {}
+                "style": {backgroundImage: "#A25DDC"}
             }
         ],
         activities: [],
-        cmpsOrder: ["Members", "Status", 'Priority', "Date"]
+        cmpsOrder: ["Members", "Status", 'Priority', "DueDate"],
+        cmpsOrder: ["Members", "Status", 'Priority', "DueDate"],
+
     }
 }
 
@@ -493,7 +495,7 @@ function _createBoard() {
             }
         ],
 
-        cmpsOrder: ["Members", "Status", 'Priority', "Date"]
+        cmpsOrder: ["Members", "Status", 'Priority', "DueDate"]
     }
     addBoard(board)
 }

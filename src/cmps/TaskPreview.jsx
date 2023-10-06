@@ -24,7 +24,7 @@ export function TaskPreview({ board, group, task, onSaveBoard, onDuplicate, onRe
                 </MenuButton>
             </div>
             <div key={task.id} className="task-preview table-grid middle">
-                <div className="side"></div>
+                <div className="side" style={{ backgroundColor: group.style.backgroundImage }}></div>
                 <div className="checkbox grid"><input type="checkbox" /></div>
                 <TaskTitle boardId={board._id} task={task} onSaveBoard={onSaveBoard} />
                 {board.cmpsOrder.map((cmp, idx) => (

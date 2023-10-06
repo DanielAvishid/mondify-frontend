@@ -29,7 +29,6 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, on
             <div className="start grid justify-center">
                 <MenuButton className="board-menu">
                     <Menu id="menu" size="large">
-                        {/* <MenuItem icon={Duplicate} title="Duplicate Boarder" /> */}
                         <MenuItem icon={Duplicate} title="Duplicate this group" onClick={() => onDuplicate({ boardId: board._id, groupId: group.id })} />
                         <MenuItem icon={Delete} title="Delete" onClick={() => onRemove({ boardId: board._id, groupId: group.id })} />
                     </Menu>
@@ -42,7 +41,7 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, on
                     value={title}
                     tooltip='Click to Edit'
                     tooltipPosition="bottom"
-                    customColor="#323338"
+                    customColor={group.style.backgroundImage}
                     onBlur={(ev) => onSaveBoard({ key: 'title', value: ev.target.value, boardId: board._id, groupId: group.id })}
                     onKeyDown={handleKeyPress}
                 />
@@ -50,7 +49,7 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, on
 
             <section className="main-layout full">
                 <div className="table-header table-grid middle">
-                    <div className="side"></div>
+                    <div className="side first" style={{ backgroundColor: group.style.backgroundImage }}></div>
                     <div className="checkbox grid"><input type="checkbox" /></div>
                     <div className="title-col grid align-center justify-center"><span>Item</span></div>
 
@@ -76,9 +75,9 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, on
                         onRemove={onRemove} />
                 ))}
 
-                <div className="start"></div>
+                <div className="start" ></div>
                 <div className="add-task table-grid middle">
-                    <div className="side"></div>
+                    <div className="side" style={{ backgroundColor: group.style.backgroundImage, opacity: 0.6 }}></div>
                     <div className="checkbox grid"><input type="checkbox" /></div>
                     <div className="grid justify-center align-center">
                         <EditableHeading

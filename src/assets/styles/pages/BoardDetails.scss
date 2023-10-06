@@ -3,4 +3,15 @@
     padding-block-start: rem(20px);
     background-color: $primary-background-color;
     border-top-left-radius: rem(8px);
+    overflow-y: auto;
+    // white-space: nowrap;
+
+    &::-webkit-scrollbar {
+        position: absolute;
+        width: 12px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgb(204, 204, 204);
+    }
 }
