@@ -49,9 +49,9 @@ const DynamicCmp = ({ board, cmpType, info, onSaveBoard }) => {
         case "Status":
             return <Status info={info} board={board} onSaveBoard={onSaveBoard} />;
         case "Members":
-            return <Members info={info} />;
+            return <Members info={info} board={board} onSaveBoard={onSaveBoard} />;
         case "DueDate":
-            return <DueDate info={info} />
+            return <DueDate info={info} board={board} onSaveBoard={onSaveBoard} />
         default:
             break;
     }
