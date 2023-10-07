@@ -53,7 +53,7 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, on
                 <Droppable droppableId="task" type="group">
                     {(provided) => (
                         <div {...provided.droppableProps} ref={provided.innerRef} className=" main-layout full">
-                            <div className="table-header table-grid middle">
+                            <div className="table-header table-grid table">
                                 <div className="side first" style={{ backgroundColor: group.style.backgroundColor }}></div>
                                 <div className="checkbox grid"><input type="checkbox" /></div>
                                 <div className="title-col grid align-center justify-center"><span>Item</span></div>

@@ -23,7 +23,7 @@ export function TaskPreview({ board, group, task, onSaveBoard, onDuplicate, onRe
                     </Menu>
                 </MenuButton>
             </div>
-            <div key={task.id} className="task-preview table-grid middle">
+            <div key={task.id} className="task-preview table-grid table">
                 <div className="side" style={{ backgroundColor: group.style.backgroundColor }}></div>
                 <div className="checkbox grid"><input type="checkbox" /></div>
                 <TaskTitle boardId={board._id} task={task} onSaveBoard={onSaveBoard} />
