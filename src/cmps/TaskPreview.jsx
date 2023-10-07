@@ -13,7 +13,7 @@ import { utilService } from "../services/util.service";
 export function TaskPreview({ board, group, task, onSaveBoard, onDuplicate, onRemove }) {
 
     return (
-        <div className="task-preview main-layout full">
+        <>
             <div className="start grid align-center justify-center">
                 <MenuButton className="board-menu">
                     <Menu id="menu" size="large">
@@ -24,20 +24,19 @@ export function TaskPreview({ board, group, task, onSaveBoard, onDuplicate, onRe
                 </MenuButton>
             </div>
             <div key={task.id} className="task-preview table-grid middle">
-                <div className="side" style={{ backgroundColor: group.style.backgroundColor }}></div>
+                <div className="side" style={{ backgroundColor: group.style.backgroundImage }}></div>
                 <div className="checkbox grid"><input type="checkbox" /></div>
                 <TaskTitle boardId={board._id} task={task} onSaveBoard={onSaveBoard} />
                 {board.cmpsOrder.map((cmp, idx) => (
                     <DynamicCmp
                         key={idx}
                         board={board}
-                        cmpType={cmp.type}
-                        info={task[cmp.type]}
+                        cmpType={cmp}
+                        info={task[utilService.lowercaseFirstLetter(cmp)]}
                         onSaveBoard={onSaveBoard} />
                 ))}
-                <div className="last-col"></div>
             </div>
-        </div>
+        </>
     )
 }
 
@@ -45,14 +44,14 @@ const DynamicCmp = ({ board, cmpType, info, onSaveBoard }) => {
     // NEED TO ADD BOARD ID AND ON SAVE BOARD TO THE CMPS PROPS
 
     switch (cmpType) {
-        case "priority":
+        case "Priority":
             return <Priority info={info} board={board} onSaveBoard={onSaveBoard} />;
-        case "status":
+        case "Status":
             return <Status info={info} board={board} onSaveBoard={onSaveBoard} />;
-        case "members":
-            return <Members info={info} board={board} onSaveBoard={onSaveBoard} />;
-        case "dueDate":
-            return <DueDate info={info} board={board} onSaveBoard={onSaveBoard} />
+        case "Members":
+            return <Members info={info} />;
+        case "DueDate":
+            return <DueDate info={info} />
         default:
             break;
     }
