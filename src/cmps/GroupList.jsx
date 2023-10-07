@@ -23,7 +23,6 @@ export function GroupList() {
     }
 
     function handleOnDragEnd(result) {
-        console.log(result);
         if (!result.destination) return;
         const value = [...groups]
         const group = value.splice(result.source.index, 1)[0];
@@ -33,7 +32,6 @@ export function GroupList() {
     }
 
     return (
-
         <>
             <DragDropContext onDragEnd={handleOnDragEnd}>
                 <Droppable droppableId="group" type="group">
@@ -74,8 +72,8 @@ export function GroupList() {
                 </Droppable>
             </DragDropContext>
             <Outlet />
-        </ >
-    );
+        </>
+    )
 }
 
 function _createBoardDemo() {

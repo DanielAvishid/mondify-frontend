@@ -4,11 +4,17 @@ import { TaskPreview } from "./TaskPreview";
 import { utilService } from "../services/util.service";
 import { boardService } from "../services/board.service";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { useEffect, useState } from "react";
 
 export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, onDuplicate }) {
     // DELETE THIS LINES WHEN GIVEN CURRECT PROP
 
-    const { style, tasks, title } = group
+    const { style, title } = group
+    const [tasks, setTasks] = useState(group.tasks)
+
+    useEffect(() => {
+        setTasks(group.tasks)
+    }, [group])
 
     function onAddTask(title) {
         if (title === '') return
@@ -23,6 +29,18 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, on
             ev.target.blur()
         }
     }
+
+    function handleOnDragEnd(result) {
+        console.log(result);
+        if (!result.destination) return;
+        const value = [...tasks]
+        const task = value.splice(result.source.index, 1)[0];
+        value.splice(result.destination.index, 0, task)
+        console.log(value);
+        onSaveBoard({ boardId: board._id, groupId: group.id, key: 'tasks', value })
+        setTasks(value)
+    }
+
 
     return (
         <section className="group-preview main-layout full grid align-center justify-center">
@@ -49,7 +67,7 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, on
                 </div>
             </div>
 
-            <DragDropContext >
+            <DragDropContext onDragEnd={handleOnDragEnd}>
                 <Droppable droppableId="task" type="group">
                     {(provided) => (
                         <div {...provided.droppableProps} ref={provided.innerRef} className=" main-layout full">

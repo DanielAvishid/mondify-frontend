@@ -2,7 +2,6 @@ import { utilService } from "../../services/util.service";
 
 export function DueDate({ info, board, onSaveBoard }) {
     const { text, percentage } = utilService.getDateToShow(info)
-    console.log(text, percentage);
 
     return (
         <div className="duedate-cell duedate-col grid align-center justify-center">
