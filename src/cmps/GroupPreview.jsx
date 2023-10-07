@@ -55,7 +55,7 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, on
                     <div className="title-col grid align-center justify-center"><span>Item</span></div>
 
                     {board.cmpsOrder.map((label, idx) => (
-                        <div key={idx} className={`${utilService.formatString(label)}-col grid align-center justify-center`}>
+                        <div key={idx} className={`${label.toLowerCase()}-col grid align-center justify-center`}>
                             <span>{label}</span>
                         </div>
                     ))}
