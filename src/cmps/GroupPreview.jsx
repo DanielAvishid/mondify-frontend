@@ -42,7 +42,7 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, on
                         value={title}
                         tooltip='Click to Edit'
                         tooltipPosition="bottom"
-                        customColor={group.style.backgroundImage}
+                        customColor={group.style.backgroundColor}
                         onBlur={(ev) => onSaveBoard({ key: 'title', value: ev.target.value, boardId: board._id, groupId: group.id })}
                         onKeyDown={handleKeyPress}
                     />
@@ -54,13 +54,13 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, on
                     {(provided) => (
                         <div {...provided.droppableProps} ref={provided.innerRef} className=" main-layout full">
                             <div className="table-header table-grid middle">
-                                <div className="side first" style={{ backgroundColor: group.style.backgroundImage }}></div>
+                                <div className="side first" style={{ backgroundColor: group.style.backgroundColor }}></div>
                                 <div className="checkbox grid"><input type="checkbox" /></div>
                                 <div className="title-col grid align-center justify-center"><span>Item</span></div>
 
                                 {board.cmpsOrder.map((cmp, idx) => (
-                                    <div key={idx} className={`${cmp.toLowerCase()}-col grid align-center justify-center`}>
-                                        <span>{cmp}</span>
+                                    <div key={idx} className={`${cmp.type}-col grid align-center justify-center`}>
+                                        <span>{cmp.title}</span>
                                     </div>
                                 ))}
 
@@ -93,7 +93,7 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, on
                             <div className="add-task main-layout full">
                                 <div className="start"></div>
                                 <div className="table-grid middle">
-                                    <div className="side" style={{ backgroundColor: group.style.backgroundImage, opacity: 0.6 }}></div>
+                                    <div className="side" style={{ backgroundColor: group.style.backgroundColor, opacity: 0.6 }}></div>
                                     <div className="checkbox grid"><input type="checkbox" /></div>
                                     <div className="grid justify-center align-center">
                                         <EditableHeading

@@ -24,15 +24,15 @@ export function TaskPreview({ board, group, task, onSaveBoard, onDuplicate, onRe
                 </MenuButton>
             </div>
             <div key={task.id} className="task-preview table-grid middle">
-                <div className="side" style={{ backgroundColor: group.style.backgroundImage }}></div>
+                <div className="side" style={{ backgroundColor: group.style.backgroundColor }}></div>
                 <div className="checkbox grid"><input type="checkbox" /></div>
                 <TaskTitle boardId={board._id} task={task} onSaveBoard={onSaveBoard} />
                 {board.cmpsOrder.map((cmp, idx) => (
                     <DynamicCmp
                         key={idx}
                         board={board}
-                        cmpType={cmp}
-                        info={task[utilService.lowercaseFirstLetter(cmp)]}
+                        cmpType={cmp.type}
+                        info={task[cmp.type]}
                         onSaveBoard={onSaveBoard} />
                 ))}
                 <div className="last-col"></div>
@@ -45,13 +45,13 @@ const DynamicCmp = ({ board, cmpType, info, onSaveBoard }) => {
     // NEED TO ADD BOARD ID AND ON SAVE BOARD TO THE CMPS PROPS
 
     switch (cmpType) {
-        case "Priority":
+        case "priority":
             return <Priority info={info} board={board} onSaveBoard={onSaveBoard} />;
-        case "Status":
+        case "status":
             return <Status info={info} board={board} onSaveBoard={onSaveBoard} />;
-        case "Members":
+        case "members":
             return <Members info={info} board={board} onSaveBoard={onSaveBoard} />;
-        case "DueDate":
+        case "dueDate":
             return <DueDate info={info} board={board} onSaveBoard={onSaveBoard} />
         default:
             break;
