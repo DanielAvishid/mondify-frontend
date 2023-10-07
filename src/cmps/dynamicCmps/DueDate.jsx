@@ -1,13 +1,8 @@
 import { utilService } from "../../services/util.service";
 
-<<<<<<< HEAD
-export function DueDate({ info }) {
-    const {text, percentage} = utilService.getDateToShow(info)
-=======
 export function DueDate({ info, board, onSaveBoard }) {
     const { text, percentage } = utilService.getDateToShow(info)
     console.log(text, percentage);
->>>>>>> F/due-date-cmp
 
     return (
         <div className="duedate-cell duedate-col grid align-center justify-center">
