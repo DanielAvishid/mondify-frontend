@@ -26,7 +26,7 @@ export function GroupList() {
         console.log(result);
         if (!result.destination) return;
         const value = [...groups]
-        const group =  value.splice(result.source.index, 1)[0];
+        const group = value.splice(result.source.index, 1)[0];
         value.splice(result.destination.index, 0, group)
         onSaveBoard({ boardId: board._id, key: 'groups', value })
         setGroups(value)
@@ -34,16 +34,16 @@ export function GroupList() {
 
     return (
 
-        <section className="group-list main-layout full">
+        <>
             <DragDropContext onDragEnd={handleOnDragEnd}>
                 <Droppable droppableId="group" type="group">
                     {(provided) => (
-                        <div {...provided.droppableProps} ref={provided.innerRef} className=" main-layout full">
+                        <div {...provided.droppableProps} ref={provided.innerRef} className="group-list main-layout full">
                             {groups.map((group, index) => (
                                 <Draggable draggableId={group.id} index={index} key={group.id}>
                                     {(provided) => (
                                         <article
-                                            className=" main-layout full"
+                                            className="full"
                                             {...provided.dragHandleProps}
                                             {...provided.draggableProps}
                                             ref={provided.innerRef}
@@ -61,23 +61,20 @@ export function GroupList() {
                                 </Draggable>
                             ))}
                             {provided.placeholder}
+                            <div className="middle">
+                                <Button
+                                    kind={Button.kinds.SECONDARY}
+                                    leftIcon={Add}
+                                    onClick={onAddGroup}>
+                                    Add new group
+                                </Button>
+                            </div>
                         </div>
                     )}
                 </Droppable>
             </DragDropContext>
-
-
-            <div className="middle">
-                <Button
-                    kind={Button.kinds.SECONDARY}
-                    leftIcon={Add}
-                    onClick={onAddGroup}>
-                    Add new group
-                </Button>
-            </div>
-
             <Outlet />
-        </section>
+        </ >
     );
 }
 
