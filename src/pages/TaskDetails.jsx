@@ -63,7 +63,7 @@ export function TaskDetails() {
         }
     }
 
-    function onRemoveUpdate(updates){
+    function onRemoveUpdate(updates) {
         const value = task.updates.filter(update => update.id !== updates)
         try {
             saveBoard({ key: 'updates', value, boardId, taskId })
@@ -166,7 +166,7 @@ export function TaskDetails() {
                 </article>
             </section>}
 
-            {(updates && updates.length>0) && <section className="updates-container">
+            {(updates && updates.length > 0) && <section className="updates-container">
                 {updates.map(update => <article className="update-txt" key={update.id}>
                     <article className="flex align-center justify-between">
                         <div className="flex align-center">
@@ -178,7 +178,7 @@ export function TaskDetails() {
                             <Link ariaLabel={"member"} text={utilService.getTimePassed(update.at)} />
                             <MenuButton >
                                 <Menu id="menu" size="large">
-                                    <MenuItem icon={Delete} title="Delete update" onClick={()=>onRemoveUpdate(update.id)} />
+                                    <MenuItem icon={Delete} title="Delete update" onClick={() => onRemoveUpdate(update.id)} />
                                 </Menu>
                             </MenuButton>
                         </div>
