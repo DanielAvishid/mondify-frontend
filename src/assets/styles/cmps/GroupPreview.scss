@@ -17,14 +17,6 @@
         grid-auto-flow: column;
         height: 2.25rem;
 
-        // &:first-child {
-        //     border-top-left-radius: 5px;
-        // }
-
-        // &:last-child {
-        //     border-bottom-left-radius: 5px;
-        // }
-
         :first-child {
             border: none;
         }
@@ -96,7 +88,6 @@
         border-block-start: 1px solid $primary-background-hover-color;
 
         .side {
-            background-color: gray;
             width: 0.375rem;
             border-bottom-left-radius: 5px;
         }

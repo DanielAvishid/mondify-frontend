@@ -3,8 +3,9 @@ import { Button, Icon, Menu, MenuButton, MenuItem, MenuTitle, Search, SplitButto
 import { Home, MyWeek, Filter, Board, Duplicate, Gantt, Delete, Add, DropdownChevronDown, DropdownChevronLeft, DropdownChevronRight } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { useState } from "react";
 import { boardService } from "../services/board.service";
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
-export function AppSidebar({ boards, onSaveBoard, onDuplicate, onRemove }) {
+export function AppSidebar({ boards, onSaveBoard, onDuplicate, onRemove, updateBoards }) {
     const navigate = useNavigate()
     const [showSidebar, setShowSidebar] = useState(true)
 
@@ -17,8 +18,15 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicate, onRemove }) {
         setShowSidebar(!showSidebar)
     }
 
+    function handleOnDragEnd(result) {
+        if (!result.destination) return;
+        const newBoards = [...boards]
+        const board =  newBoards.splice(result.source.index, 1)[0];
+        newBoards.splice(result.destination.index, 0, board)
+        updateBoards(newBoards)
+    }
+
     console.log(boards);
-    // if (!boards.length) return <div>loading..</div>
     return (
         <section className="app-sidebar flex column">
             <button className="close-btn" onClick={toggleSidebar}>
@@ -50,27 +58,69 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicate, onRemove }) {
                     </Button></span>
                 </article>
                 <Button leftIcon={Gantt} kind="tertiary" className="test_board btn">Test_board</Button>
-                {boards.length > 0 && boards.map(board =>
-                    <article key={board._id} className="flex align-center justify-between board-label">
-                        <Button
-                            key={board._id}
-                            onClick={() => navigate(`/board/${board._id}`)}
-                            leftIcon={Board}
-                            kind="tertiary"
-                            className="board btn">
-                            {board.title}
 
-                        </Button>
-                        <MenuButton className="board-menu">
-                            <Menu id="menu" size="large">
-                                <MenuItem icon={Duplicate} title="Duplicate Boarder" onClick={() => onDuplicate({ boardId: board._id })} />
-                                <MenuItem icon={Delete} title="Delete" onClick={() => onRemove({ boardId: board._id })} />
-                            </Menu>
-                        </MenuButton>
-                    </article>
-                )}
-
+                <DragDropContext onDragEnd={handleOnDragEnd}>
+                    <Droppable droppableId="board" type="group">
+                        {(provided) => (
+                            <div {...provided.droppableProps} ref={provided.innerRef}>
+                                {boards.length > 0 && boards.map((board, index) => (
+                                    <Draggable draggableId={board._id} index={index} key={board._id}>
+                                        {(provided) => (
+                                            <article
+                                                className="flex align-center justify-between board-label"
+                                                {...provided.dragHandleProps}
+                                                {...provided.draggableProps}
+                                                ref={provided.innerRef}
+                                            >
+                                                <Button
+                                                    key={board._id}
+                                                    onClick={() => navigate(`/board/${board._id}`)}
+                                                    leftIcon={Board}
+                                                    kind="tertiary"
+                                                    className="board btn">
+                                                    {board.title}
+                                                </Button>
+                                                <MenuButton className="board-menu">
+                                                    <Menu id="menu" size="large">
+                                                        <MenuItem icon={Duplicate} title="Duplicate Boarder" onClick={() => onDuplicate({ boardId: board._id })} />
+                                                        <MenuItem icon={Delete} title="Delete" onClick={() => onRemove({ boardId: board._id })} />
+                                                    </Menu>
+                                                </MenuButton>
+                                            </article>
+                                        )}
+                                    </Draggable>
+                                ))}
+                                {provided.placeholder}
+                            </div>
+                        )}
+                    </Droppable>
+                </DragDropContext>
             </section>
         </section >
     )
 }
+
+
+
+
+
+// {
+//     boards.length > 0 && boards.map(board =>
+//         <article key={board._id} className="flex align-center justify-between board-label">
+//             <Button
+//                 key={board._id}
+//                 onClick={() => navigate(`/board/${board._id}`)}
+//                 leftIcon={Board}
+//                 kind="tertiary"
+//                 className="board btn">
+//                 {board.title}
+//             </Button>
+//             <MenuButton className="board-menu">
+//                 <Menu id="menu" size="large">
+//                     <MenuItem icon={Duplicate} title="Duplicate Boarder" onClick={() => onDuplicate({ boardId: board._id })} />
+//                     <MenuItem icon={Delete} title="Delete" onClick={() => onRemove({ boardId: board._id })} />
+//                 </Menu>
+//             </MenuButton>
+//         </article>
+//     )
+// }

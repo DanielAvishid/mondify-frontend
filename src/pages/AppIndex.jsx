@@ -4,6 +4,8 @@ import { AppSidebar } from "../cmps/AppSidebar";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { duplicate, loadBoards, remove, saveBoard } from "../store/actions/board.action";
+import { SET_BOARDS } from "../store/reducers/board.reducer";
+import { store } from "../store/store";
 
 export function AppIndex() {
 
@@ -51,14 +53,18 @@ export function AppIndex() {
         }
     }
 
+    function updateBoards(boards) {
+        store.dispatch({ type: SET_BOARDS, boards })
+    }
+
     console.log(boards)
 
     return (
         <section className="app-index">
             <AppHeader />
             <section className="main-container">
-                <AppSidebar boards={boards} onDuplicate={onDuplicate} onRemove={onRemove} onSaveBoard={onSaveBoard} />
-                <Outlet context={[ onSaveBoard, onDuplicate, onRemove]} />
+                <AppSidebar boards={boards} onDuplicate={onDuplicate} onRemove={onRemove} onSaveBoard={onSaveBoard} updateBoards={updateBoards} />
+                <Outlet context={[onSaveBoard, onDuplicate, onRemove]} />
             </section>
         </section>
     )

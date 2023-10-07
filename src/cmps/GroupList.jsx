@@ -3,9 +3,16 @@ import { GroupPreview } from "./GroupPreview"
 import { Add } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { Button } from "monday-ui-react-core";
 import { boardService } from "../services/board.service";
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { useEffect, useState } from "react";
 
 export function GroupList() {
     const [board, onSaveBoard, onDuplicate, onRemove] = useOutletContext()
+    const [groups, setGroups] = useState(board.groups)
+
+    useEffect(() => {
+        setGroups(board.groups)
+    }, [board])
 
     // const demoBoard = _createBoardDemo()
     // console.log(demoBoard);
@@ -15,19 +22,51 @@ export function GroupList() {
         onSaveBoard({ boardId: board._id, key: 'groups', value })
     }
 
-    const groups = board.groups
+    function handleOnDragEnd(result) {
+        console.log(result);
+        if (!result.destination) return;
+        const value = [...groups]
+        const group =  value.splice(result.source.index, 1)[0];
+        value.splice(result.destination.index, 0, group)
+        onSaveBoard({ boardId: board._id, key: 'groups', value })
+        setGroups(value)
+    }
+
     return (
+
         <section className="group-list main-layout full">
-            {groups.map((group) => (
-                <GroupPreview
-                    key={group.id}
-                    board={board}
-                    group={group}
-                    onSaveBoard={onSaveBoard}
-                    onDuplicate={onDuplicate}
-                    onRemove={onRemove}
-                />
-            ))}
+            <DragDropContext onDragEnd={handleOnDragEnd}>
+                <Droppable droppableId="group" type="group">
+                    {(provided) => (
+                        <div {...provided.droppableProps} ref={provided.innerRef} className=" main-layout full">
+                            {groups.map((group, index) => (
+                                <Draggable draggableId={group.id} index={index} key={group.id}>
+                                    {(provided) => (
+                                        <article
+                                            className=" main-layout full"
+                                            {...provided.dragHandleProps}
+                                            {...provided.draggableProps}
+                                            ref={provided.innerRef}
+                                        >
+                                            <GroupPreview
+                                                // key={group.id}
+                                                board={board}
+                                                group={group}
+                                                onSaveBoard={onSaveBoard}
+                                                onDuplicate={onDuplicate}
+                                                onRemove={onRemove}
+                                            />
+                                        </article>
+                                    )}
+                                </Draggable>
+                            ))}
+                            {provided.placeholder}
+                        </div>
+                    )}
+                </Droppable>
+            </DragDropContext>
+
+
             <div className="middle">
                 <Button
                     kind={Button.kinds.SECONDARY}

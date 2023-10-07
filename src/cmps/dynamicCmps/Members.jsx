@@ -1,6 +1,5 @@
 export function Members({ info }) {
     const membersIds = info
-    console.log(membersIds);
     return (
         <div className="members-cell members-col grid align-center justify-center">
             {membersIds.length > 0 ? membersIds.map((memberId) => (

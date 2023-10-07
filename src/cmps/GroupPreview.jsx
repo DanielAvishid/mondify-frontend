@@ -3,6 +3,7 @@ import { Add, Duplicate, Delete } from "/node_modules/monday-ui-react-core/src/c
 import { TaskPreview } from "./TaskPreview";
 import { utilService } from "../services/util.service";
 import { boardService } from "../services/board.service";
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, onDuplicate }) {
     // DELETE THIS LINES WHEN GIVEN CURRECT PROP
@@ -63,17 +64,53 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, on
                         <IconButton icon={Add} kind={IconButton.kinds.TERTIARY} ariaLabel="Add Column" size={IconButton.sizes.SMALL} />
                     </div>
                 </div>
+                
+                    <div className="main-layout full ">
+                        {tasks.map((task) => (
+                            <article className="full ">
+                                <TaskPreview
+                                    key={task.id}
+                                    board={board}
+                                    group={group}
+                                    task={task}
+                                    onSaveBoard={onSaveBoard}
+                                    onDuplicate={onDuplicate}
+                                    onRemove={onRemove} />
+                            </article>
+                        ))}
+                    </div>  
+               
+                {/* <DragDropContext >
+                    <Droppable droppableId="task" type="group">
+                        {(provided) => (
+                            <div {...provided.droppableProps} ref={provided.innerRef} className=" main-layout full">
+                                {tasks.map((task, index) => (
+                                    <Draggable draggableId={task.id} index={index} key={task.id}>
+                                        {(provided) => (
+                                            <article
+                                                className=" main-layout full"
+                                                {...provided.dragHandleProps}
+                                                {...provided.draggableProps}
+                                                ref={provided.innerRef}
+                                            >
+                                                <TaskPreview
+                                                    key={task.id}
+                                                    board={board}
+                                                    group={group}
+                                                    task={task}
+                                                    onSaveBoard={onSaveBoard}
+                                                    onDuplicate={onDuplicate}
+                                                    onRemove={onRemove} />
+                                            </article>
+                                        )}
+                                    </Draggable>
+                                ))}
+                                {provided.placeholder}
+                            </div>
+                        )}
+                    </Droppable>
+                </DragDropContext> */} 
 
-                {tasks.map((task) => (
-                    <TaskPreview
-                        key={task.id}
-                        board={board}
-                        group={group}
-                        task={task}
-                        onSaveBoard={onSaveBoard}
-                        onDuplicate={onDuplicate}
-                        onRemove={onRemove} />
-                ))}
 
                 <div className="start" ></div>
                 <div className="add-task table-grid middle">
@@ -95,3 +132,6 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, on
         </section>
     )
 }
+
+
+
