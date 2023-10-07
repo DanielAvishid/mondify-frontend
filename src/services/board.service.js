@@ -255,7 +255,7 @@ function getEmptyBoard() {
                     },
 
                 ],
-                "style": {backgroundImage: "#579BFC"}
+                "style": { backgroundImage: "#579BFC" }
             },
             {
                 "id": utilService.makeId(),
@@ -279,7 +279,7 @@ function getEmptyBoard() {
                         "members": [],
                     },
                 ],
-                "style": {backgroundImage: "#A25DDC"}
+                "style": { backgroundImage: "#A25DDC" }
             }
         ],
         activities: [],
@@ -309,10 +309,6 @@ function getEmptyTask(title = 'New Item') {
         Date: [1696280400000, 1679040000000]
     }
 }
-
-
-
-
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 function _createBoard() {
@@ -411,7 +407,7 @@ function _createBoard() {
                         "members": ["DOGWC", "UjCos"],
                     }
                 ],
-                "style": {}
+                "style": { "backgroundColor": "#0073ea" }
             },
             {
                 "id": "g102",
@@ -467,11 +463,11 @@ function _createBoard() {
                             "imgUrl": "https://hips.hearstapps.com/hmg-prod/images/happy-dog-outdoors-royalty-free-image-1652927740.jpg?crop=0.447xw:1.00xh;0.187xw,0&resize=980:*"
                         },
                         "style": {
-                            "backgroundColor": "#26de81"
+                            "backgroundColor": "#a25ddc"
                         }
                     }
                 ],
-                "style": {}
+                "style": { "backgroundColor": "#a25ddc" }
             }
         ],
         activities: [
@@ -495,7 +491,28 @@ function _createBoard() {
             }
         ],
 
-        cmpsOrder: ["Members", "Status", 'Priority', "DueDate"]
+        cmpsOrder: [
+            {
+                "id": "co101",
+                "title": "Members",
+                "type": "members"
+            },
+            {
+                "id": "co102",
+                "title": "Status",
+                "type": "status"
+            },
+            {
+                "id": "co103",
+                "title": "Priority",
+                "type": "priority"
+            },
+            {
+                "id": "co104",
+                "title": "Date",
+                "type": "dueDate"
+            }
+        ]
     }
     addBoard(board)
 }
