@@ -5,6 +5,7 @@ import { utilService } from "../services/util.service";
 import { boardService } from "../services/board.service";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { useEffect, useState } from "react";
+import { ProgressBar } from "./ProgressBar";
 
 export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, onDuplicate }) {
     // DELETE THIS LINES WHEN GIVEN CURRECT PROP
@@ -44,48 +45,52 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, on
 
     return (
         <section className="group-preview main-layout full grid align-center justify-center">
-            <div className="group-header main-layout full">
-                <div className="start grid justify-center">
-                    <MenuButton className="board-menu">
-                        <Menu id="menu" size="large">
-                            <MenuItem icon={Duplicate} title="Duplicate this group" onClick={() => onDuplicate({ boardId: board._id, groupId: group.id })} />
-                            <MenuItem icon={Delete} title="Delete" onClick={() => onRemove({ boardId: board._id, groupId: group.id })} />
-                        </Menu>
-                    </MenuButton>
-                </div>
-
-                <div className="group-title grid align-center">
-                    <EditableHeading
-                        type={EditableHeading.types.h4}
-                        value={title}
-                        tooltip='Click to Edit'
-                        tooltipPosition="bottom"
-                        customColor={group.style.backgroundImage}
-                        onBlur={(ev) => onSaveBoard({ key: 'title', value: ev.target.value, boardId: board._id, groupId: group.id })}
-                        onKeyDown={handleKeyPress}
-                    />
-                </div>
-            </div>
-
             <DragDropContext onDragEnd={handleOnDragEnd}>
                 <Droppable droppableId="task" type="group">
                     {(provided) => (
                         <div {...provided.droppableProps} ref={provided.innerRef} className=" main-layout full">
-                            <div className="table-header table-grid table">
-                                <div className="side first" style={{ backgroundColor: group.style.backgroundColor }}></div>
-                                <div className="checkbox grid"><input type="checkbox" /></div>
-                                <div className="title-col grid align-center justify-center"><span>Item</span></div>
+                            <div className="group-header main-layout full">
 
-                                {board.cmpsOrder.map((cmp, idx) => (
-                                    <div key={idx} className={`${cmp.type}-col grid align-center justify-center`}>
-                                        <span>{cmp.title}</span>
+                                <div className="title-header main-layout full">
+                                    <div className="start grid justify-center">
+                                        <MenuButton className="board-menu">
+                                            <Menu id="menu" size="large">
+                                                <MenuItem icon={Duplicate} title="Duplicate this group" onClick={() => onDuplicate({ boardId: board._id, groupId: group.id })} />
+                                                <MenuItem icon={Delete} title="Delete" onClick={() => onRemove({ boardId: board._id, groupId: group.id })} />
+                                            </Menu>
+                                        </MenuButton>
                                     </div>
-                                ))}
 
-                                <div className="last-col grid align-center">
-                                    <IconButton icon={Add} kind={IconButton.kinds.TERTIARY} ariaLabel="Add Column" size={IconButton.sizes.SMALL} />
+                                    <div className="table grid align-center">
+                                        <EditableHeading
+                                            type={EditableHeading.types.h4}
+                                            value={title}
+                                            tooltip='Click to Edit'
+                                            tooltipPosition="bottom"
+                                            customColor={group.style.backgroundColor}
+                                            onBlur={(ev) => onSaveBoard({ key: 'title', value: ev.target.value, boardId: board._id, groupId: group.id })}
+                                            onKeyDown={handleKeyPress}
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="table-header table-grid table">
+                                    <div className="side first" style={{ backgroundColor: group.style.backgroundColor }}></div>
+                                    <div className="checkbox grid"><input type="checkbox" /></div>
+                                    <div className="title-col grid align-center justify-center"><span>Item</span></div>
+
+                                    {board.cmpsOrder.map((cmp, idx) => (
+                                        <div key={idx} className={`${cmp.type}-col grid align-center justify-center`}>
+                                            <span>{cmp.title}</span>
+                                        </div>
+                                    ))}
+
+                                    <div className="last-col grid align-center">
+                                        <IconButton icon={Add} kind={IconButton.kinds.TERTIARY} ariaLabel="Add Column" size={IconButton.sizes.SMALL} />
+                                    </div>
                                 </div>
                             </div>
+
                             {tasks.map((task, index) => (
                                 <Draggable draggableId={task.id} index={index} key={task.id}>
                                     {(provided) => (
@@ -108,23 +113,25 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, on
                                 </Draggable>
                             ))}
                             {provided.placeholder}
-                            <div className="main-layout full">
-                                <div className="start"></div>
-                                <div className="add-task table-grid table">
-                                    <div className="side" style={{ backgroundColor: group.style.backgroundColor, opacity: 0.6 }}></div>
-                                    <div className="checkbox grid"><input type="checkbox" /></div>
-                                    <div className="title-col grid align-center">
-                                        <EditableHeading
-                                            type={EditableHeading.types.h5}
-                                            placeholder={"+Add Item"}
-                                            tooltip='Click to Edit'
-                                            tooltipPosition="bottom"
-                                            customColor="#323338"
-                                            onFinishEditing={onAddTask}
-                                        />
+
+                            <div className="group-footer full">
+                                <div className="main-layout full">
+                                    <div className="add-task table-grid table">
+                                        <div className="side" style={{ backgroundColor: group.style.backgroundColor, opacity: 0.6 }}></div>
+                                        <div className="checkbox grid"><input type="checkbox" /></div>
+                                        <div className="title-col grid align-center">
+                                            <EditableHeading
+                                                type={EditableHeading.types.h5}
+                                                placeholder={"+Add Item"}
+                                                tooltip='Click to Edit'
+                                                tooltipPosition="bottom"
+                                                customColor="#323338"
+                                                onFinishEditing={onAddTask}
+                                            />
+                                        </div>
                                     </div>
+                                    <ProgressBar board={board} group={group} />
                                 </div>
-                                <div className="last-col"></div>
                             </div>
                         </div>
                     )}

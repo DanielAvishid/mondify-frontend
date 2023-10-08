@@ -1,17 +1,19 @@
 .group-preview {
     position: relative;
-    margin-block-end: 2.5rem;
 
-    &:first-child {
-        margin-block-start: 1rem;
+    >:first-of-type {
+        padding-block-start: 1rem;
     }
 
     .group-header {
-        height: 2.5rem;
         position: sticky;
         top: 0;
         background-color: $primary-background-color;
         z-index: 1;
+
+        .table-header {
+            border-block-start: 1px solid $primary-background-hover-color;
+        }
     }
 
     .table-grid {
@@ -21,22 +23,28 @@
         grid-auto-flow: column;
         height: 2.25rem;
 
-        &:first-of-type {
-            border-block-start: 1px solid $primary-background-hover-color;
-        }
-
         >* {
             border-block-end: 1px solid $primary-background-hover-color;
             border-inline-end: 1px solid $primary-background-hover-color;
-            height: 100%;
         }
 
         .side {
-            border: none;
+            border: 0;
             width: 0.375rem;
 
             &.first {
                 border-top-left-radius: 5px;
+            }
+        }
+
+        .checkbox {
+            width: 2rem;
+            padding-inline-start: 0.5rem;
+
+            >input {
+                width: 1rem;
+                margin: 0;
+                padding: 0;
             }
         }
 
@@ -62,8 +70,12 @@
 
         .last-col {
             min-width: 4.25rem;
-            border-inline-end: none;
         }
+
+        &>:last-child {
+            border-inline-end: 0;
+        }
+
     }
 
     .start {
@@ -80,17 +92,15 @@
         }
     }
 
-    .add-task {
-        border-block-end: 1px solid $primary-background-hover-color;
+    .group-footer {
         width: 100vw;
+        height: 6.25rem;
 
-        >.title-col {
-            border: 0;
+        .add-task {
+            >.side {
+                border-bottom-left-radius: 5px;
+            }
         }
-
-        >.side {
-            border-bottom-left-radius: 5px;
-        }
-
     }
+
 }

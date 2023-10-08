@@ -1,0 +1,14 @@
+.progress-bar {
+
+    // >* {
+    //     border: 1px 0 1px 1px solid $primary-background-hover-color;
+    // }
+
+
+    >.side,
+    >.checkbox,
+    >.title-col {
+        border-block-end: 0;
+        border-inline-end: 0;
+    }
+}

@@ -35,6 +35,7 @@ export function TaskPreview({ board, group, task, onSaveBoard, onDuplicate, onRe
                         info={task[cmp.type]}
                         onSaveBoard={onSaveBoard} />
                 ))}
+                <div className="last-col"></div>
             </div>
         </>
     )
