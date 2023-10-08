@@ -71,8 +71,8 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, on
                 <Droppable droppableId="task" type="group">
                     {(provided) => (
                         <div {...provided.droppableProps} ref={provided.innerRef} className=" main-layout full">
-                            <div className="table-header table-grid middle">
-                                <div className="side first" style={{ backgroundColor: group.style.backgroundImage }}></div>
+                            <div className="table-header table-grid table">
+                                <div className="side first" style={{ backgroundColor: group.style.backgroundColor }}></div>
                                 <div className="checkbox grid"><input type="checkbox" /></div>
                                 <div className="title-col grid align-center justify-center"><span>Item</span></div>
 
@@ -108,12 +108,12 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, on
                                 </Draggable>
                             ))}
                             {provided.placeholder}
-                            <div className="add-task main-layout full">
+                            <div className="main-layout full">
                                 <div className="start"></div>
-                                <div className="table-grid middle">
-                                    <div className="side" style={{ backgroundColor: group.style.backgroundImage, opacity: 0.6 }}></div>
+                                <div className="add-task table-grid table">
+                                    <div className="side" style={{ backgroundColor: group.style.backgroundColor, opacity: 0.6 }}></div>
                                     <div className="checkbox grid"><input type="checkbox" /></div>
-                                    <div className="grid justify-center align-center">
+                                    <div className="title-col grid align-center">
                                         <EditableHeading
                                             type={EditableHeading.types.h5}
                                             placeholder={"+Add Item"}
@@ -124,6 +124,7 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, on
                                         />
                                     </div>
                                 </div>
+                                <div className="last-col"></div>
                             </div>
                         </div>
                     )}
