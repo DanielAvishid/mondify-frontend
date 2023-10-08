@@ -1,13 +1,17 @@
 .group-preview {
-
+    position: relative;
     margin-block-end: 2.5rem;
 
     &:first-child {
         margin-block-start: 1rem;
     }
 
-    .group-title {
+    .group-header {
         height: 2.5rem;
+        position: sticky;
+        top: 0;
+        background-color: $primary-background-color;
+        z-index: 1;
     }
 
     .table-grid {
@@ -17,18 +21,18 @@
         grid-auto-flow: column;
         height: 2.25rem;
 
-        :first-child {
-            border: none;
+        &:first-of-type {
+            border-block-start: 1px solid $primary-background-hover-color;
         }
 
         >* {
-            border-block-start: 1px solid $primary-background-hover-color;
-            border-right: 1px solid $primary-background-hover-color;
+            border-block-end: 1px solid $primary-background-hover-color;
+            border-inline-end: 1px solid $primary-background-hover-color;
             height: 100%;
         }
 
         .side {
-            // background-color: gray;
+            border: none;
             width: 0.375rem;
 
             &.first {
@@ -62,13 +66,6 @@
         }
     }
 
-    >.main-layout {
-
-        >* {
-            height: 2.25rem;
-        }
-    }
-
     .start {
         width: 100%;
         opacity: 0;
@@ -85,31 +82,15 @@
 
     .add-task {
         border-block-end: 1px solid $primary-background-hover-color;
-        border-block-start: 1px solid $primary-background-hover-color;
+        width: 100vw;
 
-        .side {
-            width: 0.375rem;
+        >.title-col {
+            border: 0;
+        }
+
+        >.side {
             border-bottom-left-radius: 5px;
         }
 
-        :last-child {
-            border: none;
-        }
     }
-
-    // >.m2 {
-    //     height: 2rem;
-    // }
-
-    // & .left-border-container {
-    //     background-color: blue;
-    //     grid-column: 1;
-    //     width: 0.375rem;
-    // }
-
-    // & .check-row {
-    //     grid-column: 1;
-    //     width: 2rem;
-    //     border-inline-start: 6px solid blue;
-    // }
 }

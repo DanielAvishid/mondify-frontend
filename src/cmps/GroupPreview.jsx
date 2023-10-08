@@ -90,12 +90,12 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, on
                                 </Draggable>
                             ))}
                             {provided.placeholder}
-                            <div className="add-task main-layout full">
+                            <div className="main-layout full">
                                 <div className="start"></div>
-                                <div className="table-grid middle">
+                                <div className="add-task table-grid table">
                                     <div className="side" style={{ backgroundColor: group.style.backgroundColor, opacity: 0.6 }}></div>
                                     <div className="checkbox grid"><input type="checkbox" /></div>
-                                    <div className="grid justify-center align-center">
+                                    <div className="title-col grid align-center">
                                         <EditableHeading
                                             type={EditableHeading.types.h5}
                                             placeholder={"+Add Item"}
@@ -106,6 +106,7 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, on
                                         />
                                     </div>
                                 </div>
+                                <div className="last-col"></div>
                             </div>
                         </div>
                     )}
