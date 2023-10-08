@@ -31,8 +31,8 @@ export function TaskPreview({ board, group, task, onSaveBoard, onDuplicate, onRe
                     <DynamicCmp
                         key={idx}
                         board={board}
-                        cmpType={cmp}
-                        info={task[utilService.lowercaseFirstLetter(cmp)]}
+                        cmpType={cmp.type}
+                        info={task[cmp.type]}
                         onSaveBoard={onSaveBoard} />
                 ))}
             </div>
@@ -44,13 +44,13 @@ const DynamicCmp = ({ board, cmpType, info, onSaveBoard }) => {
     // NEED TO ADD BOARD ID AND ON SAVE BOARD TO THE CMPS PROPS
 
     switch (cmpType) {
-        case "Priority":
+        case "priority":
             return <Priority info={info} board={board} onSaveBoard={onSaveBoard} />;
-        case "Status":
+        case "status":
             return <Status info={info} board={board} onSaveBoard={onSaveBoard} />;
-        case "Members":
+        case "members":
             return <Members info={info} />;
-        case "DueDate":
+        case "dueDate":
             return <DueDate info={info} />
         default:
             break;
