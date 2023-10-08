@@ -5,7 +5,7 @@ export function ProgressBar({ board, group }) {
             <div className="checkbox"></div>
             <div className="title-col"></div>
             {board.cmpsOrder.map((cmp, idx) => (
-                <div key={idx} className={`${cmp.type}-col grid align-center justify-center`}>
+                <div key={idx} className={`${cmp.type}-col progress-cell grid align-center justify-center`}>
                     <span>{cmp.title}</span>
                 </div>
             ))}

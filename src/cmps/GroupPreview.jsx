@@ -129,6 +129,7 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, on
                                                 onFinishEditing={onAddTask}
                                             />
                                         </div>
+                                        <div className="last-col"></div>
                                     </div>
                                     <ProgressBar board={board} group={group} />
                                 </div>

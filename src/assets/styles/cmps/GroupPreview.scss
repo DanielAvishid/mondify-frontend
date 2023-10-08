@@ -9,7 +9,7 @@
         position: sticky;
         top: 0;
         background-color: $primary-background-color;
-        z-index: 1;
+        z-index: 10;
 
         .table-header {
             border-block-start: 1px solid $primary-background-hover-color;
@@ -22,6 +22,7 @@
         justify-content: start;
         grid-auto-flow: column;
         height: 2.25rem;
+        min-width: 100vw;
 
         >* {
             border-block-end: 1px solid $primary-background-hover-color;
@@ -69,13 +70,9 @@
         }
 
         .last-col {
+            border-inline-end: 0;
             min-width: 4.25rem;
         }
-
-        &>:last-child {
-            border-inline-end: 0;
-        }
-
     }
 
     .start {
@@ -97,6 +94,12 @@
         height: 6.25rem;
 
         .add-task {
+            border-block-end: 1px solid $primary-background-hover-color;
+
+            >* {
+                border: 0;
+            }
+
             >.side {
                 border-bottom-left-radius: 5px;
             }
