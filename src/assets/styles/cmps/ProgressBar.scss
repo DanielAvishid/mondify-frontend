@@ -3,13 +3,10 @@
     >.side,
     >.checkbox,
     >.title-col {
-        border-block-end: 0;
-        border-inline-end: 0;
+        border: none;
     }
 
-    >.progress-cell {
-        >&:first-of-type {
-            border-inline-start: 1px solid $primary-background-hover-color;
-        }
+    :nth-child(4) {
+        border-bottom-left-radius: 5px;
     }
 }

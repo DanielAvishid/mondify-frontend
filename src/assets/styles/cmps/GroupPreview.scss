@@ -26,7 +26,7 @@
 
         >* {
             border-block-end: 1px solid $primary-background-hover-color;
-            border-inline-end: 1px solid $primary-background-hover-color;
+            border-inline-start: 1px solid $primary-background-hover-color;
         }
 
         .side {
@@ -39,6 +39,7 @@
         }
 
         .checkbox {
+            border-inline-start: 0;
             width: 2rem;
             padding-inline-start: 0.5rem;
 
@@ -70,7 +71,6 @@
         }
 
         .last-col {
-            border-inline-end: 0;
             min-width: 4.25rem;
         }
     }
