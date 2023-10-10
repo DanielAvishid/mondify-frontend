@@ -9,6 +9,7 @@ export function ProgressBar({ board, group }) {
                     <span>{cmp.title}</span>
                 </div>
             ))}
+            <div className="last-col"></div>
         </div>
     )
 }
