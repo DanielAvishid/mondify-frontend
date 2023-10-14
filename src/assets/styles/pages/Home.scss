@@ -1,5 +1,56 @@
-// 
+.home-page {
 
-body {
-    background-color: antiquewhite;
+    button {
+        font-size: 0.813rem;
+        min-width: 8.125rem;
+        min-height: 2.5rem;
+        border-radius: 2.5rem;
+        border: none;
+        color: $white;
+        background-color: $button-purple;
+        margin-inline-start: 1rem;
+        gap: 0.5rem;
+        font-family: Poppins, sans-serif;
+        line-height: 17px;
+    }
+
+    >header {
+        // width: 100%;
+        padding: 0 2rem;
+        height: 4.5rem;
+
+        a {
+            font-size: 0.875rem;
+            color: $a-color;
+            padding: 0.5rem 0.625rem;
+        }
+    }
+
+    .first-container {
+        h1 {
+            font-size: 4.5rem;
+            font-weight: 600;
+            margin-block-end: 1rem;
+        }
+
+        h2 {
+            font-size: 1.375rem;
+            font-weight: 300;
+        }
+
+        button {
+            margin-inline-start: 0;
+            font-size: 1rem;
+            margin-block-end: 1rem;
+            font-weight: 400;
+            gap: 0.625rem;
+            min-width: 10.75rem;
+            min-height: 3.125rem;
+        }
+
+        p {
+            font-size: 0.813rem;
+            font-weight: 300;
+        }
+    }
 }
