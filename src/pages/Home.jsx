@@ -1,6 +1,7 @@
 import { Icon } from "monday-ui-react-core"
 import { useNavigate } from "react-router-dom"
 import { MoveArrowRight } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
+import imgUrl from '../assets/img/monday-img.png'
 
 
 
@@ -31,7 +32,44 @@ export function Home() {
                 </div>
 
                 <div className="flex justify-center align-center column">
-                    {/* <span>--Topics--</span> */}
+                    <div className="flex">
+                        <div className="selectable-cluster flex align-center column">
+                            <div className="cluster-img">
+                                <img src={imgUrl} />
+                            </div>
+                            <span>Sales & CRM</span>
+                        </div>
+                        <div className="selectable-cluster flex align-center column">
+                            <div className="cluster-img">
+                                <img src={imgUrl} />
+                            </div>
+                            <span>Creative & design</span>
+                        </div>
+                        <div className="selectable-cluster flex align-center column">
+                            <div className="cluster-img">
+                                <img src={imgUrl} />
+                            </div>
+                            <span>Software development</span>
+                        </div>
+                        <div className="selectable-cluster flex align-center column">
+                            <div className="cluster-img">
+                                <img src={imgUrl} />
+                            </div>
+                            <span>Project management</span>
+                        </div>
+                        <div className="selectable-cluster flex align-center column">
+                            <div className="cluster-img">
+                                <img src={imgUrl} />
+                            </div>
+                            <span>Task management</span>
+                        </div>
+                        <div className="selectable-cluster flex align-center column">
+                            <div className="cluster-img">
+                                <img src={imgUrl} />
+                            </div>
+                            <span>Marketing</span>
+                        </div>
+                    </div>
                     <div>
                         <button className="flex align-center justify-center" onClick={() => navigate('/board/#')}>
                             <span>Get Started</span>

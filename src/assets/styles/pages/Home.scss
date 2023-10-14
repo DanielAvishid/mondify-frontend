@@ -31,6 +31,7 @@
             font-size: 4.5rem;
             font-weight: 600;
             margin-block-end: 1rem;
+            line-height: 5.313rem;
         }
 
         h2 {
@@ -51,6 +52,28 @@
         p {
             font-size: 0.813rem;
             font-weight: 300;
+        }
+
+        .selectable-cluster {
+            height: 7.625rem;
+            width: 7.625rem;
+            border-radius: 0.5rem;
+            border: 1px solid $selectable-cluster-border;
+            padding: 0.5rem 0.5rem 1rem 0.5rem;
+            margin: 0.5rem;
+            font-weight: 300;
+            transition: 0.1s;
+            text-align: center;
+
+            .cluster-img {
+                margin-block-start: 1rem;
+                width: 2.5rem;
+                height: 2.5rem;
+            }
+
+            &:hover {
+                border: 1px solid $button-purple;
+            }
         }
     }
 }
