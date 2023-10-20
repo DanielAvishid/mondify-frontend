@@ -2,6 +2,7 @@ import { Icon } from "monday-ui-react-core"
 import { useNavigate } from "react-router-dom"
 import { MoveArrowRight } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import imgUrl from '../assets/img/monday-img.png'
+import { useState } from "react"
 
 
 
@@ -32,42 +33,48 @@ export function Home() {
                 </div>
 
                 <div className="flex justify-center align-center column">
-                    <div className="flex">
+                    <div className="cluster-container flex relative">
                         <div className="selectable-cluster flex align-center column">
+                            <div className="checkbox"></div>
                             <div className="cluster-img">
                                 <img src={imgUrl} />
                             </div>
-                            <span>Sales & CRM</span>
+                            <p>Sales & CRM</p>
                         </div>
                         <div className="selectable-cluster flex align-center column">
+                            <div className="checkbox"></div>
                             <div className="cluster-img">
                                 <img src={imgUrl} />
                             </div>
-                            <span>Creative & design</span>
+                            <p>Creative & design</p>
                         </div>
                         <div className="selectable-cluster flex align-center column">
+                            <div className="checkbox"></div>
                             <div className="cluster-img">
                                 <img src={imgUrl} />
                             </div>
-                            <span>Software development</span>
+                            <p>Software development</p>
                         </div>
                         <div className="selectable-cluster flex align-center column">
+                            <div className="checkbox"></div>
                             <div className="cluster-img">
                                 <img src={imgUrl} />
                             </div>
-                            <span>Project management</span>
+                            <p>Project management</p>
                         </div>
                         <div className="selectable-cluster flex align-center column">
+                            <div className="checkbox"></div>
                             <div className="cluster-img">
                                 <img src={imgUrl} />
                             </div>
-                            <span>Task management</span>
+                            <p>Task management</p>
                         </div>
                         <div className="selectable-cluster flex align-center column">
+                            <div className="checkbox"></div>
                             <div className="cluster-img">
                                 <img src={imgUrl} />
                             </div>
-                            <span>Marketing</span>
+                            <p>Marketing</p>
                         </div>
                     </div>
                     <div>
@@ -76,7 +83,7 @@ export function Home() {
                             <Icon icon={MoveArrowRight} iconSize="18" />
                         </button>
                     </div>
-                    <p>No credit card needed   ✦    Unlimited time on Free plan</p>
+                    <p className="small-words">No credit card needed   ✦    Unlimited time on Free plan</p>
                 </div>
 
             </div>

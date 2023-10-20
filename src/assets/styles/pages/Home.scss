@@ -27,6 +27,7 @@
     }
 
     .first-container {
+
         h1 {
             font-size: 4.5rem;
             font-weight: 600;
@@ -49,16 +50,23 @@
             min-height: 3.125rem;
         }
 
-        p {
+
+        .small-words {
             font-size: 0.813rem;
             font-weight: 300;
         }
 
+        .cluster-container {
+            margin-block-start: 3rem;
+            margin-block-end: 3.5rem;
+        }
+
         .selectable-cluster {
+            position: relative;
             height: 7.625rem;
             width: 7.625rem;
             border-radius: 0.5rem;
-            border: 1px solid $selectable-cluster-border;
+            border: 0.8px solid $selectable-cluster-border;
             padding: 0.5rem 0.5rem 1rem 0.5rem;
             margin: 0.5rem;
             font-weight: 300;
@@ -72,7 +80,27 @@
             }
 
             &:hover {
-                border: 1px solid $button-purple;
+                border: 0.8px solid $button-purple;
+
+                .checkbox {
+                    border: 0.8px solid $button-purple;
+                }
+            }
+
+            .checkbox {
+                position: absolute;
+                top: 8px;
+                left: 8px;
+                width: 1.25rem;
+                height: 1.25rem;
+                border-radius: 0.25rem;
+                border: 0.8px solid $selectable-cluster-border;
+                transition: 0.1s;
+            }
+
+            p {
+                font-size: 0.875rem;
+                color: $primary-text-color;
             }
         }
     }
