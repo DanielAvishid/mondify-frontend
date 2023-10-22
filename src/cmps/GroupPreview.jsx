@@ -81,7 +81,17 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, on
 
                                     {board.cmpsOrder.map((cmp, idx) => (
                                         <div key={idx} className={`${cmp.type}-col grid align-center justify-center`}>
-                                            <span>{cmp.title}</span>
+                                            <span>
+                                                <EditableHeading
+                                                    type={EditableHeading.types.h5}
+                                                    value={cmp.title}
+                                                    tooltip='Click to Edit'
+                                                    tooltipPosition="bottom"
+                                                // customColor={group.style.backgroundColor}
+                                                // onBlur={(ev) => onSaveBoard({ key: 'title', value: ev.target.value, boardId: board._id, groupId: group.id })}
+                                                // onKeyDown={handleKeyPress}
+                                                />
+                                            </span>
                                         </div>
                                     ))}
 
