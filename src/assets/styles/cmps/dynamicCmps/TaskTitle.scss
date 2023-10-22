@@ -4,7 +4,7 @@
 
     &>.chat-cell {
         height: 100%;
-        border-inline-start: 1px solid $primary-background-hover-color;
+        border-inline-start: 1px solid $table-border;
 
         &:hover {
             color: $primary-color;

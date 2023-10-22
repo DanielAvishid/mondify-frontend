@@ -1,3 +1,8 @@
 .task-preview {
+
+    &.checked {
+        background-color: $primary-selected-color;
+    }
+
     min-width: 100vw;
 }

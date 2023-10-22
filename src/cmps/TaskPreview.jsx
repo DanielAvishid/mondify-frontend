@@ -8,9 +8,13 @@ import { DueDate } from "./dynamicCmps/DueDate";
 import { Duplicate, Delete } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { Checkbox, Menu, MenuButton, MenuItem } from "monday-ui-react-core";
 import { utilService } from "../services/util.service";
+import { useState } from "react";
 
 
 export function TaskPreview({ board, group, task, onSaveBoard, onDuplicate, onRemove }) {
+
+    const [isChecked, setIsChecked] = useState(false)
+    console.log(isChecked);
 
     return (
         <>
@@ -23,9 +27,9 @@ export function TaskPreview({ board, group, task, onSaveBoard, onDuplicate, onRe
                     </Menu>
                 </MenuButton>
             </div>
-            <div key={task.id} className="task-preview table-grid table">
+            <div key={task.id} className={`task-preview table-grid table ${isChecked ? 'checked' : ''}`}>
                 <div className="side" style={{ backgroundColor: group.style.backgroundColor }}></div>
-                <div className="checkbox grid align-center"><Checkbox /></div>
+                <div className="checkbox grid align-center"><Checkbox onChange={() => setIsChecked(!isChecked)} /></div>
                 <TaskTitle boardId={board._id} task={task} onSaveBoard={onSaveBoard} />
                 {board.cmpsOrder.map((cmp, idx) => (
                     <DynamicCmp
