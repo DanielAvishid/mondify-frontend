@@ -1,6 +1,6 @@
 .label-modal {
     position: absolute;
-    z-index: 10;
+    z-index: 1000;
     max-width: 880px;
     min-width: 200px;
     top: 42px;
@@ -13,8 +13,113 @@
     .label-picker-content {
         margin-top: 8px;
         transition: height .15s ease;
+
+        .label-picker-view {
+            display: grid;
+            gap: 8px;
+            padding: 16px 24px 8px;
+            overflow-x: auto;
+            overflow-y: hidden;
+
+            .label-picker {
+                border: none;
+                width: 152px;
+                height: 32px;
+                color: #fff;
+                font-weight: 400;
+                cursor: pointer;
+                transition: transform .1s ease-in-out, opacity .1s ease-in-out;
+                position: relative;
+                font-size: 14px;
+
+                &:hover {
+                    opacity: .85;
+                }
+
+                &:active {
+                    transform: scale(.95);
+                }
+            }
+        }
+
+        .label-picker-edit {
+            display: grid;
+            gap: 8px;
+            align-items: center;
+            padding: 16px 12px 0px;
+            overflow-x: auto;
+            overflow-y: hidden;
+
+            .new-label-container {
+                text-align: center;
+
+                .add-btn {
+                    height: 32px;
+                    font-size: 14px;
+                }
+            }
+
+            .label-edit {
+                .icon {
+                    color: #676879;
+                }
+            }
+        }
+    }
+
+    .label-picker-footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding: 0 16px 8px 16px;
+
+        .divider {
+            margin: 8px 0 8px 0;
+            height: 1px;
+            width: 100%;
+        }
+
+        .edit-btn {
+            font-size: 14px;
+            width: 100%;
+            height: 32px;
+        }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // .label-modal-container {
 //     z-index: 10;
