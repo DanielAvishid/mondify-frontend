@@ -255,7 +255,7 @@ function getEmptyBoard() {
                     },
 
                 ],
-                "style": { backgroundImage: "#579BFC" }
+                "style": { "backgroundColor": "#579BFC" }
             },
             {
                 "id": utilService.makeId(),
@@ -279,7 +279,7 @@ function getEmptyBoard() {
                         "members": [],
                     },
                 ],
-                "style": { backgroundImage: "#A25DDC" }
+                "style": { "backgroundColor": "#A25DDC" }
             }
         ],
         activities: [],
