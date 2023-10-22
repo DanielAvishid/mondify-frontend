@@ -283,8 +283,29 @@ function getEmptyBoard() {
             }
         ],
         activities: [],
-        cmpsOrder: ["Members", "Status", 'Priority', "DueDate"],
-        cmpsOrder: ["Members", "Status", 'Priority', "DueDate"],
+
+        cmpsOrder: [
+            {
+                "id": "co101",
+                "title": "Members",
+                "type": "members"
+            },
+            {
+                "id": "co102",
+                "title": "Status",
+                "type": "status"
+            },
+            {
+                "id": "co103",
+                "title": "Priority",
+                "type": "priority"
+            },
+            {
+                "id": "co104",
+                "title": "Date",
+                "type": "dueDate"
+            }
+        ]
 
     }
 }
