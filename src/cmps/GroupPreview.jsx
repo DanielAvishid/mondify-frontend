@@ -1,4 +1,4 @@
-import { EditableHeading, Icon, IconButton, Menu, MenuButton, MenuItem } from "monday-ui-react-core"
+import { Checkbox, EditableHeading, Icon, IconButton, Menu, MenuButton, MenuItem } from "monday-ui-react-core"
 import { Add, Duplicate, Delete, DropdownChevronDown } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { TaskPreview } from "./TaskPreview";
 import { utilService } from "../services/util.service";
@@ -91,7 +91,7 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, on
 
                                 <div className="table-header table-grid table">
                                     <div className="side first" style={{ backgroundColor: group.style.backgroundColor }}></div>
-                                    <div className="checkbox grid"><input type="checkbox" /></div>
+                                    <div className="checkbox grid align-center"><Checkbox /></div>
                                     <div className="title-col grid align-center justify-center"><span>Item</span></div>
 
                                     {board.cmpsOrder.map((cmp, idx) => (
@@ -142,7 +142,7 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, on
                                 <div className="main-layout full">
                                     <div className="add-task table-grid table">
                                         <div className="side" style={{ backgroundColor: group.style.backgroundColor, opacity: 0.6 }}></div>
-                                        <div className="checkbox grid"><input type="checkbox" /></div>
+                                        <div className="checkbox grid align-center align-center"><Checkbox /></div>
                                         <div className="title-col grid align-center">
                                             <EditableHeading
                                                 type={EditableHeading.types.h5}

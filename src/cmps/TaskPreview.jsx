@@ -6,7 +6,7 @@ import { Members } from "./dynamicCmps/Members";
 import { DueDate } from "./dynamicCmps/DueDate";
 
 import { Duplicate, Delete } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
-import { Menu, MenuButton, MenuItem } from "monday-ui-react-core";
+import { Checkbox, Menu, MenuButton, MenuItem } from "monday-ui-react-core";
 import { utilService } from "../services/util.service";
 
 
@@ -25,7 +25,7 @@ export function TaskPreview({ board, group, task, onSaveBoard, onDuplicate, onRe
             </div>
             <div key={task.id} className="task-preview table-grid table">
                 <div className="side" style={{ backgroundColor: group.style.backgroundColor }}></div>
-                <div className="checkbox grid"><input type="checkbox" /></div>
+                <div className="checkbox grid align-center"><Checkbox /></div>
                 <TaskTitle boardId={board._id} task={task} onSaveBoard={onSaveBoard} />
                 {board.cmpsOrder.map((cmp, idx) => (
                     <DynamicCmp
