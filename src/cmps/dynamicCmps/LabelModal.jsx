@@ -12,7 +12,19 @@ export function LabelModal({ key, board, labels, onSaveBoard }) {
 
     return (
         <section className="label-modal relative">
+            <div className="label-picker-content">
+                <div className="label-picker-view">
+                    {labels.map(label =>
+                        <div key={label.id} className="label-picker">
 
+                        </div>
+                    )}
+                </div>
+
+            </div>
+            <div className="status-picker-footer">
+
+            </div>
         </section>
     )
 
