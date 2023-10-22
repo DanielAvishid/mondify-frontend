@@ -112,6 +112,10 @@
                 border-block-end: 0;
             }
 
+            >.last-col {
+                border-inline-start: 0;
+            }
+
             >.side {
                 border-bottom-left-radius: 5px;
             }
