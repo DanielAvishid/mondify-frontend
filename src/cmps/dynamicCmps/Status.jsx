@@ -2,7 +2,7 @@ import { utilService } from "../../services/util.service"
 import { useState } from "react"
 import { LabelModal } from "./LabelModal"
 
-export function Status({ info, board, onSaveBoard, key }) {
+export function Status({ info, board, onSaveBoard }) {
 
     const status = info
     const statusClass = utilService.formatString(status)
