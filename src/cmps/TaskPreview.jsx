@@ -11,10 +11,7 @@ import { utilService } from "../services/util.service";
 import { useState } from "react";
 
 
-export function TaskPreview({ board, group, task, onSaveBoard, onDuplicate, onRemove }) {
-
-    const [isChecked, setIsChecked] = useState(false)
-    console.log(isChecked);
+export function TaskPreview({ board, group, task, onSaveBoard, onDuplicate, onRemove, isChecked, handleCheckboxChange }) {
 
     return (
         <>
@@ -29,7 +26,7 @@ export function TaskPreview({ board, group, task, onSaveBoard, onDuplicate, onRe
             </div>
             <div key={task.id} className={`task-preview table-grid table ${isChecked ? 'checked' : ''}`}>
                 <div className="side" style={{ backgroundColor: group.style.backgroundColor }}></div>
-                <div className="checkbox grid align-center"><Checkbox onChange={() => setIsChecked(!isChecked)} /></div>
+                <div className="checkbox grid align-center"><Checkbox checked={isChecked} onChange={() => handleCheckboxChange(task.id)} /></div>
                 <TaskTitle boardId={board._id} task={task} onSaveBoard={onSaveBoard} />
                 {board.cmpsOrder.map((cmp, idx) => (
                     <DynamicCmp
