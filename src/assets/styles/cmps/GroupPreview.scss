@@ -11,6 +11,24 @@
         background-color: $primary-background-color;
         z-index: 10;
 
+        .title-header {
+            margin-inline-start: 6px;
+            height: 2.5rem;
+
+            .items-count {
+                margin-inline-start: 4px;
+                opacity: 0;
+                transition: 0.2s;
+                font-size: 0.875rem;
+            }
+
+            &:hover {
+                .items-count {
+                    opacity: 1;
+                }
+            }
+        }
+
         .table-header {
             border-block-start: 1px solid $primary-background-hover-color;
         }

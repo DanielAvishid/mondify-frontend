@@ -1,5 +1,5 @@
-import { EditableHeading, IconButton, Menu, MenuButton, MenuItem } from "monday-ui-react-core"
-import { Add, Duplicate, Delete } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
+import { EditableHeading, Icon, IconButton, Menu, MenuButton, MenuItem } from "monday-ui-react-core"
+import { Add, Duplicate, Delete, DropdownChevronDown } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { TaskPreview } from "./TaskPreview";
 import { utilService } from "../services/util.service";
 import { boardService } from "../services/board.service";
@@ -60,17 +60,32 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, on
                                             </Menu>
                                         </MenuButton>
                                     </div>
+                                    <div className="flex align-center">
+                                        <span className="flex">
+                                            {/* cant get the color and label . why ? */}
 
-                                    <div className="table grid align-center">
-                                        <EditableHeading
-                                            type={EditableHeading.types.h4}
-                                            value={title}
-                                            tooltip='Click to Edit'
-                                            tooltipPosition="bottom"
-                                            customColor={group.style.backgroundColor}
-                                            onBlur={(ev) => onSaveBoard({ key: 'title', value: ev.target.value, boardId: board._id, groupId: group.id })}
-                                            onKeyDown={handleKeyPress}
-                                        />
+                                            <Icon
+                                                customColor={group.style.backgroundColor}
+                                                icon={DropdownChevronDown}
+                                                iconSize={22}
+                                                ariaLabel="Collapse group" />
+                                        </span>
+                                        <span>
+                                            <EditableHeading
+                                                type={EditableHeading.types.h4}
+                                                value={title}
+                                                tooltip='Click to Edit'
+                                                tooltipPosition="bottom"
+                                                customColor={group.style.backgroundColor}
+                                                onBlur={(ev) => onSaveBoard({ key: 'title', value: ev.target.value, boardId: board._id, groupId: group.id })}
+                                                onKeyDown={handleKeyPress}
+                                            />
+                                        </span>
+                                        <span className="items-count">
+                                            {group.tasks.length === 0 && "No items"}
+                                            {group.tasks.length === 1 && "1 project"}
+                                            {group.tasks.length > 1 && `${group.tasks.length} projects`}
+                                        </span>
                                     </div>
                                 </div>
 
@@ -85,7 +100,6 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, on
                                                 <EditableHeading
                                                     type={EditableHeading.types.h5}
                                                     value={cmp.title}
-                                                    tooltip='Click to Edit'
                                                     tooltipPosition="bottom"
                                                 // customColor={group.style.backgroundColor}
                                                 // onBlur={(ev) => onSaveBoard({ key: 'title', value: ev.target.value, boardId: board._id, groupId: group.id })}
