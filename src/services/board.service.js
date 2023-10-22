@@ -234,7 +234,7 @@ function getEmptyBoard() {
                         "title": "Item 1",
                         "status": "Working on it",
                         "priority": "Medium",
-                        "dueDate": [1696280400000, 1679040000000],
+                        "dueDate": [1679040000000, 1706280400000],
                         "members": [],
                     },
                     {
@@ -242,7 +242,7 @@ function getEmptyBoard() {
                         "title": "Item 2",
                         "status": "Done",
                         "priority": "Medium",
-                        "dueDate": [1696280400000, 1679040000000],
+                        "dueDate": [1679147000000, 1696280400000,],
                         "members": [],
                     },
                     {
@@ -250,7 +250,7 @@ function getEmptyBoard() {
                         "title": "Item 3",
                         "status": "Done",
                         "priority": "Medium",
-                        "dueDate": [1696280400000, 1679040000000],
+                        "dueDate": [1686280400000, 1699040000000],
                         "members": [],
                     },
 
@@ -267,7 +267,7 @@ function getEmptyBoard() {
                         "title": "Item 3",
                         "status": "Done",
                         "priority": "Medium",
-                        "dueDate": [1696280400000, 1679040000000],
+                        "dueDate": [1626280400000, 1659040000000],
                         "members": [],
                     },
                     {
@@ -275,7 +275,7 @@ function getEmptyBoard() {
                         "title": "Item 4",
                         "status": "Done",
                         "priority": "Medium",
-                        "dueDate": [1696280400000, 1679040000000],
+                        "dueDate": [1616280400000, 1673040000000],
                         "members": [],
                     },
                 ],
@@ -327,7 +327,7 @@ function getEmptyTask(title = 'New Item') {
         status: "Done",
         priority: "Critical",
         members: ["UjCos"],
-        Date: [1696280400000, 1679040000000]
+        Date: [1611280400000, 1688040000000]
     }
 }
 
