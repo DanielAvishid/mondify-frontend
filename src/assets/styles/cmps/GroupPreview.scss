@@ -108,17 +108,8 @@
         .add-task {
             border-block-end: 1px solid $table-border;
 
-            &:hover {
-                background-color: $grey-background-color;
-                box-shadow: 4px 3px 6px -3px $selectable-cluster-border;
-            }
-
             >* {
                 border-block-end: 0;
-            }
-
-            >.title-col {
-                padding-inline-start: 1.625rem;
             }
 
             >.last-col {
@@ -127,6 +118,38 @@
 
             >.side {
                 border-bottom-left-radius: 5px;
+            }
+
+            input[type="text"] {
+                background-color: transparent;
+                border: none;
+                outline: none;
+                font-size: 0.875rem;
+                // padding: 5px 1.625rem;
+                border-radius: 3px;
+                margin: 6px 10px;
+                padding: 2px 0 3px 1rem;
+
+                &:focus {
+                    border: 1px solid $primary-color;
+                }
+
+                &:focus+.add-task {
+                    background-color: red;
+                }
+            }
+
+            &:hover {
+                background-color: $grey-background-color;
+                box-shadow: 4px 3px 6px -3px $selectable-cluster-border;
+
+                input {
+                    border: 1px solid $table-border;
+                }
+            }
+
+            &.focus-bgc {
+                background-color: $primary-selected-color;
             }
         }
     }

@@ -13,6 +13,8 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, on
 
     const { style, title } = group
     const [tasks, setTasks] = useState(group.tasks)
+    const [addTaskBgc, setAddTaskBgc] = useState('')
+    const [addTaskTitle, setAddTaskTitle] = useState('')
 
     const tasksCheck = tasks.reduce((acc, task) => {
         acc[task.id] = false;
@@ -49,9 +51,11 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, on
     }, [group])
 
     function onAddTask(title) {
+        setAddTaskBgc('')
         if (title === '') return
         const newTask = boardService.getEmptyTask(title)
         const value = [...group.tasks, newTask]
+        setAddTaskTitle('')
         onSaveBoard({ boardId: board._id, groupId: group.id, key: 'tasks', value })
     }
 
@@ -73,6 +77,15 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, on
         setTasks(value)
     }
 
+    function onChangeBgc() {
+        setAddTaskBgc('focus-bgc')
+    }
+
+    function handleAddTask(ev) {
+        if (ev.key === 'Enter') {
+            onAddTask(ev.target.value)
+        }
+    }
 
     return (
         <section className="group-preview main-layout full grid align-center justify-center">
@@ -174,14 +187,18 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, on
 
                             <div className="group-footer full">
                                 <div className="main-layout full">
-                                    <div className="add-task table-grid table">
+                                    <div className={`add-task table-grid table ${addTaskBgc}`}>
                                         <div className="side" style={{ backgroundColor: group.style.backgroundColor, opacity: 0.6 }}></div>
                                         <div className="checkbox grid align-center align-center"><Checkbox disabled /></div>
                                         <div className="title-col grid align-center">
-                                            <EditableHeading
-                                                type={EditableHeading.types.h6}
+                                            <input
+                                                type="text"
                                                 placeholder={"+ Add Item"}
-                                                onFinishEditing={onAddTask}
+                                                value={addTaskTitle}
+                                                onBlur={(ev) => onAddTask(ev.target.value)}
+                                                onFocus={onChangeBgc}
+                                                onChange={(ev) => setAddTaskTitle(ev.target.value)}
+                                                onKeyPress={handleAddTask}
                                             />
                                         </div>
                                         <div className="last-col"></div>
