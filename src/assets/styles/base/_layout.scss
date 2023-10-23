@@ -21,7 +21,8 @@
 
 .label-edit-layout {
     display: grid;
-    grid-template-columns: rem(12px) minmax(auto, 1fr) rem(16px);
+    grid-template-columns: rem(12px) 152px rem(16px);
+    align-items: center;
 
     &.middle {
         grid-column: 2;

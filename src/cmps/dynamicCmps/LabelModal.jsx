@@ -1,9 +1,11 @@
-import { Button, Divider, Icon } from "monday-ui-react-core";
+import { Button, ColorPicker, Divider, EditableHeading, Icon, IconButton } from "monday-ui-react-core";
 import { Edit, Drag, Close, AddSmall, HighlightColorBucket } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { useState } from "react";
 
 export function LabelModal({ key, board, labels, onSaveBoard }) {
     const [isEditMode, setIsEditMode] = useState(false)
+    const [palleteOpenState, setPalleteOpenState] = useState({})
+    const [hoverState, setHoverState] = useState({})
 
     const viewNum = (labels.length >= 6) ? 6 : labels.length
     const editNum = (labels.length >= 6) ? 6 : labels.length + 1
@@ -21,6 +23,18 @@ export function LabelModal({ key, board, labels, onSaveBoard }) {
         setIsEditMode(!isEditMode)
     }
 
+    function getPlaceHolder(isDefault) {
+        if (!isDefault) return 'Add Label'
+        else return 'Default Label'
+    }
+
+    function toggleRemove(labelId) {
+        setHoverState((prevState) => ({
+            ...prevState,
+            [labelId]: !prevState[labelId]
+        }))
+    }
+
     return (
         <section className="label-modal relative">
             <div className="label-picker-content">
@@ -33,18 +47,32 @@ export function LabelModal({ key, board, labels, onSaveBoard }) {
                 </div>}
                 {isEditMode && <div className="label-picker-edit" style={styleEditMode}>
                     {labels.map(label =>
-                        <div key={label.id} className="label-edit label-edit-layout">
-                            <Icon className='icon' icon={Drag} />
+                        <div key={label.id} className="label-edit label-edit-layout" onMouseEnter={() => toggleRemove(label.id)} onMouseLeave={() => toggleRemove(label.id)}>
+                            {hoverState[label.id] && <Icon className='icon-drag' icon={Drag} />}
+                            <div key={label.id} className="label-editable middle" >
+                                <button className="color-options" style={{ backgroundColor: label.color }}>
+                                    <Icon iconType={Icon.type.SVG} icon={HighlightColorBucket} iconLabel="my bolt svg icon" iconSize={16} style={{ color: '#fff' }} />
+                                </button>
+                                <input className="label-input" placeholder={getPlaceHolder(label.isDefault)} value={label.title} type="text" />
+                                {palleteOpenState[label.id] && <ColorPicker
+                                    className="color-picker"
+                                    colorSize="small"
+                                />}
+                            </div>
+                            {hoverState[label.id] && <div>
+                                <IconButton iconClassName='icon-remove' size={IconButton.sizes.XXS} icon={Close} kind={IconButton.kinds.TERTIARY} ariaLabel="My tertiary IconButton" />
+                            </div>}
                         </div>
                     )}
-                    <div className="new-label-container">
-                        <Button className="add-btn" leftIcon={AddSmall} kind={Button.kinds.SECONDARY} >New label</Button>
+                    <div className="add-btn-container label-edit-layout">
+                        <Button className="add-btn middle" leftIcon={AddSmall} kind={Button.kinds.SECONDARY} >New label</Button>
                     </div>
                 </div>}
             </div>
             <div className="label-picker-footer">
                 <Divider className="divider" />
-                <Button className="edit-btn" onClick={(ev) => onEditClick(ev)} leftIcon={Edit} kind={Button.kinds.TERTIARY}>Edit Labels</Button>
+                {!isEditMode && <Button className="edit-btn" onClick={(ev) => onEditClick(ev)} leftIcon={Edit} kind={Button.kinds.TERTIARY}>Edit Labels</Button>}
+                {isEditMode && <Button className="edit-btn" onClick={(ev) => onEditClick(ev)} kind={Button.kinds.TERTIARY}>Apply</Button>}
             </div>
         </section>
     )
