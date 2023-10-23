@@ -311,12 +311,15 @@ function getEmptyBoard() {
 }
 
 function getEmptyGroup() {
+    console.log('get here');
     return {
-        "id": utilService.makeId(),
-        "title": "New Group",
-        "archivedAt": Date.now(),
-        "tasks": [],
-        "style": {}
+        id: utilService.makeId(),
+        title: 'New Group',
+        archivedAt: Date.now(),
+        tasks: [],
+        style: {
+            backgroundColor: utilService.getRandomColor()
+        }
     }
 }
 
