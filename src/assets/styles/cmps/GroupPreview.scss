@@ -41,9 +41,14 @@
         grid-auto-flow: column;
         height: 2.25rem;
         min-width: 100vw;
+        border-block-end: 1px solid $table-border;
+
+        &.progress-bar {
+            border-block-end: 0;
+        }
 
         >* {
-            border-block-end: 1px solid $table-border;
+            // border-block-end: 1px solid $table-border;
             border-inline-start: 1px solid $table-border;
         }
 

@@ -1,5 +1,9 @@
 .progress-bar {
 
+    >* {
+        border-block-end: 1px solid $table-border;
+    }
+
     >.side,
     >.checkbox,
     >.title-col {
