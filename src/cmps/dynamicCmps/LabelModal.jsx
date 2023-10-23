@@ -59,9 +59,12 @@ export function LabelModal({ key, board, labels, onSaveBoard }) {
                                     colorSize="small"
                                 />}
                             </div>
-                            {hoverState[label.id] && <div>
-                                <IconButton iconClassName='icon-remove' size={IconButton.sizes.XXS} icon={Close} kind={IconButton.kinds.TERTIARY} ariaLabel="My tertiary IconButton" />
-                            </div>}
+                            {hoverState[label.id] && <Button size={Button.sizes.XXS} kind={Button.kinds.TERTIARY}><Icon iconSize={16} icon={Close} /></Button>}
+                            {/* {hoverState[label.id] && <IconButton
+                                iconClassName='icon-remove'
+                                size={IconButton.sizes.XXS}
+                                icon={Close} kind={IconButton.kinds.TERTIARY}
+                                ariaLabel="My tertiary IconButton" />} */}
                         </div>
                     )}
                     <div className="add-btn-container label-edit-layout">

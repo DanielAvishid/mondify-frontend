@@ -306,7 +306,6 @@ function getEmptyBoard() {
                 "type": "dueDate"
             }
         ]
-
     }
 }
 
