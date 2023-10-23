@@ -23,6 +23,7 @@
     display: grid;
     grid-template-columns: rem(12px) 152px rem(16px);
     align-items: center;
+    gap: 2px;
 
     &.middle {
         grid-column: 2;
