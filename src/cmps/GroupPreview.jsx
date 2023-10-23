@@ -129,7 +129,7 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, on
                                         <div key={idx} className={`${cmp.type}-col grid align-center justify-center`}>
                                             <span>
                                                 <EditableHeading
-                                                    type={EditableHeading.types.h5}
+                                                    type={EditableHeading.types.h6}
                                                     value={cmp.title}
                                                     tooltipPosition="bottom"
                                                 // customColor={group.style.backgroundColor}
@@ -179,7 +179,7 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, on
                                         <div className="checkbox grid align-center align-center"><Checkbox disabled /></div>
                                         <div className="title-col grid align-center">
                                             <EditableHeading
-                                                type={EditableHeading.types.h5}
+                                                type={EditableHeading.types.h6}
                                                 placeholder={"+Add Item"}
                                                 tooltip='Click to Edit'
                                                 tooltipPosition="bottom"

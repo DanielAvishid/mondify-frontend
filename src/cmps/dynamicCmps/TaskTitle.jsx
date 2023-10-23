@@ -17,7 +17,7 @@ export function TaskTitle({ boardId, task, onSaveBoard }) {
         <div className="title-cell title-col grid align-center">
             <div>
                 <EditableHeading
-                    type={EditableHeading.types.h5}
+                    type={EditableHeading.types.h6}
                     value={title}
                     tooltip='Click to Edit'
                     tooltipPosition="bottom"
@@ -35,7 +35,7 @@ export function TaskTitle({ boardId, task, onSaveBoard }) {
                             icon={Update}
                             iconSize="22"
                             ariaLabel="Start conversation" />
-                        <Counter   count={updates.length} className="updates-counter" />
+                        <Counter count={updates.length} className="updates-counter" />
                     </div>}
             </div>
         </div>
