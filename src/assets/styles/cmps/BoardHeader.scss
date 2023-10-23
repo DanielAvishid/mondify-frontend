@@ -6,18 +6,32 @@
         justify-content: space-between;
     }
 
-    .first-container {
-        margin-block-end: rem(15px);
+    .first-row-container {
+        margin-inline-start: rem(-6px);
 
         .title-container {
             display: grid;
             grid-auto-flow: column;
             align-items: center;
+            gap: 4px;
 
             .menu-button {
                 width: rem(26px);
                 height: rem(32px);
                 margin-inline-start: rem(5px);
+            }
+
+            .info-icon {
+                color: $chat-icon-color;
+            }
+
+            .clickable_a1c09750fe {
+                width: 100%;
+            }
+
+            .board-title-input {
+
+                &:focus-within {}
             }
         }
 
@@ -26,18 +40,101 @@
             grid-auto-flow: column;
             align-items: center;
 
-            .menu-button {
+            .menu-btn {
+                transform: none;
                 margin-inline-start: rem(8px);
+                background-color: transparent;
+                color: $primary-text-color;
+
+                svg {
+                    width: 24px;
+                    height: 24px;
+                }
+
+                &:active {
+                    transform: scale(.95);
+                }
+
+                &:hover {
+                    background-color: $primary-background-hover-color;
+                }
             }
 
             .invite-btn {
                 padding-inline: rem(8px);
             }
 
+            .activity-btn {
+                padding: 4px 10px;
+                margin-inline-end: 8px;
+
+                .kindFill_60c23e83e6.colorLight_e5f15c67a6 {
+                    background-color: $primary-background-color;
+                    border: 1px solid $table-border;
+                }
+
+                .counterContainer_d5f6deb5be.light_e5f15c67a6 {
+                    background-color: $primary-background-color;
+                }
+
+                .counterContainer_d5f6deb5be.small_abcc494a6e {
+                    padding: 0;
+                }
+
+                .sizeLarge_e1042bccfe {
+                    width: 26px;
+                    padding: 2px;
+                }
+
+                .avatarContainer_a30926b37f {
+                    margin-right: -2px;
+                }
+
+                .avatarGroupContainer_e9c6f8ecad {
+                    margin-inline-start: 12px;
+                    padding: 0;
+                }
+            }
+
         }
     }
 
-    .second-container {
+    .second-row-container {
+        margin-block-end: 8px;
+
+        .board-description {
+            cursor: pointer;
+            white-space: nowrap;
+            max-width: 600px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 22px;
+            border: none;
+            width: initial;
+            color: $chat-icon-color;
+            font-size: rem(14px);
+            font-family: "Figtree", "Roboto", "Noto Sans Hebrew", "Noto Kufi Arabic", "Noto Sans JP", sans-serif;
+            padding-inline: 2px;
+        }
+
+        .see-more {
+            cursor: pointer;
+            margin-inline-start: 6px;
+            padding: 0;
+            border: 0;
+            vertical-align: baseline;
+            color: #1f76c2; //Add var
+            font-size: rem(14px);
+            font-weight: 400;
+            line-height: 20px;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .third-row-container {
         margin-block-end: rem(15px);
 
         .icon-btn {
@@ -71,6 +168,14 @@
                 padding: 0;
 
                 .tab {
+                    padding: 0 8px;
+                    font-size: rem(14px);
+
+                    svg {
+                        width: 16px;
+                        height: 16px;
+                    }
+
                     &::after {
                         content: '';
                         position: absolute;
@@ -101,7 +206,7 @@
         }
     }
 
-    .third-container {
+    .fourth-row-container {
         display: flex;
         align-items: center;
 

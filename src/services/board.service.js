@@ -153,6 +153,7 @@ async function duplicate({ boardId, groupId, taskId }) {
 function getEmptyBoard() {
     return {
         title: "New Board",
+        description: "Manage any type of project. Assign owners, set timelines and keep track of where your project stands.",
         isStarred: false,
         archivedAt: Date.now(),
         style: {

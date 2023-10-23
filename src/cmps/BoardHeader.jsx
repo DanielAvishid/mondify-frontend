@@ -1,4 +1,4 @@
-import { Menu, MenuButton, MenuItem, EditableHeading, MenuTitle, Button, MenuDivider, TabList, Tab, Table, SplitButton, SplitButtonMenu, IconButton, Icon } from "monday-ui-react-core"
+import { Menu, MenuButton, MenuItem, EditableHeading, MenuTitle, Button, MenuDivider, TabList, Tab, Table, SplitButton, SplitButtonMenu, IconButton, Icon, AvatarGroup, Avatar } from "monday-ui-react-core"
 import { NavigationChevronDown, DropdownChevronDown, DropdownChevronUp, Home, Delete, Download, Group, Search, PersonRound, CloseSmall, Chart, Edit, Favorite, ShortText, Info, AddSmall, Duplicate, Table as TableIcon, Menu as MenuIcon } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
@@ -18,10 +18,11 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemove, onSaveBoard,
 
     return (
         <section className="board-header middle">
-            {!isCollapse && <section className="container first-container">
+            {!isCollapse && <section className="container first-row-container">
                 <div className="title-container">
                     <EditableHeading
-                        type={EditableHeading.types.h2}
+                        className="board-title-input"
+                        type={EditableHeading.types.h1}
                         value={board.title}
                         tooltip='Click to Edit'
                         tooltipPosition="bottom"
@@ -29,16 +30,18 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemove, onSaveBoard,
                         onBlur={(ev) => onSaveBoard({ board, key: 'title', value: ev.target.value })}
                         onKeyDown={handleKeyPress}
                     />
-                    <MenuButton className="menu-button" component={NavigationChevronDown} size={MenuButton.sizes.XS}>
-                        <Menu id="menu" size={Menu.sizes.MEDIUM}>
-                            <MenuItem icon={Edit} iconType={MenuItem.iconType.SVG} title="Rename" />
-                            <MenuItem icon={Favorite} iconType={MenuItem.iconType.SVG} title="Add to favorites" />
-                            <MenuItem icon={ShortText} iconType={MenuItem.iconType.SVG} title="Description" />
-                            <MenuItem icon={Info} iconType={MenuItem.iconType.SVG} title="Board info" />
-                        </Menu>
-                    </MenuButton>
+                    <IconButton iconClassName='info-icon' key="small" icon={Info} kind={IconButton.kinds.TERTIARY} size={IconButton.sizes.SMALL} ariaLabel="Show board description" />
+                    <IconButton iconClassName='info-icon' key="small" icon={Favorite} kind={IconButton.kinds.TERTIARY} size={IconButton.sizes.SMALL} ariaLabel="Add to favorites" />
                 </div>
                 <div className="options-container">
+                    <Button className="activity-btn" kind={Button.kinds.TERTIARY} size={Button.sizes.SMALL}>
+                        Activity
+                        <AvatarGroup max={2} size={Avatar.sizes.SMALL}>
+                            <Avatar type={Avatar.types.IMG} src="https://style.monday.com/static/media/person1.de30c8ee.png" ariaLabel="Hadas Fahri" />
+                            <Avatar type={Avatar.types.IMG} src="https://style.monday.com/static/media/person2.24c7233e.png" ariaLabel="Sergey Roytman" />
+                            <Avatar type={Avatar.types.IMG} src="https://style.monday.com/static/media/person3.3661bfe5.png" ariaLabel="Yossi Saadi" />
+                        </AvatarGroup>
+                    </Button>
                     <Link className="btn" to='#'>
                         <Button className="invite-btn" size={Button.sizes.SMALL} noSidePadding={true} kind={Button.kinds.SECONDARY}>Invite / 1</Button>
                         {/* <button>Show activity</button> */}
@@ -47,7 +50,7 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemove, onSaveBoard,
                         {/* put here the extra +counter */}
                     </Link>
                     <MenuButton tooltipContent='Options' tooltipPosition="top"
-                        className="menu-button" component={MenuIcon}>
+                        className="menu-btn" component={MenuIcon}>
                         <Menu id="menu">
                             <MenuTitle caption="Board options" captionPosition={MenuTitle.positions.TOP} />
                             <MenuItem icon={Edit} iconType={MenuItem.iconType.SVG} title="Rename board" />
@@ -59,7 +62,13 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemove, onSaveBoard,
                     </MenuButton>
                 </div>
             </section>}
-            <section className="container second-container">
+            {!isCollapse && <section className="second-row-container">
+                <div className="flex align-center">
+                    <p className="board-description">{board.description}</p>
+                    <span className="see-more">See More</span>
+                </div>
+            </section>}
+            <section className="container third-row-container">
                 <div className="board-view-container">
                     {isCollapse && <div className="title-container">
                         <EditableHeading
@@ -71,21 +80,13 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemove, onSaveBoard,
                             onBlur={(ev) => onSaveBoard({ board, key: 'title', value: ev.target.value })}
                             onKeyDown={handleKeyPress}
                         />
-                        <MenuButton className="menu-button" component={NavigationChevronDown} size={MenuButton.sizes.XS}>
-                            <Menu id="menu" size={Menu.sizes.MEDIUM}>
-                                <MenuItem icon={Edit} iconType={MenuItem.iconType.SVG} title="Rename" />
-                                <MenuItem icon={Favorite} iconType={MenuItem.iconType.SVG} title="Add to favorites" />
-                                <MenuItem icon={ShortText} iconType={MenuItem.iconType.SVG} title="Description" />
-                                <MenuItem icon={Info} iconType={MenuItem.iconType.SVG} title="Board info" />
-                            </Menu>
-                        </MenuButton>
                     </div>}
                     <TabList className="tab-list">
                         {/* <Link to=''> */}
                         <Tab tabInnerClassName='tab' icon={Home}>Main Table </Tab>
                         {/* </Link> */}
                         {/* <Link to='views/kanban'> */}
-                        <Tab>Kanban</Tab>
+                        <Tab tabInnerClassName='tab'>Kanban</Tab>
                         {/* </Link> */}
                     </TabList>
                     <MenuButton className="menu-button" component={AddSmall} size={MenuButton.sizes.SMALL}>
@@ -122,7 +123,7 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemove, onSaveBoard,
                 </div>
             </section>
             <MenuDivider className='menu-divider' />
-            <section className="third-container">
+            <section className="fourth-row-container">
                 <SplitButton className='split-button' children="New Item" size={SplitButton.sizes.MEDIUM}
                     onClick={() => onAddTaskFromHeader(board)}
                     secondaryDialogContent={<SplitButtonMenu id="split-menu">
