@@ -18,9 +18,9 @@ export function ProgressBar({ board, group }) {
                     <DueDate info={info} />
                 )
             case 'status':
-                return <span>status</span>
+                return <span></span>
             case 'priority':
-                return <span>priority</span>
+                return <span></span>
             // Add more cases as needed for other cmp types
             default:
                 return
@@ -34,7 +34,9 @@ export function ProgressBar({ board, group }) {
             <div className="title-col"></div>
             {board.cmpsOrder.map((cmp, idx) => (
                 <div key={idx} className={`${cmp.type}-col ${cmp.type}-cell grid align-center justify-center`}>
-                    {renderCmpSpan(cmp)}
+                    <div className="grid align-center justify-center">
+                        {renderCmpSpan(cmp)}
+                    </div>
                 </div>
             ))}
             <div className="last-col"></div>

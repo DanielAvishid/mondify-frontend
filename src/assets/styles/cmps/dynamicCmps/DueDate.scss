@@ -1,5 +1,6 @@
 .dueDate-cell {
-    & div {
+
+    & .inner-container {
         display: grid;
         align-items: center;
         justify-content: center;
@@ -7,6 +8,11 @@
         height: 1.375rem;
         border-radius: 2em;
         color: white;
+        background-color: $default-task-val-bgc;
+
+        &:hover {
+            background-color: darken($default-task-val-bgc, 15%);
+        }
     }
 
     & span {

@@ -6,6 +6,18 @@
         border: none;
     }
 
+    .status-cell,
+    .priority-cell {
+        background-color: inherit;
+        // width: 100%;
+
+        >div {
+            height: 1.5rem;
+            width: calc(8.75rem - 1rem);
+            background-color: $default-task-val-bgc;
+        }
+    }
+
     :nth-child(4) {
         border-bottom-left-radius: 5px;
     }

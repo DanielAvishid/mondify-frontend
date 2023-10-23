@@ -133,20 +133,18 @@
                 &:focus {
                     border: 1px solid $primary-color;
                 }
-
-                &:focus+.add-task {
-                    background-color: red;
-                }
             }
 
-            &:hover {
-                background-color: $grey-background-color;
+            &:hover:not(:focus-within) {
+                background-color: $lighter-grey;
                 box-shadow: 4px 3px 6px -3px $selectable-cluster-border;
 
                 input {
                     border: 1px solid $table-border;
                 }
             }
+
+
 
             &.focus-bgc {
                 background-color: $primary-selected-color;

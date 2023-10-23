@@ -15,13 +15,39 @@ export function DueDate({ info, board, onSaveBoard }) {
 
     return (
         <div className="dueDate-cell dueDate-col grid align-center justify-center">
+
             <div
                 style={{ background: `linear-gradient(90deg, rgb(87,155,252) ${+percentage}%, rgb(51,51,51) ${0}%)` }}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
+                className="inner-container"
             >
-                <span>{info ? (hovered ? `${utilService.calculateDaysDifference(info)}d` : text) : ''}</span>
+                {info.length ? (
+                    <span>{hovered ? `${utilService.calculateDaysDifference(info)}d` : text}</span>
+                ) : (
+                    <span>{hovered ? `Set Dates` : '-'}</span>
+                )}
             </div>
+
+
+            {/* {info.length ? (
+                <div
+                    style={{ background: `linear-gradient(90deg, rgb(87,155,252) ${+percentage}%, rgb(51,51,51) ${0}%)` }}
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
+                    className="inner-container"
+                >
+                    <span>{hovered ? `${utilService.calculateDaysDifference(info)}d` : text}</span>
+                </div>
+            ) : (
+                <div
+                    className="inner-container"
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
+                >
+                    <span>{hovered ? `Set Dates` : '-'}</span>
+                </div>
+            )} */}
         </div>
     )
 }

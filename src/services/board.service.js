@@ -327,7 +327,7 @@ function getEmptyTask(title = 'New Item') {
         status: "Done",
         priority: "Critical",
         members: ["UjCos"],
-        Date: [1611280400000, 1688040000000]
+        dueDate: []
     }
 }
 
