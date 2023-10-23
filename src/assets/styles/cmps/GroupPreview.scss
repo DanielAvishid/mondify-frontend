@@ -30,7 +30,7 @@
         }
 
         .table-header {
-            border-block-start: 1px solid $primary-background-hover-color;
+            border-block-start: 1px solid $table-border;
         }
     }
 
@@ -43,8 +43,8 @@
         min-width: 100vw;
 
         >* {
-            border-block-end: 1px solid $primary-background-hover-color;
-            border-inline-start: 1px solid $primary-background-hover-color;
+            border-block-end: 1px solid $table-border;
+            border-inline-start: 1px solid $table-border;
         }
 
         .side {
@@ -60,12 +60,6 @@
             border-inline-start: 0;
             width: 2rem;
             padding-inline-start: 0.5rem;
-
-            >input {
-                width: 1rem;
-                margin: 0;
-                padding: 0;
-            }
         }
 
         .title-col {
@@ -112,10 +106,14 @@
         height: 6.25rem;
 
         .add-task {
-            border-block-end: 1px solid $primary-background-hover-color;
+            border-block-end: 1px solid $table-border;
 
             >* {
-                border: 0;
+                border-block-end: 0;
+            }
+
+            >.last-col {
+                border-inline-start: 0;
             }
 
             >.side {

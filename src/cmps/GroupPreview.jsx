@@ -1,4 +1,4 @@
-import { EditableHeading, Icon, IconButton, Menu, MenuButton, MenuItem } from "monday-ui-react-core"
+import { Checkbox, EditableHeading, Icon, IconButton, Menu, MenuButton, MenuItem } from "monday-ui-react-core"
 import { Add, Duplicate, Delete, DropdownChevronDown } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { TaskPreview } from "./TaskPreview";
 import { utilService } from "../services/util.service";
@@ -10,8 +10,39 @@ import { ProgressBar } from "./ProgressBar";
 export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, onDuplicate }) {
     // DELETE THIS LINES WHEN GIVEN CURRECT PROP
 
+
     const { style, title } = group
     const [tasks, setTasks] = useState(group.tasks)
+
+    const tasksCheck = tasks.reduce((acc, task) => {
+        acc[task.id] = false;
+        return acc;
+    }, {})
+
+    const [checkboxes, setCheckboxes] = useState(tasksCheck);
+    const [masterChecked, setMasterChecked] = useState(false);
+
+    const handleMasterChange = () => {
+        setMasterChecked(!masterChecked);
+        const updatedCheckboxes = { ...checkboxes };
+
+        // Set all checkboxes to the state of the master checkbox
+        for (const taskId in updatedCheckboxes) {
+            updatedCheckboxes[taskId] = !masterChecked;
+        }
+
+        setCheckboxes(updatedCheckboxes);
+    }
+
+    const handleCheckboxChange = (taskId) => {
+        const updatedCheckboxes = { ...checkboxes };
+        updatedCheckboxes[taskId] = !updatedCheckboxes[taskId];
+        setCheckboxes(updatedCheckboxes);
+
+        // Update master checkbox state based on individual checkboxes
+        const allChecked = Object.values(updatedCheckboxes).every((value) => value);
+        setMasterChecked(allChecked);
+    }
 
     useEffect(() => {
         setTasks(group.tasks)
@@ -91,7 +122,7 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, on
 
                                 <div className="table-header table-grid table">
                                     <div className="side first" style={{ backgroundColor: group.style.backgroundColor }}></div>
-                                    <div className="checkbox grid"><input type="checkbox" /></div>
+                                    <div className="checkbox grid align-center"><Checkbox checked={masterChecked} onChange={handleMasterChange} /></div>
                                     <div className="title-col grid align-center justify-center"><span>Item</span></div>
 
                                     {board.cmpsOrder.map((cmp, idx) => (
@@ -131,7 +162,10 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, on
                                                 task={task}
                                                 onSaveBoard={onSaveBoard}
                                                 onDuplicate={onDuplicate}
-                                                onRemove={onRemove} />
+                                                onRemove={onRemove}
+                                                isChecked={checkboxes[task.id]}
+                                                handleCheckboxChange={handleCheckboxChange}
+                                            />
                                         </article>
                                     )}
                                 </Draggable>
@@ -142,7 +176,7 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, on
                                 <div className="main-layout full">
                                     <div className="add-task table-grid table">
                                         <div className="side" style={{ backgroundColor: group.style.backgroundColor, opacity: 0.6 }}></div>
-                                        <div className="checkbox grid"><input type="checkbox" /></div>
+                                        <div className="checkbox grid align-center align-center"><Checkbox disabled /></div>
                                         <div className="title-col grid align-center">
                                             <EditableHeading
                                                 type={EditableHeading.types.h5}
