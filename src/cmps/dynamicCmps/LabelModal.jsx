@@ -45,15 +45,15 @@ export function LabelModal({ key, board, labels, onSaveBoard }) {
 
     return (
         <section className="label-modal relative">
-            <div className="label-picker-content">
-                {!isEditMode && <div className="label-picker-view" style={styleViewMode}>
+            <div className="label-content">
+                {!isEditMode && <div className="label-view-container" style={styleViewMode}>
                     {labels.map(label =>
                         <button key={label.id} className="label-picker" style={{ backgroundColor: label.color }}>
                             {label.title}
                         </button>
                     )}
                 </div>}
-                {isEditMode && <div className="label-picker-edit" style={styleEditMode}>
+                {isEditMode && <div className="label-edit-container" style={styleEditMode}>
                     {labels.map(label =>
                         <div key={label.id} className="label-edit label-edit-layout" onMouseEnter={() => toggleRemove(label.id)} onMouseLeave={() => toggleRemove(label.id)}>
                             {palleteOpenState[label.id] && <ColorPicker
@@ -62,7 +62,7 @@ export function LabelModal({ key, board, labels, onSaveBoard }) {
                             />}
                             {hoverState[label.id] && <Icon className='icon-drag' icon={Drag} />}
                             <div key={label.id} className="label-editable middle" >
-                                <button className="color-options" style={{ backgroundColor: label.color }} onClick={(ev) => togglePallete(ev, label.id)}>
+                                <button className="color-btn" style={{ backgroundColor: label.color }} onClick={(ev) => togglePallete(ev, label.id)}>
                                     <Icon iconType={Icon.type.SVG} icon={HighlightColorBucket} iconLabel="my bolt svg icon" iconSize={16} style={{ color: '#fff' }} />
                                 </button>
                                 <input className="label-input" placeholder={getPlaceHolder(label.isDefault)} value={label.title} type="text" />
