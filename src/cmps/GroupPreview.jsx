@@ -1,5 +1,5 @@
-import { EditableHeading, IconButton, Menu, MenuButton, MenuItem } from "monday-ui-react-core"
-import { Add, Duplicate, Delete } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
+import { Checkbox, EditableHeading, Icon, IconButton, Menu, MenuButton, MenuItem } from "monday-ui-react-core"
+import { Add, Duplicate, Delete, DropdownChevronDown } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { TaskPreview } from "./TaskPreview";
 import { utilService } from "../services/util.service";
 import { boardService } from "../services/board.service";
@@ -10,17 +10,52 @@ import { ProgressBar } from "./ProgressBar";
 export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, onDuplicate }) {
     // DELETE THIS LINES WHEN GIVEN CURRECT PROP
 
+
     const { style, title } = group
     const [tasks, setTasks] = useState(group.tasks)
+    const [addTaskBgc, setAddTaskBgc] = useState('')
+    const [addTaskTitle, setAddTaskTitle] = useState('')
+
+    const tasksCheck = tasks.reduce((acc, task) => {
+        acc[task.id] = false;
+        return acc;
+    }, {})
+
+    const [checkboxes, setCheckboxes] = useState(tasksCheck);
+    const [masterChecked, setMasterChecked] = useState(false);
+
+    const handleMasterChange = () => {
+        setMasterChecked(!masterChecked);
+        const updatedCheckboxes = { ...checkboxes };
+
+        // Set all checkboxes to the state of the master checkbox
+        for (const taskId in updatedCheckboxes) {
+            updatedCheckboxes[taskId] = !masterChecked;
+        }
+
+        setCheckboxes(updatedCheckboxes);
+    }
+
+    const handleCheckboxChange = (taskId) => {
+        const updatedCheckboxes = { ...checkboxes };
+        updatedCheckboxes[taskId] = !updatedCheckboxes[taskId];
+        setCheckboxes(updatedCheckboxes);
+
+        // Update master checkbox state based on individual checkboxes
+        const allChecked = Object.values(updatedCheckboxes).every((value) => value);
+        setMasterChecked(allChecked);
+    }
 
     useEffect(() => {
         setTasks(group.tasks)
     }, [group])
 
     function onAddTask(title) {
+        setAddTaskBgc('')
         if (title === '') return
         const newTask = boardService.getEmptyTask(title)
         const value = [...group.tasks, newTask]
+        setAddTaskTitle('')
         onSaveBoard({ boardId: board._id, groupId: group.id, key: 'tasks', value })
     }
 
@@ -42,6 +77,15 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, on
         setTasks(value)
     }
 
+    function onChangeBgc() {
+        setAddTaskBgc('focus-bgc')
+    }
+
+    function handleAddTask(ev) {
+        if (ev.key === 'Enter') {
+            onAddTask(ev.target.value)
+        }
+    }
 
     return (
         <section className="group-preview main-layout full grid align-center justify-center">
@@ -60,28 +104,52 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, on
                                             </Menu>
                                         </MenuButton>
                                     </div>
+                                    <div className="flex align-center">
+                                        <span className="flex" style={{ color: group.style.backgroundColor }}>
+                                            {/* cant get the label . why ? */}
 
-                                    <div className="table grid align-center">
-                                        <EditableHeading
-                                            type={EditableHeading.types.h4}
-                                            value={title}
-                                            tooltip='Click to Edit'
-                                            tooltipPosition="bottom"
-                                            customColor={group.style.backgroundColor}
-                                            onBlur={(ev) => onSaveBoard({ key: 'title', value: ev.target.value, boardId: board._id, groupId: group.id })}
-                                            onKeyDown={handleKeyPress}
-                                        />
+                                            <Icon
+                                                customColor={group.style.backgroundColor}
+                                                icon={DropdownChevronDown}
+                                                iconSize={22}
+                                                ariaLabel="Collapse group" />
+                                        </span>
+                                        <span>
+                                            <EditableHeading
+                                                type={EditableHeading.types.h4}
+                                                value={title}
+                                                tooltip='Click to Edit'
+                                                tooltipPosition="bottom"
+                                                customColor={group.style.backgroundColor}
+                                                onBlur={(ev) => onSaveBoard({ key: 'title', value: ev.target.value, boardId: board._id, groupId: group.id })}
+                                                onKeyDown={handleKeyPress}
+                                            />
+                                        </span>
+                                        <span className="items-count">
+                                            {group.tasks.length === 0 && "No items"}
+                                            {group.tasks.length === 1 && "1 project"}
+                                            {group.tasks.length > 1 && `${group.tasks.length} projects`}
+                                        </span>
                                     </div>
                                 </div>
 
                                 <div className="table-header table-grid table">
                                     <div className="side first" style={{ backgroundColor: group.style.backgroundColor }}></div>
-                                    <div className="checkbox grid"><input type="checkbox" /></div>
+                                    <div className="checkbox grid align-center"><Checkbox checked={masterChecked} onChange={handleMasterChange} /></div>
                                     <div className="title-col grid align-center justify-center"><span>Item</span></div>
 
                                     {board.cmpsOrder.map((cmp, idx) => (
                                         <div key={idx} className={`${cmp.type}-col grid align-center justify-center`}>
-                                            <span>{cmp.title}</span>
+                                            <span>
+                                                <EditableHeading
+                                                    type={EditableHeading.types.h6}
+                                                    value={cmp.title}
+                                                    tooltipPosition="bottom"
+                                                // customColor={group.style.backgroundColor}
+                                                // onBlur={(ev) => onSaveBoard({ key: 'title', value: ev.target.value, boardId: board._id, groupId: group.id })}
+                                                // onKeyDown={handleKeyPress}
+                                                />
+                                            </span>
                                         </div>
                                     ))}
 
@@ -107,7 +175,10 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, on
                                                 task={task}
                                                 onSaveBoard={onSaveBoard}
                                                 onDuplicate={onDuplicate}
-                                                onRemove={onRemove} />
+                                                onRemove={onRemove}
+                                                isChecked={checkboxes[task.id]}
+                                                handleCheckboxChange={handleCheckboxChange}
+                                            />
                                         </article>
                                     )}
                                 </Draggable>
@@ -116,17 +187,18 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, on
 
                             <div className="group-footer full">
                                 <div className="main-layout full">
-                                    <div className="add-task table-grid table">
+                                    <div className={`add-task table-grid table ${addTaskBgc}`}>
                                         <div className="side" style={{ backgroundColor: group.style.backgroundColor, opacity: 0.6 }}></div>
-                                        <div className="checkbox grid"><input type="checkbox" /></div>
+                                        <div className="checkbox grid align-center align-center"><Checkbox disabled /></div>
                                         <div className="title-col grid align-center">
-                                            <EditableHeading
-                                                type={EditableHeading.types.h5}
-                                                placeholder={"+Add Item"}
-                                                tooltip='Click to Edit'
-                                                tooltipPosition="bottom"
-                                                customColor="#323338"
-                                                onFinishEditing={onAddTask}
+                                            <input
+                                                type="text"
+                                                placeholder={"+ Add Item"}
+                                                value={addTaskTitle}
+                                                onBlur={(ev) => onAddTask(ev.target.value)}
+                                                onFocus={onChangeBgc}
+                                                onChange={(ev) => setAddTaskTitle(ev.target.value)}
+                                                onKeyPress={handleAddTask}
                                             />
                                         </div>
                                         <div className="last-col"></div>

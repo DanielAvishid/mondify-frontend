@@ -69,11 +69,11 @@ async function addBoard(board) {
         "fullname": "Carmel Amarillio",
         "imgUrl": "https://hips.hearstapps.com/ghk.h-cdn.co/assets/16/08/gettyimages-464163411.jpg?crop=1.0xw:1xh;center,top&resize=980:*"
     }
-    board.members = [userService.getLoggedinUser() || {
-        "_id": "UjCos",
-        "fullname": "Carmel Amarillio",
-        "imgUrl": "https://hips.hearstapps.com/ghk.h-cdn.co/assets/16/08/gettyimages-464163411.jpg?crop=1.0xw:1xh;center,top&resize=980:*"
-    }]
+    // board.members = [userService.getLoggedinUser() || {
+    //     "_id": "UjCos",
+    //     "fullname": "Carmel Amarillio",
+    //     "imgUrl": "https://hips.hearstapps.com/ghk.h-cdn.co/assets/16/08/gettyimages-464163411.jpg?crop=1.0xw:1xh;center,top&resize=980:*"
+    // }]
     console.log(board);
     return await storageService.post(STORAGE_KEY, board)
 }
@@ -153,6 +153,7 @@ async function duplicate({ boardId, groupId, taskId }) {
 function getEmptyBoard() {
     return {
         title: "New Board",
+        description: "Manage any type of project. Assign owners, set timelines and keep track of where your project stands.",
         isStarred: false,
         archivedAt: Date.now(),
         style: {
@@ -234,24 +235,24 @@ function getEmptyBoard() {
                         "title": "Item 1",
                         "status": "Working on it",
                         "priority": "Medium",
-                        "dueDate": [1696280400000, 1679040000000],
-                        "members": [],
+                        "dueDate": [1679040000000, 1706280400000],
+                        "members": ["WOWOWO"],
                     },
                     {
                         "id": utilService.makeId(),
                         "title": "Item 2",
                         "status": "Done",
                         "priority": "Medium",
-                        "dueDate": [1696280400000, 1679040000000],
-                        "members": [],
+                        "dueDate": [1679147000000, 1696280400000,],
+                        "members": ["UjCos"],
                     },
                     {
                         "id": utilService.makeId(),
                         "title": "Item 3",
                         "status": "Done",
                         "priority": "Medium",
-                        "dueDate": [1696280400000, 1679040000000],
-                        "members": [],
+                        "dueDate": [1686280400000, 1699040000000],
+                        "members": ["KKLLSS", "UjCos"],
                     },
 
                 ],
@@ -267,7 +268,7 @@ function getEmptyBoard() {
                         "title": "Item 3",
                         "status": "Done",
                         "priority": "Medium",
-                        "dueDate": [1696280400000, 1679040000000],
+                        "dueDate": [1626280400000, 1659040000000],
                         "members": [],
                     },
                     {
@@ -275,14 +276,33 @@ function getEmptyBoard() {
                         "title": "Item 4",
                         "status": "Done",
                         "priority": "Medium",
-                        "dueDate": [1696280400000, 1679040000000],
-                        "members": [],
+                        "dueDate": [1616280400000, 1673040000000],
+                        "members": ["KKLLSS", "WOWOWO"],
                     },
                 ],
                 "style": { "backgroundColor": "#A25DDC" }
             }
         ],
+
         activities: [],
+
+        members: [
+            {
+                "_id": "UjCos",
+                "fullname": "Carmel Amarillio",
+                "imgUrl": "https://hips.hearstapps.com/ghk.h-cdn.co/assets/16/08/gettyimages-464163411.jpg?crop=1.0xw:1xh;center,top&resize=980:*"
+            },
+            {
+                "_id": "KKLLSS",
+                "fullname": "Daniel Avishid",
+                "imgUrl": "https://images.pexels.com/photos/2607544/pexels-photo-2607544.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+            },
+            {
+                "_id": "WOWOWO",
+                "fullname": "Ofir Kaspi",
+                "imgUrl": "https://i.natgeofe.com/n/4f5aaece-3300-41a4-b2a8-ed2708a0a27c/domestic-dog_thumb_square.jpg?w=136&h=136"
+            }
+        ],
 
         cmpsOrder: [
             {
@@ -310,12 +330,15 @@ function getEmptyBoard() {
 }
 
 function getEmptyGroup() {
+    console.log('get here');
     return {
-        "id": utilService.makeId(),
-        "title": "New Group",
-        "archivedAt": Date.now(),
-        "tasks": [],
-        "style": {}
+        id: utilService.makeId(),
+        title: 'New Group',
+        archivedAt: Date.now(),
+        tasks: [],
+        style: {
+            backgroundColor: utilService.getRandomColor()
+        }
     }
 }
 
@@ -326,7 +349,7 @@ function getEmptyTask(title = 'New Item') {
         status: "Done",
         priority: "Critical",
         members: ["UjCos"],
-        Date: [1696280400000, 1679040000000]
+        dueDate: []
     }
 }
 

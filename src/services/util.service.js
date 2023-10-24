@@ -10,7 +10,9 @@ export const utilService = {
     getDateToShow,
     formatString,
     getTimePassed,
-    lowercaseFirstLetter
+    lowercaseFirstLetter,
+    calculateDaysDifference,
+    getRandomColor
 }
 
 function makeId(length = 6) {
@@ -104,11 +106,16 @@ function getDateToShow(timeStamps = []) {
     }
 
     if (date1.getFullYear() === date2.getFullYear()) {
-        return { text: `${formatDateMonth(date1)} ${formatDateDay(date1)} - ${formatDateMonth(date2), formatDateDay(date2)}`, percentage }
+        return { text: `${formatDateMonth(date1)} ${formatDateDay(date1)} - ${formatDateMonth(date2)} ${formatDateDay(date2)}`, percentage }
     }
 
-    const year1 = date1.getFullYear()
-    const year2 = date2.getFullYear()
+    const getShortYear = (date) => {
+        const year = date.getFullYear().toString().slice(-2);
+        return year;
+    };
+
+    const year1 = getShortYear(date1)
+    const year2 = getShortYear(date2)
 
     return { text: `${formatDateMonth(date1)} ${formatDateDay(date1)}, '${year1} - ${formatDateMonth(date2)} ${formatDateDay(date2)}, '${year2}`, percentage }
 }
@@ -142,6 +149,17 @@ function lowercaseFirstLetter(inputString) {
         return inputString; // Return an empty string if input is empty
     }
     return inputString.charAt(0).toLowerCase() + inputString.slice(1);
+}
+
+function calculateDaysDifference(timeStamps) {
+    const [minDate, maxDate] = timeStamps;
+    return Math.floor((new Date(maxDate) - new Date(minDate)) / (1000 * 60 * 60 * 24));
+}
+
+function getRandomColor() {
+    const colors = ['#00c875', '#00b36b', '#c9f7e9', '#b3f0df', '#ff4d4d', '#ff3333', '#ffd6d6', '#ffc2c2', '#ffc82c', '#ffb31a', '#fff2cc', '#ffe5b3', '#f65e7c']
+    const randomIndex = Math.floor(Math.random() * colors.length)
+    return colors[randomIndex]
 }
 
 

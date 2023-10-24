@@ -1,3 +1,19 @@
 .task-preview {
+
+    &:hover {
+        box-shadow: 4px 3px 6px -3px $selectable-cluster-border;
+        background-color: $lighter-grey;
+
+        >.status-cell,
+        >.priority-cell {
+            opacity: 0.7;
+        }
+
+    }
+
+    &.checked {
+        background-color: $primary-selected-color;
+    }
+
     min-width: 100vw;
 }

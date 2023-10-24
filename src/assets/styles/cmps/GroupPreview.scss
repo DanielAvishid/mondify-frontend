@@ -11,8 +11,26 @@
         background-color: $primary-background-color;
         z-index: 2;
 
+        .title-header {
+            margin-inline-start: 6px;
+            height: 2.5rem;
+
+            .items-count {
+                margin-inline-start: 4px;
+                opacity: 0;
+                transition: 0.2s;
+                font-size: 0.875rem;
+            }
+
+            &:hover {
+                .items-count {
+                    opacity: 1;
+                }
+            }
+        }
+
         .table-header {
-            border-block-start: 1px solid $primary-background-hover-color;
+            border-block-start: 1px solid $table-border;
         }
     }
 
@@ -23,10 +41,15 @@
         grid-auto-flow: column;
         height: 2.25rem;
         min-width: 100vw;
+        border-block-end: 1px solid $table-border;
+
+        &.progress-bar {
+            border-block-end: 0;
+        }
 
         >* {
-            border-block-end: 1px solid $primary-background-hover-color;
-            border-inline-start: 1px solid $primary-background-hover-color;
+            // border-block-end: 1px solid $table-border;
+            border-inline-start: 1px solid $table-border;
         }
 
         .side {
@@ -42,12 +65,6 @@
             border-inline-start: 0;
             width: 2rem;
             padding-inline-start: 0.5rem;
-
-            >input {
-                width: 1rem;
-                margin: 0;
-                padding: 0;
-            }
         }
 
         .title-col {
@@ -94,14 +111,48 @@
         height: 6.25rem;
 
         .add-task {
-            border-block-end: 1px solid $primary-background-hover-color;
+            border-block-end: 1px solid $table-border;
 
             >* {
-                border: 0;
+                border-block-end: 0;
+            }
+
+            >.last-col {
+                border-inline-start: 0;
             }
 
             >.side {
                 border-bottom-left-radius: 5px;
+            }
+
+            input[type="text"] {
+                background-color: transparent;
+                border: none;
+                outline: none;
+                font-size: 0.875rem;
+                // padding: 5px 1.625rem;
+                border-radius: 3px;
+                margin: 6px 10px;
+                padding: 2px 0 3px 1rem;
+
+                &:focus {
+                    border: 1px solid $primary-color;
+                }
+            }
+
+            &:hover:not(:focus-within) {
+                background-color: $lighter-grey;
+                box-shadow: 4px 3px 6px -3px $selectable-cluster-border;
+
+                input {
+                    border: 1px solid $table-border;
+                }
+            }
+
+
+
+            &.focus-bgc {
+                background-color: $primary-selected-color;
             }
         }
     }

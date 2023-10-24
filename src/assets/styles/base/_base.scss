@@ -29,14 +29,18 @@ p {
   padding: 0;
 }
 
+span {
+  font-size: 0.875rem;
+  font-family: Figtree, Roboto, "Noto Sans Hebrew", "Noto Kufi Arabic", "Noto Sans JP", sans-serif;
 
+}
 
 /* Dont stretch my Media */
 img,
 embed,
 video,
 object {
-  max-width: 100%
+  width: 100%;
 }
 
 /* Simple and useful CSS Debugging Technique */
@@ -46,4 +50,8 @@ object {
 
 a.active {
   text-decoration: overline;
+}
+
+.monday-style-dialog-content-wrapper {
+  z-index: 100;
 }

@@ -1,4 +1,5 @@
 .task-details {
+    z-index: 200;
     background-color: $primary-background-color;
     position: absolute;
     top: 0;
@@ -43,8 +44,8 @@
             min-height: 200px;
             margin-block-end: 10px;
 
-            .text-tools{
-                border-bottom: 1px solid $primary-background-hover-color;
+            .text-tools {
+                border-bottom: 1px solid $table-border;
                 padding: 10px;
             }
 
@@ -56,6 +57,7 @@
 
     .updates-container {
         width: 100%;
+
         .update-txt {
             min-height: 200px;
             max-height: 300px;
@@ -64,14 +66,17 @@
             padding: 10px;
             margin-bottom: 20PX;
         }
-        div{
+
+        div {
             gap: 5px;
         }
-        h3{
+
+        h3 {
             font-weight: normal;
         }
-        a{
-            color:$inverted-color-background;
+
+        a {
+            color: $inverted-color-background;
         }
     }
 

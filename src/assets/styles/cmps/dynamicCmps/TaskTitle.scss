@@ -2,19 +2,53 @@
     grid-template-columns: 5.625fr 1fr;
     position: relative;
 
-    &>.chat-cell {
-        height: 100%;
-        border-inline-start: 1px solid $primary-background-hover-color;
+    &:hover {
 
-        &:hover {
-            color: $primary-color;
-
+        .collapse,
+        .open-details-container {
+            opacity: 1;
         }
     }
 
-    .updates-icon {
-        color: $primary-color;
+    .collapse {
+        width: 30px;
+        opacity: 0;
+
+        >* {
+            border-radius: 4px;
+            color: $table-border;
+
+            &:hover {
+                background-color: $light_grey;
+            }
+        }
     }
+
+    .open-details-container {
+        margin-inline-end: 1.25rem;
+        gap: 3px;
+        opacity: 0;
+        color: $grey;
+
+        span {
+            font-size: 0.813rem;
+        }
+
+    }
+
+    &>.chat-cell {
+        height: 100%;
+        border-inline-start: 1px solid $table-border;
+        color: $chat-icon-color;
+
+        &:hover {
+            color: $primary-color;
+        }
+    }
+
+    // .updates-icon {
+    //     color: $primary-color;
+    // }
 
     .updates-counter {
         position: absolute;
