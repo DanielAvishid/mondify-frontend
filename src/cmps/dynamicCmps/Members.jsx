@@ -1,5 +1,5 @@
-import { Icon } from "monday-ui-react-core"
-import { AddSmall } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
+import { Icon, Search } from "monday-ui-react-core"
+import { Invite, Close } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { useState } from "react"
 
 
@@ -15,27 +15,77 @@ export function Members({ info, board }) {
             {/* <div className="add-member grid align-center"> */}
             <span className="plus-container flex align-center justify-center">+</span>
 
-            {membersIds.length > 0 ? membersIds.map((memberId) => (
-                <span
-                    key={memberId}
-                    className="avatar grid align-center justify-center"
-                    style={{ backgroundColor: "#E3425C" }}>
-                    {memberId.slice(0, 2).toUpperCase()}
-                </span>
-            )) :
+            {membersIds.length > 0 ? membersIds.map((memberId) => {
+                const matchingMember = board.members.find(member => member._id === memberId);
+                return (
+                    <img
+                        key={matchingMember._id}
+                        className="avatar grid align-center justify-center"
+                        src={matchingMember.imgUrl} />
+                )
+            }) : (
                 <img src="https://cdn.monday.com/icons/dapulse-person-column.svg" className="avatar" />
-            }
+            )}
 
             {isModalOpen &&
                 <div className="members-modal">
-                    {modalMembers.map((member) => (
-                        <span
-                            key={member._id}
-                            className="avatar grid align-center justify-center"
-                            style={{ backgroundColor: "#E3425C" }}>
-                            {member.fullname.split(' ').map(name => name[0]).join('').toUpperCase()}
-                        </span>
-                    ))}
+                    {membersIds.length > 0 && (
+                        <section className="participate-members flex">
+                            {membersIds.map((memberId) => {
+                                const matchingMember = board.members.find(member => member._id === memberId);
+                                return (
+                                    <div className="member-container flex align-center">
+                                        <div className="member-details flex align-center">
+                                            <img
+                                                key={matchingMember._id}
+                                                className="avatar"
+                                                src={matchingMember.imgUrl}
+                                            />
+                                            <span className="member-name">{matchingMember.fullname}</span>
+                                        </div>
+                                        <div className="remove-member flex align-center justify-center">
+                                            <Icon
+                                                icon={Close}
+                                                iconSize={8}
+                                            />
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </section>
+                    )}
+                    <section className="member-picker-container">
+                        <div className="member-list">
+                            <Search
+                                size={Search.sizes.SMALL}
+                                placeholder="Search names, roles to teams"
+                                wrapperClassName="monday-storybook-search_size"
+                            />
+                            <div className="suggest-container"><span className="suggest-title">Suggested people</span></div>
+                            {modalMembers.map((member) => (
+                                <div className="member-row flex align-center">
+                                    <img
+                                        key={member._id}
+                                        className="avatar grid align-center justify-center"
+                                        src={member.imgUrl}
+                                    />
+                                    <span className="member-name">{member.fullname}</span>
+                                </div>
+                            ))}
+                            <div className="member-row flex align-center">
+                                <div className="invite-icon-container grid align-center justify-center">
+                                    <Icon
+                                        // customColor={group.style.backgroundColor}
+                                        // className="invite-icon"
+                                        icon={Invite}
+                                        iconSize={16}
+                                    />
+
+                                </div>
+                                <span className="member-name">Invite a new member by email</span>
+                            </div>
+                        </div>
+                    </section>
                 </div>
             }
         </div >
