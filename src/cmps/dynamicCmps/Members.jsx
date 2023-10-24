@@ -19,7 +19,7 @@ export function Members({ info, board }) {
                 const matchingMember = board.members.find(member => member._id === memberId);
                 return (
                     <img
-                        key={matchingMember._id}
+                        key={memberId}
                         className="avatar grid align-center justify-center"
                         src={matchingMember.imgUrl} />
                 )
@@ -34,7 +34,7 @@ export function Members({ info, board }) {
                             {membersIds.map((memberId) => {
                                 const matchingMember = board.members.find(member => member._id === memberId);
                                 return (
-                                    <div className="member-container flex align-center">
+                                    <div className="member-container flex align-center" key={memberId}>
                                         <div className="member-details flex align-center">
                                             <img
                                                 key={matchingMember._id}
@@ -50,7 +50,7 @@ export function Members({ info, board }) {
                                             />
                                         </div>
                                     </div>
-                                );
+                                )
                             })}
                         </section>
                     )}
@@ -63,7 +63,7 @@ export function Members({ info, board }) {
                             />
                             <div className="suggest-container"><span className="suggest-title">Suggested people</span></div>
                             {modalMembers.map((member) => (
-                                <div className="member-row flex align-center">
+                                <div className="member-row flex align-center" key={member._id}>
                                     <img
                                         key={member._id}
                                         className="avatar grid align-center justify-center"
