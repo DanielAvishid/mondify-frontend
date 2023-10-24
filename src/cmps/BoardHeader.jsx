@@ -124,18 +124,18 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemove, onSaveBoard,
             </section>
             <MenuDivider className='menu-divider' />
             <section className="fourth-row-container">
-                <SplitButton className='split-button' children="New Item" size={SplitButton.sizes.MEDIUM}
+                <SplitButton className='split-button' children="New Item" size={SplitButton.sizes.SMALL}
                     onClick={() => onAddTaskFromHeader(board)}
                     secondaryDialogContent={<SplitButtonMenu id="split-menu">
                         <MenuItem icon={Group} title="New group of Items" />
                         <MenuItem icon={Download} title="import Items" />
                     </SplitButtonMenu>} />
                 <div className="btns-container">
-                    <Button kind={Button.kinds.TERTIARY}>
+                    <Button size={Button.sizes.SMALL} kind={Button.kinds.TERTIARY}>
                         <Icon iconType={Icon.type.SVG} icon={Search} iconLabel="my bolt svg icon" iconSize={22} />
                         Search
                     </Button>
-                    <Button kind={Button.kinds.TERTIARY}>
+                    <Button size={Button.sizes.SMALL} kind={Button.kinds.TERTIARY}>
                         <Icon iconType={Icon.type.SVG} icon={PersonRound} iconLabel="my bolt svg icon" iconSize={22} />
                         Person
                     </Button>

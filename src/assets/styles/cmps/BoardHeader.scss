@@ -167,6 +167,11 @@
             .tab-list {
                 padding: 0;
 
+                .tabWrapper_e21268071d {
+                    padding: 0;
+                    border-bottom-color: transparent;
+                }
+
                 .tab {
                     padding: 0 8px;
                     font-size: rem(14px);
@@ -182,7 +187,7 @@
                         top: 50%;
                         right: 0;
                         transform: translate(-50%, -50%);
-                        height: 60%;
+                        height: 45%;
                         width: .5px;
                         background-color: #51515135;
                     }
@@ -209,6 +214,10 @@
     .fourth-row-container {
         display: flex;
         align-items: center;
+
+        .secondaryButton_c570c8ee68 {
+            margin-block-start: 1px;
+        }
 
         .split-button {
             margin-inline-end: rem(18px);
