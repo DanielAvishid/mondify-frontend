@@ -69,11 +69,11 @@ async function addBoard(board) {
         "fullname": "Carmel Amarillio",
         "imgUrl": "https://hips.hearstapps.com/ghk.h-cdn.co/assets/16/08/gettyimages-464163411.jpg?crop=1.0xw:1xh;center,top&resize=980:*"
     }
-    board.members = [userService.getLoggedinUser() || {
-        "_id": "UjCos",
-        "fullname": "Carmel Amarillio",
-        "imgUrl": "https://hips.hearstapps.com/ghk.h-cdn.co/assets/16/08/gettyimages-464163411.jpg?crop=1.0xw:1xh;center,top&resize=980:*"
-    }]
+    // board.members = [userService.getLoggedinUser() || {
+    //     "_id": "UjCos",
+    //     "fullname": "Carmel Amarillio",
+    //     "imgUrl": "https://hips.hearstapps.com/ghk.h-cdn.co/assets/16/08/gettyimages-464163411.jpg?crop=1.0xw:1xh;center,top&resize=980:*"
+    // }]
     console.log(board);
     return await storageService.post(STORAGE_KEY, board)
 }
@@ -283,7 +283,26 @@ function getEmptyBoard() {
                 "style": { "backgroundColor": "#A25DDC" }
             }
         ],
+
         activities: [],
+
+        members: [
+            {
+                "_id": "UjCos",
+                "fullname": "Carmel Amarillio",
+                "imgUrl": "https://hips.hearstapps.com/ghk.h-cdn.co/assets/16/08/gettyimages-464163411.jpg?crop=1.0xw:1xh;center,top&resize=980:*"
+            },
+            {
+                "_id": "KKLLSS",
+                "fullname": "Daniel Avishid",
+                "imgUrl": "https://hips.hearstapps.com/ghk.h-cdn.co/assets/16/08/gettyimages-464163411.jpg?crop=1.0xw:1xh;center,top&resize=980:*"
+            },
+            {
+                "_id": "WOWOWO",
+                "fullname": "Ofir Kaspi",
+                "imgUrl": "https://hips.hearstapps.com/ghk.h-cdn.co/assets/16/08/gettyimages-464163411.jpg?crop=1.0xw:1xh;center,top&resize=980:*"
+            }
+        ],
 
         cmpsOrder: [
             {

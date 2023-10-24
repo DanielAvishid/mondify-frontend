@@ -41,4 +41,15 @@
             opacity: 1;
         }
     }
+
+    >.members-modal {
+        position: absolute;
+        bottom: -30px;
+        z-index: 50;
+        border: 1px solid black;
+        background-color: white;
+        height: 30px;
+        width: 200px;
+        // margin: 5px;
+    }
 }

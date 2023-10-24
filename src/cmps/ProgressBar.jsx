@@ -27,7 +27,7 @@ export function ProgressBar({ board, group }) {
                 const flattenedMembers = [].concat(...members)
                 const uniqueMembers = [...new Set(flattenedMembers)]
 
-                return <Members info={uniqueMembers} />
+                return <Members info={uniqueMembers} board={board} />
 
             default:
                 return
