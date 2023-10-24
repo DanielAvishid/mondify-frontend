@@ -236,7 +236,7 @@ function getEmptyBoard() {
                         "status": "Working on it",
                         "priority": "Medium",
                         "dueDate": [1679040000000, 1706280400000],
-                        "members": [],
+                        "members": ["WOWOWO"],
                     },
                     {
                         "id": utilService.makeId(),
@@ -244,7 +244,7 @@ function getEmptyBoard() {
                         "status": "Done",
                         "priority": "Medium",
                         "dueDate": [1679147000000, 1696280400000,],
-                        "members": [],
+                        "members": ["UjCos"],
                     },
                     {
                         "id": utilService.makeId(),
@@ -252,7 +252,7 @@ function getEmptyBoard() {
                         "status": "Done",
                         "priority": "Medium",
                         "dueDate": [1686280400000, 1699040000000],
-                        "members": [],
+                        "members": ["KKLLSS", "UjCos"],
                     },
 
                 ],
@@ -277,7 +277,7 @@ function getEmptyBoard() {
                         "status": "Done",
                         "priority": "Medium",
                         "dueDate": [1616280400000, 1673040000000],
-                        "members": [],
+                        "members": ["KKLLSS", "WOWOWO"],
                     },
                 ],
                 "style": { "backgroundColor": "#A25DDC" }
