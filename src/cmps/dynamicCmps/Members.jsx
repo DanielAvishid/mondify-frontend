@@ -1,7 +1,14 @@
+import { Icon } from "monday-ui-react-core"
+import { AddSmall } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
+
+
 export function Members({ info }) {
     const membersIds = info
     return (
         <div className="members-cell members-col grid align-center justify-center">
+            <span className="add-member flex align-center justify-center">
+                <span className="add-btn">+</span>
+            </span>
             {membersIds.length > 0 ? membersIds.map((memberId) => (
                 <span
                     key={memberId}
