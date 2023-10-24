@@ -105,8 +105,8 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, on
                                         </MenuButton>
                                     </div>
                                     <div className="flex align-center">
-                                        <span className="flex">
-                                            {/* cant get the color and label . why ? */}
+                                        <span className="flex" style={{ color: group.style.backgroundColor }}>
+                                            {/* cant get the label . why ? */}
 
                                             <Icon
                                                 customColor={group.style.backgroundColor}
