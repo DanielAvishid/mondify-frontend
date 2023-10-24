@@ -35,6 +35,14 @@ export function LabelModal({ key, board, labels, onSaveBoard }) {
         }))
     }
 
+    function togglePallete(ev, labelId) {
+        ev.stopPropagation()
+        setPalleteOpenState((prevState) => ({
+            ...prevState,
+            [labelId]: !prevState[labelId]
+        }))
+    }
+
     return (
         <section className="label-modal relative">
             <div className="label-picker-content">
@@ -48,16 +56,16 @@ export function LabelModal({ key, board, labels, onSaveBoard }) {
                 {isEditMode && <div className="label-picker-edit" style={styleEditMode}>
                     {labels.map(label =>
                         <div key={label.id} className="label-edit label-edit-layout" onMouseEnter={() => toggleRemove(label.id)} onMouseLeave={() => toggleRemove(label.id)}>
+                            {palleteOpenState[label.id] && <ColorPicker
+                                className="color-picker"
+                                colorSize="small"
+                            />}
                             {hoverState[label.id] && <Icon className='icon-drag' icon={Drag} />}
                             <div key={label.id} className="label-editable middle" >
-                                <button className="color-options" style={{ backgroundColor: label.color }}>
+                                <button className="color-options" style={{ backgroundColor: label.color }} onClick={(ev) => togglePallete(ev, label.id)}>
                                     <Icon iconType={Icon.type.SVG} icon={HighlightColorBucket} iconLabel="my bolt svg icon" iconSize={16} style={{ color: '#fff' }} />
                                 </button>
                                 <input className="label-input" placeholder={getPlaceHolder(label.isDefault)} value={label.title} type="text" />
-                                {palleteOpenState[label.id] && <ColorPicker
-                                    className="color-picker"
-                                    colorSize="small"
-                                />}
                             </div>
                             {hoverState[label.id] && <Button size={Button.sizes.XXS} kind={Button.kinds.TERTIARY}><Icon iconSize={16} icon={Close} /></Button>}
                             {/* {hoverState[label.id] && <IconButton
