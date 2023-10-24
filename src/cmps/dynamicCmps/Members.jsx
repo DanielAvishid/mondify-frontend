@@ -7,10 +7,11 @@ export function Members({ info }) {
                     key={memberId}
                     className="grid align-center justify-center"
                     style={{ backgroundColor: "#E3425C" }}>
-                    {memberId.charAt(0)}
+                    {memberId.slice(0, 2).toUpperCase()}
                 </span>
             )) :
-                <img src="https://cdn.monday.com/icons/dapulse-person-column.svg" />}
-        </div>
+                <img src="https://cdn.monday.com/icons/dapulse-person-column.svg" />
+            }
+        </div >
     )
 }    

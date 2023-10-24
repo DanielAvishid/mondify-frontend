@@ -1,5 +1,6 @@
 import { utilService } from "../services/util.service";
 import { DueDate } from "./dynamicCmps/DueDate";
+import { Members } from "./dynamicCmps/Members";
 
 export function ProgressBar({ board, group }) {
 
@@ -21,7 +22,13 @@ export function ProgressBar({ board, group }) {
                 return <span></span>
             case 'priority':
                 return <span></span>
-            // Add more cases as needed for other cmp types
+            case 'members':
+                const members = group.tasks.map(task => task.members)
+                const flattenedMembers = [].concat(...members)
+                const uniqueMembers = [...new Set(flattenedMembers)]
+
+                return <Members info={uniqueMembers} />
+
             default:
                 return
         }

@@ -30,8 +30,8 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemove, onSaveBoard,
                         onBlur={(ev) => onSaveBoard({ board, key: 'title', value: ev.target.value })}
                         onKeyDown={handleKeyPress}
                     />
-                    <IconButton iconClassName='info-icon' key="small" icon={Info} kind={IconButton.kinds.TERTIARY} size={IconButton.sizes.SMALL} ariaLabel="Show board description" />
-                    <IconButton iconClassName='info-icon' key="small" icon={Favorite} kind={IconButton.kinds.TERTIARY} size={IconButton.sizes.SMALL} ariaLabel="Add to favorites" />
+                    <IconButton iconClassName='info-icon' icon={Info} kind={IconButton.kinds.TERTIARY} size={IconButton.sizes.SMALL} ariaLabel="Show board description" />
+                    <IconButton iconClassName='info-icon' icon={Favorite} kind={IconButton.kinds.TERTIARY} size={IconButton.sizes.SMALL} ariaLabel="Add to favorites" />
                 </div>
                 <div className="options-container">
                     <Button className="activity-btn" kind={Button.kinds.TERTIARY} size={Button.sizes.SMALL}>
