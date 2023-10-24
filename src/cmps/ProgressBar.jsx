@@ -41,12 +41,13 @@ export function ProgressBar({ board, group }) {
             <div className="title-col"></div>
             {board.cmpsOrder.map((cmp, idx) => (
                 <div key={idx} className={`${cmp.type}-col ${cmp.type}-cell grid align-center justify-center`}>
-                    <div className="grid align-center justify-center">
+                    <div className="inner-progress-ber grid align-center justify-center">
                         {renderCmpSpan(cmp)}
                     </div>
                 </div>
-            ))}
+            ))
+            }
             <div className="last-col"></div>
-        </div>
+        </div >
     )
 }

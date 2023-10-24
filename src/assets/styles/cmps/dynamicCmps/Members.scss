@@ -2,15 +2,17 @@
     grid-template-columns: auto max-content auto;
     position: relative;
 
-    >* {
+    .avatar,
+    .plus-container {
+        border-radius: 50%;
+        color: $secondary-background-color;
+    }
+
+    .avatar {
         height: 1.875rem;
         width: 1.875rem;
-        border-radius: 50%;
         border: 2px solid $members-border;
-
-        color: $secondary-background-color;
         margin: 0rem -0.25rem;
-        // border: 1px solid gray;
 
         &:first-of-type {
             margin: 0;
@@ -18,29 +20,24 @@
 
     }
 
-
-    .add-member {
+    .plus-container {
         opacity: 0;
         position: absolute;
         left: 0.5rem;
         background-color: $primary-color;
         width: 0.875rem;
         height: 0.875rem;
-        border: 0;
+        font-weight: 600;
+        font-size: 1.2rem;
+        line-height: 0;
 
         &:hover {
             background-color: $primary-hover-color;
         }
-
-        .add-btn {
-            font-weight: 600;
-            font-size: 1.2rem;
-            padding-block-end: 2px;
-        }
     }
 
     &:hover {
-        .add-member {
+        .plus-container {
             opacity: 1;
         }
     }
