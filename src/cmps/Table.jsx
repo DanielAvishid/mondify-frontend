@@ -183,10 +183,9 @@ export function Table({ board, group, onSaveBoard, progress, onRemove, onDuplica
                                 />
                             </div>
                         </td>
-                        <td className="empty-cell"></td>
                     </tr>
                 </table>
-                {/* <ProgressBar board={board} group={group} /> */}
+                <ProgressBar board={board} group={group} />
             </div>
 
         </div>
