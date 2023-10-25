@@ -5,6 +5,7 @@ import { Button } from "monday-ui-react-core";
 import { boardService } from "../services/board.service";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { useEffect, useState } from "react";
+import { Table } from "./table";
 
 export function GroupList() {
     const [board, onSaveBoard, onDuplicate, onRemove] = useOutletContext()
@@ -41,6 +42,22 @@ export function GroupList() {
                                 <Draggable draggableId={group.id} index={index} key={group.id}>
                                     {(provided) => (
                                         <article
+                                            key={group.id}
+                                            className="full"
+                                            {...provided.dragHandleProps}
+                                            {...provided.draggableProps}
+                                            ref={provided.innerRef}
+                                        >
+                                            <Table
+                                                board={board}
+                                                group={group}
+                                                onSaveBoard={onSaveBoard}
+                                                onDuplicate={onDuplicate}
+                                                onRemove={onRemove} />
+                                        </article>
+                                    )}
+                                    {/* {(provided) => (
+                                        <article
                                             className="full"
                                             {...provided.dragHandleProps}
                                             {...provided.draggableProps}
@@ -55,7 +72,7 @@ export function GroupList() {
                                                 onRemove={onRemove}
                                             />
                                         </article>
-                                    )}
+                                    )} */}
                                 </Draggable>
                             ))}
                             {provided.placeholder}
