@@ -82,7 +82,7 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
                                                 </Button>
                                                 <MenuButton className="board-menu">
                                                     <Menu id="menu" size="large">
-                                                        <MenuItem icon={Duplicate} title="Duplicate Boarder" onClick={() => onDuplicateBoard({ boardId: board._id })} />
+                                                        <MenuItem icon={Duplicate} title="Duplicate Board" onClick={() => onDuplicateBoard({ boardId: board._id })} />
                                                         <MenuItem icon={Delete} title="Delete" onClick={() => onRemoveBoard({ boardId: board._id })} />
                                                     </Menu>
                                                 </MenuButton>

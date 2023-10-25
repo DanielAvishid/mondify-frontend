@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { getById } from "../store/actions/board.action";
 import { useSelector } from "react-redux";
 import { boardService } from "../services/board.service";
-import { DeletedBoard } from "../cmps/DeletedBoardjsx";
+import { DeletedBoard } from "../cmps/DeletedBoard";
 
 export function BoardDetails() {
     const boards = useSelector(storeState => storeState.boardModule.boards)
