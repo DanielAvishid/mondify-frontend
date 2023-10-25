@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { getById } from "../store/actions/board.action";
 import { useSelector } from "react-redux";
 import { boardService } from "../services/board.service";
+import { DeletedBoard } from "../cmps/DeletedBoardjsx";
 
 export function BoardDetails() {
     const boards = useSelector(storeState => storeState.boardModule.boards)
@@ -32,7 +33,9 @@ export function BoardDetails() {
         await boardService.addTaskFromHeader(board, taskToAdd)
     }
 
-    if (!board) return <span></span>
+    if (board === undefined) return <DeletedBoard />
+    if (board === null) return <span></span>
+
     return (
         <section className="board-details main-layout">
             <BoardHeader onAddTaskFromHeader={onAddTaskFromHeader} onDuplicateBoard={onDuplicateBoard} board={board} onRemoveBoard={onRemoveBoard} onSaveBoard={onSaveBoard} />
