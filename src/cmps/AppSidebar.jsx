@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Button, Icon, Menu, MenuButton, MenuItem, MenuTitle, Search, SplitButton } from "monday-ui-react-core";
-import { Home, MyWeek, Filter, Board, Duplicate, Gantt, Delete, Add, DropdownChevronDown, DropdownChevronLeft, DropdownChevronRight } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
+import { Home, MyWeek, Filter, Board, Duplicate, Gantt, Delete, Add, DropdownChevronDown, NavigationChevronLeft, NavigationChevronRight } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { useState } from "react";
 import { boardService } from "../services/board.service";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
@@ -30,7 +30,7 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
     return (
         <section className="app-sidebar flex column">
             <button className="close-btn" onClick={toggleSidebar}>
-                <Icon icon={showSidebar ? DropdownChevronLeft : DropdownChevronRight} />
+                <Icon className="icon" icon={showSidebar ? NavigationChevronLeft : NavigationChevronRight} />
             </button>
             <section className={`flex column main-sidebar ${showSidebar ? '' : 'close'}`}>
                 <Button leftIcon={Home} kind="tertiary" className="home btn">Home</Button>

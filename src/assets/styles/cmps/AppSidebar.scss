@@ -2,13 +2,14 @@
     position: relative;
     width: max-content;
     background-color: $primary-background-color;
-    padding: 10px 20px;
+    padding: 10px 18px;
     font-size: 15px;
-    border-radius: 10px;
+    border-top-right-radius: 10px;
 
     &:hover .close-btn {
         display: block;
     }
+
     .close-btn {
         width: max-content;
         display: none;
@@ -18,12 +19,17 @@
         border: 0;
         font-size: 24px;
         background-color: $allgrey-background-color;
-        padding: 10px 10px;
+        padding: 6px 9px;
         border-top-right-radius: 10px;
         border-bottom-left-radius: 10px;
 
         &:hover {
             background-color: $border-color;
+        }
+
+        .icon {
+            width: rem(13px);
+            color: $primary-text-color;
         }
     }
 
@@ -37,7 +43,7 @@
             width: 0px;
         }
 
-    
+
         .btn {
             justify-content: start;
 
@@ -78,19 +84,19 @@
 
         .board-label {
             border-radius: 5px;
-          
+
             &:hover,
             .board-menu[aria-expanded="true"] {
-              background-color: $primary-background-hover-color;
-          
-              .board-menu {
-                opacity: 1;
-              }
+                background-color: $primary-background-hover-color;
+
+                .board-menu {
+                    opacity: 1;
+                }
             }
-          
+
             .board-menu {
-              opacity: 0;
+                opacity: 0;
             }
-          }
+        }
     }
 }
