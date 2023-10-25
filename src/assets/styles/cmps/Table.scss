@@ -7,7 +7,6 @@
         z-index: 10;
 
         .title-header {
-            margin-inline-start: 6px;
             height: 2.5rem;
 
             .items-count {
@@ -18,9 +17,19 @@
             }
 
             &:hover {
-                .items-count {
+
+                .items-count,
+                .group-menu {
                     opacity: 1;
                 }
+            }
+
+            >.group-title {
+                margin-inline-start: 6px;
+            }
+
+            .group-menu {
+                opacity: 0;
             }
         }
     }

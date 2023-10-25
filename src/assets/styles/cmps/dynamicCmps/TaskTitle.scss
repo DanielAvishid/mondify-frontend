@@ -37,7 +37,9 @@
     }
 
     &>.chat-cell {
-        height: 100%;
+        height: 2.25rem;
+        width: 4rem;
+        padding: 0 1rem;
         border-inline-start: 1px solid $table-border;
         color: $chat-icon-color;
 

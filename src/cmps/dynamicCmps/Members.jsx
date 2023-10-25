@@ -11,7 +11,7 @@ export function Members({ info, board }) {
 
 
     return (
-        <div className="members-cell members-col grid align-center justify-center" onClick={() => setIsModalOpen(!isModalOpen)}>
+        <div className="task-item members-cell members-col grid align-center justify-center" onClick={() => setIsModalOpen(!isModalOpen)}>
             {/* <div className="add-member grid align-center"> */}
             <span className="plus-container flex align-center justify-center">+</span>
 

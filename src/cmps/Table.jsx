@@ -90,8 +90,8 @@ export function Table({ board, group, onSaveBoard, progress, onRemove, onDuplica
         <div className="table-preview main-layout full flex align-center justify-center">
             <div className="group-header main-layout full">
                 <div className="title-header main-layout full">
-                    <div className="group-options start flex justify-center align-center">
-                        <MenuButton className="board-menu">
+                    <div className="start flex justify-center align-center">
+                        <MenuButton className="group-menu">
                             <Menu id="menu" size="large">
                                 <MenuItem icon={Duplicate} title="Duplicate this group" onClick={() => onDuplicate({ boardId: board._id, groupId: group.id })} />
                                 <MenuItem icon={Delete} title="Delete" onClick={() => onRemove({ boardId: board._id, groupId: group.id })} />
@@ -153,6 +153,19 @@ export function Table({ board, group, onSaveBoard, progress, onRemove, onDuplica
                     </table>
                 </div >
             </div>
+            {tasks.map((task) => (
+                <TaskPreview
+                    key={task.id}
+                    board={board}
+                    group={group}
+                    task={task}
+                    onSaveBoard={onSaveBoard}
+                    onDuplicate={onDuplicate}
+                    onRemove={onRemove}
+                    isChecked={checkboxes[task.id]}
+                    handleCheckboxChange={handleCheckboxChange}
+                />
+            ))}
         </div>
     )
 }

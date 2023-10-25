@@ -14,9 +14,10 @@ import { useState } from "react";
 export function TaskPreview({ board, group, task, onSaveBoard, onDuplicate, onRemove, isChecked, handleCheckboxChange }) {
 
     return (
-        <>
-            <div className="start grid align-center justify-center">
-                <MenuButton className="board-menu">
+
+        <div className="task-preview full main-layout">
+            <div className="start flex align-center justify-center">
+                <MenuButton className="task-menu">
                     <Menu id="menu" size="large">
                         {/* <MenuItem icon={Duplicate} title="Duplicate Boarder" /> */}
                         <MenuItem icon={Duplicate} title="Duplicate Boarder" onClick={() => onDuplicate({ boardId: board._id, groupId: group.id, taskId: task.id })} />
@@ -24,21 +25,25 @@ export function TaskPreview({ board, group, task, onSaveBoard, onDuplicate, onRe
                     </Menu>
                 </MenuButton>
             </div>
-            <div key={task.id} className={`task-preview table-grid table ${isChecked ? 'checked' : ''}`}>
-                <div className="side" style={{ backgroundColor: group.style.backgroundColor }}></div>
-                <div className="checkbox grid align-center"><Checkbox checked={isChecked} onChange={() => handleCheckboxChange(task.id)} /></div>
-                <TaskTitle boardId={board._id} task={task} onSaveBoard={onSaveBoard} />
-                {board.cmpsOrder.map((cmp, idx) => (
-                    <DynamicCmp
-                        key={idx}
-                        board={board}
-                        cmpType={cmp.type}
-                        info={task[cmp.type]}
-                        onSaveBoard={onSaveBoard} />
-                ))}
-                <div className="last-col"></div>
-            </div>
-        </>
+            <table className="table-container table" style={{ borderColor: group.style.backgroundColor }}>
+                <tr className={`table-row flex ${isChecked ? 'checked' : ''}`}>
+                    <td className="task-item title-col flex align-center justify-center">
+                        <div className="checkbox flex align-center justify-center"><Checkbox checked={isChecked} onChange={() => handleCheckboxChange(task.id)} /></div>
+                        <div className="title-name flex align-center justify-center">
+                            <TaskTitle boardId={board._id} task={task} onSaveBoard={onSaveBoard} />
+                        </div>
+                    </td>
+                    {board.cmpsOrder.map((cmp, idx) => (
+                        <DynamicCmp
+                            key={idx}
+                            board={board}
+                            cmpType={cmp.type}
+                            info={task[cmp.type]}
+                            onSaveBoard={onSaveBoard} />
+                    ))}
+                </tr>
+            </table>
+        </div >
     )
 }
 
