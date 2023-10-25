@@ -30,7 +30,12 @@ export function BoardDetails() {
 
     async function onAddTaskFromHeader(board) {
         const taskToAdd = boardService.getEmptyTask()
-        await boardService.addTaskFromHeader(board, taskToAdd)
+        try {
+            const updatedBoard = await boardService.addTaskFromHeader(board, taskToAdd)
+            setBoard(updatedBoard)
+        } catch (err) {
+            console.log('ShowErrorMsg')
+        }
     }
 
     if (board === undefined) return <DeletedBoard />

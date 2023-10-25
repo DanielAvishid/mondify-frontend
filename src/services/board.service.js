@@ -79,7 +79,7 @@ async function addBoard(board) {
 }
 
 async function addTaskFromHeader(board, task) {
-    board.groups[0].tasks.push(task)
+    board.groups[0].tasks.unshift(task)
     const savedBoard = await storageService.put(STORAGE_KEY, board)
     return savedBoard
 }
