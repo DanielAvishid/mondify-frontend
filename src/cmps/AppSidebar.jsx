@@ -5,7 +5,7 @@ import { useState } from "react";
 import { boardService } from "../services/board.service";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
-export function AppSidebar({ boards, onSaveBoard, onDuplicate, onRemove, updateBoards }) {
+export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoard, updateBoards }) {
     const navigate = useNavigate()
     const [showSidebar, setShowSidebar] = useState(true)
 
@@ -21,7 +21,7 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicate, onRemove, updateB
     function handleOnDragEnd(result) {
         if (!result.destination) return;
         const newBoards = [...boards]
-        const board =  newBoards.splice(result.source.index, 1)[0];
+        const board = newBoards.splice(result.source.index, 1)[0];
         newBoards.splice(result.destination.index, 0, board)
         updateBoards(newBoards)
     }
@@ -82,8 +82,8 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicate, onRemove, updateB
                                                 </Button>
                                                 <MenuButton className="board-menu">
                                                     <Menu id="menu" size="large">
-                                                        <MenuItem icon={Duplicate} title="Duplicate Boarder" onClick={() => onDuplicate({ boardId: board._id })} />
-                                                        <MenuItem icon={Delete} title="Delete" onClick={() => onRemove({ boardId: board._id })} />
+                                                        <MenuItem icon={Duplicate} title="Duplicate Boarder" onClick={() => onDuplicateBoard({ boardId: board._id })} />
+                                                        <MenuItem icon={Delete} title="Delete" onClick={() => onRemoveBoard({ boardId: board._id })} />
                                                     </Menu>
                                                 </MenuButton>
                                             </article>

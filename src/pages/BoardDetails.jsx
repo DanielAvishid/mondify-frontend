@@ -7,7 +7,7 @@ import { boardService } from "../services/board.service";
 
 export function BoardDetails() {
     const boards = useSelector(storeState => storeState.boardModule.boards)
-    const [onSaveBoard, onDuplicate, onRemove] = useOutletContext()
+    const [onSaveBoard, onRemoveBoard, onRemoveGroup, onRemoveTask, onDuplicateBoard, onDuplicateGroup, onDuplicateTask] = useOutletContext()
     const [board, setBoard] = useState(null)
     const { boardId } = useParams()
     const navigate = useNavigate()
@@ -35,8 +35,8 @@ export function BoardDetails() {
     if (!board) return <span></span>
     return (
         <section className="board-details main-layout">
-            <BoardHeader onAddTaskFromHeader={onAddTaskFromHeader} onDuplicate={onDuplicate} board={board} onRemove={onRemove} onSaveBoard={onSaveBoard} />
-            <Outlet context={[board, onSaveBoard, onDuplicate, onRemove]} />
+            <BoardHeader onAddTaskFromHeader={onAddTaskFromHeader} onDuplicateBoard={onDuplicateBoard} board={board} onRemoveBoard={onRemoveBoard} onSaveBoard={onSaveBoard} />
+            <Outlet context={[board, onSaveBoard, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask]} />
         </section>
     )
 }

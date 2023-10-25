@@ -7,7 +7,7 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { useEffect, useState } from "react";
 import { ProgressBar } from "./ProgressBar";
 
-export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, onDuplicate }) {
+export function GroupPreview({ board, group, onSaveBoard, progress, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask }) {
     // DELETE THIS LINES WHEN GIVEN CURRECT PROP
 
 
@@ -99,8 +99,8 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, on
                                     <div className="start grid justify-center">
                                         <MenuButton className="board-menu">
                                             <Menu id="menu" size="large">
-                                                <MenuItem icon={Duplicate} title="Duplicate this group" onClick={() => onDuplicate({ boardId: board._id, groupId: group.id })} />
-                                                <MenuItem icon={Delete} title="Delete" onClick={() => onRemove({ boardId: board._id, groupId: group.id })} />
+                                                <MenuItem icon={Duplicate} title="Duplicate this group" onClick={() => onDuplicateGroup({ boardId: board._id, groupId: group.id })} />
+                                                <MenuItem icon={Delete} title="Delete" onClick={() => onRemoveGroup({ boardId: board._id, groupId: group.id })} />
                                             </Menu>
                                         </MenuButton>
                                     </div>
@@ -174,8 +174,8 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, on
                                                 group={group}
                                                 task={task}
                                                 onSaveBoard={onSaveBoard}
-                                                onDuplicate={onDuplicate}
-                                                onRemove={onRemove}
+                                                onDuplicateTask={onDuplicateTask}
+                                                onRemoveTask={onRemoveTask}
                                                 isChecked={checkboxes[task.id]}
                                                 handleCheckboxChange={handleCheckboxChange}
                                             />
