@@ -57,7 +57,7 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                             <MenuItem icon={Duplicate} iconType={MenuItem.iconType.SVG}
                                 title="Duplicate board" onClick={() => { onDuplicateBoard({ boardId: board._id }) }} />
                             <MenuItem icon={Delete} iconType={MenuItem.iconType.SVG} title="Delete board"
-                                onClick={() => { onRemoveBoard({ board, boardId: board._id }); navigate('/board') }} />
+                                onClick={() => { onRemoveBoard({ board, boardId: board._id }) }} />
                         </Menu>
                     </MenuButton>
                 </div>
