@@ -25,9 +25,10 @@
         }
     }
 
-    .table-row {
+    .table-container {
         border-inline-start: 6px solid;
         padding-inline-end: 0.5rem;
+
 
         &.first {
             border-top-left-radius: 5px;
@@ -37,18 +38,50 @@
             border-bottom-left-radius: 5px;
         }
 
-        >.task-try {
-            border-block-start: 1px solid $table-border;
+        >.table-row {
+            border-block-end: 1px solid $table-border;
+            height: 2.25rem;
 
-            &.last {
-                border-block-end: 1px solid $table-border;
+            &.table-header {
+                border-block-start: 1px solid $table-border;
             }
 
             >.task-item {
                 border-inline-end: 1px solid $table-border;
+                height: 2.25rem;
 
-                >.checkbox {
-                    border-inline-end: 1px solid $table-border;
+                &.title-col {
+                    width: 22.25rem;
+
+                    >.title-name,
+                    >.checkbox {
+                        height: 2.25rem;
+                    }
+
+                    >.checkbox {
+                        padding-inline-start: 0.5rem;
+                        border-inline-end: 1px solid $table-border;
+                    }
+
+                    >.title-name {
+                        width: 100%;
+                    }
+                }
+
+                &.members-col {
+                    width: 6.25rem;
+                }
+
+                &.status-col {
+                    width: 8.75rem;
+                }
+
+                &.priority-col {
+                    width: 8.75rem;
+                }
+
+                &.dueDate-col {
+                    width: 8.75rem;
                 }
             }
         }

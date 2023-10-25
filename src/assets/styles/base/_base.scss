@@ -43,6 +43,16 @@ object {
   width: 100%;
 }
 
+table,
+th,
+tr,
+td {
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  border-spacing: 0;
+}
+
 /* Simple and useful CSS Debugging Technique */
 .debug * {
   outline: 1px solid gold
