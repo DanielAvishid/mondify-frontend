@@ -37,6 +37,7 @@
     .table-container {
         border-inline-start: 6px solid;
         padding-inline-end: 0.5rem;
+        min-width: 100vw;
 
 
         &.first {
@@ -91,6 +92,39 @@
 
                 &.dueDate-col {
                     width: 8.75rem;
+                }
+            }
+        }
+    }
+
+    .group-footer {
+        // width: 100vw;
+        // height: 6.25rem;
+
+        .add-task {
+
+            input[type="text"] {
+                background-color: transparent;
+                border: none;
+                outline: none;
+                font-size: 0.875rem;
+                // padding: 5px 1.625rem;
+                border-radius: 3px;
+                margin: 6px 10px;
+                padding: 2px 0 3px 1rem;
+                width: 100%;
+
+                &:focus {
+                    border: 1px solid $primary-color;
+                }
+            }
+
+            &:hover:not(:focus-within) {
+                background-color: $lighter-grey;
+                box-shadow: 4px 3px 6px -3px $selectable-cluster-border;
+
+                input {
+                    border: 1px solid $table-border;
                 }
             }
         }

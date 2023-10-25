@@ -166,6 +166,29 @@ export function Table({ board, group, onSaveBoard, progress, onRemove, onDuplica
                     handleCheckboxChange={handleCheckboxChange}
                 />
             ))}
+            <div className="group-footer full main-layout">
+                <table className="add-task table-container table last" style={{ borderColor: group.style.backgroundColor }}>
+                    <tr className="table-row flex">
+                        <td className="task-item title-col flex align-center justify-center">
+                            <div className="checkbox flex align-center justify-center"><Checkbox disabled /></div>
+                            <div className="title-name flex align-center justify-center">
+                                <input
+                                    type="text"
+                                    placeholder={"+ Add Item"}
+                                    value={addTaskTitle}
+                                    onBlur={(ev) => onAddTask(ev.target.value)}
+                                    onFocus={onChangeBgc}
+                                    onChange={(ev) => setAddTaskTitle(ev.target.value)}
+                                    onKeyPress={handleAddTask}
+                                />
+                            </div>
+                        </td>
+                        <td className="empty-cell"></td>
+                    </tr>
+                </table>
+                {/* <ProgressBar board={board} group={group} /> */}
+            </div>
+
         </div>
     )
 }
