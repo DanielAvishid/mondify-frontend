@@ -7,10 +7,12 @@ export function Members({ info, task, board, onSaveBoard }) {
     const [isModalOpen, setIsModalOpen] = useState(false)
 
     const membersIds = info
-    console.log(membersIds);
     const modalMembers = board.members.filter(member => !membersIds.includes(member._id));
 
-
+    function onRemoveMember(memberId) {
+        const updatedMembersIds = membersIds.filter((id) => id !== memberId)
+        onSaveBoard({ board, taskId: task.id, key: "members", value: updatedMembersIds })
+    }
 
 
     return (
@@ -49,7 +51,7 @@ export function Members({ info, task, board, onSaveBoard }) {
                                                 />
                                                 <span className="member-name">{matchingMember.fullname}</span>
                                             </div>
-                                            <div className="remove-member flex align-center justify-center">
+                                            <div className="remove-member flex align-center justify-center" onClick={() => onRemoveMember(memberId)}>
                                                 <Icon
                                                     icon={Close}
                                                     iconSize={8}
