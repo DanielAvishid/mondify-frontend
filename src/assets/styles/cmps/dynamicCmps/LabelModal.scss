@@ -7,7 +7,7 @@
     max-width: 880px; // rem?
     min-width: 200px; // rem?
     background-color: white;
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, .32);
+    box-shadow: 0 8px 16px 0 $modal-shadow-color;
     border-radius: 8px;
 
     .label-content {
