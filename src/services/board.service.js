@@ -227,12 +227,12 @@ function getEmptyBoard() {
         groups: [
             {
                 "id": utilService.makeId(),
-                "title": "Group Title",
+                "title": "Programming",
                 "archivedAt": Date.now(),
                 "tasks": [
                     {
                         "id": utilService.makeId(),
-                        "title": "Item 1",
+                        "title": "Fix handle change func",
                         "status": "Working on it",
                         "priority": "Medium",
                         "dueDate": [1679040000000, 1706280400000],
@@ -240,18 +240,42 @@ function getEmptyBoard() {
                     },
                     {
                         "id": utilService.makeId(),
-                        "title": "Item 2",
+                        "title": "Remove tasks",
                         "status": "Done",
-                        "priority": "Medium",
-                        "dueDate": [1679147000000, 1696280400000,],
+                        "priority": "Critical",
+                        "dueDate": [1716280400000, 1729040000000],
                         "members": ["UjCos"],
                     },
                     {
                         "id": utilService.makeId(),
-                        "title": "Item 3",
+                        "title": "Update response time",
                         "status": "Done",
                         "priority": "Medium",
                         "dueDate": [1686280400000, 1699040000000],
+                        "members": ["KKLLSS", "UjCos"],
+                    },
+                    {
+                        "id": utilService.makeId(),
+                        "title": "Add rating stars",
+                        "status": "Working on it",
+                        "priority": "Medium",
+                        "dueDate": [1679040000000, 1706280400000],
+                        "members": ["WOWOWO"],
+                    },
+                    {
+                        "id": utilService.makeId(),
+                        "title": "Update react version",
+                        "status": "Done",
+                        "priority": "Critical",
+                        "dueDate": [],
+                        "members": ["UjCos"],
+                    },
+                    {
+                        "id": utilService.makeId(),
+                        "title": "Update response time",
+                        "status": "Done",
+                        "priority": "Medium",
+                        "dueDate": [1676280400000, 1688040000000],
                         "members": ["KKLLSS", "UjCos"],
                     },
 
@@ -260,27 +284,75 @@ function getEmptyBoard() {
             },
             {
                 "id": utilService.makeId(),
-                "title": "Group Title",
+                "title": "UI/UX",
                 "archivedAt": Date.now(),
                 "tasks": [
                     {
                         "id": utilService.makeId(),
-                        "title": "Item 3",
+                        "title": "Make it look better",
                         "status": "Done",
                         "priority": "Medium",
                         "dueDate": [1626280400000, 1659040000000],
-                        "members": [],
+                        "members": ["UjCos"],
                     },
                     {
                         "id": utilService.makeId(),
-                        "title": "Item 4",
-                        "status": "Done",
-                        "priority": "Medium",
+                        "title": "Fix main button",
+                        "status": "Working on it",
+                        "priority": "Critical",
                         "dueDate": [1616280400000, 1673040000000],
                         "members": ["KKLLSS", "WOWOWO"],
                     },
+                    {
+                        "id": utilService.makeId(),
+                        "title": "Check for new libraries",
+                        "status": "Done",
+                        "priority": "Medium",
+                        "dueDate": [1646280400000, 1655040000000],
+                        "members": ["KKLLSS"],
+                    },
+                    {
+                        "id": utilService.makeId(),
+                        "title": "Update modal layout",
+                        "status": "Working on it",
+                        "priority": "Critical",
+                        "dueDate": [1616280400000, 1673040000000],
+                        "members": ["KKLLSS", "WOWOWO", "UjCos"],
+                    }
                 ],
                 "style": { "backgroundColor": "#A25DDC" }
+            },
+            {
+                "id": utilService.makeId(),
+                "title": "Analysis",
+                "archivedAt": Date.now(),
+                "tasks": [
+                    {
+                        "id": utilService.makeId(),
+                        "title": "Data collection",
+                        "status": "Done",
+                        "priority": "Medium",
+                        "dueDate": [1666280400000, 1667040000000],
+                        "members": ["UjCos"],
+                    },
+                    {
+                        "id": utilService.makeId(),
+                        "title": "Renew data",
+                        "status": "Done",
+                        "priority": "Critical",
+                        "dueDate": [1665280400000, 1672040000000],
+                        "members": ["KKLLSS", "WOWOWO"],
+                    },
+                    {
+                        "id": utilService.makeId(),
+                        "title": "Check for duplicates",
+                        "status": "Working on it",
+                        "priority": "Medium",
+                        "dueDate": [1666280100000, 1673040000000],
+                        "members": ["WOWOWO"],
+                    },
+                ],
+                "style": { "backgroundColor": "#00c875" }
             }
         ],
 
