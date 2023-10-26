@@ -152,7 +152,7 @@ async function duplicate({ boardId, groupId, taskId }) {
 ////////////////////////////////////////////////////////////////////////////// get empty
 function getEmptyBoard() {
     return {
-        title: "New Board",
+        title: "Mondify tasks",
         description: "Manage any type of project. Assign owners, set timelines and keep track of where your project stands.",
         isStarred: false,
         archivedAt: Date.now(),
