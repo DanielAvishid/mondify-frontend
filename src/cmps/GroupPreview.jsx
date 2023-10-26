@@ -97,6 +97,7 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemoveGrou
                         <div {...provided.droppableProps} ref={provided.innerRef} className=" main-layout full">
 
                             <div className="group-header main-layout full">
+                                {/* <div className="group-header main-layout full"> */}
                                 <div className="title-header main-layout full">
                                     <div className="start flex justify-center align-center">
                                         <MenuButton className="group-menu">
