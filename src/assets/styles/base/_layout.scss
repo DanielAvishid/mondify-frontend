@@ -18,3 +18,26 @@
         grid-column: 2/ -1;
     }
 }
+
+.label-edit-layout {
+    display: grid;
+    grid-template-columns: rem(12px) 152px rem(16px);
+    align-items: center;
+    gap: 2px;
+
+    &.middle {
+        grid-column: 2;
+    }
+
+    >.start {
+        grid-column: 1;
+    }
+
+    >.middle {
+        grid-column: 2;
+    }
+
+    >.end {
+        grid-column: 3;
+    }
+}

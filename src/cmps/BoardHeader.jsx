@@ -3,7 +3,7 @@ import { NavigationChevronDown, DropdownChevronDown, DropdownChevronUp, Home, De
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 
-export function BoardHeader({ onAddTaskFromHeader, board, onRemove, onSaveBoard, onDuplicate }) {
+export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveBoard, onDuplicateBoard }) {
 
     const [isCollapse, setIsCollapse] = useState(false)
     const [isEditMode, setIsEditMode] = useState(false)
@@ -55,9 +55,9 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemove, onSaveBoard,
                             <MenuTitle caption="Board options" captionPosition={MenuTitle.positions.TOP} />
                             <MenuItem icon={Edit} iconType={MenuItem.iconType.SVG} title="Rename board" />
                             <MenuItem icon={Duplicate} iconType={MenuItem.iconType.SVG}
-                                title="Duplicate board" onClick={() => onDuplicate({ boardId: board._id })} />
+                                title="Duplicate board" onClick={() => { onDuplicateBoard({ boardId: board._id }) }} />
                             <MenuItem icon={Delete} iconType={MenuItem.iconType.SVG} title="Delete board"
-                                onClick={() => { onRemove({ board, boardId: board._id }); navigate('/board') }} />
+                                onClick={() => { onRemoveBoard({ board, boardId: board._id }) }} />
                         </Menu>
                     </MenuButton>
                 </div>
@@ -113,7 +113,7 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemove, onSaveBoard,
                             <MenuTitle caption="Board options" captionPosition={MenuTitle.positions.TOP} />
                             <MenuItem icon={Edit} iconType={MenuItem.iconType.SVG} title="Rename board" />
                             <MenuItem icon={Duplicate} iconType={MenuItem.iconType.SVG}
-                                title="Duplicate board" onClick={() => onDuplicate({ boardId: board._id })} />
+                                title="Duplicate board" onClick={() => onDuplicateBoard({ boardId: board._id })} />
                             <MenuItem icon={Delete} iconType={MenuItem.iconType.SVG} title="Delete board"
                                 onClick={() => { onRemove({ board, boardId: board._id }); navigate('/board') }} />
                         </Menu>

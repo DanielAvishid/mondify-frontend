@@ -7,7 +7,7 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { useEffect, useState } from "react";
 
 export function GroupList() {
-    const [board, onSaveBoard, onDuplicate, onRemove] = useOutletContext()
+    const [board, onSaveBoard, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask] = useOutletContext()
     const [groups, setGroups] = useState(board.groups)
 
     useEffect(() => {
@@ -51,8 +51,13 @@ export function GroupList() {
                                                 board={board}
                                                 group={group}
                                                 onSaveBoard={onSaveBoard}
-                                                onDuplicate={onDuplicate}
-                                                onRemove={onRemove} />
+                                                onRemoveGroup={onRemoveGroup}
+                                                onRemoveTask={onRemoveTask}
+                                                onDuplicateGroup={onDuplicateGroup}
+                                                onDuplicateTask={onDuplicateTask}
+                                            // onDuplicate={onDuplicate}
+                                            // onRemove={onRemove} 
+                                            />
                                         </article>
                                     )}
                                     {/* {(provided) => (
@@ -67,8 +72,10 @@ export function GroupList() {
                                                 board={board}
                                                 group={group}
                                                 onSaveBoard={onSaveBoard}
-                                                onDuplicate={onDuplicate}
-                                                onRemove={onRemove}
+                                                onDuplicateGroup={onDuplicateGroup}
+                                                onDuplicateTask={onDuplicateTask}
+                                                onRemoveGroup={onRemoveGroup}
+                                                onRemoveTask={onRemoveTask}
                                             />
                                         </article>
                                     )} */}

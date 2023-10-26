@@ -11,7 +11,7 @@ import { utilService } from "../services/util.service";
 import { useState } from "react";
 
 
-export function TaskPreview({ board, group, task, onSaveBoard, onDuplicate, onRemove, isChecked, handleCheckboxChange }) {
+export function TaskPreview({ board, group, task, onSaveBoard, onDuplicateTask, onRemoveTask, isChecked, handleCheckboxChange }) {
 
     return (
 
@@ -20,8 +20,8 @@ export function TaskPreview({ board, group, task, onSaveBoard, onDuplicate, onRe
                 <MenuButton className="task-menu">
                     <Menu id="menu" size="large">
                         {/* <MenuItem icon={Duplicate} title="Duplicate Boarder" /> */}
-                        <MenuItem icon={Duplicate} title="Duplicate Boarder" onClick={() => onDuplicate({ boardId: board._id, groupId: group.id, taskId: task.id })} />
-                        <MenuItem icon={Delete} title="Delete" onClick={() => onRemove({ boardId: board._id, taskId: task.id })} />
+                        <MenuItem icon={Duplicate} title="Duplicate Task" onClick={() => onDuplicateTask({ boardId: board._id, groupId: group.id, taskId: task.id })} />
+                        <MenuItem icon={Delete} title="Delete" onClick={() => onRemoveTask({ boardId: board._id, taskId: task.id })} />
                     </Menu>
                 </MenuButton>
             </div>
