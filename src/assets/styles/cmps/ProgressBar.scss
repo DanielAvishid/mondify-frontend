@@ -1,15 +1,14 @@
 .progress-bar {
-    padding-inline-start: 22.25rem;
 
     .table-row {
+        margin-inline-start: 22.25rem;
         border-inline-start: 1px solid $table-border;
         border-bottom-left-radius: 5px;
     }
 
     .status-cell,
     .priority-cell {
-        background-color: inherit;
-        // width: 100%;
+        background-color: transparent;
 
         >.inner-progress-ber {
             height: 1.5rem;

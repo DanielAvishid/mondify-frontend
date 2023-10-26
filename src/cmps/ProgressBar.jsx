@@ -35,17 +35,18 @@ export function ProgressBar({ board, group }) {
     }
 
     return (
-        <table className="progress-bar table-container table" style={{ borderColor: "transparent" }}>
-            <tr className="table-row flex">
-                {board.cmpsOrder.map((cmp, idx) => (
-                    <td key={idx} className={`${cmp.type}-col ${cmp.type}-cell task-item flex align-center justify-center`}>
-                        <div className="inner-progress-ber flex align-center justify-center">
-                            {renderCmpSpan(cmp)}
-                        </div>
-                    </td>
-                ))}
-
-            </tr>
+        <table className="progress-bar full main-layout" >
+            <tfoot className="table-container table" style={{ borderColor: "transparent" }}>
+                <tr className="table-row flex">
+                    {board.cmpsOrder.map((cmp, idx) => (
+                        <td key={idx} className={`${cmp.type}-col ${cmp.type}-cell task-item flex align-center justify-center`}>
+                            <div className="inner-progress-ber flex align-center justify-center">
+                                {renderCmpSpan(cmp)}
+                            </div>
+                        </td>
+                    ))}
+                </tr>
+            </tfoot>
         </table >
     )
 }

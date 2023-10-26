@@ -1,8 +1,8 @@
-import { Counter, EditableHeading, Icon, IconButton } from "monday-ui-react-core"
+import { Checkbox, Counter, EditableHeading, Icon, IconButton } from "monday-ui-react-core"
 import { AddUpdate, Update, DropdownChevronRight, Open } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { useNavigate } from "react-router"
 
-export function TaskTitle({ boardId, task, onSaveBoard }) {
+export function TaskTitle({ boardId, task, onSaveBoard, isChecked, handleCheckboxChange }) {
     const { id: taskId, updates, title } = task
 
     function handleKeyPress(ev) {
@@ -14,7 +14,10 @@ export function TaskTitle({ boardId, task, onSaveBoard }) {
 
     const navigate = useNavigate()
     return (
-        <div className="title-cell title-col grid align-center">
+        <td className="task-item title-cell title-col flex align-center">
+            <div className="checkbox flex align-center justify-center">
+                <Checkbox checked={isChecked} onChange={() => handleCheckboxChange(task.id)} />
+            </div>
             <div className="title-name flex align-center justify-between">
                 <div className="flex">
                     <div className="collapse flex justify-center align-center ">
@@ -45,17 +48,15 @@ export function TaskTitle({ boardId, task, onSaveBoard }) {
                     <span>Open</span>
                 </div>
             </div>
-            <div className="chat-cell grid align-center justify-center">
+            <div className="chat-cell flex align-center justify-center" onClick={() => navigate(`task/${taskId}`)}>
                 {(!updates || updates.length < 1) ?
-                    <Icon icon={AddUpdate} iconSize="22" ariaLabel="Start conversation" onClick={() => navigate(`task/${taskId}`)} /> :
-                    <div onClick={() => navigate(`task/${taskId}`)}>
-                        <Icon
-                            icon={Update}
-                            iconSize="22"
-                            ariaLabel="Start conversation" />
-                        <Counter count={updates.length} className="updates-counter" />
-                    </div>}
+                    <Icon icon={AddUpdate} iconSize="22" ariaLabel="Start conversation" /> :
+                    <>
+                        <Icon icon={Update} iconSize="22" ariaLabel="Start conversation" />
+                        <span className="updates-counter flex align-center justify-center">{updates.length}</span>
+                        {/* <Counter count={updates.length} size={Counter.sizes.SMALL} className="storybook-counter_counter-position-bot updates-counter" /> */}
+                    </>}
             </div>
-        </div>
+        </td>
     )
 }

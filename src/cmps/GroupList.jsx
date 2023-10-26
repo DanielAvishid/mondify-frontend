@@ -5,7 +5,6 @@ import { Button } from "monday-ui-react-core";
 import { boardService } from "../services/board.service";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { useEffect, useState } from "react";
-import { Table } from "./table";
 
 export function GroupList() {
     const [board, onSaveBoard, onDuplicate, onRemove] = useOutletContext()
@@ -48,7 +47,7 @@ export function GroupList() {
                                             {...provided.draggableProps}
                                             ref={provided.innerRef}
                                         >
-                                            <Table
+                                            <GroupPreview
                                                 board={board}
                                                 group={group}
                                                 onSaveBoard={onSaveBoard}
