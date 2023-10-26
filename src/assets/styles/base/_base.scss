@@ -66,3 +66,8 @@ a.active {
 .monday-style-dialog-content-wrapper {
   z-index: 100;
 }
+
+[data-rbd-drag-handle-context-id="1"],
+[data-rbd-drag-handle-context-id="2"] {
+  cursor: pointer;
+}

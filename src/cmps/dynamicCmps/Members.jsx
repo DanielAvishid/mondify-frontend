@@ -3,11 +3,14 @@ import { Invite, Close } from "/node_modules/monday-ui-react-core/src/components
 import { useState } from "react"
 
 
-export function Members({ info, board }) {
+export function Members({ info, task, board, onSaveBoard }) {
     const [isModalOpen, setIsModalOpen] = useState(false)
 
     const membersIds = info
+    console.log(membersIds);
     const modalMembers = board.members.filter(member => !membersIds.includes(member._id));
+
+
 
 
     return (
@@ -30,7 +33,7 @@ export function Members({ info, board }) {
             {isModalOpen &&
                 <>
                     <div className="pointer"></div>
-                    <div className="members-modal">
+                    <div className="members-modal" onClick={(ev) => ev.stopPropagation()}>
 
                         {membersIds.length > 0 && (
                             <section className="participate-members flex">
@@ -66,7 +69,7 @@ export function Members({ info, board }) {
                                 />
                                 <div className="suggest-container"><span className="suggest-title">Suggested people</span></div>
                                 {modalMembers.map((member) => (
-                                    <div className="member-row flex align-center" key={member._id}>
+                                    <div className="member-row flex align-center" key={member._id} onClick={() => onSaveBoard({ board, taskId: task.id, key: "members", value: [...membersIds, member._id] })}>
                                         <img
                                             key={member._id}
                                             className="avatar grid align-center justify-center"
