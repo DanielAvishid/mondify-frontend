@@ -38,7 +38,19 @@
                 }
             }
         }
+
+        .table-header {
+
+            .table-row {
+                border-block-start: 1px solid $table-border;
+
+                h6 {
+                    color: $chat-icon-color;
+                }
+            }
+        }
     }
+
 
     .table-container {
         border-inline-start: 6px solid;
@@ -56,10 +68,6 @@
         >.table-row {
             border-block-end: 1px solid $table-border;
             height: 2.25rem;
-
-            &.table-header {
-                border-block-start: 1px solid $table-border;
-            }
 
             >.task-item {
                 border-inline-end: 1px solid $table-border;
@@ -137,6 +145,10 @@
                 input {
                     border: 1px solid $table-border;
                 }
+            }
+
+            >.focus-bgc {
+                background-color: $primary-selected-color;
             }
         }
     }

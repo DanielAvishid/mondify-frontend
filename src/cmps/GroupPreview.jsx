@@ -52,6 +52,7 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, on
 
     function onAddTask(title) {
         setAddTaskBgc('')
+        setOpacity('80')
         if (title === '') return
         const newTask = boardService.getEmptyTask(title)
         const value = [...group.tasks, newTask]
@@ -78,6 +79,7 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, on
     }
 
     function onChangeBgc() {
+        setOpacity('')
         setAddTaskBgc('focus-bgc')
     }
 
@@ -134,13 +136,13 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, on
                                 </div>
                                 <table className="table-header full main-layout">
                                     <thead className="table-container table first" style={{ borderColor: group.style.backgroundColor }}>
-                                        <tr className="table-row table-header flex">
+                                        <tr className="table-row flex">
                                             <th className="task-item title-col flex align-center justify-center">
                                                 <div className="checkbox flex align-center justify-center"><Checkbox checked={masterChecked} onChange={handleMasterChange} /></div>
                                                 <div className="title-name flex align-center justify-center"><span>Item</span></div>
                                             </th>
                                             {board.cmpsOrder.map((cmp, idx) => (
-                                                <th key={idx} className={`task-item ${cmp.type}-col flex align-center justify-center`}>
+                                                <th key={idx} className={`task-item cmp-title ${cmp.type}-col flex align-center justify-center`}>
                                                     <span>
                                                         <EditableHeading
                                                             type={EditableHeading.types.h6}
@@ -189,7 +191,7 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemove, on
 
                             <div className="group-footer full main-layout">
                                 <table className="add-task full main-layout" onMouseEnter={() => setOpacity('')} onMouseLeave={() => setOpacity('80')}>
-                                    <tbody className="table-container table last" style={{ borderColor: group.style.backgroundColor + opacity }}>
+                                    <tbody className={`table-container table last ${addTaskBgc}`} style={{ borderColor: group.style.backgroundColor + opacity }}>
                                         <tr className="table-row flex">
                                             <td className="task-item title-col flex align-center justify-center">
                                                 <div className="checkbox flex align-center justify-center"><Checkbox disabled /></div>
