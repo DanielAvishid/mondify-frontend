@@ -1,10 +1,12 @@
 .table-preview {
     position: relative;
+    padding-block-end: 1.75rem;
 
     .group-header {
         position: sticky;
         top: 0;
         z-index: 10;
+        background-color: $primary-background-color;
 
         .title-header {
             height: 2.5rem;
@@ -30,6 +32,10 @@
 
             .group-menu {
                 opacity: 0;
+
+                >* {
+                    z-index: 100;
+                }
             }
         }
     }
@@ -38,7 +44,6 @@
         border-inline-start: 6px solid;
         padding-inline-end: 0.5rem;
         min-width: 100vw;
-
 
         &.first {
             border-top-left-radius: 5px;
@@ -98,10 +103,12 @@
     }
 
     .group-footer {
-        // width: 100vw;
-        // height: 6.25rem;
 
         .add-task {
+
+            .title-col {
+                border-inline-end: 0;
+            }
 
             input[type="text"] {
                 background-color: transparent;
@@ -120,8 +127,12 @@
             }
 
             &:hover:not(:focus-within) {
-                background-color: $lighter-grey;
-                box-shadow: 4px 3px 6px -3px $selectable-cluster-border;
+
+                .table-row {
+                    background-color: $lighter-grey;
+                    box-shadow: 4px 3px 6px -3px $selectable-cluster-border;
+                }
+
 
                 input {
                     border: 1px solid $table-border;

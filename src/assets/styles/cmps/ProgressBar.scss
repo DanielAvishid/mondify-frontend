@@ -1,13 +1,9 @@
 .progress-bar {
+    padding-inline-start: 22.25rem;
 
-    >* {
-        border-block-end: 1px solid $table-border;
-    }
-
-    >.side,
-    >.checkbox,
-    >.title-col {
-        border: none;
+    .table-row {
+        border-inline-start: 1px solid $table-border;
+        border-bottom-left-radius: 5px;
     }
 
     .status-cell,
@@ -20,10 +16,6 @@
             width: calc(8.75rem - 1rem);
             background-color: $default-task-val-bgc;
         }
-    }
-
-    :nth-child(4) {
-        border-bottom-left-radius: 5px;
     }
 
     .plus-container {

@@ -37,8 +37,6 @@ export function ProgressBar({ board, group }) {
     return (
         <table className="progress-bar table-container table" style={{ borderColor: "transparent" }}>
             <tr className="table-row flex">
-                <td className="task-item title-col"></td>
-
                 {board.cmpsOrder.map((cmp, idx) => (
                     <td key={idx} className={`${cmp.type}-col ${cmp.type}-cell task-item flex align-center justify-center`}>
                         <div className="inner-progress-ber flex align-center justify-center">
