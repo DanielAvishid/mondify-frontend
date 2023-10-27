@@ -7,8 +7,6 @@ import { GoHomeFill, GoStarFill } from "react-icons/go";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoard, updateBoards }) {
-    const navigate = useNavigate()
-    const [showSidebar, setShowSidebar] = useState(true)
     const [isSideBarHover, setIsSideBarHover] = useState(false)
     const [isSidBarOpen, setIsSideBarOpen] = useState(true)
     const [showBorder, setShowBorder] = useState(false)
