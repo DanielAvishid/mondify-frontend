@@ -91,6 +91,10 @@
             font-size: rem(14px);
             padding-block: 5px;
             padding-inline-start: 6px;
+
+            &.active {
+                background-color: $primary-selected-color;
+            }
         }
     }
 
@@ -135,7 +139,7 @@
                         display: flex;
                         align-items: center;
                         justify-content: center;
-                        background-color: #579bfc;
+                        background-color: $light_blue_special;
                         border-radius: 6px;
                         color: #fff;
                         margin-inline-end: rem(7px);

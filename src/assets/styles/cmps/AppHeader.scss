@@ -1,14 +1,24 @@
 .app-header {
     padding: 10px;
 
+    .switcher-btn {
+        margin-inline-end: 4px;
+    }
+
     .logo {
+        cursor: pointer;
+        font-weight: 300;
+
         span {
-            font-weight: bold;
+            color: $primary-text-color;
+            font-weight: 800;
+            font-size: rem(17px);
         }
     }
 
     .apps-icon {
         position: relative;
+
         &::after {
             content: '';
             position: absolute;

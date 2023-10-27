@@ -14,6 +14,7 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
     const [hoverState, setHoverState] = useState({})
     const [openState, setOpenState] = useState({})
     const currentUrl = window.location.href
+    console.log(currentUrl)
 
     function onAddBoard() {
         const board = boardService.getEmptyBoard()
@@ -69,7 +70,7 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
                     <Icon className="icon" icon={isSidBarOpen ? NavigationChevronLeft : NavigationChevronRight} />
                 </button>
                 <div className="general-btns">
-                    <Button leftIcon={Home} kind="tertiary" className="home">Home</Button>
+                    <Button leftIcon={Home} kind="tertiary" className={`home ${currentUrl === 'http://localhost:5173/#/board' ? 'active' : ''}`}>Home</Button>
                     <Button leftIcon={MyWeek} kind="tertiary" className="my-week">My work</Button>
                 </div>
                 <div className="workspace">
@@ -98,7 +99,7 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
                                     </Button>
                                 </div>
                             </div>
-                            <Button className="new-btn">
+                            <Button className="new-btn" onClick={onAddBoard}>
                                 <Icon className="plus-icon" icon={AddSmall} />
                             </Button>
                         </div>
@@ -121,7 +122,7 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
                                     </Button>
                                 </Link>)}
                         </nav>
-                        {isModalOpen && <div className="workspace-modal">
+                        {/* {isModalOpen && <div className="workspace-modal">
                             <div className="modal-top">
                                 <div className="search">
                                     <Search className="search-input" placeholder="Search for a board" />
@@ -146,7 +147,7 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
                                     <span>Browse all</span>
                                 </Button>
                             </div>
-                        </div>}
+                        </div>} */}
                     </div>
                 </div>
             </section>}
