@@ -9,8 +9,13 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoard, updateBoards }) {
     const navigate = useNavigate()
     const [showSidebar, setShowSidebar] = useState(true)
+    const [isSideBarHover, setIsSideBarHover] = useState(false)
+    const [isSidBarOpen, setIsSideBarOpen] = useState(true)
+    const [showBorder, setShowBorder] = useState(false)
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [hoverState, setHoverState] = useState({})
+    const [openState, setOpenState] = useState({})
+    const currentUrl = window.location.href
 
     function onAddBoard() {
         const board = boardService.getEmptyBoard()
@@ -18,7 +23,11 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
     }
 
     function toggleSidebar() {
-        setShowSidebar(!showSidebar)
+        setIsSideBarOpen(!isSidBarOpen)
+    }
+
+    function toggleBorder() {
+        setShowBorder(!showBorder)
     }
 
     function handleOnDragEnd(result) {
@@ -33,8 +42,15 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
         setIsModalOpen(!isModalOpen)
     }
 
-    function toggleMenu(boardId, onClick) {
+    function toggleHoverMenu(boardId) {
         setHoverState((prevState) => ({
+            ...prevState,
+            [boardId]: !prevState[boardId]
+        }))
+    }
+
+    function toggleOpenMenu(boardId) {
+        setOpenState((prevState) => ({
             ...prevState,
             [boardId]: !prevState[boardId]
         }))
@@ -46,89 +62,96 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
     }
 
     return (
-        <section className={`app-sidebar ${showSidebar ? '' : 'close'}`}>
-            <button className="close-btn" onClick={toggleSidebar} >
-                <Icon className="icon" icon={showSidebar ? NavigationChevronLeft : NavigationChevronRight} />
+        <section className={`app-sidebar ${isSidBarOpen ? '' : 'close'} ${(isSideBarHover && !isSidBarOpen) ? 'hover' : ''}`} onMouseEnter={() => setIsSideBarHover(true)} onMouseLeave={() => setIsSideBarHover(false)}>
+            <button className="close-btn" onClick={toggleSidebar} onMouseEnter>
+                <Icon className="icon" icon={isSidBarOpen ? NavigationChevronLeft : NavigationChevronRight} />
             </button>
-            <div className="general-btns">
-                <Button leftIcon={Home} kind="tertiary" className="home">Home</Button>
-                <Button leftIcon={MyWeek} kind="tertiary" className="my-week">My work</Button>
-            </div>
-            <div className="workspace">
-                <div className="tools">
-                    <div className="workspace-select">
-                        <Button className={`workspace-dropdown ${selectedClass()}`} kind="tertiary" onClick={() => toggleModal()}>
-                            <div className="workspace-icon">
-                                <span className="letter-icon">M</span>
-                                <Icon className="home-icon" icon={GoHomeFill} />
-                            </div>
-                            <span className="workspace-title">Main workspace</span>
-                            <Icon className="drop-icon" icon={DropdownChevronDown} />
-                        </Button>
-                    </div>
-                    <div className="search-add">
-                        <div className="search-container">
-                            <Icon className="search-icon" icon={Search} />
-                            <input className="search-input" type="text" placeholder="Search" />
-                            <div className="filter-btn-container">
-                                <Tooltip
-                                    className="filter-tool-tip" content="Filters" animationType="expand">
-                                    <div />
-                                </Tooltip>
-                                <Button className="filter-btn" kind={Button.kinds.TERTIARY} >
-                                    <Icon className="filter-icon" icon={Filter} />
-                                </Button>
-                            </div>
+            {(isSidBarOpen || isSideBarHover) && <section className="expand-sidebar">
+                <button className="close-btn" onClick={toggleSidebar} onMouseEnter>
+                    <Icon className="icon" icon={isSidBarOpen ? NavigationChevronLeft : NavigationChevronRight} />
+                </button>
+                <div className="general-btns">
+                    <Button leftIcon={Home} kind="tertiary" className="home">Home</Button>
+                    <Button leftIcon={MyWeek} kind="tertiary" className="my-week">My work</Button>
+                </div>
+                <div className="workspace">
+                    <div className="tools">
+                        <div className="workspace-select">
+                            <Button className={`workspace-dropdown ${selectedClass()}`} kind="tertiary" onClick={() => toggleModal()}>
+                                <div className="workspace-icon">
+                                    <span className="letter-icon">M</span>
+                                    <Icon className="home-icon" icon={GoHomeFill} />
+                                </div>
+                                <span className="workspace-title">Main workspace</span>
+                                <Icon className="drop-icon" icon={DropdownChevronDown} />
+                            </Button>
                         </div>
-                        <Button className="new-btn">
-                            <Icon className="plus-icon" icon={AddSmall} />
-                        </Button>
-                    </div>
-                    <nav className="board-nav">
-                        {boards.map(board =>
-                            <Link onMouseEnter={() => toggleMenu(board._id)} onMouseLeave={() => toggleMenu(board._id)} key={board._id} to={`/board/${board._id}`}>
-                                <Button
-                                    kind="tertiary"
-                                    className="board-btn">
-                                    <Icon className="board-icon" icon={Board} />
-                                    <span className="board-title">{board.title}</span>
-                                    {hoverState[board._id] && < MenuButton className="board-options">
-                                        <Menu id="menu" size="large">
-                                            <MenuItem icon={Duplicate} title="Duplicate Board" onClick={() => onDuplicateBoard({ boardId: board._id })} />
-                                            <MenuItem icon={Delete} title="Delete" onClick={() => onRemoveBoard({ boardId: board._id })} />
-                                        </Menu>
-                                    </MenuButton>}
-                                </Button>
-                            </Link>)}
-                    </nav>
-                    {isModalOpen && <div className="workspace-modal">
-                        <div className="modal-top">
-                            <div className="search">
-                                <Search className="search-input" placeholder="Search for a workspace" />
-                            </div>
-                            <div className="select">
-                                <Button kind="tertiary" className="favorite-btn">
-                                    <Icon className="favorite-icon" icon={GoStarFill} />
-                                    <span>Favorites</span>
-                                </Button>
-                                <div className="title">
-                                    <span className="my-workspace-title">My workspaces</span>
+                        <div className="search-add">
+                            <div className={`search-container ${showBorder ? 'focus' : ''}`}>
+                                <Icon className="search-icon" icon={Search} />
+                                <input onFocus={toggleBorder} onBlur={toggleBorder} className="search-input" type="text" placeholder="Search" />
+                                <div className="filter-btn-container">
+                                    <Tooltip
+                                        className="filter-tool-tip" content="Filters" animationType="expand">
+                                        <div />
+                                    </Tooltip>
+                                    <Button className="filter-btn" kind={Button.kinds.TERTIARY} >
+                                        <Icon className="filter-icon" icon={Filter} />
+                                    </Button>
                                 </div>
                             </div>
-                        </div>
-                        <div className="modal-bottom">
-                            <Button kind="tertiary" className="favorite-btn">
-                                <Icon className="favorite-icon" icon={AddSmall} />
-                                <span>Add workspace</span>
-                            </Button>
-                            <Button kind="tertiary" className="favorite-btn">
-                                <Icon className="favorite-icon" icon={GoStarFill} />
-                                <span>Browse all</span>
+                            <Button className="new-btn">
+                                <Icon className="plus-icon" icon={AddSmall} />
                             </Button>
                         </div>
-                    </div>}
+                        <nav className="board-nav">
+                            {boards.map(board =>
+                                <Link onMouseEnter={() => toggleHoverMenu(board._id)} onMouseLeave={() => toggleHoverMenu(board._id)} key={board._id} to={`/board/${board._id}`}>
+                                    <Button
+                                        kind="tertiary"
+                                        className={`board-btn ${currentUrl.includes(board._id) ? 'active' : ''}`}>
+                                        <div className="container flex align-center">
+                                            <Icon className="board-icon" icon={Board} />
+                                            <span className="board-title">{board.title}</span>
+                                        </div>
+                                        {(hoverState[board._id] || openState[board._id]) && < MenuButton className="board-options" onClick={() => toggleOpenMenu(board._id)}>
+                                            <Menu id="menu" size="large" className="menu-modal">
+                                                <MenuItem icon={Duplicate} title="Duplicate Board" onClick={() => onDuplicateBoard({ boardId: board._id })} />
+                                                <MenuItem icon={Delete} title="Delete" onClick={() => onRemoveBoard({ boardId: board._id })} />
+                                            </Menu>
+                                        </MenuButton>}
+                                    </Button>
+                                </Link>)}
+                        </nav>
+                        {isModalOpen && <div className="workspace-modal">
+                            <div className="modal-top">
+                                <div className="search">
+                                    <Search className="search-input" placeholder="Search for a board" />
+                                </div>
+                                <div className="select">
+                                    <Button kind="tertiary" className="favorite-btn">
+                                        <Icon className="favorite-icon" icon={GoStarFill} />
+                                        <span>Favorites</span>
+                                    </Button>
+                                    <div className="title">
+                                        <span className="my-workspace-title">My workspaces</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="modal-bottom">
+                                <Button kind="tertiary" className="favorite-btn">
+                                    <Icon className="favorite-icon" icon={AddSmall} />
+                                    <span>Add workspace</span>
+                                </Button>
+                                <Button kind="tertiary" className="favorite-btn">
+                                    <Icon className="favorite-icon" icon={GoStarFill} />
+                                    <span>Browse all</span>
+                                </Button>
+                            </div>
+                        </div>}
+                    </div>
                 </div>
-            </div>
+            </section>}
         </section >
     )
 }
