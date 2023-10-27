@@ -32,7 +32,17 @@ p {
 span {
   font-size: 0.875rem;
   font-family: Figtree, Roboto, "Noto Sans Hebrew", "Noto Kufi Arabic", "Noto Sans JP", sans-serif;
+}
 
+input {
+  &:focus {
+    font-family: Figtree, Roboto, "Noto Sans Hebrew", "Noto Kufi Arabic", "Noto Sans JP", sans-serif;
+    outline: none;
+
+    &::placeholder {
+      transform: translate(0);
+    }
+  }
 }
 
 /* Dont stretch my Media */
@@ -67,7 +77,7 @@ a.active {
   z-index: 100;
 }
 
-[data-rbd-drag-handle-context-id="1"],
+// [data-rbd-drag-handle-context-id="1"],
 [data-rbd-drag-handle-context-id="2"] {
-  cursor: pointer;
+  cursor: default !important;
 }

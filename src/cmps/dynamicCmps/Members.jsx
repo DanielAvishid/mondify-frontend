@@ -1,17 +1,39 @@
-import { Box, Icon, Search } from "monday-ui-react-core"
+import { Box, Button, Icon, Search, TextField } from "monday-ui-react-core"
 import { Invite, Close } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { useState } from "react"
 
 
 export function Members({ info, task, board, onSaveBoard }) {
-    const [isModalOpen, setIsModalOpen] = useState(false)
 
     const membersIds = info
-    const modalMembers = board.members.filter(member => !membersIds.includes(member._id));
+    const participateMembers = membersIds.map((memberId) => {
+        return board.members.find(member => member._id === memberId)
+    })
 
-    function onRemoveMember(memberId) {
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [isInviteModalOpen, setIsInviteModalOpen] = useState(false)
+    const [searchTerm, setSearchTerm] = useState('')
+
+    const suggestedMembers = board.members.filter(member => !membersIds.includes(member._id));
+    const [filteredMembers, setFilteredMembers] = useState(suggestedMembers)
+
+
+    const handleSearch = (searchValue) => {
+        const filtered = suggestedMembers.filter((member) =>
+            member.fullname.toLowerCase().includes(searchValue.toLowerCase())
+        )
+
+        setSearchTerm(searchValue)
+        setFilteredMembers(filtered)
+    }
+
+    const onRemoveMember = (memberId) => {
         const updatedMembersIds = membersIds.filter((id) => id !== memberId)
         onSaveBoard({ board, taskId: task.id, key: "members", value: updatedMembersIds })
+    }
+
+    const onOpenInviteModal = (ev) => {
+        setIsInviteModalOpen(!isInviteModalOpen)
     }
 
 
@@ -20,80 +42,101 @@ export function Members({ info, task, board, onSaveBoard }) {
             {/* <div className="add-member grid align-center"> */}
             <span className="plus-container flex align-center justify-center">+</span>
 
-            {membersIds.length > 0 ? membersIds.map((memberId) => {
-                const matchingMember = board.members.find(member => member._id === memberId);
+            {participateMembers.length > 0 ? participateMembers.map((member) => {
                 return (
                     <img
-                        key={memberId}
                         className="avatar grid align-center justify-center"
-                        src={matchingMember.imgUrl} />
+                        key={member._id}
+                        src={member.imgUrl} />
                 )
-            }) : (
+            }) :
                 <img src="https://cdn.monday.com/icons/dapulse-person-column.svg" className="avatar" />
-            )}
+            }
 
             {isModalOpen &&
                 <>
                     <div className="pointer"></div>
-                    <div className="members-modal" onClick={(ev) => ev.stopPropagation()}>
+                    <div className="modal" onBlur={() => setIsModalOpen(!isModalOpen)} onClick={(ev) => ev.stopPropagation()}>
+                        {!isInviteModalOpen ?
+                            <div className="members-modal">
+                                <section className="participate-members flex">
+                                    {participateMembers.length > 0 &&
 
-                        {membersIds.length > 0 && (
-                            <section className="participate-members flex">
-                                {membersIds.map((memberId) => {
-                                    const matchingMember = board.members.find(member => member._id === memberId);
-                                    return (
-                                        <div className="member-container flex align-center" key={memberId}>
-                                            <div className="member-details flex align-center">
-                                                <img
-                                                    key={matchingMember._id}
-                                                    className="avatar"
-                                                    src={matchingMember.imgUrl}
-                                                />
-                                                <span className="member-name">{matchingMember.fullname}</span>
+                                        participateMembers.map((member) => {
+                                            return (
+                                                <div className="member-container flex align-center" key={member._id}>
+                                                    <div className="member-details flex align-center">
+                                                        <img
+                                                            key={member._id}
+                                                            className="avatar"
+                                                            src={member.imgUrl}
+                                                        />
+                                                        <span className="member-name">{member.fullname}</span>
+                                                    </div>
+                                                    <div className="remove-member flex align-center justify-center" onClick={() => onRemoveMember(member._id)}>
+                                                        <Icon
+                                                            icon={Close}
+                                                            iconSize={8}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                </section>
+                                <section className="member-list-container">
+                                    <Search
+                                        size={Search.sizes.SMALL}
+                                        value={searchTerm}
+                                        onChange={handleSearch}
+                                        placeholder="Search names, roles or teams"
+                                        wrapperClassName="monday-storybook-search_size"
+                                    />
+                                    <div className="suggest-container">
+                                        <div className="suggest-header"><span>Suggested people</span></div>
+                                        {filteredMembers.map((member) => (
+                                            <div className="member-row flex align-center" key={member._id} onClick={() => onSaveBoard({ board, taskId: task.id, key: "members", value: [...membersIds, member._id] })}>
+                                                <div className="avatar-container flex align-center justify-center">
+                                                    <img
+                                                        key={member._id}
+                                                        className="avatar"
+                                                        src={member.imgUrl}
+                                                    />
+                                                </div>
+                                                <span className="member-name">{member.fullname}</span>
                                             </div>
-                                            <div className="remove-member flex align-center justify-center" onClick={() => onRemoveMember(memberId)}>
+                                        ))}
+                                        <div className="invite-row flex align-center">
+                                            <div className="icon-container flex align-center justify-center">
                                                 <Icon
-                                                    icon={Close}
-                                                    iconSize={8}
+                                                    // customColor={group.style.backgroundColor}
+                                                    className="invite-icon flex align-center justify-center"
+                                                    icon={Invite}
+                                                    iconSize={16}
                                                 />
                                             </div>
+                                            <span className="invite-member" onClick={() => setIsInviteModalOpen(true)}>Invite a new member by email</span>
                                         </div>
-                                    )
-                                })}
-                            </section>
-                        )}
-                        <section className="member-picker-container">
-                            <div className="member-list">
-                                <Search
-                                    size={Search.sizes.SMALL}
-                                    placeholder="Search names, roles to teams"
-                                    wrapperClassName="monday-storybook-search_size"
-                                />
-                                <div className="suggest-container"><span className="suggest-title">Suggested people</span></div>
-                                {modalMembers.map((member) => (
-                                    <div className="member-row flex align-center" key={member._id} onClick={() => onSaveBoard({ board, taskId: task.id, key: "members", value: [...membersIds, member._id] })}>
-                                        <img
-                                            key={member._id}
-                                            className="avatar grid align-center justify-center"
-                                            src={member.imgUrl}
-                                        />
-                                        <span className="member-name">{member.fullname}</span>
                                     </div>
-                                ))}
-                                <div className="member-row flex align-center">
-                                    <div className="invite-icon-container grid align-center justify-center">
-                                        <Icon
-                                            // customColor={group.style.backgroundColor}
-                                            // className="invite-icon"
-                                            icon={Invite}
-                                            iconSize={16}
-                                        />
+                                </section>
+                            </div>
+                            :
 
-                                    </div>
-                                    <span className="member-name">Invite a new member by email</span>
+                            <div className="invite-member-modal" onClick={(ev) => ev.stopPropagation()} >
+                                <div className="header-container">
+                                    <span>Type in email address to invite</span>
+                                </div>
+
+                                <input type="text" placeholder="Enter email" />
+
+                                <div className="buttons-container flex">
+                                    {/* <button onClick={(ev) => console.log(ev)}>Cancel</button>
+                                    <button onClick={(ev) => console.log(ev)}>Invite new member</button> */}
+                                    <Button kind={Button.kinds.TERTIARY} size={Button.sizes.SMALL} >Cancel</Button>
+                                    <Button size={Button.sizes.SMALL} >Invite new member</Button>
                                 </div>
                             </div>
-                        </section>
+                        }
                     </div>
                 </>
 

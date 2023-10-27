@@ -51,7 +51,9 @@
         transform: rotate(45deg);
     }
 
-    >.members-modal {
+    .modal {
+        width: rem(360px);
+        height: fit-content;
         position: absolute;
         top: 2.5rem;
         left: 50%;
@@ -61,12 +63,9 @@
         box-shadow: 0 8px 16px 0 $modal-shadow-color;
         z-index: 20;
         background-color: $white;
-        height: fit-content;
-        width: fit-content;
 
         .participate-members {
             flex-wrap: wrap;
-            width: 22.5rem;
             padding: 0.5rem 0.125rem 0 1rem;
 
             .member-container {
@@ -100,23 +99,52 @@
             }
         }
 
-        .member-picker-container {
-            padding: 1rem 1rem 0.5rem 1rem;
+        .invite-member-modal {
+            padding: rem(8px) rem(16px) rem(16px);
 
-            >.member-list {
-                padding: 0 0.25rem;
+            >input {
+                height: rem(32px);
+                width: 100%;
+                border-radius: rem(4px);
+                border: 0.8px solid $primary-color;
+                padding: rem(1px) rem(5px) 0 rem(5px);
+                font-size: rem(15px);
+
+                ::placeholder {
+                    font-weight: 400;
+                    // font-size: rem(15px);
+                }
+            }
+
+            >.header-container {
+                margin-block-end: rem(8px);
+            }
+
+            >.buttons-container {
+                z-index: 500;
+                justify-content: end;
+                margin-block-start: rem(16px);
+                gap: rem(8px);
             }
         }
 
-        .suggest-container {
-            margin-block-start: 0.75rem;
+        .member-list-container {
+            padding: 1rem 1.25rem 0.5rem 1.25rem;
 
-            >.suggest-title {
-                margin: 0.5rem 0 0.25rem 0;
+            >.suggest-container {
+                margin-block-start: 0.5rem;
+
+                >.suggest-header {
+                    margin: 0.5rem 0 0.25rem 0;
+                    color: $icon-secondary-color;
+                }
             }
         }
 
-        .member-row {
+
+
+        .member-row,
+        .invite-row {
             width: 20rem;
             height: 2.5rem;
             padding: 0.5rem;
@@ -127,26 +155,27 @@
                 background-color: $primary-background-hover-color;
             }
 
-            .invite-icon {
-                width: 1.625rem;
+
+
+            >.avatar-container,
+            >.icon-container {
+                height: rem(28px);
+                width: rem(28px);
+
+                >.avatar {
+                    margin: 0;
+                }
+
+                .invite-icon {
+                    margin: 0 rem(6px);
+                }
+
             }
 
-
-            >.avatar {
-                height: 1.625rem;
-                width: 1.625rem;
-                border: 0;
-                margin: 0;
-                border: none;
-            }
-
-            >.member-name {
+            >.member-name,
+            >.invite-member {
                 width: 100%;
                 padding: 0 0.5rem;
-            }
-
-            >.invite-icon {
-                width: 1.5rem;
             }
 
         }
