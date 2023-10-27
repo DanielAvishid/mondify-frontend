@@ -11,10 +11,10 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
     const [isSidBarOpen, setIsSideBarOpen] = useState(true)
     const [showBorder, setShowBorder] = useState(false)
     const [isModalOpen, setIsModalOpen] = useState(false)
-    const [hoverState, setHoverState] = useState({})
+    const [boardHoverState, setBoardHoverState] = useState({})
+    const [searchHoverState, setSearchHoverState] = useState(false)
     const [openState, setOpenState] = useState({})
     const currentUrl = window.location.href
-    console.log(currentUrl)
 
     function onAddBoard() {
         const board = boardService.getEmptyBoard()
@@ -42,13 +42,15 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
     }
 
     function toggleHoverMenu(boardId) {
-        setHoverState((prevState) => ({
+        setBoardHoverState((prevState) => ({
             ...prevState,
             [boardId]: !prevState[boardId]
         }))
     }
 
-    function toggleOpenMenu(boardId) {
+    function toggleOpenMenu(boardId, ev) {
+        console.log(ev)
+        ev.stopPropagation()
         setOpenState((prevState) => ({
             ...prevState,
             [boardId]: !prevState[boardId]
@@ -86,7 +88,7 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
                             </Button>
                         </div>
                         <div className="search-add">
-                            <div className={`search-container ${showBorder ? 'focus' : ''}`}>
+                            <div className={`search-container ${showBorder ? 'focus' : ''}`} onMouseEnter={() => setSearchHoverState(true)} onMouseLeave={() => setSearchHoverState(false)}>
                                 <Icon className="search-icon" icon={Search} />
                                 <input onFocus={toggleBorder} onBlur={toggleBorder} className="search-input" type="text" placeholder="Search" />
                                 <div className="filter-btn-container">
@@ -94,9 +96,9 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
                                         className="filter-tool-tip" content="Filters" animationType="expand">
                                         <div />
                                     </Tooltip>
-                                    <Button className="filter-btn" kind={Button.kinds.TERTIARY} >
+                                    {searchHoverState && <Button className="filter-btn" kind={Button.kinds.TERTIARY} >
                                         <Icon className="filter-icon" icon={Filter} />
-                                    </Button>
+                                    </Button>}
                                 </div>
                             </div>
                             <Button className="new-btn" onClick={onAddBoard}>
@@ -113,7 +115,8 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
                                             <Icon className="board-icon" icon={Board} />
                                             <span className="board-title">{board.title}</span>
                                         </div>
-                                        {(hoverState[board._id] || openState[board._id]) && < MenuButton className="board-options" onClick={() => toggleOpenMenu(board._id)}>
+                                        {(boardHoverState[board._id] || openState[board._id]) && <MenuButton className="board-options"
+                                            onClick={(ev) => toggleOpenMenu(board._id, ev)}>
                                             <Menu id="menu" size="large" className="menu-modal">
                                                 <MenuItem icon={Duplicate} title="Duplicate Board" onClick={() => onDuplicateBoard({ boardId: board._id })} />
                                                 <MenuItem icon={Delete} title="Delete" onClick={() => onRemoveBoard({ boardId: board._id })} />

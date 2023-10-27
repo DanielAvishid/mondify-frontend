@@ -1,5 +1,5 @@
 import { Menu, MenuButton, MenuItem, EditableHeading, MenuTitle, Button, MenuDivider, TabList, Tab, Table, SplitButton, SplitButtonMenu, IconButton, Icon, AvatarGroup, Avatar } from "monday-ui-react-core"
-import { NavigationChevronDown, DropdownChevronDown, DropdownChevronUp, Home, Delete, Download, Group, Search, PersonRound, CloseSmall, Chart, Edit, Favorite, ShortText, Info, AddSmall, Duplicate, Table as TableIcon, Menu as MenuIcon } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
+import { NavigationChevronDown, DropdownChevronDown, DropdownChevronUp, Home, Delete, Download, Group, Search, PersonRound, CloseSmall, Chart, Edit, Favorite, ShortText, Info, AddSmall, Duplicate, Table as TableIcon, Menu as MenuIcon, Invite } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 
@@ -30,8 +30,10 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                         onBlur={(ev) => onSaveBoard({ board, key: 'title', value: ev.target.value })}
                         onKeyDown={handleKeyPress}
                     />
-                    <IconButton iconClassName='info-icon' icon={Info} kind={IconButton.kinds.TERTIARY} size={IconButton.sizes.SMALL} ariaLabel="Show board description" />
-                    <IconButton iconClassName='info-icon' icon={Favorite} kind={IconButton.kinds.TERTIARY} size={IconButton.sizes.SMALL} ariaLabel="Add to favorites" />
+                    <div>
+                        <IconButton iconClassName='info-icon' icon={Info} kind={IconButton.kinds.TERTIARY} size={IconButton.sizes.SMALL} ariaLabel="Show board description" />
+                        <IconButton iconClassName='info-icon' icon={Favorite} kind={IconButton.kinds.TERTIARY} size={IconButton.sizes.SMALL} ariaLabel="Add to favorites" />
+                    </div>
                 </div>
                 <div className="options-container">
                     <Button className="activity-btn" kind={Button.kinds.TERTIARY} size={Button.sizes.SMALL}>
@@ -43,11 +45,10 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                         </AvatarGroup>
                     </Button>
                     <Link className="btn" to='#'>
-                        <Button className="invite-btn" size={Button.sizes.SMALL} noSidePadding={true} kind={Button.kinds.SECONDARY}>Invite / 1</Button>
-                        {/* <button>Show activity</button> */}
-                        {/* <img src={board.members[0].img} alt="" />
-                        {board.members[1] && <img src={board.mebmers[1].img} alt="" />} */}
-                        {/* put here the extra +counter */}
+                        <Button className="invite-btn" noSidePadding={true} kind={Button.kinds.SECONDARY}>
+                            <Icon className="invite-icon" icon={Invite} />
+                            <span>Invite / 1</span>
+                        </Button>
                     </Link>
                     <MenuButton tooltipContent='Options' tooltipPosition="top"
                         className="menu-btn" component={MenuIcon}>
