@@ -1,13 +1,16 @@
-import { useNavigate } from "react-router-dom";
-import { Button, Icon, Menu, MenuButton, MenuItem, MenuTitle, Search, SplitButton } from "monday-ui-react-core";
-import { Home, MyWeek, Filter, Board, Duplicate, Gantt, Delete, Add, DropdownChevronDown, NavigationChevronLeft, NavigationChevronRight } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
+import { Link, useNavigate } from "react-router-dom";
+import { Button, Icon, Menu, MenuButton, MenuItem, MenuTitle, SplitButton, Tooltip } from "monday-ui-react-core";
+import { Home, MyWeek, AddSmall, Menu as MenuIcon, Favorite, Filter, Board, Duplicate, Gantt, Delete, Add, DropdownChevronDown, Search, NavigationChevronLeft, NavigationChevronRight } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { useState } from "react";
 import { boardService } from "../services/board.service";
+import { GoHomeFill, GoStarFill } from "react-icons/go";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
 export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoard, updateBoards }) {
     const navigate = useNavigate()
     const [showSidebar, setShowSidebar] = useState(true)
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [hoverState, setHoverState] = useState({})
 
     function onAddBoard() {
         const board = boardService.getEmptyBoard()
@@ -26,26 +29,107 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
         updateBoards(newBoards)
     }
 
-    console.log(boards);
+    function toggleModal() {
+        setIsModalOpen(!isModalOpen)
+    }
+
+    function toggleMenu(boardId, onClick) {
+        setHoverState((prevState) => ({
+            ...prevState,
+            [boardId]: !prevState[boardId]
+        }))
+    }
+
+    function selectedClass() {
+        if (isModalOpen) return 'selected'
+        else return ''
+    }
+
     return (
         <section className="app-sidebar">
-            <button className="close-btn" onClick={toggleSidebar}>
+            <button className="close-btn" onClick={toggleSidebar} >
                 <Icon className="icon" icon={showSidebar ? NavigationChevronLeft : NavigationChevronRight} />
             </button>
-            <div className="top-container">
-                <Button leftIcon={Home} kind="tertiary" className="home btn">Home</Button>
-                <Button leftIcon={MyWeek} kind="tertiary" className="my-week btn">My work</Button>
+            <div className="general-btns">
+                <Button leftIcon={Home} kind="tertiary" className="home">Home</Button>
+                <Button leftIcon={MyWeek} kind="tertiary" className="my-week">My work</Button>
             </div>
-            <div className="bottom-container">
-                <div className="workspace-container">
-                    <div className="workspace-contoller">
-                        <Button className="workspace-btn" kind="tertiary" rightIcon={DropdownChevronDown}>
-                            <span>Main workspace</span>
+            <div className="workspace">
+                <div className="tools">
+                    <div className="workspace-select">
+                        <Button className={`workspace-dropdown ${selectedClass()}`} kind="tertiary" onClick={() => toggleModal()}>
+                            <div className="workspace-icon">
+                                <span className="letter-icon">M</span>
+                                <Icon className="home-icon" icon={GoHomeFill} />
+                            </div>
+                            <span className="workspace-title">Main workspace</span>
+                            <Icon className="drop-icon" icon={DropdownChevronDown} />
                         </Button>
                     </div>
+                    <div className="search-add">
+                        <div className="search-container">
+                            <Icon className="search-icon" icon={Search} />
+                            <input className="search-input" type="text" placeholder="Search" />
+                            <div className="filter-btn-container">
+                                <Tooltip
+                                    className="filter-tool-tip" content="Filters" animationType="expand">
+                                    <div />
+                                </Tooltip>
+                                <Button className="filter-btn" kind={Button.kinds.TERTIARY} >
+                                    <Icon className="filter-icon" icon={Filter} />
+                                </Button>
+                            </div>
+                        </div>
+                        <Button className="new-btn">
+                            <Icon className="plus-icon" icon={AddSmall} />
+                        </Button>
+                    </div>
+                    <nav className="board-nav">
+                        {boards.map(board =>
+                            <Link onMouseEnter={() => toggleMenu(board._id)} onMouseLeave={() => toggleMenu(board._id)} key={board._id} to={`/board/${board._id}`}>
+                                <Button
+                                    kind="tertiary"
+                                    className="board-btn">
+                                    <Icon className="board-icon" icon={Board} />
+                                    <span className="board-title">{board.title}</span>
+                                    {hoverState[board._id] && < MenuButton className="board-options">
+                                        <Menu id="menu" size="large">
+                                            <MenuItem icon={Duplicate} title="Duplicate Board" onClick={() => onDuplicateBoard({ boardId: board._id })} />
+                                            <MenuItem icon={Delete} title="Delete" onClick={() => onRemoveBoard({ boardId: board._id })} />
+                                        </Menu>
+                                    </MenuButton>}
+                                </Button>
+                            </Link>)}
+                    </nav>
+                    {isModalOpen && <div className="workspace-modal">
+                        <div className="modal-top">
+                            <div className="search">
+                                <Search className="search-input" placeholder="Search for a workspace" />
+                            </div>
+                            <div className="select">
+                                <Button kind="tertiary" className="favorite-btn">
+                                    <Icon className="favorite-icon" icon={GoStarFill} />
+                                    <span>Favorites</span>
+                                </Button>
+                                <div className="title">
+                                    <span className="my-workspace-title">My workspaces</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="modal-bottom">
+                            <Button kind="tertiary" className="favorite-btn">
+                                <Icon className="favorite-icon" icon={AddSmall} />
+                                <span>Add workspace</span>
+                            </Button>
+                            <Button kind="tertiary" className="favorite-btn">
+                                <Icon className="favorite-icon" icon={GoStarFill} />
+                                <span>Browse all</span>
+                            </Button>
+                        </div>
+                    </div>}
                 </div>
             </div>
-        </section>
+        </section >
     )
 }
 //     return (
