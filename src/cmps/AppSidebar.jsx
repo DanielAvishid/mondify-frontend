@@ -46,7 +46,7 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
     }
 
     return (
-        <section className="app-sidebar">
+        <section className={`app-sidebar ${showSidebar ? '' : 'close'}`}>
             <button className="close-btn" onClick={toggleSidebar} >
                 <Icon className="icon" icon={showSidebar ? NavigationChevronLeft : NavigationChevronRight} />
             </button>
