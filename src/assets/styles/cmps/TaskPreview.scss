@@ -1,19 +1,36 @@
 .task-preview {
 
     &:hover {
-        box-shadow: 4px 3px 6px -3px $selectable-cluster-border;
-        background-color: $lighter-grey;
 
-        >.status-cell,
-        >.priority-cell {
-            opacity: 0.7;
+        .table-row {
+
+            box-shadow: 4px 3px 6px -3px $selectable-cluster-border;
+            background-color: $lighter-grey;
+
+            >.status-cell,
+            >.priority-cell {
+                opacity: 0.85;
+            }
+
+            &.checked {
+                background-color: $primary-selected-color;
+            }
         }
 
+        .task-menu {
+            opacity: 1;
+        }
     }
 
-    &.checked {
-        background-color: $primary-selected-color;
+    .table-row {
+
+        &.checked {
+            background-color: $primary-selected-color;
+        }
     }
 
-    min-width: 100vw;
+    .task-menu {
+        opacity: 0;
+    }
+
 }

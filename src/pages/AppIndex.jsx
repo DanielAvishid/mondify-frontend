@@ -82,9 +82,9 @@ export function AppIndex() {
         }
     }
 
-    async function onDuplicateTask({ boardId, taskId }) {
+    async function onDuplicateTask({ boardId, groupId, taskId }) {
         try {
-            await duplicate({ boardId, taskId })
+            await duplicate({ boardId, groupId, taskId })
             showSuccessMsg('We successfully duplicated 1 item')
         } catch (err) {
             console.log('ShowErrorMsg')

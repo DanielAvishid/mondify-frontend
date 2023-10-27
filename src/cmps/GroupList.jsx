@@ -41,6 +41,27 @@ export function GroupList() {
                                 <Draggable draggableId={group.id} index={index} key={group.id}>
                                     {(provided) => (
                                         <article
+                                            key={group.id}
+                                            className="full"
+                                            {...provided.dragHandleProps}
+                                            {...provided.draggableProps}
+                                            ref={provided.innerRef}
+                                        >
+                                            <GroupPreview
+                                                board={board}
+                                                group={group}
+                                                onSaveBoard={onSaveBoard}
+                                                onRemoveGroup={onRemoveGroup}
+                                                onRemoveTask={onRemoveTask}
+                                                onDuplicateGroup={onDuplicateGroup}
+                                                onDuplicateTask={onDuplicateTask}
+                                            // onDuplicate={onDuplicate}
+                                            // onRemove={onRemove} 
+                                            />
+                                        </article>
+                                    )}
+                                    {/* {(provided) => (
+                                        <article
                                             className="full"
                                             {...provided.dragHandleProps}
                                             {...provided.draggableProps}
@@ -57,7 +78,7 @@ export function GroupList() {
                                                 onRemoveTask={onRemoveTask}
                                             />
                                         </article>
-                                    )}
+                                    )} */}
                                 </Draggable>
                             ))}
                             {provided.placeholder}

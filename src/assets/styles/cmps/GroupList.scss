@@ -3,6 +3,8 @@
     overflow-x: auto;
     white-space: nowrap;
 
+    margin-block-start: 1.125rem;
+
     &::-webkit-scrollbar {
         position: absolute;
         width: 12px;
