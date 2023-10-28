@@ -39,6 +39,13 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
         }
     }
 
+    function handleClearInputClick() {
+        inputRef.current.value = ''
+        inputRef.current.focus()
+        setIsTyping(false)
+        setIsInputFocus(true)
+    }
+
     return (
         <section className={`board-header middle ${isCollapse ? 'collapse' : ''}`}>
             {!isCollapse && <section className="container first-row-container">
@@ -172,7 +179,7 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                             onChange={(ev) => handleInputChange(ev)}
                             onBlur={handleInputBlur}
                             placeholder="Search" />
-                        {isTyping && <Button className="clear-btn btn" kind={Button.kinds.TERTIARY}>
+                        {isTyping && <Button className="clear-btn btn" kind={Button.kinds.TERTIARY} onClick={() => handleClearInputClick()}>
                             <Icon className="x-icon" icon={CloseSmall} />
                         </Button>}
                         {(isInputFocus || isTyping) && <Button className="options-btn btn" kind={Button.kinds.TERTIARY}>
