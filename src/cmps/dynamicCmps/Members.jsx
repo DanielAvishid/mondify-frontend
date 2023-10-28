@@ -38,8 +38,13 @@ export function Members({ info, task, board, onSaveBoard }) {
         onSaveBoard({ board, taskId: task.id, key: "members", value: updatedMembersIds })
     }
 
+    const onClickMembersCell = () => {
+        setIsInviteModalOpen(false)
+        setIsModalOpen(!isModalOpen)
+    }
+
     return (
-        <td className="task-item members-cell members-col grid align-center justify-center" onClick={() => setIsModalOpen(!isModalOpen)}>
+        <td className="task-item members-cell members-col grid align-center justify-center" onClick={onClickMembersCell}>
             {/* <div className="add-member grid align-center"> */}
             <span className="plus-container flex align-center justify-center">+</span>
 
