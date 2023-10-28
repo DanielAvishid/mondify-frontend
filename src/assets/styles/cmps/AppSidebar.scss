@@ -7,28 +7,36 @@
     border-top-right-radius: 10px;
     transition: width .3s;
 
+    .expand-sidebar {
+        background-color: $primary-background-color;
+        border-top-right-radius: 10px;
+        transition: left .5s ease;
+        height: 100vh;
+    }
+
     &.close {
         width: 30px;
 
         .close-btn {
+            z-index: 100;
             display: block;
         }
 
         .expand-sidebar {
-            opacity: 0;
-            transition: opacity 1s;
+            z-index: 200;
+            position: absolute;
+            left: -255px;
         }
     }
 
     &.hover {
         .expand-sidebar {
             position: absolute;
+            left: 0;
             background-color: $primary-background-color;
             box-shadow: 0px 6px 20px rgba(0, 0, 0, .2);
             height: 100vh;
-            z-index: 100;
             border-top-right-radius: 10px;
-            opacity: 1;
         }
     }
 
@@ -37,6 +45,7 @@
     }
 
     .close-btn {
+        z-index: 100;
         display: none;
         position: absolute;
         top: 0;
