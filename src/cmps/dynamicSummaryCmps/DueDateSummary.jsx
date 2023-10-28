@@ -3,7 +3,6 @@ import { utilService } from "../../services/util.service"
 
 export function DueDateSummary({ group }) {
 
-
     const [isHover, setIsHover] = useState(false)
 
     const dueDates = group.tasks.map(task => task.dueDate)
@@ -14,7 +13,7 @@ export function DueDateSummary({ group }) {
     const { text, percentage } = utilService.getDateToShow(finalDates)
 
     const defaultGroupBgc = group.style.backgroundColor
-    const darkerGroupBgc = utilService.darkenColor(defaultGroupBgc, 0.15)
+    const darkerGroupBgc = utilService.darkenColor(defaultGroupBgc, 0.20)
     const bgcToShow = isHover ? darkerGroupBgc : defaultGroupBgc
 
     const backgroundStyle = {

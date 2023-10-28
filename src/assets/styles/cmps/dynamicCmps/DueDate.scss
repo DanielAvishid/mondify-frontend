@@ -1,6 +1,24 @@
 .dueDate-cell {
     position: relative;
 
+    &:hover {
+        >.remove-date {
+            opacity: 1;
+        }
+    }
+
+    >.remove-date {
+        opacity: 0;
+        background-color: $light_grey;
+        position: absolute;
+        padding: rem(3px);
+        width: rem(16px);
+        height: rem(16px);
+        right: rem(10px);
+        border-radius: rem(3px);
+        color: $primary-text-color;
+    }
+
     >.inner-container {
         display: grid;
         align-items: center;
@@ -8,7 +26,7 @@
         width: 6.875rem;
         height: 1.375rem;
         border-radius: 2em;
-        color: white;
+        color: $white;
         background-color: $default-task-val-bgc;
 
         >span {
@@ -16,32 +34,9 @@
             text-overflow: ellipsis;
             overflow: hidden;
         }
-    }
 
-
-    .date-picker-container {
-        white-space: pre-wrap;
-
-        >.date-picker-header {
-            height: rem(48px);
-            padding: 0 rem(16px);
-            border-block-end: 0.8px solid $selectable-cluster-border;
-
-            >span {
-                font-size: rem(16px);
-                font-weight: 500;
-            }
-        }
-
-        >.date-picker {
-            padding-block-start: rem(8px);
-
-        }
-
-        >.date-picker-footer {
-            border-block-start: 0.8px solid $selectable-cluster-border;
-            margin: 0 rem(32px);
-            padding: rem(12px) rem(7px);
+        &:hover {
+            background-color: $placeholder-color;
         }
     }
 }
