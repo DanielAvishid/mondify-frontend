@@ -59,7 +59,6 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
     }
 
     function toggleOpenMenu(boardId, ev) {
-        console.log(ev)
         ev.stopPropagation()
         setOpenState((prevState) => ({
             ...prevState,

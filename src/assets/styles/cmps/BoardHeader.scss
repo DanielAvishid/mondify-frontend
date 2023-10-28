@@ -156,6 +156,14 @@
     .third-row-container {
         margin-block-end: rem(15px);
 
+        &.no-description {
+            margin-block-start: rem(8px);
+        }
+
+        &.collapse {
+            margin-block-start: 0;
+        }
+
         .collapse-btn {
             min-width: 26px;
             min-height: 26px;

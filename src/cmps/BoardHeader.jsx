@@ -93,13 +93,13 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                     </MenuButton>
                 </div>
             </section>}
-            {!isCollapse && <section className="second-row-container">
+            {(!isCollapse && board.description) && <section className={`second-row-container`}>
                 <div className="flex align-center">
                     <p className="board-description">{board.description}</p>
                     <span className="see-more">See More</span>
                 </div>
             </section>}
-            <section className="container third-row-container">
+            <section className={`container third-row-container ${!board.description ? 'no-description' : ''} ${isCollapse ? 'collapse' : ''}`}>
                 <div className="board-view-container">
                     {isCollapse && <div className="title-container">
                         <EditableHeading
