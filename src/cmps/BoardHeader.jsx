@@ -115,12 +115,8 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                         />
                     </div>}
                     <TabList className="tab-list">
-                        {/* <Link to=''> */}
-                        <Tab tabInnerClassName='main-tab' icon={Home}>Main Table </Tab>
-                        {/* </Link> */}
-                        {/* <Link to='views/kanban'> */}
-                        <Tab tabInnerClassName='tab'>Kanban</Tab>
-                        {/* </Link> */}
+                        <Tab key='main' tabInnerClassName='main-tab' icon={Home}>Main Table</Tab>
+                        <Tab key='kanban' tabInnerClassName='tab'>Kanban</Tab>
                     </TabList>
                     <div>
                         <MenuButton tooltipContent='Add View' className="add-button" component={AddSmall} >
