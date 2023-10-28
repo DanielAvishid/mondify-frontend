@@ -62,15 +62,19 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
         else return ''
     }
 
+    function emptyFunction() {
+        return
+    }
+
     return (
         <section className={`app-sidebar ${isSidBarOpen ? '' : 'close'} ${(isSideBarHover && !isSidBarOpen) ? 'hover' : ''}`} onMouseEnter={() => setIsSideBarHover(true)} onMouseLeave={() => setIsSideBarHover(false)}>
-            <Button className="close-btn" onClick={toggleSidebar} onMouseEnter>
+            <button className="close-btn" onClick={toggleSidebar} onMouseEnter={emptyFunction}>
                 <Icon className="icon" icon={isSidBarOpen ? NavigationChevronLeft : NavigationChevronRight} />
-            </Button>
+            </button>
             {(isSidBarOpen || isSideBarHover) && <section className="expand-sidebar">
-                <Button className="close-btn" onClick={toggleSidebar} onMouseEnter>
+                <button className="close-btn" onClick={toggleSidebar} onMouseEnter={emptyFunction}>
                     <Icon className="icon" icon={isSidBarOpen ? NavigationChevronLeft : NavigationChevronRight} />
-                </Button>
+                </button>
                 <div className="general-btns">
                     <Button leftIcon={Home} kind="tertiary" className={`home ${currentUrl === 'http://localhost:5173/#/board' ? 'active' : ''}`}>Home</Button>
                     <Button leftIcon={MyWeek} kind="tertiary" className="my-week">My work</Button>
