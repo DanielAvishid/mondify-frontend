@@ -38,30 +38,4 @@
             opacity: 1;
         }
     }
-
-    .pointer {
-        position: absolute;
-        z-index: 21;
-        // top: 0;
-        top: 2rem;
-        left: 50%;
-        height: 1rem;
-        width: 1rem;
-        background-color: $white;
-        transform: rotate(45deg);
-    }
-
-    .modal {
-        width: rem(360px);
-        height: fit-content;
-        position: absolute;
-        top: 2.5rem;
-        left: 50%;
-        transform: translateX(-50%);
-        transform: translate();
-        border-radius: 0.5rem;
-        box-shadow: 0 8px 16px 0 $modal-shadow-color;
-        z-index: 20;
-        background-color: $white;
-    }
 }

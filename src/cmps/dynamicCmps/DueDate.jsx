@@ -4,6 +4,7 @@ import { utilService } from "../../services/util.service";
 export function DueDate({ info, board, onSaveBoard }) {
     const { text, percentage } = utilService.getDateToShow(info)
     const [hovered, setHovered] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleMouseEnter = () => {
         setHovered(true);
@@ -21,6 +22,7 @@ export function DueDate({ info, board, onSaveBoard }) {
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
                 className="inner-container"
+                onClick={() => setIsModalOpen(!isModalOpen)}
             >
                 {info.length ? (
                     <span>{hovered ? `${utilService.calculateDaysDifference(info)}d` : text}</span>
@@ -28,6 +30,13 @@ export function DueDate({ info, board, onSaveBoard }) {
                     <span>{hovered ? `Set Dates` : '-'}</span>
                 )}
             </div>
+
+            {isModalOpen &&
+                <div className="modal">
+                    <div className="pointer"></div>
+                    <div>hello</div>
+                </div>
+            }
 
 
             {/* {info.length ? (

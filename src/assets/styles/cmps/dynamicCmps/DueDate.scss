@@ -1,6 +1,7 @@
 .dueDate-cell {
+    position: relative;
 
-    & .inner-container {
+    >.inner-container {
         display: grid;
         align-items: center;
         justify-content: center;
@@ -10,14 +11,14 @@
         color: white;
         background-color: $default-task-val-bgc;
 
+        >span {
+            font-size: 0.813rem;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
         &:hover {
             background-color: darken($default-task-val-bgc, 15%);
         }
-    }
-
-    & span {
-        font-size: 0.813rem;
-        text-overflow: ellipsis;
-        overflow: hidden;
     }
 }

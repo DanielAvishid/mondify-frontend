@@ -60,34 +60,31 @@ export function Members({ info, task, board, onSaveBoard }) {
             }
 
             {isModalOpen &&
-                <>
+                <div className="modal" onClick={(ev) => ev.stopPropagation()}>
                     <div className="pointer"></div>
-                    <div className="modal" onClick={(ev) => ev.stopPropagation()}>
-                        {!isInviteModalOpen ?
-                            <MembersModal
-                                board={board}
-                                task={task}
-                                membersIds={membersIds}
-                                handleSearch={handleSearch}
-                                searchTerm={searchTerm}
-                                participateMembers={participateMembers}
-                                filteredMembers={filteredMembers}
-                                setIsInviteModalOpen={setIsInviteModalOpen}
-                                onRemoveMember={onRemoveMember}
-                                onSaveBoard={onSaveBoard}
-                            /> :
+                    {!isInviteModalOpen ?
+                        <MembersModal
+                            board={board}
+                            task={task}
+                            membersIds={membersIds}
+                            handleSearch={handleSearch}
+                            searchTerm={searchTerm}
+                            participateMembers={participateMembers}
+                            filteredMembers={filteredMembers}
+                            setIsInviteModalOpen={setIsInviteModalOpen}
+                            onRemoveMember={onRemoveMember}
+                            onSaveBoard={onSaveBoard}
+                        /> :
 
-                            <InviteMemberModal
-                                board={board}
-                                task={task}
-                                membersIds={membersIds}
-                                setIsInviteModalOpen={setIsInviteModalOpen}
-                                onSaveBoard={onSaveBoard}
-                            />
-                        }
-                    </div>
-                </>
-
+                        <InviteMemberModal
+                            board={board}
+                            task={task}
+                            membersIds={membersIds}
+                            setIsInviteModalOpen={setIsInviteModalOpen}
+                            onSaveBoard={onSaveBoard}
+                        />
+                    }
+                </div>
             }
         </td >
     )
