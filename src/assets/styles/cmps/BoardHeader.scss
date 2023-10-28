@@ -308,8 +308,29 @@
 
         .btns-container {
             display: flex;
-            gap: rem(7px);
+            gap: rem(6px);
 
+            .person-btn {
+                height: rem(32px);
+                display: flex;
+                padding: 0;
+                padding-inline-start: 6px;
+                padding-inline-end: 12px;
+                min-width: min-content;
+
+                svg {
+                    color: $icon-secondary-color;
+                    margin-inline-end: 6px;
+                    width: rem(20px);
+                    height: rem(20px);
+                }
+
+                span {
+                    line-height: 33px;
+                    font-weight: 500;
+                    color: $icon-secondary-color;
+                }
+            }
 
             .search-container {
                 padding-inline-start: 8px;
@@ -324,8 +345,8 @@
                     font-size: rem(14px);
                     font-family: Figtree, Roboto, "Noto Sans Hebrew", "Noto Kufi Arabic", "Noto Sans JP", sans-serif;
                     background-color: transparent;
-                    color: $primary-text-color;
-                    font-weight: 400;
+                    color: $icon-secondary-color;
+                    font-weight: 500;
                     width: 57px;
                     transition: width .3s;
                     padding-inline-start: 2px;
@@ -337,8 +358,7 @@
                 }
 
                 .search-icon {
-                    // margin-block-end: 1px;
-                    color: $primary-text-color;
+                    color: $icon-secondary-color;
                     opacity: .9;
                     border-image-width: 1;
                     width: 20px;

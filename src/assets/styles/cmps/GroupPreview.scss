@@ -27,11 +27,17 @@
             }
 
             >.group-title {
-                margin-inline-start: 6px;
+                margin-inline-start: 11px;
+            }
+
+            .group-menu-container {
+                margin-inline-end: 4px;
             }
 
             .group-menu {
                 opacity: 0;
+                height: 24px;
+                width: 24px;
 
                 >* {
                     z-index: 100;

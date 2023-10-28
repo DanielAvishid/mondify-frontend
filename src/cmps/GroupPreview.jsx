@@ -99,7 +99,7 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemoveGrou
                             <div className="group-header main-layout full">
                                 {/* <div className="group-header main-layout full"> */}
                                 <div className="title-header main-layout full">
-                                    <div className="start flex justify-center align-center">
+                                    <div className="group-menu-container start flex justify-end align-center">
                                         <MenuButton className="group-menu">
                                             <Menu id="menu" size="large">
                                                 <MenuItem icon={Duplicate} title="Duplicate this group" onClick={() => onDuplicateGroup({ boardId: board._id, groupId: group.id })} />
