@@ -157,7 +157,7 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                         </Menu>
                     </MenuButton>}
                     <IconButton className='collapse-btn' icon={isCollapse ? DropdownChevronDown : DropdownChevronUp} kind={IconButton.kinds.SECONDARY}
-                        size={IconButton.sizes.XXS} ariaLabel="Collapse header" onClick={() => setIsCollapse(!isCollapse)} />
+                        size={IconButton.sizes.XXS} ariaLabel={isCollapse ? 'Expand header' : 'Collapse header'} onClick={() => setIsCollapse(!isCollapse)} />
                 </div>
             </section>
             <MenuDivider className='menu-divider' />
