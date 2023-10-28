@@ -16,7 +16,7 @@ export function ProgressBar({ board, group }) {
                 const info = [minDueDate, maxDueDate]
 
                 return (
-                    <DueDate info={info} />
+                    <DueDate info={info} group={group} board={board} />
                 )
             case 'status':
                 return <span></span>

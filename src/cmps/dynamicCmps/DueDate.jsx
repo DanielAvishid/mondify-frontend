@@ -11,11 +11,16 @@ import 'react-day-picker/dist/style.css';
 // }
 // `
 
-export function DueDate({ info, task, board, onSaveBoard }) {
+export function DueDate({ info, task, board, group, onSaveBoard }) {
     const { text, percentage } = utilService.getDateToShow(info)
     const [hovered, setHovered] = useState(false)
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [newDate, setNewDate] = useState(new Date())
+
+    const groupBgc = group.style.backgroundColor
+    const backgroundStyle = {
+        background: `linear-gradient(90deg, ${groupBgc} ${+percentage}%, var(--inverted-color-background) 0%)`
+    };
 
     const handleDatePick = (date) => {
         console.log('date', date);
@@ -39,7 +44,7 @@ export function DueDate({ info, task, board, onSaveBoard }) {
         <td className="task-item dueDate-cell dueDate-col grid align-center justify-center">
 
             <div
-                style={{ background: `linear-gradient(90deg, rgb(87,155,252) ${+percentage}%, rgb(51,51,51) ${0}%)` }}
+                style={backgroundStyle}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
                 className="inner-container"

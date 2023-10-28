@@ -83,10 +83,6 @@ function getDateToShow(timeStamps = []) {
         return ''
     }
 
-    if (timeStamps.length === 1) {
-        timeStamps = timeStamps[0]
-    }
-
     const currentDate = new Date()
     const date1 = new Date(timeStamps[0])
     const date2 = new Date(timeStamps[1])
@@ -95,19 +91,29 @@ function getDateToShow(timeStamps = []) {
         const day = date.getDate()
         return day
     }
-    const percentage = (((formatDateDay(currentDate) - formatDateDay(date1)) / (formatDateDay(date2) - formatDateDay(date1))) * 100).toFixed(0);
+
+    const totalDays = (date2 - date1) / (1000 * 60 * 60 * 24);
+    const daysPassed = (currentDate - date1) / (1000 * 60 * 60 * 24);
+    let percentage = ((daysPassed / totalDays) * 100).toFixed(0);
 
     const formatDateMonth = (date) => {
         const month = date.toLocaleString('en-US', { month: 'short' })
         return month
     }
 
+    if (date1.getFullYear() === currentDate.getFullYear() &&
+        date1.getMonth() === date2.getMonth() &&
+        formatDateDay(date1) === formatDateDay(date2)) {
+        percentage = (currentDate > date2) ? 100 : 0
+        return { text: `${formatDateDay(date1)} ${formatDateMonth(date1)}`, percentage }
+    }
+
     if (date1.getFullYear() === currentDate.getFullYear() && date1.getMonth() === date2.getMonth()) {
-        return { text: `${formatDateMonth(date1)} ${formatDateDay(date1)} - ${formatDateDay(date2)}`, percentage }
+        return { text: `${formatDateDay(date1)} - ${formatDateDay(date2)} ${formatDateMonth(date2)}`, percentage }
     }
 
     if (date1.getFullYear() === date2.getFullYear()) {
-        return { text: `${formatDateMonth(date1)} ${formatDateDay(date1)} - ${formatDateMonth(date2)} ${formatDateDay(date2)}`, percentage }
+        return { text: `${formatDateDay(date1)} ${formatDateMonth(date1)} - ${formatDateDay(date2)} ${formatDateMonth(date2)}`, percentage }
     }
 
     const getShortYear = (date) => {

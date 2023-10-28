@@ -235,7 +235,7 @@ function getEmptyBoard() {
                         "title": "Fix handle change func",
                         "status": "Working on it",
                         "priority": "Medium",
-                        "dueDate": [1679040000000, 1706280400000],
+                        "dueDate": [1677619200000, 1679952000000],
                         "members": ["WOWOWO"],
                     },
                     {
@@ -243,7 +243,7 @@ function getEmptyBoard() {
                         "title": "Remove tasks",
                         "status": "Done",
                         "priority": "Critical",
-                        "dueDate": [1716280400000, 1729040000000],
+                        "dueDate": [1678128000000, 1679872000000],
                         "members": ["UjCos"],
                     },
                     {
@@ -251,7 +251,7 @@ function getEmptyBoard() {
                         "title": "Update response time",
                         "status": "Done",
                         "priority": "Medium",
-                        "dueDate": [1686280400000, 1699040000000],
+                        "dueDate": [1677388800000, 1680048000000],
                         "members": ["KKLLSS", "UjCos"],
                     },
                     {
@@ -259,7 +259,7 @@ function getEmptyBoard() {
                         "title": "Add rating stars",
                         "status": "Working on it",
                         "priority": "Medium",
-                        "dueDate": [1679040000000, 1706280400000],
+                        "dueDate": [1677772800000, 1680288000000],
                         "members": ["WOWOWO"],
                     },
                     {
@@ -267,7 +267,7 @@ function getEmptyBoard() {
                         "title": "Update react version",
                         "status": "Done",
                         "priority": "Critical",
-                        "dueDate": [],
+                        "dueDate": [1677041200000, 1677041200000],
                         "members": ["UjCos"],
                     },
                     {
@@ -275,7 +275,7 @@ function getEmptyBoard() {
                         "title": "Update response time",
                         "status": "Done",
                         "priority": "Medium",
-                        "dueDate": [1676280400000, 1688040000000],
+                        "dueDate": [1677043200000, 1679971200000],
                         "members": ["KKLLSS", "UjCos"],
                     },
 
@@ -292,7 +292,7 @@ function getEmptyBoard() {
                         "title": "Make it look better",
                         "status": "Done",
                         "priority": "Medium",
-                        "dueDate": [1626280400000, 1659040000000],
+                        "dueDate": [1677619200000, 1680124800000],
                         "members": ["UjCos"],
                     },
                     {
@@ -300,7 +300,7 @@ function getEmptyBoard() {
                         "title": "Fix main button",
                         "status": "Working on it",
                         "priority": "Critical",
-                        "dueDate": [1616280400000, 1673040000000],
+                        "dueDate": [1677532800000, 1679872000000],
                         "members": ["KKLLSS", "WOWOWO"],
                     },
                     {
@@ -308,7 +308,7 @@ function getEmptyBoard() {
                         "title": "Check for new libraries",
                         "status": "Done",
                         "priority": "Medium",
-                        "dueDate": [1646280400000, 1655040000000],
+                        "dueDate": [1676880000000, 1680201600000],
                         "members": ["KKLLSS"],
                     },
                     {
@@ -316,7 +316,7 @@ function getEmptyBoard() {
                         "title": "Update modal layout",
                         "status": "Working on it",
                         "priority": "Critical",
-                        "dueDate": [1616280400000, 1673040000000],
+                        "dueDate": [1676880000000, 1680201600000],
                         "members": ["KKLLSS", "WOWOWO", "UjCos"],
                     }
                 ],
@@ -332,7 +332,7 @@ function getEmptyBoard() {
                         "title": "Data collection",
                         "status": "Done",
                         "priority": "Medium",
-                        "dueDate": [1666280400000, 1667040000000],
+                        "dueDate": [1677187200000, 1680110400000],
                         "members": ["UjCos"],
                     },
                     {
@@ -340,7 +340,7 @@ function getEmptyBoard() {
                         "title": "Renew data",
                         "status": "Done",
                         "priority": "Critical",
-                        "dueDate": [1665280400000, 1672040000000],
+                        "dueDate": [1677484800000, 1680153600000],
                         "members": ["KKLLSS", "WOWOWO"],
                     },
                     {
@@ -348,7 +348,7 @@ function getEmptyBoard() {
                         "title": "Check for duplicates",
                         "status": "Working on it",
                         "priority": "Medium",
-                        "dueDate": [1666280100000, 1673040000000],
+                        "dueDate": [1677619200000, 1680345600000],
                         "members": ["WOWOWO"],
                     },
                 ],
