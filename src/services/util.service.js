@@ -13,7 +13,8 @@ export const utilService = {
     lowercaseFirstLetter,
     calculateDaysDifference,
     getRandomColor,
-    isEmailValid
+    isEmailValid,
+    darkenColor
 }
 
 function makeId(length = 6) {
@@ -172,6 +173,33 @@ function getRandomColor() {
 function isEmailValid(email) {
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
     return emailRegex.test(email)
+}
+
+function darkenColor(color, factor = 0.2) {
+    // Check if the color is in the format "#RRGGBB" or "#RRGGBBAA"
+    const isHexWithAlpha = color.length === 9;
+
+    // Remove the hash symbol (#) and convert the color to a 6-digit or 8-digit format
+    const hexColor = color.slice(1, isHexWithAlpha ? 7 : undefined);
+
+    // Convert the hex color to an integer
+    const hexValue = parseInt(hexColor, 16);
+
+    // Extract the red, green, and blue components
+    const red = (hexValue >> 16) & 255;
+    const green = (hexValue >> 8) & 255;
+    const blue = hexValue & 255;
+
+    // Darken the color by reducing the RGB values
+    const newRed = Math.max(0, Math.round(red - red * factor));
+    const newGreen = Math.max(0, Math.round(green - green * factor));
+    const newBlue = Math.max(0, Math.round(blue - blue * factor));
+
+    // Convert the new RGB values back to a hex color
+    const newHexColor = `#${(newRed << 16 | newGreen << 8 | newBlue).toString(16).padStart(6, '0')}`;
+
+    // If the input color had an alpha component, add it to the result
+    return isHexWithAlpha ? `${newHexColor}${color.slice(7)}` : newHexColor;
 }
 
 
