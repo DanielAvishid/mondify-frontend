@@ -1,15 +1,15 @@
 import { utilService } from "../services/util.service";
-import { DueDate } from "./dynamicCmps/DueDate";
+import { Timeline } from "./dynamicCmps/Timeline";
 import { Members } from "./dynamicCmps/Members";
-import { DueDateSummary } from "./dynamicSummaryCmps/DueDateSummary";
+import { TimelineSummary } from "./dynamicSummaryCmps/TimelineSummary";
 
 
 export function ProgressBar({ board, group }) {
 
     const renderCmpSpan = (cmp) => {
         switch (cmp.type) {
-            case 'dueDate':
-                return <DueDateSummary group={group} />
+            case 'timeline':
+                return <TimelineSummary group={group} />
             case 'status':
                 return <span></span>
             case 'priority':

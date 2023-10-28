@@ -1,6 +1,6 @@
 import { Checkbox, DatePicker } from "monday-ui-react-core";
 
-export function DueDateModal(newDate, handleDatePick) {
+export function TimelineModal({ newDate, handleDatePick }) {
     return (
         <div className="modal">
             <div className="pointer"></div>

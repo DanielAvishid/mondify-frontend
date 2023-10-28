@@ -3,7 +3,7 @@ import { Priority } from "./dynamicCmps/Priority";
 import { TaskTitle } from "./dynamicCmps/TaskTitle";
 import { Status } from "./dynamicCmps/Status";
 import { Members } from "./dynamicCmps/Members";
-import { DueDate } from "./dynamicCmps/DueDate";
+import { Timeline } from "./dynamicCmps/Timeline";
 
 import { Duplicate, Delete } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { Checkbox, Menu, MenuButton, MenuItem } from "monday-ui-react-core";
@@ -56,8 +56,8 @@ const DynamicCmp = ({ task, group, board, cmpType, info, onSaveBoard }) => {
             return <Status info={info} board={board} onSaveBoard={onSaveBoard} />;
         case "members":
             return <Members info={info} task={task} board={board} onSaveBoard={onSaveBoard} />;
-        case "dueDate":
-            return <DueDate info={info} task={task} group={group} board={board} onSaveBoard={onSaveBoard} />
+        case "timeline":
+            return <Timeline info={info} task={task} group={group} board={board} onSaveBoard={onSaveBoard} />
         default:
             break;
     }

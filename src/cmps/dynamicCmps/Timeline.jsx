@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { utilService } from "../../services/util.service";
 import { AiOutlineClose } from "react-icons/ai";
-import { DueDateModal } from "../dynamicModalCmps/DueDateModal";
+import { TimelineModal } from "../dynamicModalCmps/TimelineModal";
 
-export function DueDate({ info, task, board, group, onSaveBoard }) {
+export function Timeline({ info, task, board, group, onSaveBoard }) {
     const { text, percentage } = utilService.getDateToShow(info)
     const [isHover, setIsHover] = useState(false)
     const [isModalOpen, setIsModalOpen] = useState(false)
@@ -26,13 +26,13 @@ export function DueDate({ info, task, board, group, onSaveBoard }) {
         const startDate = (date.startDate) ? date.startDate._d.getTime() : null
         const endDate = (date.endDate) ? date.endDate._d.getTime() : null
         if (startDate && endDate) {
-            onSaveBoard({ board, taskId: task.id, key: "dueDate", value: [startDate, endDate] })
+            onSaveBoard({ board, taskId: task.id, key: "timeline", value: [startDate, endDate] })
         }
     }
 
     return (
-        <td className="task-item dueDate-cell dueDate-col grid align-center justify-center">
-            {info.length > 0 && < AiOutlineClose className="remove-date" onClick={() => onSaveBoard({ board, taskId: task.id, key: "dueDate", value: [] })} />}
+        <td className="task-item timeline-cell timeline-col grid align-center justify-center">
+            {info.length > 0 && < AiOutlineClose className="remove-date" onClick={() => onSaveBoard({ board, taskId: task.id, key: "timeline", value: [] })} />}
             <div
                 style={backgroundStyle}
                 onMouseEnter={() => setIsHover(true)}
@@ -48,7 +48,7 @@ export function DueDate({ info, task, board, group, onSaveBoard }) {
 
             </div>
 
-            {isModalOpen && <DueDateModal />}
+            {isModalOpen && <TimelineModal newDate={newDate} handleDatePick={handleDatePick} />}
         </td>
     )
 }

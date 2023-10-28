@@ -235,7 +235,7 @@ function getEmptyBoard() {
                         "title": "Fix handle change func",
                         "status": "Working on it",
                         "priority": "Medium",
-                        "dueDate": [1677619200000, 1679952000000],
+                        "timeline": [1677619200000, 1679952000000],
                         "members": ["WOWOWO"],
                     },
                     {
@@ -243,7 +243,7 @@ function getEmptyBoard() {
                         "title": "Remove tasks",
                         "status": "Done",
                         "priority": "Critical",
-                        "dueDate": [1678128000000, 1679872000000],
+                        "timeline": [1678128000000, 1679872000000],
                         "members": ["UjCos"],
                     },
                     {
@@ -251,7 +251,7 @@ function getEmptyBoard() {
                         "title": "Update response time",
                         "status": "Done",
                         "priority": "Medium",
-                        "dueDate": [1677388800000, 1680048000000],
+                        "timeline": [1677388800000, 1680048000000],
                         "members": ["KKLLSS", "UjCos"],
                     },
                     {
@@ -259,7 +259,7 @@ function getEmptyBoard() {
                         "title": "Add rating stars",
                         "status": "Working on it",
                         "priority": "Medium",
-                        "dueDate": [1677772800000, 1680288000000],
+                        "timeline": [1677772800000, 1680288000000],
                         "members": ["WOWOWO"],
                     },
                     {
@@ -267,7 +267,7 @@ function getEmptyBoard() {
                         "title": "Update react version",
                         "status": "Done",
                         "priority": "Critical",
-                        "dueDate": [1677041200000, 1677041200000],
+                        "timeline": [1677041200000, 1677041200000],
                         "members": ["UjCos"],
                     },
                     {
@@ -275,7 +275,7 @@ function getEmptyBoard() {
                         "title": "Update response time",
                         "status": "Done",
                         "priority": "Medium",
-                        "dueDate": [1677043200000, 1679971200000],
+                        "timeline": [1677043200000, 1679971200000],
                         "members": ["KKLLSS", "UjCos"],
                     },
 
@@ -292,7 +292,7 @@ function getEmptyBoard() {
                         "title": "Make it look better",
                         "status": "Done",
                         "priority": "Medium",
-                        "dueDate": [1677619200000, 1680124800000],
+                        "timeline": [1677619200000, 1680124800000],
                         "members": ["UjCos"],
                     },
                     {
@@ -300,7 +300,7 @@ function getEmptyBoard() {
                         "title": "Fix main button",
                         "status": "Working on it",
                         "priority": "Critical",
-                        "dueDate": [1677532800000, 1679872000000],
+                        "timeline": [1677532800000, 1679872000000],
                         "members": ["KKLLSS", "WOWOWO"],
                     },
                     {
@@ -308,7 +308,7 @@ function getEmptyBoard() {
                         "title": "Check for new libraries",
                         "status": "Done",
                         "priority": "Medium",
-                        "dueDate": [1676880000000, 1680201600000],
+                        "timeline": [1676880000000, 1680201600000],
                         "members": ["KKLLSS"],
                     },
                     {
@@ -316,7 +316,7 @@ function getEmptyBoard() {
                         "title": "Update modal layout",
                         "status": "Working on it",
                         "priority": "Critical",
-                        "dueDate": [1676880000000, 1680201600000],
+                        "timeline": [1676880000000, 1680201600000],
                         "members": ["KKLLSS", "WOWOWO", "UjCos"],
                     }
                 ],
@@ -332,7 +332,7 @@ function getEmptyBoard() {
                         "title": "Data collection",
                         "status": "Done",
                         "priority": "Medium",
-                        "dueDate": [1677187200000, 1680110400000],
+                        "timeline": [1677187200000, 1680110400000],
                         "members": ["UjCos"],
                     },
                     {
@@ -340,7 +340,7 @@ function getEmptyBoard() {
                         "title": "Renew data",
                         "status": "Done",
                         "priority": "Critical",
-                        "dueDate": [1677484800000, 1680153600000],
+                        "timeline": [1677484800000, 1680153600000],
                         "members": ["KKLLSS", "WOWOWO"],
                     },
                     {
@@ -348,7 +348,7 @@ function getEmptyBoard() {
                         "title": "Check for duplicates",
                         "status": "Working on it",
                         "priority": "Medium",
-                        "dueDate": [1677619200000, 1680345600000],
+                        "timeline": [1677619200000, 1680345600000],
                         "members": ["WOWOWO"],
                     },
                 ],
@@ -394,8 +394,8 @@ function getEmptyBoard() {
             },
             {
                 "id": "co104",
-                "title": "Date",
-                "type": "dueDate"
+                "title": "Timeline",
+                "type": "timeline"
             }
         ]
     }
@@ -421,7 +421,7 @@ function getEmptyTask(title = 'New Item') {
         status: "Done",
         priority: "Critical",
         members: ["UjCos"],
-        dueDate: []
+        timeline: []
     }
 }
 
@@ -510,7 +510,7 @@ function _createBoard() {
                         "title": "Replace logo",
                         "status": "Done", // monday
                         "priority": "Critical",
-                        "dueDate": [1696280400000, 1679040000000],
+                        "timeline": [1696280400000, 1679040000000],
                         "members": ["UjCos"],
                     },
                     {
@@ -518,7 +518,7 @@ function _createBoard() {
                         "title": "Add Samples",
                         "status": "Waiting for QA", // monday
                         "priority": "Medium",
-                        "dueDate": [1679040000000, 1696907932000],
+                        "timeline": [1679040000000, 1696907932000],
                         "members": ["DOGWC", "UjCos"],
                     }
                 ],
@@ -534,7 +534,7 @@ function _createBoard() {
                         "archivedAt": 1589983468418,
                         "status": "Done", // monday
                         "priority": "Critical",
-                        "dueDate": [1679040000000, 1697407100000],
+                        "timeline": [1679040000000, 1697407100000],
                         "members": ["UjCos", "tZQiB", "DOGWC"],
                     },
                     {
@@ -570,7 +570,7 @@ function _createBoard() {
                         ],
                         "members": ["UjCos", "DOGWC", "tZQiB"],
                         "labelIds": ["l101", "l102"],
-                        "dueDate": [1695418275139, 1698407932000],
+                        "timeline": [1695418275139, 1698407932000],
                         "byMember": {
                             "_id": "DOGWC",
                             "username": "danielavishid",
@@ -625,7 +625,7 @@ function _createBoard() {
             {
                 "id": "co104",
                 "title": "Date",
-                "type": "dueDate"
+                "type": "timeline"
             }
         ]
     }

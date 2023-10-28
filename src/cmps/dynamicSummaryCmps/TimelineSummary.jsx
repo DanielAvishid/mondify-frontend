@@ -1,15 +1,15 @@
 import { useState } from "react"
 import { utilService } from "../../services/util.service"
 
-export function DueDateSummary({ group }) {
+export function TimelineSummary({ group }) {
 
     const [isHover, setIsHover] = useState(false)
 
-    const dueDates = group.tasks.map(task => task.dueDate)
-    const flattenedDueDates = [].concat(...dueDates)
-    const minDueDate = Math.min(...flattenedDueDates)
-    const maxDueDate = Math.max(...flattenedDueDates)
-    const finalDates = [minDueDate, maxDueDate]
+    const timelines = group.tasks.map(task => task.timeline)
+    const flattenedTimelines = [].concat(...timelines)
+    const minTimeline = Math.min(...flattenedTimelines)
+    const maxTimeline = Math.max(...flattenedTimelines)
+    const finalDates = [minTimeline, maxTimeline]
     const { text, percentage } = utilService.getDateToShow(finalDates)
 
     const defaultGroupBgc = group.style.backgroundColor
