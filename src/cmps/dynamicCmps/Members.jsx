@@ -1,6 +1,6 @@
 import { Box, Button, Icon, Search, TextField } from "monday-ui-react-core"
 import { Invite, Close } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { InviteMemberModal } from "../dynamicModalCmps/InviteMemberModal"
 import { MembersModal } from "../dynamicModalCmps/MembersModal"
 
@@ -15,9 +15,13 @@ export function Members({ info, task, board, onSaveBoard }) {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [isInviteModalOpen, setIsInviteModalOpen] = useState(false)
     const [searchTerm, setSearchTerm] = useState('')
+    const [filteredMembers, setFilteredMembers] = useState([])
 
     const suggestedMembers = board.members.filter(member => !membersIds.includes(member._id));
-    const [filteredMembers, setFilteredMembers] = useState(suggestedMembers)
+
+    useEffect(() => {
+        setFilteredMembers(suggestedMembers)
+    }, [membersIds])
 
 
     const handleSearch = (searchValue) => {
@@ -33,11 +37,6 @@ export function Members({ info, task, board, onSaveBoard }) {
         const updatedMembersIds = membersIds.filter((id) => id !== memberId)
         onSaveBoard({ board, taskId: task.id, key: "members", value: updatedMembersIds })
     }
-
-    const onOpenInviteModal = (ev) => {
-        setIsInviteModalOpen(!isInviteModalOpen)
-    }
-
 
     return (
         <td className="task-item members-cell members-col grid align-center justify-center" onClick={() => setIsModalOpen(!isModalOpen)}>
@@ -61,6 +60,9 @@ export function Members({ info, task, board, onSaveBoard }) {
                     <div className="modal" onClick={(ev) => ev.stopPropagation()}>
                         {!isInviteModalOpen ?
                             <MembersModal
+                                board={board}
+                                task={task}
+                                membersIds={membersIds}
                                 handleSearch={handleSearch}
                                 searchTerm={searchTerm}
                                 participateMembers={participateMembers}
@@ -69,7 +71,14 @@ export function Members({ info, task, board, onSaveBoard }) {
                                 onRemoveMember={onRemoveMember}
                                 onSaveBoard={onSaveBoard}
                             /> :
-                            <InviteMemberModal setIsInviteModalOpen={setIsInviteModalOpen} />
+
+                            <InviteMemberModal
+                                board={board}
+                                task={task}
+                                membersIds={membersIds}
+                                setIsInviteModalOpen={setIsInviteModalOpen}
+                                onSaveBoard={onSaveBoard}
+                            />
                         }
                     </div>
                 </>

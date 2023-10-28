@@ -1,7 +1,7 @@
 import { Icon, Search } from "monday-ui-react-core"
 import { Invite, Close } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 
-export function MembersModal({ handleSearch, searchTerm, participateMembers, filteredMembers, setIsInviteModalOpen, onRemoveMember, onSaveBoard }) {
+export function MembersModal({ board, task, membersIds, handleSearch, searchTerm, participateMembers, filteredMembers, setIsInviteModalOpen, onRemoveMember, onSaveBoard }) {
     return (
         <div className="members-modal">
             <section className="participate-members flex">
