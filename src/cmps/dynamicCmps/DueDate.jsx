@@ -1,9 +1,31 @@
 import { useState } from "react";
 import { utilService } from "../../services/util.service";
+import { Checkbox, DatePicker, DialogContentContainer } from "monday-ui-react-core";
+import { DayPicker } from 'react-day-picker';
+import { format } from 'date-fns';
+import 'react-day-picker/dist/style.css';
 
-export function DueDate({ info, board, onSaveBoard }) {
+// const pickerCss = `
+// .my-today {
+//     color: red
+// }
+// `
+
+export function DueDate({ info, task, board, onSaveBoard }) {
     const { text, percentage } = utilService.getDateToShow(info)
-    const [hovered, setHovered] = useState(false);
+    const [hovered, setHovered] = useState(false)
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [newDate, setNewDate] = useState(new Date())
+
+    const handleDatePick = (date) => {
+        console.log('date', date);
+        setNewDate(date)
+        const startDate = (date.startDate) ? date.startDate._d.getTime() : null
+        const endDate = (date.endDate) ? date.endDate._d.getTime() : null
+        if (startDate && endDate) {
+            onSaveBoard({ board, taskId: task.id, key: "dueDate", value: [startDate, endDate] })
+        }
+    }
 
     const handleMouseEnter = () => {
         setHovered(true);
@@ -21,6 +43,7 @@ export function DueDate({ info, board, onSaveBoard }) {
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
                 className="inner-container"
+                onClick={() => setIsModalOpen(!isModalOpen)}
             >
                 {info.length ? (
                     <span>{hovered ? `${utilService.calculateDaysDifference(info)}d` : text}</span>
@@ -28,6 +51,27 @@ export function DueDate({ info, board, onSaveBoard }) {
                     <span>{hovered ? `Set Dates` : '-'}</span>
                 )}
             </div>
+
+            {isModalOpen &&
+                <div className="modal">
+                    <div className="pointer"></div>
+                    <div className="date-picker-container">
+                        <div className="date-picker-header flex align-center"><span>Set Dates</span></div>
+                        <DatePicker
+                            className="date-picker"
+                            numberOfMonths={2}
+                            date={newDate.startDate}
+                            endDate={newDate.endDate}
+                            range
+                            data-testid="date-picker"
+                            onPickDate={handleDatePick}
+                        />
+                        <div className="date-picker-footer flex align-center">
+                            <Checkbox label="Set as timeline" />
+                        </div>
+                    </div>
+                </div>
+            }
 
 
             {/* {info.length ? (

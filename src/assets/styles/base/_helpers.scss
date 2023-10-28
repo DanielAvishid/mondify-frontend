@@ -36,3 +36,30 @@
 .relative {
     position: relative;
 }
+
+// MODAL
+
+.pointer {
+    position: absolute;
+    z-index: 21;
+    top: rem(-8px);
+    left: 50%;
+    height: rem(16px);
+    width: rem(16px);
+    background-color: $white;
+    transform: rotate(45deg);
+}
+
+.modal {
+    min-width: rem(360px);
+    height: fit-content;
+    position: absolute;
+    top: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    transform: translate();
+    border-radius: 0.5rem;
+    box-shadow: 0 8px 16px 0 $modal-shadow-color;
+    z-index: 20;
+    background-color: $white;
+}

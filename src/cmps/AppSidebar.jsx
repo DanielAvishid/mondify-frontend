@@ -48,6 +48,16 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
         }))
     }
 
+    function handleContainerMouseEnter(ev) {
+        if (ev.target === ev.currentTarget) {
+            setIsSideBarHover(true)
+        }
+    }
+
+    function handleContainerMouseLeave() {
+        setIsSideBarHover(false)
+    }
+
     function toggleOpenMenu(boardId, ev) {
         console.log(ev)
         ev.stopPropagation()
@@ -67,14 +77,14 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
     }
 
     return (
-        <section className={`app-sidebar ${isSidBarOpen ? '' : 'close'} ${(isSideBarHover && !isSidBarOpen) ? 'hover' : ''}`} onMouseEnter={() => setIsSideBarHover(true)} onMouseLeave={() => setIsSideBarHover(false)}>
-            <button className="close-btn" onClick={toggleSidebar} onMouseEnter={emptyFunction}>
+        <section className={`app-sidebar ${isSidBarOpen ? '' : 'close'} ${(isSideBarHover && !isSidBarOpen) ? 'hover' : ''}`} onMouseEnter={(ev) => handleContainerMouseEnter(ev)} onMouseLeave={handleContainerMouseLeave}>
+            {<button className={`close-btn ${!isSidBarOpen ? 'close' : ''}`} onClick={toggleSidebar} >
                 <Icon className="icon" icon={isSidBarOpen ? NavigationChevronLeft : NavigationChevronRight} />
-            </button>
-            {(isSidBarOpen || isSideBarHover) && <section className="expand-sidebar">
-                <button className="close-btn" onClick={toggleSidebar} onMouseEnter={emptyFunction}>
+            </button>}
+            {<section className="expand-sidebar">
+                {isSideBarHover && <button className="close-btn" onClick={toggleSidebar} onMouseEnter={emptyFunction}>
                     <Icon className="icon" icon={isSidBarOpen ? NavigationChevronLeft : NavigationChevronRight} />
-                </button>
+                </button>}
                 <div className="general-btns">
                     <Button leftIcon={Home} kind="tertiary" className={`home ${currentUrl === 'http://localhost:5173/#/board' ? 'active' : ''}`}>Home</Button>
                     <Button leftIcon={MyWeek} kind="tertiary" className="my-week">My work</Button>
