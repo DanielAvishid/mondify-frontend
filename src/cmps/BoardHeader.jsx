@@ -93,13 +93,13 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                     </MenuButton>
                 </div>
             </section>}
-            {!isCollapse && <section className="second-row-container">
+            {(!isCollapse && board.description) && <section className={`second-row-container`}>
                 <div className="flex align-center">
                     <p className="board-description">{board.description}</p>
                     <span className="see-more">See More</span>
                 </div>
             </section>}
-            <section className="container third-row-container">
+            <section className={`container third-row-container ${!board.description ? 'no-description' : ''} ${isCollapse ? 'collapse' : ''}`}>
                 <div className="board-view-container">
                     {isCollapse && <div className="title-container">
                         <EditableHeading
@@ -115,12 +115,8 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                         />
                     </div>}
                     <TabList className="tab-list">
-                        {/* <Link to=''> */}
-                        <Tab tabInnerClassName='main-tab' icon={Home}>Main Table </Tab>
-                        {/* </Link> */}
-                        {/* <Link to='views/kanban'> */}
-                        <Tab tabInnerClassName='tab'>Kanban</Tab>
-                        {/* </Link> */}
+                        <Tab key='main' tabInnerClassName='main-tab' icon={Home}>Main Table</Tab>
+                        <Tab key='kanban' tabInnerClassName='tab'>Kanban</Tab>
                     </TabList>
                     <div>
                         <MenuButton tooltipContent='Add View' className="add-button" component={AddSmall} >
@@ -157,7 +153,7 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                         </Menu>
                     </MenuButton>}
                     <IconButton className='collapse-btn' icon={isCollapse ? DropdownChevronDown : DropdownChevronUp} kind={IconButton.kinds.SECONDARY}
-                        size={IconButton.sizes.XXS} ariaLabel="Collapse header" onClick={() => setIsCollapse(!isCollapse)} />
+                        size={IconButton.sizes.XXS} ariaLabel={isCollapse ? "Expand header" : "Collapse header"} onClick={() => setIsCollapse(!isCollapse)} />
                 </div>
             </section>
             <MenuDivider className='menu-divider' />
@@ -186,9 +182,9 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                             <Icon className="setting-icon" icon={SettingsKnobs} />
                         </Button>}
                     </div>
-                    <Button size={Button.sizes.SMALL} kind={Button.kinds.TERTIARY}>
-                        <Icon iconType={Icon.type.SVG} icon={PersonRound} iconLabel="my bolt svg icon" iconSize={22} />
-                        Person
+                    <Button className="person-btn" ariaLabel="Filter by person" kind={Button.kinds.TERTIARY}>
+                        <Icon className="setting-icon" icon={PersonRound} />
+                        <span>Person</span>
                     </Button>
                 </div>
             </section>
