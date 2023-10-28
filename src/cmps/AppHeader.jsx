@@ -1,15 +1,19 @@
 import Button from "monday-ui-react-core/dist/Button";
 import imgUrl from '../assets/img/monday-img.png'
-import { IconButton } from "monday-ui-react-core";
+import { IconButton, Link } from "monday-ui-react-core";
 import { Switcher, Notifications, Inbox, Invite, Apps, Search, Help } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { MsgModalSuccess } from "./MsgModalSuccess";
+import { useNavigate } from "react-router";
 
 export function AppHeader() {
+
+    const navigate = useNavigate()
+
     return (
         <section className="app-header flex justify-between align-center">
             <section className="flex align-center">
-                <IconButton icon={Switcher} kind={IconButton.kinds.TERTIARY} />
-                <p className="logo"><span>monday</span> work management</p>
+                <IconButton className="switcher-btn" icon={Switcher} kind={IconButton.kinds.TERTIARY} />
+                <p onClick={() => navigate('/board')} className="logo"><span>mondify</span> work management</p>
             </section>
             <section className="flex justify-center align-center">
                 <IconButton icon={Notifications} kind={IconButton.kinds.TERTIARY} ariaLabel="Notifications" />

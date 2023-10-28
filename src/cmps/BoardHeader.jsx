@@ -1,5 +1,5 @@
 import { Menu, MenuButton, MenuItem, EditableHeading, MenuTitle, Button, MenuDivider, TabList, Tab, Table, SplitButton, SplitButtonMenu, IconButton, Icon, AvatarGroup, Avatar } from "monday-ui-react-core"
-import { NavigationChevronDown, DropdownChevronDown, DropdownChevronUp, Home, Delete, Download, Group, Search, PersonRound, CloseSmall, Chart, Edit, Favorite, ShortText, Info, AddSmall, Duplicate, Table as TableIcon, Menu as MenuIcon } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
+import { NavigationChevronDown, DropdownChevronDown, DropdownChevronUp, Home, Delete, Download, Group, Search, PersonRound, CloseSmall, Chart, Edit, Favorite, ShortText, Info, AddSmall, Duplicate, Table as TableIcon, Menu as MenuIcon, Invite } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 
@@ -30,24 +30,25 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                         onBlur={(ev) => onSaveBoard({ board, key: 'title', value: ev.target.value })}
                         onKeyDown={handleKeyPress}
                     />
-                    <IconButton iconClassName='info-icon' icon={Info} kind={IconButton.kinds.TERTIARY} size={IconButton.sizes.SMALL} ariaLabel="Show board description" />
-                    <IconButton iconClassName='info-icon' icon={Favorite} kind={IconButton.kinds.TERTIARY} size={IconButton.sizes.SMALL} ariaLabel="Add to favorites" />
+                    <div>
+                        <IconButton iconClassName='info-icon' icon={Info} kind={IconButton.kinds.TERTIARY} size={IconButton.sizes.SMALL} ariaLabel="Show board description" />
+                        <IconButton iconClassName='info-icon' icon={Favorite} kind={IconButton.kinds.TERTIARY} size={IconButton.sizes.SMALL} ariaLabel="Add to favorites" />
+                    </div>
                 </div>
                 <div className="options-container">
                     <Button className="activity-btn" kind={Button.kinds.TERTIARY} size={Button.sizes.SMALL}>
                         Activity
                         <AvatarGroup max={2} size={Avatar.sizes.SMALL}>
-                            <Avatar type={Avatar.types.IMG} src="https://style.monday.com/static/media/person1.de30c8ee.png" ariaLabel="Hadas Fahri" />
-                            <Avatar type={Avatar.types.IMG} src="https://style.monday.com/static/media/person2.24c7233e.png" ariaLabel="Sergey Roytman" />
-                            <Avatar type={Avatar.types.IMG} src="https://style.monday.com/static/media/person3.3661bfe5.png" ariaLabel="Yossi Saadi" />
+                            <Avatar className="avatar" type={Avatar.types.IMG} src="https://style.monday.com/static/media/person1.de30c8ee.png" ariaLabel="Hadas Fahri" />
+                            <Avatar className="avatar" type={Avatar.types.IMG} src="https://style.monday.com/static/media/person2.24c7233e.png" ariaLabel="Sergey Roytman" />
+                            {/* <Avatar type={Avatar.types.IMG} src="https://style.monday.com/static/media/person3.3661bfe5.png" ariaLabel="Yossi Saadi" /> */}
                         </AvatarGroup>
                     </Button>
                     <Link className="btn" to='#'>
-                        <Button className="invite-btn" size={Button.sizes.SMALL} noSidePadding={true} kind={Button.kinds.SECONDARY}>Invite / 1</Button>
-                        {/* <button>Show activity</button> */}
-                        {/* <img src={board.members[0].img} alt="" />
-                        {board.members[1] && <img src={board.mebmers[1].img} alt="" />} */}
-                        {/* put here the extra +counter */}
+                        <Button className="invite-btn" noSidePadding={true} kind={Button.kinds.SECONDARY}>
+                            <Icon className="invite-icon" icon={Invite} />
+                            <span>Invite / 1</span>
+                        </Button>
                     </Link>
                     <MenuButton tooltipContent='Options' tooltipPosition="top"
                         className="menu-btn" component={MenuIcon}>
@@ -83,20 +84,22 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                     </div>}
                     <TabList className="tab-list">
                         {/* <Link to=''> */}
-                        <Tab tabInnerClassName='tab' icon={Home}>Main Table </Tab>
+                        <Tab tabInnerClassName='main-tab' icon={Home}>Main Table </Tab>
                         {/* </Link> */}
                         {/* <Link to='views/kanban'> */}
                         <Tab tabInnerClassName='tab'>Kanban</Tab>
                         {/* </Link> */}
                     </TabList>
-                    <MenuButton className="menu-button" component={AddSmall} size={MenuButton.sizes.SMALL}>
-                        <Menu id="menu" size={Menu.sizes.MEDIUM}>
-                            <MenuTitle caption="Board views" captionPosition={MenuTitle.positions.TOP} />
-                            <MenuItem icon={TableIcon} iconType={MenuItem.iconType.SVG} title="Table" />
-                            <MenuItem icon={Chart} iconType={MenuItem.iconType.SVG} title="Chart" />
-                            <MenuItem icon={CloseSmall} iconType={MenuItem.iconType.SVG} title="Kanban" />
-                        </Menu>
-                    </MenuButton>
+                    <div>
+                        <MenuButton tooltipContent='Add View' className="add-button" component={AddSmall} >
+                            <Menu id="menu" size={Menu.sizes.MEDIUM}>
+                                <MenuTitle caption="Board views" captionPosition={MenuTitle.positions.TOP} />
+                                <MenuItem icon={TableIcon} iconType={MenuItem.iconType.SVG} title="Table" />
+                                <MenuItem icon={Chart} iconType={MenuItem.iconType.SVG} title="Chart" />
+                                <MenuItem icon={CloseSmall} iconType={MenuItem.iconType.SVG} title="Kanban" />
+                            </Menu>
+                        </MenuButton>
+                    </div>
                     {/* <TabList size="sm">
                         <Tab icon={TableIcon}>Main Table</Tab>
                         <Tab icon={TableIcon}>Chart</Tab>
@@ -105,10 +108,13 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                 </div>
                 <div className="options-container">
                     {isCollapse && <Link className="btn" to='#'>
-                        <Button className="invite-btn" size={Button.sizes.SMALL} noSidePadding={true} kind={Button.kinds.SECONDARY}>Invite / 1</Button>
+                        <Button className="invite-btn" noSidePadding={true} kind={Button.kinds.SECONDARY}>
+                            <Icon className="invite-icon" icon={Invite} />
+                            <span>Invite / 1</span>
+                        </Button>
                     </Link>}
                     {isCollapse && <MenuButton tooltipContent='Options' tooltipPosition="top"
-                        className="menu-button" component={MenuIcon}>
+                        className="menu-btn" component={MenuIcon}>
                         <Menu id="menu">
                             <MenuTitle caption="Board options" captionPosition={MenuTitle.positions.TOP} />
                             <MenuItem icon={Edit} iconType={MenuItem.iconType.SVG} title="Rename board" />
@@ -118,8 +124,8 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                                 onClick={() => { onRemove({ board, boardId: board._id }); navigate('/board') }} />
                         </Menu>
                     </MenuButton>}
-                    <IconButton key="large" className='icon-btn' icon={DropdownChevronUp} kind={IconButton.kinds.SECONDARY}
-                        size={IconButton.sizes.SMALL} ariaLabel="Collapse header" onClick={() => setIsCollapse(!isCollapse)} />
+                    <IconButton className='collapse-btn' icon={DropdownChevronUp} kind={IconButton.kinds.SECONDARY}
+                        size={IconButton.sizes.XXS} ariaLabel="Collapse header" onClick={() => setIsCollapse(!isCollapse)} />
                 </div>
             </section>
             <MenuDivider className='menu-divider' />
@@ -141,9 +147,6 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                     </Button>
                 </div>
             </section>
-            {/* <DialogContentContainer type={DialogContentContainer.types.MODAL}>
-                <h1>HIII</h1>
-            </DialogContentContainer> */}
         </section>
     )
 }
