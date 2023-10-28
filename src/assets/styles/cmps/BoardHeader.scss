@@ -43,7 +43,7 @@
     }
 
     .first-row-container {
-        margin-inline-start: rem(-6px);
+        margin-inline-start: rem(-5px);
 
         .title-container {
             display: grid;
@@ -111,6 +111,7 @@
 
     .second-row-container {
         margin-block-start: 1px;
+        margin-inline-start: 1px;
         margin-block-end: 8px;
 
         .board-description {
@@ -214,7 +215,6 @@
                     padding-inline-end: 15px;
                     font-size: rem(14px);
                     margin-block-end: 2px;
-                    margin-inline-start: -1px;
 
                     svg {
                         margin-inline-end: 7px;
@@ -274,20 +274,118 @@
             margin-block-start: 1px;
         }
 
-        .split-button {
-            margin-inline-end: rem(18px);
+        .split-btn {
+            margin-inline-end: rem(14px);
+
+            &:active {
+                transform: scale(1);
+            }
         }
 
         .btns-container {
             display: flex;
             gap: rem(7px);
+
+
+            .search-container {
+                padding-inline-start: 8px;
+                display: grid;
+                grid-auto-flow: column;
+                align-items: center;
+                border-radius: 4px;
+
+                &.typing {
+                    background-color: $primary-selected-color;
+                }
+
+                &.focus {
+                    border: 1px solid $primary-color;
+                }
+
+                .search-input-wrapper {
+
+                    .search-input {
+                        transition: width .3s;
+                        width: 80px;
+                        padding-inline-start: 2px;
+                        cursor: pointer;
+                        border: 0;
+
+                        &:focus-within {}
+
+                        &:not(:placeholder-shown) {
+                            background-color: $primary-selected-color;
+                        }
+                    }
+                }
+
+                &.focus {
+                    .search-input {
+                        width: 250px;
+                    }
+                }
+
+                .search-icon {
+                    color: $secondary-text-color;
+                    width: 20px;
+                    height: 20px;
+                }
+            }
+
+
+            // class="clickable_a1c09750fe iconContainer_bd65773203 iconContainerHasIcon_8248ff668a iconContainerActive_27f1acb256 disableTextSelection_4c888f6133"
+            // class="clickable_a1c09750fe iconContainer_bd65773203 iconContainerHasIcon_8248ff668a disableTextSelection_4c888f6133"
+
+            // .search-container {
+            //     height: rem(32px);
+            //     display: grid;
+            //     grid-auto-flow: column;
+            //     align-items: center;
+            //     border-radius: 4px;
+            //     padding-inline-start: 8px;
+            //     border: 1px solid transparent;
+
+            //     &:hover {
+            //         background-color: $primary-background-hover-color;
+            //     }
+
+            //     &.focus {
+            //         background-color: $primary-background-color;
+            //         border-color: $primary-color;
+            //         padding-inline-end: rem(70px);
+            //     }
+
+
+            // .search-input {
+            //     cursor: pointer;
+            //     border: 0;
+            //     background-color: transparent;
+            //     width: rem(60px);
+            //     height: rem(28px);
+            //     font-family: Figtree, Roboto, "Noto Sans Hebrew", "Noto Kufi Arabic", "Noto Sans JP", sans-serif;
+            //     font-size: rem(14px);
+            //     transition: width .2s;
+
+            //     &:focus-within {
+            //         cursor: text;
+            //         outline: none;
+            //         width: 163px;
+            //         background-color: $primary-background-color;
+
+            //     }
+            // }
+
+            // .search-icon {
+            //     color: $secondary-text-color;
+            //     width: 20px;
+            //     height: 20px;
+            // }
         }
     }
+}
 
-    .menu-divider {
-        margin: 0;
-        margin-block-start: rem(-18px);
-        margin-block-end: rem(15px);
-    }
-
+.menu-divider {
+    margin: 0;
+    margin-block-start: rem(-18px);
+    margin-block-end: rem(15px);
 }

@@ -1,19 +1,37 @@
-import { Menu, MenuButton, MenuItem, EditableHeading, MenuTitle, Button, MenuDivider, TabList, Tab, Table, SplitButton, SplitButtonMenu, IconButton, Icon, AvatarGroup, Avatar } from "monday-ui-react-core"
+import { Menu, MenuButton, Search as SearchInput, MenuItem, EditableHeading, MenuTitle, Button, MenuDivider, TabList, Tab, Table, SplitButton, SplitButtonMenu, IconButton, Icon, AvatarGroup, Avatar } from "monday-ui-react-core"
 import { NavigationChevronDown, DropdownChevronDown, DropdownChevronUp, Home, Delete, Download, Group, Search, PersonRound, CloseSmall, Chart, Edit, Favorite, ShortText, Info, AddSmall, Duplicate, Table as TableIcon, Menu as MenuIcon, Invite } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 
 export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveBoard, onDuplicateBoard }) {
 
     const [isCollapse, setIsCollapse] = useState(false)
     const [isEditMode, setIsEditMode] = useState(false)
+    const [isInputFocus, setIsInputFocus] = useState(false)
+    const [inputValue, setInputValue] = useState('')
+    const inputRef = useRef(null)
     const navigate = useNavigate()
+    console.log(inputValue)
 
     function handleKeyPress(ev) {
         if (ev.key === 'Enter') {
             onSaveBoard({ board, key: 'title', value: ev.target.value })
             ev.target.blur()
         }
+    }
+
+    function handleSearchClick() {
+        if (inputRef.current) {
+            inputRef.current.focus()
+        }
+        if (isInputFocus) return
+        setIsInputFocus(true)
+    }
+
+    function isTyping() {
+        console.log(inputValue)
+        if (inputValue) return 'typing'
+        else return ''
     }
 
     return (
@@ -130,17 +148,30 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
             </section>
             <MenuDivider className='menu-divider' />
             <section className="fourth-row-container">
-                <SplitButton className='split-button' children="New Item" size={SplitButton.sizes.SMALL}
+                <SplitButton className='split-btn' children="New Item" size={SplitButton.sizes.SMALL}
                     onClick={() => onAddTaskFromHeader(board)}
                     secondaryDialogContent={<SplitButtonMenu id="split-menu">
                         <MenuItem icon={Group} title="New group of Items" />
                         <MenuItem icon={Download} title="import Items" />
                     </SplitButtonMenu>} />
                 <div className="btns-container">
-                    <Button size={Button.sizes.SMALL} kind={Button.kinds.TERTIARY}>
-                        <Icon iconType={Icon.type.SVG} icon={Search} iconLabel="my bolt svg icon" iconSize={22} />
-                        Search
-                    </Button>
+                    <div className={`search-container ${isInputFocus ? 'focus' : ''} ${inputValue.length ? 'typing' : ''}`} onClick={() => setIsInputFocus(true)}>
+                        <Icon className="search-icon" icon={Search} />
+                        <SearchInput
+                            placeholder="Search"
+                            className={`search-input ${inputValue.length ? 'typing' : ''}`}
+                            wrapperClassName="search-input-wrapper"
+                            size="small"
+                            onBlur={() => setIsInputFocus(false)}
+                            value={inputValue}
+                            onChange={(ev) => setInputValue(ev)}
+                        />
+                    </div>
+
+                    {/* <div className={`search-container ${isInputFocus ? 'focus' : ''}`} onClick={handleSearchClick}>
+                        <Icon className="search-icon" icon={Search} />
+                        <input className={`search-input ${isInputFocus ? 'focus' : ''}`} type="text" placeholder="Search" ref={inputRef} onBlur={() => setIsInputFocus(false)} />
+                    </div> */}
                     <Button size={Button.sizes.SMALL} kind={Button.kinds.TERTIARY}>
                         <Icon iconType={Icon.type.SVG} icon={PersonRound} iconLabel="my bolt svg icon" iconSize={22} />
                         Person
