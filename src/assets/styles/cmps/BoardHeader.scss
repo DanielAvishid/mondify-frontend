@@ -1,6 +1,10 @@
 .board-header {
     padding-block-start: rem(16px);
 
+    &.collapse {
+        padding-block-start: rem(23px);
+    }
+
     .invite-btn {
         padding: 0;
         height: rem(32px);
@@ -40,6 +44,7 @@
         display: grid;
         grid-auto-flow: column;
         justify-content: space-between;
+        align-items: center;
     }
 
     .first-row-container {
@@ -154,7 +159,7 @@
         .collapse-btn {
             min-width: 26px;
             min-height: 26px;
-            margin-inline-start: rem(20px);
+            margin-inline-start: rem(16px);
             border-radius: 100%;
             margin-block-end: 6px;
 
@@ -169,7 +174,20 @@
             display: grid;
             grid-auto-flow: column;
             align-items: center;
-            margin-inline-end: 16px;
+            margin-inline-end: 20px;
+
+            .headingComponent_c12f87e3d8,
+            .editableInputWrapper_8e7f29624b {
+                min-height: rem(34px);
+                padding-block: 1px;
+                margin-block-end: 2px;
+                font-size: 24px;
+                letter-spacing: -.5px;
+            }
+
+            .editableInputWrapper_8e7f29624b {
+                margin-block-end: 5px;
+            }
         }
 
         .board-view-container {
@@ -260,7 +278,12 @@
             align-items: center;
 
             .invite-btn {
+                margin-block-end: 6px;
                 padding-inline: rem(8px);
+            }
+
+            .menu-btn {
+                margin-block-end: 8px;
             }
 
         }
@@ -275,7 +298,7 @@
         }
 
         .split-btn {
-            margin-inline-end: rem(14px);
+            margin-inline-end: rem(13px);
 
             &:active {
                 transform: scale(1);
@@ -289,47 +312,74 @@
 
             .search-container {
                 padding-inline-start: 8px;
+                padding-inline-end: 4px;
                 display: grid;
                 grid-auto-flow: column;
                 align-items: center;
                 border-radius: 4px;
+                border: 1px solid transparent;
 
-                &.typing {
-                    background-color: $primary-selected-color;
+                .search-input {
+                    font-size: rem(14px);
+                    font-family: Figtree, Roboto, "Noto Sans Hebrew", "Noto Kufi Arabic", "Noto Sans JP", sans-serif;
+                    background-color: transparent;
+                    color: $primary-text-color;
+                    font-weight: 400;
+                    width: 57px;
+                    transition: width .3s;
+                    padding-inline-start: 2px;
+                    cursor: pointer;
+                    border: 0;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+
+                .search-icon {
+                    // margin-block-end: 1px;
+                    color: $primary-text-color;
+                    opacity: .9;
+                    border-image-width: 1;
+                    width: 20px;
+                    height: 20px;
+                }
+
+                .btn {
+                    padding: 0;
+                    min-width: min-content;
+                    width: 24px;
+                    height: 24px;
+
+                    svg {
+                        color: $primary-text-color;
+                        width: 16px;
+                        height: 16px;
+                    }
+                }
+
+                &:hover {
+                    background-color: $primary-background-hover-color;
                 }
 
                 &.focus {
                     border: 1px solid $primary-color;
-                }
-
-                .search-input-wrapper {
+                    background-color: $primary-background-color;
 
                     .search-input {
-                        transition: width .3s;
-                        width: 80px;
-                        padding-inline-start: 2px;
-                        cursor: pointer;
-                        border: 0;
-
-                        &:focus-within {}
-
-                        &:not(:placeholder-shown) {
-                            background-color: $primary-selected-color;
-                        }
+                        width: 160px;
+                        margin-inline-end: 26px;
                     }
                 }
 
-                &.focus {
+                &.typing {
+                    background-color: $primary-selected-color;
+
                     .search-input {
-                        width: 250px;
+                        width: 160px;
+                        margin-inline-end: 26px;
                     }
                 }
 
-                .search-icon {
-                    color: $secondary-text-color;
-                    width: 20px;
-                    height: 20px;
-                }
             }
 
 

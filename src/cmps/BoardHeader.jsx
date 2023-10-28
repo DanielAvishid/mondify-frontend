@@ -1,17 +1,16 @@
 import { Menu, MenuButton, Search as SearchInput, MenuItem, EditableHeading, MenuTitle, Button, MenuDivider, TabList, Tab, Table, SplitButton, SplitButtonMenu, IconButton, Icon, AvatarGroup, Avatar } from "monday-ui-react-core"
-import { NavigationChevronDown, DropdownChevronDown, DropdownChevronUp, Home, Delete, Download, Group, Search, PersonRound, CloseSmall, Chart, Edit, Favorite, ShortText, Info, AddSmall, Duplicate, Table as TableIcon, Menu as MenuIcon, Invite } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
+import { NavigationChevronDown, DropdownChevronDown, DropdownChevronUp, Home, Delete, Download, Group, Search, PersonRound, CloseSmall, Chart, Edit, Favorite, ShortText, Info, AddSmall, Duplicate, Table as TableIcon, Menu as MenuIcon, Invite, SettingsKnobs } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { useRef, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 
 export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveBoard, onDuplicateBoard }) {
 
     const [isCollapse, setIsCollapse] = useState(false)
-    const [isEditMode, setIsEditMode] = useState(false)
     const [isInputFocus, setIsInputFocus] = useState(false)
+    const [isTyping, setIsTyping] = useState(false)
     const [inputValue, setInputValue] = useState('')
     const inputRef = useRef(null)
     const navigate = useNavigate()
-    console.log(inputValue)
 
     function handleKeyPress(ev) {
         if (ev.key === 'Enter') {
@@ -20,22 +19,28 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
         }
     }
 
-    function handleSearchClick() {
-        if (inputRef.current) {
-            inputRef.current.focus()
-        }
-        if (isInputFocus) return
+    function handleInputFocus() {
         setIsInputFocus(true)
     }
 
-    function isTyping() {
-        console.log(inputValue)
-        if (inputValue) return 'typing'
-        else return ''
+    function handleInputBlur() {
+        if (!inputValue) {
+            setIsTyping(false)
+        }
+        setIsInputFocus(false)
+    }
+
+    function handleInputChange(ev) {
+        if (ev.target.value) {
+            setIsTyping(true)
+            setInputValue(ev.target.value)
+        } else {
+            setIsTyping(false)
+        }
     }
 
     return (
-        <section className="board-header middle">
+        <section className={`board-header middle ${isCollapse ? 'collapse' : ''}`}>
             {!isCollapse && <section className="container first-row-container">
                 <div className="title-container">
                     <EditableHeading
@@ -91,6 +96,8 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                 <div className="board-view-container">
                     {isCollapse && <div className="title-container">
                         <EditableHeading
+                            style={{ fontSize: '24px' }}
+                            className="board-title-input"
                             type={EditableHeading.types.h2}
                             value={board.title}
                             tooltip='Click to Edit'
@@ -142,7 +149,7 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                                 onClick={() => { onRemove({ board, boardId: board._id }); navigate('/board') }} />
                         </Menu>
                     </MenuButton>}
-                    <IconButton className='collapse-btn' icon={DropdownChevronUp} kind={IconButton.kinds.SECONDARY}
+                    <IconButton className='collapse-btn' icon={isCollapse ? DropdownChevronDown : DropdownChevronUp} kind={IconButton.kinds.SECONDARY}
                         size={IconButton.sizes.XXS} ariaLabel="Collapse header" onClick={() => setIsCollapse(!isCollapse)} />
                 </div>
             </section>
@@ -155,29 +162,29 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                         <MenuItem icon={Download} title="import Items" />
                     </SplitButtonMenu>} />
                 <div className="btns-container">
-                    <div className={`search-container ${isInputFocus ? 'focus' : ''} ${inputValue.length ? 'typing' : ''}`} onClick={() => setIsInputFocus(true)}>
+                    <div className={`search-container ${isInputFocus ? 'focus' : ''} ${isTyping ? 'typing' : ''}`}>
                         <Icon className="search-icon" icon={Search} />
-                        <SearchInput
-                            placeholder="Search"
-                            className={`search-input ${inputValue.length ? 'typing' : ''}`}
-                            wrapperClassName="search-input-wrapper"
-                            size="small"
-                            onBlur={() => setIsInputFocus(false)}
-                            value={inputValue}
-                            onChange={(ev) => setInputValue(ev)}
-                        />
+                        <input
+                            className={`search-input`}
+                            type="text"
+                            ref={inputRef}
+                            onFocus={handleInputFocus}
+                            onChange={(ev) => handleInputChange(ev)}
+                            onBlur={handleInputBlur}
+                            placeholder="Search" />
+                        {isTyping && <Button className="clear-btn btn" kind={Button.kinds.TERTIARY}>
+                            <Icon className="x-icon" icon={CloseSmall} />
+                        </Button>}
+                        {(isInputFocus || isTyping) && <Button className="options-btn btn" kind={Button.kinds.TERTIARY}>
+                            <Icon className="setting-icon" icon={SettingsKnobs} />
+                        </Button>}
                     </div>
-
-                    {/* <div className={`search-container ${isInputFocus ? 'focus' : ''}`} onClick={handleSearchClick}>
-                        <Icon className="search-icon" icon={Search} />
-                        <input className={`search-input ${isInputFocus ? 'focus' : ''}`} type="text" placeholder="Search" ref={inputRef} onBlur={() => setIsInputFocus(false)} />
-                    </div> */}
                     <Button size={Button.sizes.SMALL} kind={Button.kinds.TERTIARY}>
                         <Icon iconType={Icon.type.SVG} icon={PersonRound} iconLabel="my bolt svg icon" iconSize={22} />
                         Person
                     </Button>
                 </div>
             </section>
-        </section>
+        </section >
     )
 }
