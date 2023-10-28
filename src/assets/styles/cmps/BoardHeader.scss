@@ -1,6 +1,41 @@
 .board-header {
     padding-block-start: rem(16px);
 
+    .invite-btn {
+        padding: 0;
+        height: rem(32px);
+        min-width: min-content;
+        padding-inline: 8px;
+        margin-inline-end: rem(8px);
+
+        .invite-icon {
+            width: rem(20px);
+            height: rem(20px);
+            color: $icon-secondary-color;
+            margin-inline-end: 8px;
+        }
+    }
+
+    .menu-btn {
+        transform: none;
+        background-color: transparent;
+        color: $primary-text-color;
+        margin-block-end: 2px;
+
+        svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        &:active {
+            transform: scale(.95);
+        }
+
+        &:hover {
+            background-color: $primary-background-hover-color;
+        }
+    }
+
     .container {
         display: grid;
         grid-auto-flow: column;
@@ -15,12 +50,6 @@
             grid-auto-flow: column;
             align-items: center;
             gap: 4px;
-
-            .menu-button {
-                width: rem(26px);
-                height: rem(32px);
-                margin-inline-start: rem(5px);
-            }
 
             .info-icon {
                 color: $chat-icon-color;
@@ -41,43 +70,10 @@
             grid-auto-flow: column;
             align-items: center;
 
-            .menu-btn {
-                transform: none;
-                margin-inline-start: rem(8px);
-                background-color: transparent;
-                color: $primary-text-color;
-                margin-block-end: 2px;
-
-                svg {
-                    width: 24px;
-                    height: 24px;
-                }
-
-                &:active {
-                    transform: scale(.95);
-                }
-
-                &:hover {
-                    background-color: $primary-background-hover-color;
-                }
-            }
-
-            .invite-btn {
-                padding: 0;
-                height: rem(32px);
-                min-width: min-content;
-                padding-inline: 8px;
-
-                .invite-icon {
-                    width: rem(20px);
-                    height: rem(20px);
-                    color: $icon-secondary-color;
-                    margin-inline-end: 8px;
-                }
-            }
-
             .activity-btn {
-                padding: 4px 10px;
+                min-width: min-content;
+                padding-inline-start: 8px;
+                padding-inline-end: 10px;
                 margin-inline-end: 8px;
 
                 .kindFill_60c23e83e6.colorLight_e5f15c67a6 {
@@ -99,6 +95,8 @@
                 }
 
                 .avatarContainer_a30926b37f {
+                    width: 26px;
+                    height: 26px;
                     margin-right: -2px;
                 }
 
@@ -152,9 +150,18 @@
     .third-row-container {
         margin-block-end: rem(15px);
 
-        .icon-btn {
+        .collapse-btn {
+            min-width: 26px;
+            min-height: 26px;
             margin-inline-start: rem(20px);
             border-radius: 100%;
+            margin-block-end: 6px;
+
+            svg {
+                color: $primary-text-color;
+                width: rem(16px);
+                height: rem(16px);
+            }
         }
 
         .title-container {
@@ -162,13 +169,6 @@
             grid-auto-flow: column;
             align-items: center;
             margin-inline-end: 16px;
-
-            .menu-button {
-                width: rem(26px);
-                height: rem(32px);
-                margin-inline-start: rem(5px);
-                margin-inline-end: rem(15px);
-            }
         }
 
         .board-view-container {
@@ -189,24 +189,67 @@
                 }
 
                 .tab {
-                    padding: 0 8px;
+                    height: rem(32px);
+                    padding: 0;
+                    padding-inline: 16px;
                     font-size: rem(14px);
+                    margin-inline-start: -1px;
+                    margin-block-end: 2px;
+
+                    &::after {
+                        content: '';
+                        height: rem(16px);
+                        position: absolute;
+                        top: 8px;
+                        right: 0px;
+                        background-color: $table-border;
+                        width: 1px;
+                    }
+                }
+
+                .main-tab {
+                    height: rem(32px);
+                    padding: 0;
+                    padding-inline-start: 8px;
+                    padding-inline-end: 15px;
+                    font-size: rem(14px);
+                    margin-block-end: 2px;
+                    margin-inline-start: -1px;
 
                     svg {
+                        margin-inline-end: 7px;
                         width: 16px;
                         height: 16px;
                     }
 
                     &::after {
                         content: '';
+                        height: rem(16px);
                         position: absolute;
-                        top: 50%;
-                        right: 0;
-                        transform: translate(-50%, -50%);
-                        height: 45%;
-                        width: .5px;
-                        background-color: #51515135;
+                        top: 8px;
+                        right: 0px;
+                        background-color: $table-border;
+                        width: 1px;
                     }
+                }
+            }
+
+            .add-button {
+                margin-inline-start: -1px;
+
+                &.open_1acee9df07 {
+                    background-color: $primary-background-hover-color;
+                    transform: scale(1);
+                }
+
+                &:active {
+                    transform: scale(.95);
+                }
+
+                svg {
+                    width: 17px;
+                    height: 17px;
+                    color: $icon-color;
                 }
             }
         }
@@ -215,10 +258,6 @@
             display: grid;
             grid-auto-flow: column;
             align-items: center;
-
-            .menu-button {
-                margin-inline-start: rem(8px);
-            }
 
             .invite-btn {
                 padding-inline: rem(8px);
@@ -247,7 +286,7 @@
 
     .menu-divider {
         margin: 0;
-        margin-block-start: rem(-15px);
+        margin-block-start: rem(-18px);
         margin-block-end: rem(15px);
     }
 
