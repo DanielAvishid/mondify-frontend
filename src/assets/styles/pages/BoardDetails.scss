@@ -4,11 +4,11 @@
 }
 
 .board-details {
+    grid-template-rows: min-content;
     position: relative;
     background-color: $primary-background-color;
     border-top-left-radius: rem(8px);
     overflow-y: auto;
-    // white-space: nowrap;
 
     &::-webkit-scrollbar {
         position: absolute;
