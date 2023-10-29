@@ -39,7 +39,7 @@ export function BoardDetails() {
     }
 
     if (board === undefined) return <DeletedBoard />
-    if (board === null) return <span></span>
+    if (board === null) return <section className="waiting-load"></section>
 
     return (
         <section className="board-details main-layout">

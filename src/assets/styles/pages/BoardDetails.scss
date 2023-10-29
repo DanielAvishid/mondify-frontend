@@ -1,3 +1,8 @@
+.waiting-load {
+    background-color: $primary-background-color;
+    border-top-left-radius: rem(8px);
+}
+
 .board-details {
     position: relative;
     background-color: $primary-background-color;
