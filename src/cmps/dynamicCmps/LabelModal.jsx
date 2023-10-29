@@ -110,6 +110,8 @@ export function LabelModal({ keyName, board, labels, onSaveBoard }) {
                     Apply
                 </Button>}
             </div>
+            <div className="square">
+            </div>
         </section>
     )
 

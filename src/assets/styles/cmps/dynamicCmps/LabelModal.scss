@@ -145,6 +145,18 @@
             height: 32px;
         }
     }
+
+    .square {
+        z-index: 0;
+        width: 16px;
+        height: 16px;
+        background-color: $primary-background-color;
+        border-radius: 2px;
+        position: absolute;
+        left: 50%;
+        top: -6px;
+        transform: translate(-50%) rotate(45deg);
+    }
 }
 
 

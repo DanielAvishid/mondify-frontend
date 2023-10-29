@@ -162,18 +162,18 @@ function getEmptyBoard() {
         statusLabels: [
             {
                 "id": "ls101",
-                "title": "Done",
-                "color": "#00c875"
-            },
-            {
-                "id": "ls102",
                 "title": "Working on it",
                 "color": "#fdab3d"
             },
             {
-                "id": "ls103",
+                "id": "ls102",
                 "title": "Stuck",
                 "color": "#e2445c"
+            },
+            {
+                "id": "ls103",
+                "title": "Done",
+                "color": "#00c875"
             },
             {
                 "id": "ls104",
@@ -219,7 +219,7 @@ function getEmptyBoard() {
                     {
                         "id": utilService.makeId(),
                         "title": "Fix handle change func",
-                        "status": "Working on it",
+                        "status": "ls101",
                         "priority": "Medium",
                         "timeline": [1677619200000, 1679952000000],
                         "members": ["WOWOWO"],
@@ -227,7 +227,7 @@ function getEmptyBoard() {
                     {
                         "id": utilService.makeId(),
                         "title": "Remove tasks",
-                        "status": "Done",
+                        "status": "ls103",
                         "priority": "Critical",
                         "timeline": [1678128000000, 1679872000000],
                         "members": ["UjCos"],
@@ -235,7 +235,7 @@ function getEmptyBoard() {
                     {
                         "id": utilService.makeId(),
                         "title": "Update response time",
-                        "status": "Done",
+                        "status": "ls103",
                         "priority": "Medium",
                         "timeline": [1677388800000, 1680048000000],
                         "members": ["KKLLSS", "UjCos"],
@@ -243,7 +243,7 @@ function getEmptyBoard() {
                     {
                         "id": utilService.makeId(),
                         "title": "Add rating stars",
-                        "status": "Working on it",
+                        "status": "ls101",
                         "priority": "Medium",
                         "timeline": [1677772800000, 1680288000000],
                         "members": ["WOWOWO"],
@@ -251,7 +251,7 @@ function getEmptyBoard() {
                     {
                         "id": utilService.makeId(),
                         "title": "Update react version",
-                        "status": "Done",
+                        "status": "ls103",
                         "priority": "Critical",
                         "timeline": [1677041200000, 1677041200000],
                         "members": ["UjCos"],
@@ -259,7 +259,7 @@ function getEmptyBoard() {
                     {
                         "id": utilService.makeId(),
                         "title": "Update response time",
-                        "status": "Done",
+                        "status": "ls103",
                         "priority": "Medium",
                         "timeline": [1677043200000, 1679971200000],
                         "members": ["KKLLSS", "UjCos"],
