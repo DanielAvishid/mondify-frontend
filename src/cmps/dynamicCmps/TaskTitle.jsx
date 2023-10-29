@@ -22,9 +22,9 @@ export function TaskTitle({ boardId, task, onSaveBoard, isChecked, handleCheckbo
     }
 
     const onClickTitleCell = () => {
-        console.log('fromhere');
         setIsTaskFocus(true)
         setIsFocus(true)
+
         const location = parameterName.taskId === taskId ? `/board/${boardId}` : `task/${taskId}`
         navigate(location)
     }
