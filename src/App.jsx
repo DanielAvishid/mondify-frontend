@@ -11,6 +11,7 @@ import { AppIndex } from './pages/AppIndex'
 import { store } from './store/store'
 import { GroupList } from './cmps/GroupList';
 import { Kanban } from './cmps/Kanban';
+import { BoardList } from './pages/BoardList';
 
 export function App() {
   return (
@@ -20,7 +21,7 @@ export function App() {
           <Routes>
             <Route element={<Home />} path="/" />
             <Route element={<AppIndex />} path="/board">
-              {/* <Route element={<BoardSelector />} path='/' /> */}
+              <Route element={<BoardList />} path='' />
               <Route element={<BoardDetails />} path=":boardId">
                 <Route element={<GroupList />} path="">
                   <Route element={<TaskDetails />} path="task/:taskId" />

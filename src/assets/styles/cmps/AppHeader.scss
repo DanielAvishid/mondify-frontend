@@ -1,5 +1,7 @@
 .app-header {
-    padding: 10px;
+    padding-block: 10px;
+    padding-inline-start: 8px;
+    padding-inline-end: 34px;
 
     .switcher-btn {
         margin-inline-end: 4px;
@@ -16,6 +18,10 @@
         }
     }
 
+    .search-btn {
+        margin-inline-start: 5px;
+    }
+
     .apps-icon {
         position: relative;
 
@@ -23,16 +29,46 @@
             content: '';
             position: absolute;
             top: 50%;
-            right: 0;
+            right: -4px;
             transform: translate(-50%, -50%);
-            height: 60%;
-            width: .5px;
-            background-color: #51515135;
+            height: 22px;
+            width: .3px;
+            background-color: $table-border;
+            font-weight: 400;
         }
     }
 
-    img {
-        padding: 0px;
-        height: 20px;
+    .avatar-btn {
+        position: relative;
+        height: 32px;
+        cursor: pointer;
+        background-color: $avatar-btn-background-color;
+        border: 0;
+        display: flex;
+        align-items: center;
+        padding-inline-end: 28px;
+        border-radius: 4px;
+
+        &:hover {
+            background-color: $primary-background-hover-color;
+        }
+
+        .logo-img {
+            width: 24px;
+            height: 24px;
+        }
+
+        .avatar {
+            position: absolute;
+            right: -10px;
+            width: 32px;
+            height: 32px;
+
+            .circleImg_7ac18ef8a4 {
+                border: none;
+            }
+        }
+
+        height: 32px;
     }
 }

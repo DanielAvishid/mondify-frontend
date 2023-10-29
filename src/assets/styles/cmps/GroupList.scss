@@ -1,9 +1,22 @@
 .group-list {
-    // padding: 5px;
     overflow-x: auto;
     white-space: nowrap;
-
     margin-block-start: rem(16px);
+
+    .add-group-container {
+        margin-block-end: rem(90px);
+
+        .new-group-btn {
+            padding-inline: rem(8px);
+            height: rem(32px);
+
+            .add-icon {
+                margin-inline-end: rem(8px);
+                width: rem(20px);
+                height: rem(20px);
+            }
+        }
+    }
 
     &::-webkit-scrollbar {
         position: absolute;

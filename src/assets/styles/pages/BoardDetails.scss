@@ -1,9 +1,24 @@
+.waiting-load {
+    position: relative;
+    background-color: $primary-background-color;
+    border-top-left-radius: rem(8px);
+
+    .loader-container {
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -40%);
+        width: 90px;
+        height: 90px;
+    }
+}
+
 .board-details {
+    grid-template-rows: min-content;
     position: relative;
     background-color: $primary-background-color;
     border-top-left-radius: rem(8px);
     overflow-y: auto;
-    // white-space: nowrap;
 
     &::-webkit-scrollbar {
         position: absolute;

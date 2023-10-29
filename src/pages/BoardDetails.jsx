@@ -39,7 +39,14 @@ export function BoardDetails() {
     }
 
     if (board === undefined) return <DeletedBoard />
-    if (board === null) return <span></span>
+
+    if (board === null) return (
+        <section className="waiting-load">
+            <div className="loader-container">
+                <img src="https://cdn.monday.com/images/loader/loader.gif" alt="" />
+            </div>
+        </section>
+    )
 
     return (
         <section className="board-details main-layout">

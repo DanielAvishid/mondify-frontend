@@ -159,69 +159,55 @@ function getEmptyBoard() {
         style: {
             backgroundImage: ""
         },
-        labels: {
-            status: [
-                {
-                    "id": "ls101",
-                    "title": "Done",
-                    "color": "#00c875"
-                },
-                {
-                    "id": "ls102",
-                    "title": "Working on it",
-                    "color": "#fdab3d"
-                },
-                {
-                    "id": "ls103",
-                    "title": "Stuck",
-                    "color": "#e2445c"
-                },
-                {
-                    "id": "ls104",
-                    "title": "",
-                    "color": "#c4c4c4",
-                    "isDefault": true
-                }
-            ],
-            priority: [
-                {
-                    "id": "lp101",
-                    "title": "Critical ⚠️️",
-                    "color": "#333333"
-                },
-                {
-                    "id": "lp102",
-                    "title": "High",
-                    "color": "#401694"
-                },
-                {
-                    "id": "lp103",
-                    "title": "Medium",
-                    "color": "#5559df"
-                },
-                {
-                    "id": "lp104",
-                    "title": "Low",
-                    "color": "#579bfc"
-                },
-                {
-                    "id": "lp105",
-                    "title": "",
-                    "color": "#c4c4c4",
-                    "isDefault": true
-                }
-            ]
-        },
-        Statuslabels: [
+        statusLabels: [
             {
-                "id": "l101",
+                "id": "ls101",
                 "title": "Done",
-                "color": "#61bd4f"
+                "color": "#00c875"
             },
             {
-                "id": "l102",
-                "title": "Progress",
-                "color": "#61bd33"
+                "id": "ls102",
+                "title": "Working on it",
+                "color": "#fdab3d"
+            },
+            {
+                "id": "ls103",
+                "title": "Stuck",
+                "color": "#e2445c"
+            },
+            {
+                "id": "ls104",
+                "title": "",
+                "color": "#c4c4c4",
+                "isDefault": true
+            }
+        ],
+        priorityLabels: [
+            {
+                "id": "lp101",
+                "title": "Critical ⚠️️",
+                "color": "#333333"
+            },
+            {
+                "id": "lp102",
+                "title": "High",
+                "color": "#401694"
+            },
+            {
+                "id": "lp103",
+                "title": "Medium",
+                "color": "#5559df"
+            },
+            {
+                "id": "lp104",
+                "title": "Low",
+                "color": "#579bfc"
+            },
+            {
+                "id": "lp105",
+                "title": "",
+                "color": "#c4c4c4",
+                "isDefault": true
             }
         ],
         groups: [
@@ -278,7 +264,6 @@ function getEmptyBoard() {
                         "timeline": [1677043200000, 1679971200000],
                         "members": ["KKLLSS", "UjCos"],
                     },
-
                 ],
                 "style": { "backgroundColor": "#579BFC" }
             },

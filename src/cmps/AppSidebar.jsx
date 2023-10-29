@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button, Icon, Menu, MenuButton, MenuItem, MenuTitle, SplitButton, Tooltip } from "monday-ui-react-core";
 import { Home, MyWeek, AddSmall, Menu as MenuIcon, Favorite, Filter, Board, Duplicate, Gantt, Delete, Add, DropdownChevronDown, Search, NavigationChevronLeft, NavigationChevronRight } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { useState } from "react";
@@ -14,7 +14,8 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
     const [boardHoverState, setBoardHoverState] = useState({})
     const [searchHoverState, setSearchHoverState] = useState(false)
     const [openState, setOpenState] = useState({})
-    const currentUrl = window.location.href
+    const location = useLocation()
+    const navigate = useNavigate()
 
     function onAddBoard() {
         const board = boardService.getEmptyBoard()
@@ -85,7 +86,7 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
                     <Icon className="icon" icon={isSidBarOpen ? NavigationChevronLeft : NavigationChevronRight} />
                 </button>}
                 <div className="general-btns">
-                    <Button leftIcon={Home} kind="tertiary" className={`home ${currentUrl === 'http://localhost:5173/#/board' ? 'active' : ''}`}>Home</Button>
+                    <Button leftIcon={Home} kind="tertiary" className={`home ${location.pathname === '/board' ? 'active' : ''}`} onClick={() => navigate('/board')}>Home</Button>
                     <Button leftIcon={MyWeek} kind="tertiary" className="my-week">My work</Button>
                 </div>
                 <div className="workspace">
@@ -123,7 +124,7 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
                                 <Link onMouseEnter={() => toggleHoverMenu(board._id)} onMouseLeave={() => toggleHoverMenu(board._id)} key={board._id} to={`/board/${board._id}`}>
                                     <Button
                                         kind="tertiary"
-                                        className={`board-btn ${currentUrl.includes(board._id) ? 'active' : ''}`}>
+                                        className={`board-btn ${location.pathname.includes(board._id) ? 'active' : ''}`}>
                                         <div className="container flex align-center">
                                             <Icon className="board-icon" icon={Board} />
                                             <span className="board-title">{board.title}</span>

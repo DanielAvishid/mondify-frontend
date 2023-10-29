@@ -1,7 +1,7 @@
 import { Outlet, useOutletContext } from "react-router";
 import { GroupPreview } from "./GroupPreview"
 import { Add } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
-import { Button } from "monday-ui-react-core";
+import { Button, Icon } from "monday-ui-react-core";
 import { boardService } from "../services/board.service";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { useEffect, useState } from "react";
@@ -82,12 +82,14 @@ export function GroupList() {
                                 </Draggable>
                             ))}
                             {provided.placeholder}
-                            <div className="middle">
+                            <div className="add-group-container middle">
                                 <Button
+                                    className="new-group-btn"
+                                    noSidePadding={true}
                                     kind={Button.kinds.SECONDARY}
-                                    leftIcon={Add}
                                     onClick={onAddGroup}>
-                                    Add new group
+                                    <Icon className="add-icon" icon={Add} />
+                                    <span>Add new group</span>
                                 </Button>
                             </div>
                         </div>
