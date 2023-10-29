@@ -68,11 +68,6 @@ export function LabelModal({ key, board, labels, onSaveBoard }) {
                                 <input className="label-input" placeholder={getPlaceHolder(label.isDefault)} value={label.title} type="text" />
                             </div>
                             {hoverState[label.id] && <Button size={Button.sizes.XXS} kind={Button.kinds.TERTIARY}><Icon iconSize={16} icon={Close} /></Button>}
-                            {/* {hoverState[label.id] && <IconButton
-                                iconClassName='icon-remove'
-                                size={IconButton.sizes.XXS}
-                                icon={Close} kind={IconButton.kinds.TERTIARY}
-                                ariaLabel="My tertiary IconButton" />} */}
                         </div>
                     )}
                     <div className="add-btn-container label-edit-layout">
