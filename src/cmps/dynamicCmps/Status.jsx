@@ -3,7 +3,7 @@ import { useRef, useState } from "react"
 import { LabelModal } from "./LabelModal"
 import { useClickOutside } from "../../hooks/useClickOutside ";
 
-export function Status({ info, board, onSaveBoard, cmpType }) {
+export function Status({ info, board, onSaveBoard, cmpType, setIsTaskFocus }) {
 
 
     const statusCell = useRef();
@@ -14,6 +14,7 @@ export function Status({ info, board, onSaveBoard, cmpType }) {
     const statusClass = utilService.formatString(status)
 
     const onClickMembersCell = () => {
+        setIsTaskFocus(true)
         setIsFocus(true)
         setIsModalOpen(!isModalOpen)
     }

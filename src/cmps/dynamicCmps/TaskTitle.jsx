@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router"
 import { useEffect, useState, useRef } from "react"
 import { useClickOutside } from "../../hooks/useClickOutside "
 
-export function TaskTitle({ boardId, task, onSaveBoard, isChecked, handleCheckboxChange }) {
+export function TaskTitle({ boardId, task, onSaveBoard, isChecked, handleCheckboxChange, setIsTaskFocus }) {
 
     const navigate = useNavigate()
     const parameterName = useParams();
@@ -22,21 +22,27 @@ export function TaskTitle({ boardId, task, onSaveBoard, isChecked, handleCheckbo
     }
 
     const onClickTitleCell = () => {
+        console.log('fromhere');
+        setIsTaskFocus(true)
         setIsFocus(true)
         const location = parameterName.taskId === taskId ? `/board/${boardId}` : `task/${taskId}`
         navigate(location)
+    }
+
+    const handleCheckboxClick = (ev) => {
+        ev.stopPropagation()
+        setIsFocus(false)
     }
 
     return (
         <td
             className={`task-item task-title title-col flex align-center ${isFocus ? 'focus' : ''}`}
             ref={titleCell}
-            onClick={onClickTitleCell}
         >
             <div className="checkbox flex align-center justify-center">
-                <Checkbox checked={isChecked} onChange={() => handleCheckboxChange(task.id)} />
+                <Checkbox checked={isChecked} onClick={handleCheckboxClick} onChange={() => handleCheckboxChange(task.id)} />
             </div>
-            <div className="title-name flex align-center justify-between">
+            <div className="title-name flex align-center justify-between" onClick={onClickTitleCell}>
                 <div className="flex">
                     <div className="collapse flex justify-center align-center ">
                         <Icon
@@ -66,7 +72,7 @@ export function TaskTitle({ boardId, task, onSaveBoard, isChecked, handleCheckbo
                     <span>Open</span>
                 </div>
             </div>
-            <div className="chat-cell flex align-center justify-center">
+            <div className="chat-cell flex align-center justify-center" onClick={onClickTitleCell}>
                 {(!updates || updates.length < 1) ?
                     <Icon icon={AddUpdate} iconSize="22" ariaLabel="Start conversation" /> :
                     <>

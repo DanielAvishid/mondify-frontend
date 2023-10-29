@@ -6,7 +6,7 @@ import { MembersModal } from "../dynamicModalCmps/MembersModal"
 import { useClickOutside } from "../../hooks/useClickOutside "
 
 
-export function Members({ info, task, board, onSaveBoard }) {
+export function Members({ info, task, board, onSaveBoard, setIsTaskFocus }) {
 
     const membersIds = info
     const participateMembers = membersIds.map((memberId) => {
@@ -43,8 +43,9 @@ export function Members({ info, task, board, onSaveBoard }) {
     }
 
     const onClickMembersCell = () => {
-        setIsInviteModalOpen(false)
+        setIsTaskFocus(true)
         setIsFocus(true)
+        setIsInviteModalOpen(false)
         setIsModalOpen(!isModalOpen)
     }
 

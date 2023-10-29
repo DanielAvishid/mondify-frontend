@@ -4,7 +4,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { TimelineModal } from "../dynamicModalCmps/TimelineModal";
 import { useClickOutside } from "../../hooks/useClickOutside ";
 
-export function Timeline({ info, task, board, group, onSaveBoard }) {
+export function Timeline({ info, task, board, group, onSaveBoard, setIsTaskFocus }) {
 
     const [isHover, setIsHover] = useState(false)
     const [newDate, setNewDate] = useState(new Date())
@@ -33,6 +33,7 @@ export function Timeline({ info, task, board, group, onSaveBoard }) {
     }
 
     const onClickTimelineCell = () => {
+        setIsTaskFocus(true)
         setIsFocus(true)
         setIsModalOpen(!isModalOpen)
     }

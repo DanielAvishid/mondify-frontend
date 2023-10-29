@@ -1,4 +1,7 @@
-// import { useNavigate } from "react-router";
+import { useRef } from "react";
+
+import { useClickOutside } from "../hooks/useClickOutside ";
+
 import { Priority } from "./dynamicCmps/Priority";
 import { TaskTitle } from "./dynamicCmps/TaskTitle";
 import { Status } from "./dynamicCmps/Status";
@@ -6,15 +9,14 @@ import { Members } from "./dynamicCmps/Members";
 import { Timeline } from "./dynamicCmps/Timeline";
 
 import { Duplicate, Delete } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
-import { Checkbox, Menu, MenuButton, MenuItem } from "monday-ui-react-core";
-import { utilService } from "../services/util.service";
-import { useState } from "react";
-
+import { Menu, MenuButton, MenuItem } from "monday-ui-react-core";
 
 export function TaskPreview({ board, group, task, onSaveBoard, onDuplicateTask, onRemoveTask, isChecked, handleCheckboxChange }) {
 
-    return (
+    const tableRow = useRef();
+    const { isFocus: isTaskFocus, setIsFocus: setIsTaskFocus } = useClickOutside(tableRow);
 
+    return (
         <div className="task-preview full main-layout">
             <div className="start flex align-center justify-center">
                 <MenuButton className="task-menu">
@@ -25,11 +27,21 @@ export function TaskPreview({ board, group, task, onSaveBoard, onDuplicateTask, 
                     </Menu>
                 </MenuButton>
             </div>
-            <table className="table-container table" style={{ borderColor: group.style.backgroundColor }}>
+            <table className="table-container table" style={{ borderColor: group.style.backgroundColor }} >
                 <tbody className="table-container">
-                    {/* <tr className={`table-row flex ${isChecked || isFocus ? 'checked' : ''}`}> */}
-                    <tr className={`table-row flex ${isChecked ? 'checked' : ''}`}>
-                        <TaskTitle boardId={board._id} task={task} onSaveBoard={onSaveBoard} checked={isChecked} handleCheckboxChange={handleCheckboxChange} />
+                    <tr
+                        className={`table-row flex ${isChecked || isTaskFocus ? 'checked' : ''}`}
+                        ref={tableRow}
+                    >
+                        <TaskTitle
+                            boardId={board._id}
+                            task={task}
+                            onSaveBoard={onSaveBoard}
+                            checked={isChecked}
+                            handleCheckboxChange={handleCheckboxChange}
+                            setIsTaskFocus={setIsTaskFocus}
+                        />
+
                         {board.cmpsOrder.map((cmp, idx) => (
                             <DynamicCmp
                                 key={idx}
@@ -38,7 +50,9 @@ export function TaskPreview({ board, group, task, onSaveBoard, onDuplicateTask, 
                                 board={board}
                                 cmpType={cmp.type}
                                 info={task[cmp.type]}
-                                onSaveBoard={onSaveBoard} />
+                                onSaveBoard={onSaveBoard}
+                                setIsTaskFocus={setIsTaskFocus}
+                            />
                         ))}
                     </tr>
                 </tbody>
@@ -47,18 +61,18 @@ export function TaskPreview({ board, group, task, onSaveBoard, onDuplicateTask, 
     )
 }
 
-const DynamicCmp = ({ task, group, board, cmpType, info, onSaveBoard }) => {
+const DynamicCmp = ({ task, group, board, cmpType, info, onSaveBoard, setIsTaskFocus }) => {
     // NEED TO ADD BOARD ID AND ON SAVE BOARD TO THE CMPS PROPS
 
     switch (cmpType) {
         case "priority":
-            return <Priority info={info} board={board} onSaveBoard={onSaveBoard} />;
+            return <Priority info={info} board={board} onSaveBoard={onSaveBoard} setIsTaskFocus={setIsTaskFocus} />;
         case "status":
-            return <Status cmpType={cmpType} info={info} board={board} onSaveBoard={onSaveBoard} />;
+            return <Status cmpType={cmpType} info={info} board={board} onSaveBoard={onSaveBoard} setIsTaskFocus={setIsTaskFocus} />;
         case "members":
-            return <Members info={info} task={task} board={board} onSaveBoard={onSaveBoard} />;
+            return <Members info={info} task={task} board={board} onSaveBoard={onSaveBoard} setIsTaskFocus={setIsTaskFocus} />;
         case "timeline":
-            return <Timeline info={info} task={task} group={group} board={board} onSaveBoard={onSaveBoard} />
+            return <Timeline info={info} task={task} group={group} board={board} onSaveBoard={onSaveBoard} setIsTaskFocus={setIsTaskFocus} />
         default:
             break;
     }

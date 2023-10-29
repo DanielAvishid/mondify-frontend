@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { utilService } from "../../services/util.service"
 import { useClickOutside } from "../../hooks/useClickOutside ";
 
-export function Priority({ info }) {
+export function Priority({ info, setIsTaskFocus }) {
     const priorityCell = useRef();
     const { isFocus, setIsFocus } = useClickOutside(priorityCell);
     // const { isFocus: isModalOpen, setIsFocus: setIsModalOpen } = useClickOutside(statusCell);
@@ -11,6 +11,7 @@ export function Priority({ info }) {
     const priorityClass = utilService.formatString(priority)
 
     const onClickPriorityCell = () => {
+        setIsTaskFocus(true)
         setIsFocus(true)
         // setIsModalOpen(!isModalOpen)
     }
