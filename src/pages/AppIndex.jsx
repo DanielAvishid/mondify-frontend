@@ -100,7 +100,7 @@ export function AppIndex() {
             <AppHeader />
             <section className="main-container">
                 <AppSidebar boards={boards} onDuplicateBoard={onDuplicateBoard} onRemoveBoard={onRemoveBoard} onSaveBoard={onSaveBoard} updateBoards={updateBoards} />
-                <Outlet context={[onSaveBoard, onRemoveBoard, onRemoveGroup, onRemoveTask, onDuplicateBoard, onDuplicateGroup, onDuplicateTask]} />
+                <Outlet context={[onSaveBoard, onRemoveBoard, onRemoveGroup, onRemoveTask, onDuplicateBoard, onDuplicateGroup, onDuplicateTask, boards]} />
             </section>
         </section>
     )
