@@ -37,7 +37,7 @@ export function TaskPreview({ board, group, task, onSaveBoard, onDuplicateTask, 
                             boardId={board._id}
                             task={task}
                             onSaveBoard={onSaveBoard}
-                            checked={isChecked}
+                            isChecked={isChecked}
                             handleCheckboxChange={handleCheckboxChange}
                             setIsTaskFocus={setIsTaskFocus}
                         />
