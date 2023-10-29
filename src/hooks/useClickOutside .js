@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 export function useClickOutside(ref) {
 
     const [isFocus, setIsFocus] = useState(false);
-    console.log("useClickOutside - " + isFocus);
 
     const handleClickOutside = (event) => {
         if (ref.current && !ref.current.contains(event.target)) {

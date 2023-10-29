@@ -1,34 +1,16 @@
 import { Checkbox, Counter, EditableHeading, Icon, IconButton } from "monday-ui-react-core"
 import { AddUpdate, Update, DropdownChevronRight, Open } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
-import { useNavigate } from "react-router"
+import { useNavigate, useParams } from "react-router"
 import { useEffect, useState, useRef } from "react"
 import { useClickOutside } from "../../hooks/useClickOutside "
 
 export function TaskTitle({ boardId, task, onSaveBoard, isChecked, handleCheckboxChange }) {
 
     const navigate = useNavigate()
+    const parameterName = useParams();
 
-    const tdRef = useRef();
-    const { isFocus, setIsFocus } = useClickOutside(tdRef);
-
-    // const [isFocus, setIsFocus] = useState(false)
-
-    // useEffect(() => {
-    //     // Add a document-level event listener for clicks
-    //     document.addEventListener('click', handleDocumentClick);
-
-    //     // Clean up the event listener when the component unmounts
-    //     return () => {
-    //         document.removeEventListener('click', handleDocumentClick);
-    //     };
-    // }, []);
-
-    // const handleDocumentClick = (e) => {
-    //     if (!e.target.closest('.task-title')) {
-    //         // Clicked outside of the title-cell, so set isFocus to false
-    //         setIsFocus(false);
-    //     }
-    // };
+    const titleCell = useRef();
+    const { isFocus, setIsFocus } = useClickOutside(titleCell);
 
     const { id: taskId, updates, title } = task
 
@@ -39,11 +21,17 @@ export function TaskTitle({ boardId, task, onSaveBoard, isChecked, handleCheckbo
         }
     }
 
+    const onClickTitleCell = () => {
+        setIsFocus(true)
+        const location = parameterName.taskId === taskId ? `/board/${boardId}` : `task/${taskId}`
+        navigate(location)
+    }
+
     return (
         <td
             className={`task-item task-title title-col flex align-center ${isFocus ? 'focus' : ''}`}
-            ref={tdRef}
-            onClick={() => setIsFocus(true)}
+            ref={titleCell}
+            onClick={onClickTitleCell}
         >
             <div className="checkbox flex align-center justify-center">
                 <Checkbox checked={isChecked} onChange={() => handleCheckboxChange(task.id)} />
@@ -57,7 +45,7 @@ export function TaskTitle({ boardId, task, onSaveBoard, isChecked, handleCheckbo
                             ariaLabel="Expand subitems"
                         />
                     </div>
-                    <div className="flex justify-center align-center">
+                    <div className="task-title-input flex justify-center align-center" onClick={(ev) => ev.stopPropagation()}>
                         <EditableHeading
                             type={EditableHeading.types.h6}
                             value={title}
@@ -69,7 +57,7 @@ export function TaskTitle({ boardId, task, onSaveBoard, isChecked, handleCheckbo
                         />
                     </div>
                 </div>
-                <div className="open-details-container flex justify-center align-center" onClick={() => navigate(`task/${taskId}`)}>
+                <div className="open-details-container flex justify-center align-center">
                     <Icon
                         icon={Open}
                         iconSize="20"
@@ -78,7 +66,7 @@ export function TaskTitle({ boardId, task, onSaveBoard, isChecked, handleCheckbo
                     <span>Open</span>
                 </div>
             </div>
-            <div className="chat-cell flex align-center justify-center" onClick={() => navigate(`task/${taskId}`)}>
+            <div className="chat-cell flex align-center justify-center">
                 {(!updates || updates.length < 1) ?
                     <Icon icon={AddUpdate} iconSize="22" ariaLabel="Start conversation" /> :
                     <>

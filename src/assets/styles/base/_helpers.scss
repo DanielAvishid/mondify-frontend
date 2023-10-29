@@ -78,10 +78,11 @@
 // BORDER
 
 .focus {
-
+    // margin-inline-start: -0.8px;
     border: 0.8px solid $primary-color !important;
 
     &.title-col {
+        // margin-inline-start: 0;
         border-inline-start: 0 !important;
     }
 

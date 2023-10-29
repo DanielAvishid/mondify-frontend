@@ -19,8 +19,9 @@ export function Members({ info, task, board, onSaveBoard }) {
 
     const suggestedMembers = board.members.filter(member => !membersIds.includes(member._id));
 
-    const tdRef = useRef();
-    const { isFocus, setIsFocus } = useClickOutside(tdRef);
+    const membersCell = useRef();
+    const { isFocus, setIsFocus } = useClickOutside(membersCell);
+    const { isFocus: isModalOpen, setIsFocus: setIsModalOpen } = useClickOutside(membersCell);
 
     useEffect(() => {
         setFilteredMembers(suggestedMembers)
@@ -43,15 +44,17 @@ export function Members({ info, task, board, onSaveBoard }) {
 
     const onClickMembersCell = () => {
         setIsInviteModalOpen(false)
-        setIsFocus(!isFocus)
+        setIsFocus(true)
+        setIsModalOpen(!isModalOpen)
     }
 
     return (
-        <td className="task-item members members-col grid align-center justify-center" ref={tdRef}
-            onClick={onClickMembersCell}>
-            {/* <div className="add-member grid align-center"> */}
+        <td
+            className={`task-item members members-col flex align-center justify-center ${isFocus ? 'focus' : ''}`}
+            ref={membersCell}
+            onClick={onClickMembersCell}
+        >
             <span className="plus-container flex align-center justify-center">+</span>
-
 
             <AvatarGroup max={1} size={Avatar.sizes.SMALL}>
                 {participateMembers.length > 0 ? participateMembers.map((member) => {
@@ -74,7 +77,7 @@ export function Members({ info, task, board, onSaveBoard }) {
             </AvatarGroup>
 
             {
-                isFocus ?
+                isModalOpen ?
                     <div className="modal" onClick={(ev) => ev.stopPropagation()}>
                         <div className="pointer"></div>
                         {!isInviteModalOpen ?
