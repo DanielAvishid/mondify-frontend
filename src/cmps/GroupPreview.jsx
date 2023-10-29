@@ -14,7 +14,7 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemoveGrou
     const { style, title } = group
     const [tasks, setTasks] = useState(group.tasks)
     const [addTaskBgc, setAddTaskBgc] = useState('')
-    const [addTaskTitle, setAddTaskTitle] = useState('')
+    const [taskTitleToAdd, setTaskTitleToAdd] = useState('')
 
     useEffect(() => {
         setTasks(group.tasks)
@@ -56,7 +56,7 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemoveGrou
         if (title === '') return
         const newTask = boardService.getEmptyTask(title)
         const value = [...group.tasks, newTask]
-        setAddTaskTitle('')
+        setTaskTitleToAdd('')
         onSaveBoard({ boardId: board._id, groupId: group.id, key: 'tasks', value })
     }
 
@@ -200,12 +200,13 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemoveGrou
                                                     <input
                                                         type="text"
                                                         placeholder={"+ Add Item"}
-                                                        value={addTaskTitle}
+                                                        value={taskTitleToAdd}
                                                         onBlur={(ev) => onAddTask(ev.target.value)}
                                                         onFocus={onChangeBgc}
-                                                        onChange={(ev) => setAddTaskTitle(ev.target.value)}
+                                                        onChange={(ev) => setTaskTitleToAdd(ev.target.value)}
                                                         onKeyPress={handleAddTask}
                                                     />
+                                                    <span className="guidance" style={{ opacity: taskTitleToAdd ? 1 : 0 }}>Enter to add another item</span>
                                                 </div>
                                             </td>
                                         </tr>
