@@ -124,11 +124,18 @@
 
         .add-task {
 
-            // background-color: $lighter-grey;
-
             .title-col {
                 border-inline-end: 0;
                 box-shadow: 0 8px 9px -9px $table-shadow-color;
+                position: relative;
+
+                .guidance {
+                    position: absolute;
+                    bottom: rem(-24px);
+                    left: rem(60px);
+                    font-size: rem(13px);
+                    color: $chat-icon-color;
+                }
             }
 
             input[type="text"] {
@@ -143,6 +150,7 @@
                 width: 100%;
 
                 &:focus {
+                    background-color: $primary-background-color;
                     border: 1px solid $primary-color;
                 }
             }
