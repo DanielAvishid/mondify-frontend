@@ -7,10 +7,10 @@
             box-shadow: 4px 3px 6px -3px $selectable-cluster-border;
             background-color: $lighter-grey;
 
-            >.status,
-            >.priority {
-                opacity: 0.85;
-            }
+            // >.status,
+            // >.priority {
+            //     opacity: 0.85;
+            // }
 
             &.checked {
                 background-color: $primary-selected-color;
