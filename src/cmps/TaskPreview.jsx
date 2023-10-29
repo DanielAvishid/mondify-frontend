@@ -27,6 +27,7 @@ export function TaskPreview({ board, group, task, onSaveBoard, onDuplicateTask, 
             </div>
             <table className="table-container table" style={{ borderColor: group.style.backgroundColor }}>
                 <tbody className="table-container">
+                    {/* <tr className={`table-row flex ${isChecked || isFocus ? 'checked' : ''}`}> */}
                     <tr className={`table-row flex ${isChecked ? 'checked' : ''}`}>
                         <TaskTitle boardId={board._id} task={task} onSaveBoard={onSaveBoard} checked={isChecked} handleCheckboxChange={handleCheckboxChange} />
                         {board.cmpsOrder.map((cmp, idx) => (

@@ -7,8 +7,8 @@
         box-shadow: 0px 8px 9px -9px $table-shadow-color;
     }
 
-    .status-cell,
-    .priority-cell {
+    .status,
+    .priority {
         background-color: transparent;
 
         >.inner-progress-ber {

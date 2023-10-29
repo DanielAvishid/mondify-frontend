@@ -31,7 +31,7 @@ export function Timeline({ info, task, board, group, onSaveBoard }) {
     }
 
     return (
-        <td className="task-item timeline-cell timeline-col grid align-center justify-center">
+        <td className="task-item timeline timeline-col grid align-center justify-center">
             {info.length > 0 && < AiOutlineClose className="remove-date" onClick={() => onSaveBoard({ board, taskId: task.id, key: "timeline", value: [] })} />}
             <div
                 style={backgroundStyle}

@@ -5,7 +5,7 @@ export function Priority({ info }) {
     const priorityClass = utilService.formatString(priority)
 
     return (
-        <td className={`task-item priority-cell priority-col grid align-center justify-center ${priorityClass}`}>
+        <td className={`task-item priority priority-col grid align-center justify-center ${priorityClass}`}>
             <span>{priority}</span>
         </td>
     )

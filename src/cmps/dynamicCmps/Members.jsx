@@ -44,7 +44,7 @@ export function Members({ info, task, board, onSaveBoard }) {
     }
 
     return (
-        <td className="task-item members-cell members-col grid align-center justify-center" onClick={onClickMembersCell}>
+        <td className="task-item members members-col grid align-center justify-center" onClick={onClickMembersCell}>
             {/* <div className="add-member grid align-center"> */}
             <span className="plus-container flex align-center justify-center">+</span>
 

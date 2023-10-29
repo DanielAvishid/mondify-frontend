@@ -31,7 +31,7 @@ export function ProgressBar({ board, group }) {
             <tfoot className="table-container table" style={{ borderColor: "transparent" }}>
                 <tr className="table-row flex">
                     {board.cmpsOrder.map((cmp, idx) => (
-                        <td key={idx} className={`${cmp.type}-col ${cmp.type}-cell task-item flex align-center justify-center`}>
+                        <td key={idx} className={`${cmp.type}-col ${cmp.type} task-item flex align-center justify-center`}>
                             {renderCmpSpan(cmp)}
                         </td>
                     ))}

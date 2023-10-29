@@ -9,7 +9,7 @@ export function Status({ info, board, onSaveBoard, cmpType }) {
     const [isModalOpen, setIsModalOpen] = useState(false)
 
     return (
-        <td className={`task-item status status-cell status-col grid align-center justify-center ${statusClass}`} onClick={() => setIsModalOpen(!isModalOpen)}>
+        <td className={`task-item status status status-col grid align-center justify-center ${statusClass}`} onClick={() => setIsModalOpen(!isModalOpen)}>
             <span>{status}</span>
             {isModalOpen && <LabelModal keyName={cmpType + 'Labels'} board={board} labels={board[cmpType + 'Labels']} onSaveBoard={onSaveBoard} />}
         </td>
