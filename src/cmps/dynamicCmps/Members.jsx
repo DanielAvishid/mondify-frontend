@@ -1,4 +1,4 @@
-import { Box, Button, Icon, Search, TextField } from "monday-ui-react-core"
+import { Avatar, AvatarGroup, Box, Button, Icon, Search, TextField } from "monday-ui-react-core"
 import { Invite, Close } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { useEffect, useState } from "react"
 import { InviteMemberModal } from "../dynamicModalCmps/InviteMemberModal"
@@ -48,18 +48,29 @@ export function Members({ info, task, board, onSaveBoard }) {
             {/* <div className="add-member grid align-center"> */}
             <span className="plus-container flex align-center justify-center">+</span>
 
-            {participateMembers.length > 0 ? participateMembers.map((member) => {
-                return (
-                    <img
-                        className="avatar grid align-center justify-center"
-                        key={member._id}
-                        src={member.imgUrl} />
-                )
-            }) :
-                <img src="https://cdn.monday.com/icons/dapulse-person-column.svg" className="avatar" />
-            }
 
-            {isModalOpen &&
+            <AvatarGroup max={1} size={Avatar.sizes.SMALL}>
+                {participateMembers.length > 0 ? participateMembers.map((member) => {
+                    return (
+                        <Avatar
+                            key={member._id}
+                            size={Avatar.sizes.SMALL}
+                            type={Avatar.types.IMG}
+                            src={member.imgUrl}
+                            ariaLabel={member.fullname}
+                        />
+                    )
+                }) :
+                    <Avatar
+                        size={Avatar.sizes.SMALL}
+                        type={Avatar.types.IMG}
+                        src={"https://style.monday.com/static/media/person1.de30c8ee.png"}
+                    />
+                }
+            </AvatarGroup>
+
+            {
+                isModalOpen &&
                 <div className="modal" onClick={(ev) => ev.stopPropagation()}>
                     <div className="pointer"></div>
                     {!isInviteModalOpen ?

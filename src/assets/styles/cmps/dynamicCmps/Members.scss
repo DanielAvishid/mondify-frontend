@@ -1,23 +1,12 @@
 .members {
-    padding-inline-start: 0.25rem;
+    // padding-inline-start: 0.25rem;
     grid-template-columns: auto max-content auto;
     position: relative;
 
-    .avatar,
     .plus-container {
+        z-index: 1;
         border-radius: 50%;
         color: $secondary-background-color;
-    }
-
-    .avatar {
-        box-sizing: content-box;
-        width: 1.625rem;
-        height: 1.625rem;
-        border: 2px solid $members-border;
-        margin: 0 -0.25rem;
-    }
-
-    .plus-container {
         opacity: 0;
         position: absolute;
         left: 0.5rem;

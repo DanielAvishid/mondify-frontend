@@ -49,7 +49,7 @@
     position: absolute;
     z-index: 21;
     top: rem(-8px);
-    left: 50%;
+    left: calc(50% - rem(8px));
     height: rem(16px);
     width: rem(16px);
     background-color: $white;

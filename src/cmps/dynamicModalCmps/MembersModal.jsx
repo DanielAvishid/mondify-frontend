@@ -1,4 +1,4 @@
-import { Icon, Search } from "monday-ui-react-core"
+import { Avatar, Icon, Search } from "monday-ui-react-core"
 import { Invite, Close } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 
 export function MembersModal({ board, task, membersIds, handleSearch, searchTerm, participateMembers, filteredMembers, setIsInviteModalOpen, onRemoveMember, onSaveBoard }) {
@@ -10,14 +10,15 @@ export function MembersModal({ board, task, membersIds, handleSearch, searchTerm
                     participateMembers.map((member) => {
                         return (
                             <div className="member-container flex align-center" key={member._id}>
-                                <div className="member-details flex align-center">
-                                    <img
-                                        key={member._id}
-                                        className="avatar"
-                                        src={member.imgUrl}
-                                    />
-                                    <span className="member-name">{member.fullname}</span>
-                                </div>
+                                <Avatar
+                                    className="avatar"
+                                    key={member._id}
+                                    size={Avatar.sizes.SMALL}
+                                    type={Avatar.types.IMG}
+                                    src={member.imgUrl}
+                                    ariaLabel={member.fullname}
+                                />
+                                <span className="member-name">{member.fullname}</span>
                                 <div className="remove-member flex align-center justify-center" onClick={() => onRemoveMember(member._id)}>
                                     <Icon
                                         icon={Close}
@@ -42,10 +43,13 @@ export function MembersModal({ board, task, membersIds, handleSearch, searchTerm
                     {filteredMembers.map((member) => (
                         <div className="member-row flex align-center" key={member._id} onClick={() => onSaveBoard({ board, taskId: task.id, key: "members", value: [...membersIds, member._id] })}>
                             <div className="avatar-container flex align-center justify-center">
-                                <img
-                                    key={member._id}
+                                <Avatar
                                     className="avatar"
+                                    key={member._id}
+                                    size={Avatar.sizes.SMALL}
+                                    type={Avatar.types.IMG}
                                     src={member.imgUrl}
+                                    ariaLabel={member.fullname}
                                 />
                             </div>
                             <span className="member-name">{member.fullname}</span>
