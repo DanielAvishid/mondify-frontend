@@ -37,7 +37,7 @@
 
     }
 
-    &>.chat-cell {
+    >.chat-cell {
         position: relative;
         height: 2.25rem;
         width: 4rem;
@@ -45,29 +45,31 @@
         border-inline-start: 1px solid $table-border;
         color: $chat-icon-color;
 
+        >.update-icon {
+            color: $primary-color;
+        }
+
+        >.updates-counter {
+            background-color: $primary-color;
+            border-radius: 50%;
+            min-width: 13px;
+            height: 13px;
+            color: $white;
+            font-size: 10px;
+            font-weight: 600;
+
+            position: absolute;
+            bottom: 5px;
+            right: 13px;
+            padding: 0px;
+
+        }
+
         &:hover {
             color: $primary-color;
         }
     }
 
-    // .updates-icon {
-    //     color: $primary-color;
-    // }
 
-    .updates-counter {
-        background-color: $primary-color;
-        border-radius: 50%;
-        min-width: 13px;
-        height: 13px;
-        color: $white;
-        font-size: 10px;
-        font-weight: 600;
-
-        position: absolute;
-        bottom: 5px;
-        right: 13px;
-        padding: 0px;
-
-    }
 
 }

@@ -52,7 +52,7 @@ export function TaskTitle({ boardId, task, onSaveBoard, isChecked, handleCheckbo
                 {(!updates || updates.length < 1) ?
                     <Icon icon={AddUpdate} iconSize="22" ariaLabel="Start conversation" /> :
                     <>
-                        <Icon icon={Update} iconSize="22" ariaLabel="Start conversation" />
+                        <Icon icon={Update} iconSize="22" ariaLabel="Add to conversation" className="update-icon" />
                         <span className="updates-counter flex align-center justify-center">{updates.length}</span>
                         {/* <Counter count={updates.length} size={Counter.sizes.SMALL} className="storybook-counter_counter-position-bot updates-counter" /> */}
                     </>}
