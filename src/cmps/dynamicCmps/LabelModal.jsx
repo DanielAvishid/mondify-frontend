@@ -2,10 +2,12 @@ import { Button, ColorPicker, Divider, EditableHeading, Icon, IconButton } from 
 import { Edit, Drag, Close, AddSmall, HighlightColorBucket } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { useState } from "react";
 
-export function LabelModal({ key, board, labels, onSaveBoard }) {
+export function LabelModal({ keyName, board, labels, onSaveBoard }) {
     const [isEditMode, setIsEditMode] = useState(false)
     const [palleteOpenState, setPalleteOpenState] = useState({})
     const [hoverState, setHoverState] = useState({})
+    const [editableLabels, setEditableLabels] = useState(labels)
+    const [editingIndex, setEditingIndex] = useState(null)
 
     const viewNum = (labels.length >= 6) ? 6 : labels.length
     const editNum = (labels.length >= 6) ? 6 : labels.length + 1
@@ -43,42 +45,70 @@ export function LabelModal({ key, board, labels, onSaveBoard }) {
         }))
     }
 
+    function handleChange(ev, index) {
+        console.log('TEST')
+        const newLabels = [...editableLabels]
+        newLabels[index].title = ev.target.value
+        setEditableLabels(newLabels)
+    }
+
+    function stopPropagation(ev) {
+        ev.stopPropagation()
+    }
+
     return (
         <section className="label-modal relative">
             <div className="label-content">
                 {!isEditMode && <div className="label-view-container" style={styleViewMode}>
-                    {labels.map(label =>
+                    {labels.map((label, index) =>
                         <button key={label.id} className="label-picker" style={{ backgroundColor: label.color }}>
-                            {label.title}
+                            {editableLabels[index].title}
                         </button>
                     )}
                 </div>}
                 {isEditMode && <div className="label-edit-container" style={styleEditMode}>
-                    {labels.map(label =>
-                        <div key={label.id} className="label-edit label-edit-layout" onMouseEnter={() => toggleRemove(label.id)} onMouseLeave={() => toggleRemove(label.id)}>
-                            {palleteOpenState[label.id] && <ColorPicker
-                                className="color-picker"
-                                colorSize="small"
-                            />}
+                    {labels.map((label, index) =>
+                        <div
+                            key={label.id}
+                            className="label-edit label-edit-layout"
+                            onMouseEnter={() => toggleRemove(label.id)}
+                            onMouseLeave={() => toggleRemove(label.id)}
+                            onClick={(ev) => stopPropagation(ev)}>
                             {hoverState[label.id] && <Icon className='icon-drag' icon={Drag} />}
                             <div key={label.id} className="label-editable middle" >
-                                <button className="color-btn" style={{ backgroundColor: label.color }} onClick={(ev) => togglePallete(ev, label.id)}>
+                                <button
+                                    className="color-btn"
+                                    style={{ backgroundColor: label.color }}
+                                    onClick={(ev) => togglePallete(ev, label.id)}>
                                     <Icon iconType={Icon.type.SVG} icon={HighlightColorBucket} iconLabel="my bolt svg icon" iconSize={16} style={{ color: '#fff' }} />
                                 </button>
-                                <input className="label-input" placeholder={getPlaceHolder(label.isDefault)} value={label.title} type="text" />
+                                <input
+                                    className="label-input"
+                                    placeholder={getPlaceHolder(label.isDefault)}
+                                    value={editableLabels[index].title} type="text"
+                                    onChange={(ev) => handleChange(ev, index)}
+                                    onBlur={() => onSaveBoard({ key: keyName, value: editableLabels, board })} />
                             </div>
-                            {hoverState[label.id] && <Button size={Button.sizes.XXS} kind={Button.kinds.TERTIARY}><Icon iconSize={16} icon={Close} /></Button>}
-                        </div>
-                    )}
+                            {hoverState[label.id] && <Button size={Button.sizes.XXS} kind={Button.kinds.TERTIARY}>
+                                <Icon iconSize={16} icon={Close} />
+                            </Button>}
+                            {palleteOpenState[label.id] && <ColorPicker className="color-picker" colorSize="small" />}
+                        </div>)}
                     <div className="add-btn-container label-edit-layout">
-                        <Button className="add-btn middle" leftIcon={AddSmall} kind={Button.kinds.SECONDARY} >New label</Button>
+                        <Button className="add-btn middle" leftIcon={AddSmall} kind={Button.kinds.SECONDARY}>
+                            New label
+                        </Button>
                     </div>
                 </div>}
             </div>
             <div className="label-picker-footer">
                 <Divider className="divider" />
-                {!isEditMode && <Button className="edit-btn" onClick={(ev) => onEditClick(ev)} leftIcon={Edit} kind={Button.kinds.TERTIARY}>Edit Labels</Button>}
-                {isEditMode && <Button className="edit-btn" onClick={(ev) => onEditClick(ev)} kind={Button.kinds.TERTIARY}>Apply</Button>}
+                {!isEditMode && <Button className="edit-btn" onClick={(ev) => onEditClick(ev)} leftIcon={Edit} kind={Button.kinds.TERTIARY}>
+                    Edit Labels
+                </Button>}
+                {isEditMode && <Button className="edit-btn" onClick={(ev) => onEditClick(ev)} kind={Button.kinds.TERTIARY}>
+                    Apply
+                </Button>}
             </div>
         </section>
     )
