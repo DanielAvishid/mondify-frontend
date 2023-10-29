@@ -167,7 +167,7 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemoveGrou
                                 <Draggable draggableId={task.id} index={index} key={task.id}>
                                     {(provided) => (
                                         <article
-                                            className="main-layout full"
+                                            className="dnd-task main-layout full"
                                             {...provided.dragHandleProps}
                                             {...provided.draggableProps}
                                             ref={provided.innerRef}
