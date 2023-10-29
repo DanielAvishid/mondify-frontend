@@ -1,8 +1,9 @@
 import { Avatar, AvatarGroup, Box, Button, Icon, Search, TextField } from "monday-ui-react-core"
 import { Invite, Close } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { InviteMemberModal } from "../dynamicModalCmps/InviteMemberModal"
 import { MembersModal } from "../dynamicModalCmps/MembersModal"
+import { useClickOutside } from "../../hooks/useClickOutside "
 
 
 export function Members({ info, task, board, onSaveBoard }) {
@@ -12,12 +13,14 @@ export function Members({ info, task, board, onSaveBoard }) {
         return board.members.find(member => member._id === memberId)
     })
 
-    const [isModalOpen, setIsModalOpen] = useState(false)
     const [isInviteModalOpen, setIsInviteModalOpen] = useState(false)
     const [searchTerm, setSearchTerm] = useState('')
     const [filteredMembers, setFilteredMembers] = useState([])
 
     const suggestedMembers = board.members.filter(member => !membersIds.includes(member._id));
+
+    const tdRef = useRef();
+    const { isFocus, setIsFocus } = useClickOutside(tdRef);
 
     useEffect(() => {
         setFilteredMembers(suggestedMembers)
@@ -40,11 +43,12 @@ export function Members({ info, task, board, onSaveBoard }) {
 
     const onClickMembersCell = () => {
         setIsInviteModalOpen(false)
-        setIsModalOpen(!isModalOpen)
+        setIsFocus(!isFocus)
     }
 
     return (
-        <td className="task-item members members-col grid align-center justify-center" onClick={onClickMembersCell}>
+        <td className="task-item members members-col grid align-center justify-center" ref={tdRef}
+            onClick={onClickMembersCell}>
             {/* <div className="add-member grid align-center"> */}
             <span className="plus-container flex align-center justify-center">+</span>
 
@@ -70,33 +74,33 @@ export function Members({ info, task, board, onSaveBoard }) {
             </AvatarGroup>
 
             {
-                isModalOpen &&
-                <div className="modal" onClick={(ev) => ev.stopPropagation()}>
-                    <div className="pointer"></div>
-                    {!isInviteModalOpen ?
-                        <MembersModal
-                            board={board}
-                            task={task}
-                            membersIds={membersIds}
-                            handleSearch={handleSearch}
-                            searchTerm={searchTerm}
-                            participateMembers={participateMembers}
-                            filteredMembers={filteredMembers}
-                            setIsInviteModalOpen={setIsInviteModalOpen}
-                            onRemoveMember={onRemoveMember}
-                            onSaveBoard={onSaveBoard}
-                        /> :
+                isFocus ?
+                    <div className="modal" onClick={(ev) => ev.stopPropagation()}>
+                        <div className="pointer"></div>
+                        {!isInviteModalOpen ?
+                            <MembersModal
+                                board={board}
+                                task={task}
+                                membersIds={membersIds}
+                                handleSearch={handleSearch}
+                                searchTerm={searchTerm}
+                                participateMembers={participateMembers}
+                                filteredMembers={filteredMembers}
+                                setIsInviteModalOpen={setIsInviteModalOpen}
+                                onRemoveMember={onRemoveMember}
+                                onSaveBoard={onSaveBoard}
+                            /> :
 
-                        <InviteMemberModal
-                            board={board}
-                            task={task}
-                            membersIds={membersIds}
-                            setIsInviteModalOpen={setIsInviteModalOpen}
-                            onSaveBoard={onSaveBoard}
-                        />
-                    }
-                </div>
-            }
+                            <InviteMemberModal
+                                board={board}
+                                task={task}
+                                membersIds={membersIds}
+                                setIsInviteModalOpen={setIsInviteModalOpen}
+                                onSaveBoard={onSaveBoard}
+                            />
+                        }
+                    </div>
+                    : <></>}
         </td >
     )
 }    

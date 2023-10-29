@@ -1,29 +1,34 @@
 import { Checkbox, Counter, EditableHeading, Icon, IconButton } from "monday-ui-react-core"
 import { AddUpdate, Update, DropdownChevronRight, Open } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { useNavigate } from "react-router"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
+import { useClickOutside } from "../../hooks/useClickOutside "
 
 export function TaskTitle({ boardId, task, onSaveBoard, isChecked, handleCheckboxChange }) {
 
     const navigate = useNavigate()
-    const [isFocus, setIsFocus] = useState(false)
 
-    useEffect(() => {
-        // Add a document-level event listener for clicks
-        document.addEventListener('click', handleDocumentClick);
+    const tdRef = useRef();
+    const { isFocus, setIsFocus } = useClickOutside(tdRef);
 
-        // Clean up the event listener when the component unmounts
-        return () => {
-            document.removeEventListener('click', handleDocumentClick);
-        };
-    }, []);
+    // const [isFocus, setIsFocus] = useState(false)
 
-    const handleDocumentClick = (e) => {
-        if (!e.target.closest('.task-title')) {
-            // Clicked outside of the title-cell, so set isFocus to false
-            setIsFocus(false);
-        }
-    };
+    // useEffect(() => {
+    //     // Add a document-level event listener for clicks
+    //     document.addEventListener('click', handleDocumentClick);
+
+    //     // Clean up the event listener when the component unmounts
+    //     return () => {
+    //         document.removeEventListener('click', handleDocumentClick);
+    //     };
+    // }, []);
+
+    // const handleDocumentClick = (e) => {
+    //     if (!e.target.closest('.task-title')) {
+    //         // Clicked outside of the title-cell, so set isFocus to false
+    //         setIsFocus(false);
+    //     }
+    // };
 
     const { id: taskId, updates, title } = task
 
@@ -37,6 +42,7 @@ export function TaskTitle({ boardId, task, onSaveBoard, isChecked, handleCheckbo
     return (
         <td
             className={`task-item task-title title-col flex align-center ${isFocus ? 'focus' : ''}`}
+            ref={tdRef}
             onClick={() => setIsFocus(true)}
         >
             <div className="checkbox flex align-center justify-center">
@@ -83,4 +89,4 @@ export function TaskTitle({ boardId, task, onSaveBoard, isChecked, handleCheckbo
             </div>
         </td>
     )
-}
+}   
