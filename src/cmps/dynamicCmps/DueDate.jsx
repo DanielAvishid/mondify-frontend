@@ -1,5 +1,5 @@
 import { utilService } from "../../services/util.service";
-import { PiWarningCircleFill } from "react-icons/pi";
+import { PiWarningCircleFill, PiCheckCircleFill } from "react-icons/pi";
 import { AiOutlineClose } from "react-icons/ai";
 
 export function DueDate({ labelId, board, onSaveBoard, cmpType, info, setIsTaskFocus, task, group }) {
@@ -10,13 +10,19 @@ export function DueDate({ labelId, board, onSaveBoard, cmpType, info, setIsTaskF
 
     const isDone = statusLabels.some(label => label.color === '#00c875' && label.id === taskStatus);
 
+    const currentDate = new Date();
+    const isPastDate = info ? new Date(info) < currentDate : false;
+
     return (
         <td className="due-date date-col flex align-center justify-center">
             {info &&
                 <div className="inner-container flex align-center justify-center">
-                    <PiWarningCircleFill className="warning" />
+                    {isPastDate ?
+                        <PiWarningCircleFill className="sign warning" /> :
+                        <PiCheckCircleFill className="sign check" />
+                    }
                     <span className={`${isDone ? 'done' : ''}`}>{dueDate}</span>
-                    <AiOutlineClose className="remove-date" />
+                    <AiOutlineClose className="remove-date" onClick={() => onSaveBoard({ board, taskId: task.id, key: "date", value: null })} />
                 </div>
             }
         </td >

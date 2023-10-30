@@ -5,14 +5,24 @@
 
     .inner-container {
 
-        >.warning {
+        >.sign {
             position: absolute;
             padding: rem(5px);
             width: rem(30px);
             height: 100%;
-            color: $icon-warning-color;
             left: 0;
+
+            &.check {
+                color: $icon-check-color;
+            }
+
+            &.warning {
+                color: $icon-warning-color;
+            }
+
         }
+
+
 
         >.remove-date {
             opacity: 0;
@@ -24,6 +34,11 @@
             right: rem(10px);
             border-radius: rem(3px);
             color: $primary-text-color;
+            z-index: 1;
+
+            &:hover {
+                cursor: pointer;
+            }
         }
 
     }
@@ -34,6 +49,7 @@
 
 
     &:hover {
+        cursor: text;
 
         .remove-date {
             opacity: 1;
