@@ -1,8 +1,8 @@
 import { utilService } from "../services/util.service";
-import { Timeline } from "./dynamicCmps/Timeline";
-import { Members } from "./dynamicCmps/Members";
+
 import { TimelineSummary } from "./dynamicSummaryCmps/TimelineSummary";
 import { StatusSummary } from "./dynamicSummaryCmps/StatusSummary";
+import { MembersSummary } from "./dynamicSummaryCmps/MembersSummary";
 
 
 export function ProgressBar({ board, group }) {
@@ -16,11 +16,9 @@ export function ProgressBar({ board, group }) {
             case 'priority':
                 return <span></span>
             case 'members':
-                const members = group.tasks.map(task => task.members)
-                const flattenedMembers = [].concat(...members)
-                const uniqueMembers = [...new Set(flattenedMembers)]
 
-                return <Members info={uniqueMembers} board={board} />
+
+                return <MembersSummary group={group} board={board} />
 
             default:
                 return
