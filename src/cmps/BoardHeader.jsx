@@ -2,6 +2,7 @@ import { Menu, MenuButton, Search as SearchInput, MenuItem, EditableHeading, Men
 import { NavigationChevronDown, DropdownChevronDown, DropdownChevronUp, Home, Delete, Download, Group, Search, PersonRound, CloseSmall, Chart, Edit, Favorite, ShortText, Info, AddSmall, Duplicate, Table as TableIcon, Menu as MenuIcon, Invite, SettingsKnobs } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { useRef, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
+import { boardService } from "../services/board.service"
 
 export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveBoard, onDuplicateBoard }) {
 
@@ -44,6 +45,12 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
         inputRef.current.focus()
         setIsTyping(false)
         setIsInputFocus(true)
+    }
+
+    function onAddGroup() {
+        const newGroup = boardService.getEmptyGroup()
+        const value = [newGroup, ...board.groups]
+        onSaveBoard({ boardId: board._id, key: 'groups', value })
     }
 
     return (
@@ -161,7 +168,7 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                 <SplitButton className='split-btn' children="New Item" size={SplitButton.sizes.SMALL}
                     onClick={() => onAddTaskFromHeader(board)}
                     secondaryDialogContent={<SplitButtonMenu id="split-menu">
-                        <MenuItem icon={Group} title="New group of Items" />
+                        <MenuItem icon={Group} title="New group of Items" onClick={onAddGroup} />
                         <MenuItem icon={Download} title="import Items" />
                     </SplitButtonMenu>} />
                 <div className="btns-container">
