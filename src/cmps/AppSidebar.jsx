@@ -1,12 +1,12 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button, Icon, Menu, MenuButton, MenuItem, MenuTitle, SplitButton, Tooltip } from "monday-ui-react-core";
-import { Home, MyWeek, AddSmall, Menu as MenuIcon, Favorite, Filter, Board, Duplicate, Gantt, Delete, Add, DropdownChevronDown, Search, NavigationChevronLeft, NavigationChevronRight } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
-import { useState } from "react";
+import { Home, MyWeek, AddSmall, Menu as MenuIcon, Favorite, Filter, Board, Duplicate, Gantt, Delete, Add, DropdownChevronDown, Search, NavigationChevronLeft, NavigationChevronRight, CloseSmall } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
+import { useRef, useState } from "react";
 import { boardService } from "../services/board.service";
 import { GoHomeFill, GoStarFill } from "react-icons/go";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
-export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoard, updateBoards }) {
+export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoard, updateBoards, handleBoardsFilter, filterBy }) {
     const [isSideBarHover, setIsSideBarHover] = useState(false)
     const [isSidBarOpen, setIsSideBarOpen] = useState(true)
     const [showBorder, setShowBorder] = useState(false)
@@ -14,6 +14,7 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
     const [boardHoverState, setBoardHoverState] = useState({})
     const [searchHoverState, setSearchHoverState] = useState(false)
     const [openState, setOpenState] = useState({})
+    const inputRef = useRef(null)
     const location = useLocation()
     const navigate = useNavigate()
 
@@ -77,42 +78,91 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
     }
 
     return (
-        <section className={`app-sidebar ${isSidBarOpen ? '' : 'close'} ${(isSideBarHover && !isSidBarOpen) ? 'hover' : ''}`} onMouseEnter={(ev) => handleContainerMouseEnter(ev)} onMouseLeave={handleContainerMouseLeave}>
-            {<button className={`close-btn ${!isSidBarOpen ? 'close' : ''}`} onClick={toggleSidebar} >
-                <Icon className="icon" icon={isSidBarOpen ? NavigationChevronLeft : NavigationChevronRight} />
+        <section
+            className={`app-sidebar ${isSidBarOpen ? '' : 'close'} ${(isSideBarHover && !isSidBarOpen) ? 'hover' : ''}`}
+            onMouseEnter={(ev) => handleContainerMouseEnter(ev)}
+            onMouseLeave={handleContainerMouseLeave}>
+            {<button
+                className={`close-btn ${!isSidBarOpen ? 'close' : ''}`}
+                onClick={toggleSidebar} >
+                <Icon
+                    className="icon"
+                    icon={isSidBarOpen ? NavigationChevronLeft : NavigationChevronRight} />
             </button>}
-            {<section className="expand-sidebar">
-                {isSideBarHover && <button className="close-btn" onClick={toggleSidebar} onMouseEnter={emptyFunction}>
-                    <Icon className="icon" icon={isSidBarOpen ? NavigationChevronLeft : NavigationChevronRight} />
+            <section className="expand-sidebar">
+                {isSideBarHover && <button
+                    className="close-btn"
+                    onClick={toggleSidebar}
+                    onMouseEnter={emptyFunction}>
+                    <Icon
+                        className="icon"
+                        icon={isSidBarOpen ? NavigationChevronLeft : NavigationChevronRight} />
                 </button>}
                 <div className="general-btns">
-                    <Button leftIcon={Home} kind="tertiary" className={`home ${location.pathname === '/board' ? 'active' : ''}`} onClick={() => navigate('/board')}>Home</Button>
-                    <Button leftIcon={MyWeek} kind="tertiary" className="my-week">My work</Button>
+                    <Button
+                        leftIcon={Home}
+                        kind="tertiary"
+                        className={`home ${location.pathname === '/board' ? 'active' : ''}`}
+                        onClick={() => navigate('/board')}>
+                        Home
+                    </Button>
+                    <Button
+                        leftIcon={MyWeek}
+                        kind="tertiary"
+                        className="my-week">
+                        My work
+                    </Button>
                 </div>
                 <div className="workspace">
                     <div className="tools">
                         <div className="workspace-select">
-                            <Button className={`workspace-dropdown ${selectedClass()}`} kind="tertiary" onClick={() => toggleModal()}>
+                            <Button
+                                className={`workspace-dropdown ${selectedClass()}`}
+                                kind="tertiary"
+                                onClick={() => toggleModal()}>
                                 <div className="workspace-icon">
                                     <span className="letter-icon">M</span>
                                     <Icon className="home-icon" icon={GoHomeFill} />
                                 </div>
-                                <span className="workspace-title">Main workspace</span>
+                                <span className="workspace-title">
+                                    Main workspace
+                                </span>
                                 <Icon className="drop-icon" icon={DropdownChevronDown} />
                             </Button>
                         </div>
                         <div className="search-add">
-                            <div className={`search-container ${showBorder ? 'focus' : ''}`} onMouseEnter={() => setSearchHoverState(true)} onMouseLeave={() => setSearchHoverState(false)}>
-                                <Icon className="search-icon" icon={Search} />
-                                <input onFocus={toggleBorder} onBlur={toggleBorder} className="search-input" type="text" placeholder="Search" />
-                                <div className="filter-btn-container">
-                                    <Tooltip
-                                        className="filter-tool-tip" content="Filters" animationType="expand">
-                                        <div />
-                                    </Tooltip>
-                                    {searchHoverState && <Button className="filter-btn" kind={Button.kinds.TERTIARY} >
-                                        <Icon className="filter-icon" icon={Filter} />
-                                    </Button>}
+                            <div
+                                className={`search-container ${showBorder ? 'is-focus' : ''}`}
+                                onMouseEnter={() => setSearchHoverState(true)}
+                                onMouseLeave={() => setSearchHoverState(false)}>
+                                <Icon className="search-icon" icon={Search} onClick={() => inputRef.current.focus()} />
+                                <input
+                                    style={{ width: filterBy.title ? '104px' : '128px' }}
+                                    onFocus={toggleBorder}
+                                    onBlur={toggleBorder}
+                                    className="search-input"
+                                    type="text"
+                                    placeholder="Search"
+                                    onChange={(ev) => handleBoardsFilter(ev.target.value)}
+                                    ref={inputRef} />
+                                <div className="flex">
+                                    <div className="clear-btn-container">
+                                        {filterBy.title &&
+                                            <Button
+                                                className="clear-btn"
+                                                kind={Button.kinds.TERTIARY}
+                                                onClick={() => { handleBoardsFilter(''); inputRef.current.value = '' }}>
+                                                <Icon className="close-icon" icon={CloseSmall} />
+                                            </Button>}
+                                    </div>
+                                    <div className="filter-btn-container">
+                                        {(searchHoverState || inputRef.current === document.activeElement) &&
+                                            <Button
+                                                className="filter-btn"
+                                                kind={Button.kinds.TERTIARY} >
+                                                <Icon className="filter-icon" icon={Filter} />
+                                            </Button>}
+                                    </div>
                                 </div>
                             </div>
                             <Button className="new-btn" onClick={onAddBoard}>
@@ -121,7 +171,11 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
                         </div>
                         <nav className="board-nav">
                             {boards.map(board =>
-                                <Link onMouseEnter={() => toggleHoverMenu(board._id)} onMouseLeave={() => toggleHoverMenu(board._id)} key={board._id} to={`/board/${board._id}`}>
+                                <Link
+                                    onMouseEnter={() => toggleHoverMenu(board._id)}
+                                    onMouseLeave={() => toggleHoverMenu(board._id)}
+                                    key={board._id}
+                                    to={`/board/${board._id}`}>
                                     <Button
                                         kind="tertiary"
                                         className={`board-btn ${location.pathname.includes(board._id) ? 'active' : ''}`}>
@@ -129,17 +183,40 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
                                             <Icon className="board-icon" icon={Board} />
                                             <span className="board-title">{board.title}</span>
                                         </div>
-                                        {(boardHoverState[board._id] || openState[board._id]) && <MenuButton className="board-options"
+                                        {(boardHoverState[board._id] || openState[board._id]) && <MenuButton
+                                            className="board-options"
                                             onClick={(ev) => toggleOpenMenu(board._id, ev)}>
                                             <Menu id="menu" size="large" className="menu-modal">
-                                                <MenuItem icon={Duplicate} title="Duplicate Board" onClick={() => onDuplicateBoard({ boardId: board._id })} />
-                                                <MenuItem icon={Delete} title="Delete" onClick={() => onRemoveBoard({ boardId: board._id })} />
+                                                <MenuItem
+                                                    icon={Duplicate}
+                                                    title="Duplicate Board"
+                                                    onClick={() => onDuplicateBoard({ boardId: board._id })} />
+                                                <MenuItem
+                                                    icon={Delete}
+                                                    title="Delete"
+                                                    onClick={() => onRemoveBoard({ boardId: board._id })} />
                                             </Menu>
                                         </MenuButton>}
                                     </Button>
                                 </Link>)}
                         </nav>
-                        {/* {isModalOpen && <div className="workspace-modal">
+                    </div>
+                </div>
+                {(filterBy.title && !boards.length) && (isSideBarHover || isSidBarOpen) && <div className="no-result">
+                    <div className="img-container">
+                        <img className="img" src="https://cdn.monday.com/images/search_empty_state.svg" />
+                    </div>
+                    <p className="heading">No results found</p>
+                    <p className="text">Please check your search terms or filters.</p>
+                </div>}
+            </section>
+        </section >
+    )
+}
+
+
+
+{/* {isModalOpen && <div className="workspace-modal">
                             <div className="modal-top">
                                 <div className="search">
                                     <Search className="search-input" placeholder="Search for a board" />
@@ -165,12 +242,8 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
                                 </Button>
                             </div>
                         </div>} */}
-                    </div>
-                </div>
-            </section>}
-        </section >
-    )
-}
+
+
 //     return (
 //         <section className="app-sidebar flex column">
 //             <button className="close-btn" onClick={toggleSidebar}>

@@ -14,11 +14,9 @@ export function getActionUpdateBoard(board) {
     return { type: UPDATE_BOARD, board }
 }
 
-export async function loadBoards() {
+export async function loadBoards(boardsFilter) {
     try {
-        // const { filterBy } = store.getState().toyModule
-        // store.dispatch({ type: SET_IS_LOADING, isLoading: true })
-        const boards = await boardService.query()
+        const boards = await boardService.query(boardsFilter)
         store.dispatch({ type: SET_BOARDS, boards })
     } catch (err) {
         console.log('board action -> Cannot load boards', err)

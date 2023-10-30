@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import { AppHeader } from "../cmps/AppHeader";
 import { AppSidebar } from "../cmps/AppSidebar";
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { duplicate, loadBoards, remove, saveBoard } from "../store/actions/board.action";
 import { SET_BOARDS } from "../store/reducers/board.reducer";
 import { store } from "../store/store";
@@ -10,15 +10,16 @@ import { showSuccessMsg } from "../services/event-bus.service";
 
 export function AppIndex() {
 
+    const [filterBy, setFilterBy] = useState({})
     const boards = useSelector(storeState => storeState.boardModule.boards)
 
     useEffect(() => {
-        onLoadBoards()
-    }, [])
+        onLoadBoards(filterBy)
+    }, [filterBy])
 
-    async function onLoadBoards() {
+    async function onLoadBoards(boardsFilter) {
         try {
-            loadBoards()
+            loadBoards(boardsFilter)
         } catch (err) {
             console.log('ShowErrorMsg')
         }
@@ -91,6 +92,11 @@ export function AppIndex() {
         }
     }
 
+    function handleBoardsFilter(value) {
+        filterBy.title = value
+        setFilterBy(prevFilter => ({ ...prevFilter, ...filterBy }))
+    }
+
     function updateBoards(boards) {
         store.dispatch({ type: SET_BOARDS, boards })
     }
@@ -99,7 +105,14 @@ export function AppIndex() {
         <section className="app-index">
             <AppHeader />
             <section className="main-container">
-                <AppSidebar boards={boards} onDuplicateBoard={onDuplicateBoard} onRemoveBoard={onRemoveBoard} onSaveBoard={onSaveBoard} updateBoards={updateBoards} />
+                <AppSidebar
+                    boards={boards}
+                    onDuplicateBoard={onDuplicateBoard}
+                    onRemoveBoard={onRemoveBoard}
+                    onSaveBoard={onSaveBoard}
+                    updateBoards={updateBoards}
+                    handleBoardsFilter={handleBoardsFilter}
+                    filterBy={filterBy} />
                 <Outlet context={[onSaveBoard, onRemoveBoard, onRemoveGroup, onRemoveTask, onDuplicateBoard, onDuplicateGroup, onDuplicateTask, boards]} />
             </section>
         </section>
