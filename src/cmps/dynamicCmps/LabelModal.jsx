@@ -18,7 +18,8 @@ export function LabelModal({ keyName, board, onSaveBoard, task, group, cmpType }
     }
 
     const styleEditMode = {
-        gridTemplateRows: `repeat(${editNum}, 1fr)`
+        gridTemplateRows: `repeat(${editNum}, 1fr)`,
+        paddingBlockEnd: editableLabels.length >= 6 ? '16px' : '8px'
     }
 
     function onEditClick(ev) {
@@ -52,10 +53,12 @@ export function LabelModal({ keyName, board, onSaveBoard, task, group, cmpType }
         onSaveBoard({ board, key: keyName, value })
     }
 
-    function onAddLabel() {
+    function onAddLabel(ev) {
+        ev.stopPropagation()
         const newLabels = [...editableLabels]
         const newLabel = boardService.getEmptyStatusLabel()
         newLabels.push(newLabel)
+        setEditableLabels(newLabels)
         onSaveBoard({ board, key: keyName, value: newLabels })
     }
 
@@ -63,7 +66,6 @@ export function LabelModal({ keyName, board, onSaveBoard, task, group, cmpType }
         const newLabels = [...editableLabels]
         newLabels[index].title = ev.target.value
         setEditableLabels(newLabels)
-        onSaveBoard({ board, key: keyName, value: editableLabels })
     }
 
     function handleColorChange(value, index) {
@@ -76,7 +78,7 @@ export function LabelModal({ keyName, board, onSaveBoard, task, group, cmpType }
     }
 
     function handleLabelPick(labelId) {
-        onSaveBoard({ board, taskId: task.id, groupId: group.id, key: 'status', value: labelId })
+        onSaveBoard({ board, taskId: task.id, groupId: group.id, key: cmpType, value: labelId })
     }
 
     function stopPropagation(ev) {
@@ -135,8 +137,9 @@ export function LabelModal({ keyName, board, onSaveBoard, task, group, cmpType }
                                 onSave={(value) => handleColorChange(value, index)} />}
                         </div>)}
                     <div className="add-btn-container label-edit-layout">
-                        <Button className="add-btn middle" leftIcon={AddSmall} kind={Button.kinds.SECONDARY} onClick={(ev) => onAddLabel(ev)}>
-                            New label
+                        <Button className="add-btn middle" kind={Button.kinds.SECONDARY} onClick={(ev) => onAddLabel(ev)}>
+                            <Icon iconSize={16} icon={AddSmall} />
+                            <span>New label</span>
                         </Button>
                     </div>
                 </div>}

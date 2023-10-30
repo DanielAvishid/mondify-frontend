@@ -1,29 +1,46 @@
-import { useRef } from "react";
-import { utilService } from "../../services/util.service"
+import { useEffect, useRef, useState } from "react"
+import { LabelModal } from "./LabelModal"
 import { useClickOutside } from "../../hooks/useClickOutside ";
 
-export function Priority({ info, setIsTaskFocus }) {
+export function Priority({ labelId, board, onSaveBoard, cmpType, setIsTaskFocus, task, group }) {
+    const [currLabel, setCurrLabel] = useState(getCurrLabel())
     const priorityCell = useRef();
     const { isFocus, setIsFocus } = useClickOutside(priorityCell);
-    // const { isFocus: isModalOpen, setIsFocus: setIsModalOpen } = useClickOutside(statusCell);
+    const { isFocus: isModalOpen, setIsFocus: setIsModalOpen } = useClickOutside(priorityCell);
 
-    const priority = info
-    const priorityClass = utilService.formatString(priority)
+    useEffect(() => {
+        setCurrLabel(getCurrLabel())
+    }, [board.priorityLabels, task.priority])
 
+    function getCurrLabel() {
+        return board[cmpType + 'Labels'].find((label) => label.id === labelId)
+    }
+
+    const customStyle = {
+        backgroundColor: currLabel.color
+    }
+
+    //change to normal function (non-arrow-function)
     const onClickPriorityCell = () => {
         setIsTaskFocus(true)
         setIsFocus(true)
-        // setIsModalOpen(!isModalOpen)
+        setIsModalOpen(!isModalOpen)
     }
 
     return (
         <td
-            className={`task-item priority priority-col grid align-center justify-center ${priorityClass} ${isFocus ? 'focus' : ''}`}
+            style={customStyle}
+            className={`task-item priority priority-col grid align-center justify-center ${isFocus ? 'focus' : ''}`}
             ref={priorityCell}
-            onClick={onClickPriorityCell}
-        >
-            <span>{priority}</span>
-            {/* {isModalOpen && <ENTER YOUR MODAL HERE/>} */}
+            onClick={onClickPriorityCell}>
+            <span>{currLabel.title}</span>
+            {isModalOpen && <LabelModal
+                keyName={cmpType + 'Labels'}
+                board={board}
+                labels={board[cmpType + 'Labels']}
+                onSaveBoard={onSaveBoard} task={task}
+                group={group}
+                cmpType={cmpType} />}
         </td>
     )
 }
