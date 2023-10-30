@@ -2,7 +2,6 @@ import { SummaryItem } from "../utilsCmps/SummaryItem";
 
 export function StatusSummary({ group, board }) {
 
-    const labels = board.statusLabels
     const groupStatuses = group.tasks.map((task) => task.status)
 
     const statusCountMap = groupStatuses.reduce((acc, statusId) => {
@@ -10,6 +9,7 @@ export function StatusSummary({ group, board }) {
         return acc;
     }, {});
 
+    const labels = board.statusLabels
     const filterdLabels = labels.filter((label) => statusCountMap[label.id] !== undefined)
 
     return (
