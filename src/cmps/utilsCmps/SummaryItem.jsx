@@ -1,8 +1,8 @@
 import { Tooltip } from "monday-ui-react-core";
 
-export function SummaryItem({ labelCount, totalLabelsCount, color, title }) {
+export function SummaryItem({ dataCount, totalDataCount, color, title }) {
 
-    const percentage = ((labelCount / totalLabelsCount) * 100).toFixed(1);
+    const percentage = ((dataCount / totalDataCount) * 100).toFixed(1);
 
     const style = {
         width: `${percentage}%`,
@@ -10,7 +10,7 @@ export function SummaryItem({ labelCount, totalLabelsCount, color, title }) {
     };
 
     return (
-        <Tooltip content={`${title} ${labelCount}/${totalLabelsCount} ${percentage}%`}>
+        <Tooltip content={`${title} ${dataCount}/${totalDataCount} ${percentage}%`}>
             <div className="summary-item" style={style}></div>
         </Tooltip>
     );

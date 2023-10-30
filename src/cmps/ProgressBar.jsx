@@ -1,8 +1,8 @@
 import { utilService } from "../services/util.service";
 
 import { TimelineSummary } from "./dynamicSummaryCmps/TimelineSummary";
-import { StatusSummary } from "./dynamicSummaryCmps/StatusSummary";
 import { MembersSummary } from "./dynamicSummaryCmps/MembersSummary";
+import { LabelsSummary } from "./dynamicSummaryCmps/LabelsSummary";
 
 
 export function ProgressBar({ board, group }) {
@@ -12,14 +12,11 @@ export function ProgressBar({ board, group }) {
             case 'timeline':
                 return <TimelineSummary group={group} />
             case 'status':
-                return <StatusSummary group={group} board={board} />
+                return <LabelsSummary group={group} board={board} type={cmp.type} />
             case 'priority':
-                return <span></span>
+                return <LabelsSummary group={group} board={board} type={cmp.type} />
             case 'members':
-
-
                 return <MembersSummary group={group} board={board} />
-
             default:
                 return
         }
