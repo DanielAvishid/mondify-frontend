@@ -1,6 +1,10 @@
 import { utilService } from "../../services/util.service";
 import { PiWarningCircleFill, PiCheckCircleFill } from "react-icons/pi";
 import { AiOutlineClose } from "react-icons/ai";
+import { MdAddCircle } from "react-icons/md";
+import { Icon } from "monday-ui-react-core";
+import { Calendar } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
+
 
 export function DueDate({ labelId, board, onSaveBoard, cmpType, info, setIsTaskFocus, task, group }) {
     const dueDate = (info) ? utilService.formatDateFromTimestamp(info) : null
@@ -15,7 +19,7 @@ export function DueDate({ labelId, board, onSaveBoard, cmpType, info, setIsTaskF
 
     return (
         <td className="due-date date-col flex align-center justify-center">
-            {info &&
+            {info ?
                 <div className="inner-container flex align-center justify-center">
                     {isPastDate ?
                         <PiWarningCircleFill className="sign warning" /> :
@@ -23,6 +27,11 @@ export function DueDate({ labelId, board, onSaveBoard, cmpType, info, setIsTaskF
                     }
                     <span className={`${isDone ? 'done' : ''}`}>{dueDate}</span>
                     <AiOutlineClose className="remove-date" onClick={() => onSaveBoard({ board, taskId: task.id, key: "date", value: null })} />
+                </div>
+                :
+                <div className="empty-inner-container flex align-center">
+                    <MdAddCircle className="add-date" />
+                    <Icon icon={Calendar} title="Calendar" iconSize={22} />
                 </div>
             }
         </td >
