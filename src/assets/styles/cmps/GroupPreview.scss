@@ -75,44 +75,46 @@
             border-block-end: 1px solid $table-border;
             height: 2.25rem;
 
-            >.task-item {
+            >.title-col,
+            >.members-col,
+            >.date-col,
+            >.priority-col,
+            >.status-col,
+            >.timeline-col {
                 border-inline-end: 1px solid $table-border;
                 height: 2.25rem;
+            }
 
-                &.title-col {
-                    min-width: 22.25rem;
+            >.title-col {
+                width: rem(390px);
 
-                    >.title-name,
-                    >.checkbox {
-                        height: 2.25rem;
-                    }
-
-                    >.checkbox {
-                        padding-inline-start: 0.5rem;
-                        border-inline-end: 1px solid $table-border;
-                    }
-
-                    >.title-name {
-                        width: 100%;
-                    }
+                >.title-name,
+                >.checkbox {
+                    height: 2.25rem;
                 }
 
-                &.members-col {
-                    width: 6.25rem;
+                >.checkbox {
+                    padding-inline-start: 0.5rem;
+                    border-inline-end: 1px solid $table-border;
                 }
 
-                &.status-col {
-                    width: 8.75rem;
-                }
-
-                &.priority-col {
-                    width: 8.75rem;
-                }
-
-                &.timeline-col {
-                    width: 8.75rem;
+                >.title-name {
+                    width: 100%;
                 }
             }
+
+            >.members-col {
+                width: rem(100px);
+            }
+
+
+            >.date-col,
+            >.priority-col,
+            >.status-col,
+            >.timeline-col {
+                width: rem(140px);
+            }
+
         }
     }
 

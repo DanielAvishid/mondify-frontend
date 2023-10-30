@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { utilService } from "../../services/util.service";
 import { AiOutlineClose } from "react-icons/ai";
 import { TimelineModal } from "../dynamicModalCmps/TimelineModal";
-import { useClickOutside } from "../../hooks/useClickOutside ";
+import { useClickOutside } from "../../hooks/useClickOutside";
 
 export function Timeline({ info, task, board, group, onSaveBoard, setIsTaskFocus }) {
 

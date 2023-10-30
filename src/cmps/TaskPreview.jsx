@@ -1,12 +1,13 @@
 import { useRef } from "react";
 
-import { useClickOutside } from "../hooks/useClickOutside ";
+import { useClickOutside } from "../hooks/useClickOutside";
 
 import { Priority } from "./dynamicCmps/Priority";
 import { TaskTitle } from "./dynamicCmps/TaskTitle";
 import { Status } from "./dynamicCmps/Status";
 import { Members } from "./dynamicCmps/Members";
 import { Timeline } from "./dynamicCmps/Timeline";
+import { DueDate } from "./dynamicCmps/DueDate";
 
 import { Duplicate, Delete } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { Menu, MenuButton, MenuItem } from "monday-ui-react-core";
@@ -73,6 +74,8 @@ const DynamicCmp = ({ task, group, board, cmpType, info, onSaveBoard, setIsTaskF
             return <Members info={info} task={task} board={board} onSaveBoard={onSaveBoard} setIsTaskFocus={setIsTaskFocus} />;
         case "timeline":
             return <Timeline info={info} task={task} group={group} board={board} onSaveBoard={onSaveBoard} setIsTaskFocus={setIsTaskFocus} />
+        case "date":
+            return <DueDate info={info} task={task} group={group} board={board} onSaveBoard={onSaveBoard} setIsTaskFocus={setIsTaskFocus} />
         default:
             break;
     }

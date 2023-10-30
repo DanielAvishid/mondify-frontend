@@ -2,7 +2,7 @@ import { Checkbox, Counter, EditableHeading, Icon, IconButton } from "monday-ui-
 import { AddUpdate, Update, DropdownChevronRight, Open } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { useNavigate, useParams } from "react-router"
 import { useEffect, useState, useRef } from "react"
-import { useClickOutside } from "../../hooks/useClickOutside "
+import { useClickOutside } from "../../hooks/useClickOutside"
 
 export function TaskTitle({ boardId, task, onSaveBoard, isChecked, handleCheckboxChange, setIsTaskFocus }) {
 

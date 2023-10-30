@@ -224,6 +224,7 @@ function getEmptyBoard() {
                         "priority": "lp103",
                         "timeline": [1677619200000, 1679952000000],
                         "members": ["WOWOWO"],
+                        "date": 1697619200000
                     },
                     {
                         "id": utilService.makeId(),
@@ -232,6 +233,7 @@ function getEmptyBoard() {
                         "priority": "lp101",
                         "timeline": [1678128000000, 1679872000000],
                         "members": ["UjCos"],
+                        "date": 1690619200000
                     },
                     {
                         "id": utilService.makeId(),
@@ -240,22 +242,25 @@ function getEmptyBoard() {
                         "priority": "lp103",
                         "timeline": [1677388800000, 1680048000000],
                         "members": ["KKLLSS", "UjCos"],
+                        "date": 1699819200000
                     },
                     {
                         "id": utilService.makeId(),
                         "title": "Add rating stars",
                         "status": "ls101",
                         "priority": "lp103",
-                        "timeline": [1677772800000, 1680288000000],
+                        "timeline": [167772800000, 1680288000000],
                         "members": ["WOWOWO"],
+                        "date": 1678119200000
                     },
                     {
                         "id": utilService.makeId(),
                         "title": "Update react version",
                         "status": "ls103",
                         "priority": "lp101",
-                        "timeline": [1677041200000, 1677041200000],
+                        "timeline": [1666041200000, 1677041200000],
                         "members": ["UjCos"],
+                        "date": 1699619200000
                     },
                     {
                         "id": utilService.makeId(),
@@ -264,6 +269,7 @@ function getEmptyBoard() {
                         "priority": "lp103",
                         "timeline": [1677043200000, 1679971200000],
                         "members": ["KKLLSS", "UjCos"],
+                        "date": 1657619200000
                     },
                 ],
                 "style": { "backgroundColor": "#579BFC" }
@@ -280,6 +286,7 @@ function getEmptyBoard() {
                         "priority": "lp103",
                         "timeline": [1677619200000, 1680124800000],
                         "members": ["UjCos"],
+                        "date": 1676619200000
                     },
                     {
                         "id": utilService.makeId(),
@@ -288,6 +295,7 @@ function getEmptyBoard() {
                         "priority": "lp101",
                         "timeline": [1677532800000, 1679872000000],
                         "members": ["KKLLSS", "WOWOWO"],
+                        "date": 1679919200000
                     },
                     {
                         "id": utilService.makeId(),
@@ -296,6 +304,7 @@ function getEmptyBoard() {
                         "priority": "lp103",
                         "timeline": [1676880000000, 1680201600000],
                         "members": ["KKLLSS"],
+                        "date": 1677339200000
                     },
                     {
                         "id": utilService.makeId(),
@@ -304,6 +313,7 @@ function getEmptyBoard() {
                         "priority": "lp101",
                         "timeline": [1676880000000, 1680201600000],
                         "members": ["KKLLSS", "WOWOWO", "UjCos"],
+                        "date": 1679119200000
                     }
                 ],
                 "style": { "backgroundColor": "#A25DDC" }
@@ -320,6 +330,7 @@ function getEmptyBoard() {
                         "priority": "lp103",
                         "timeline": [1677187200000, 1680110400000],
                         "members": ["UjCos"],
+                        "date": 1673619200000
                     },
                     {
                         "id": utilService.makeId(),
@@ -328,6 +339,7 @@ function getEmptyBoard() {
                         "priority": "lp101",
                         "timeline": [1677484800000, 1680153600000],
                         "members": ["KKLLSS", "WOWOWO"],
+                        "date": 1674619200000
                     },
                     {
                         "id": utilService.makeId(),
@@ -336,6 +348,7 @@ function getEmptyBoard() {
                         "priority": "lp103",
                         "timeline": [1677619200000, 1680345600000],
                         "members": ["WOWOWO"],
+                        "date": 1687619200000
                     },
                 ],
                 "style": { "backgroundColor": "#00c875" }
@@ -380,6 +393,11 @@ function getEmptyBoard() {
             },
             {
                 "id": "co104",
+                "title": "Due Date",
+                "type": "date"
+            },
+            {
+                "id": "co105",
                 "title": "Timeline",
                 "type": "timeline"
             }

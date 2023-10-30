@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import { LabelModal } from "./LabelModal"
-import { useClickOutside } from "../../hooks/useClickOutside ";
+import { useClickOutside } from "../../hooks/useClickOutside";
 
 export function Priority({ labelId, board, onSaveBoard, cmpType, setIsTaskFocus, task, group }) {
     const [currLabel, setCurrLabel] = useState(getCurrLabel())

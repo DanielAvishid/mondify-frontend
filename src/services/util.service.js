@@ -8,6 +8,7 @@ export const utilService = {
     loadFromStorage,
     getAssetSrc,
     getDateToShow,
+    formatDateFromTimestamp,
     formatString,
     getTimePassed,
     lowercaseFirstLetter,
@@ -128,6 +129,22 @@ function getDateToShow(timeStamps = []) {
     const year2 = getShortYear(date2)
 
     return { text: `${formatDateMonth(date1)} ${formatDateDay(date1)}, '${year1} - ${formatDateMonth(date2)} ${formatDateDay(date2)}, '${year2}`, percentage }
+}
+
+function formatDateFromTimestamp(timestamp) {
+    if (!timestamp) {
+        return '';
+    }
+
+    const date = new Date(timestamp);
+    const currentDate = new Date();
+    const isCurrentYear = date.getFullYear() === currentDate.getFullYear();
+
+    return date.toLocaleDateString('en-US', {
+        day: 'numeric',
+        month: 'short',
+        year: isCurrentYear ? undefined : 'numeric'
+    });
 }
 
 function formatString(inputString) {

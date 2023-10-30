@@ -1,0 +1,53 @@
+.due-date {
+    color: $date-color;
+    font-size: rem(13px);
+    position: relative;
+
+    .inner-container {
+
+        >.warning {
+            position: absolute;
+            padding: rem(5px);
+            width: rem(30px);
+            height: 100%;
+            color: $icon-warning-color;
+            left: 0;
+        }
+
+        >.remove-date {
+            opacity: 0;
+            background-color: $light_grey;
+            position: absolute;
+            padding: rem(3px);
+            width: rem(16px);
+            height: rem(16px);
+            right: rem(10px);
+            border-radius: rem(3px);
+            color: $primary-text-color;
+        }
+
+    }
+
+    .done {
+        text-decoration: line-through;
+    }
+
+
+    &:hover {
+
+        .remove-date {
+            opacity: 1;
+        }
+
+        &::before {
+            content: "";
+            position: absolute;
+            top: rem(4px);
+            right: rem(5px);
+            bottom: rem(4px);
+            left: rem(5px);
+            border: 1px solid $selectable-cluster-border;
+            z-index: 1;
+        }
+    }
+}

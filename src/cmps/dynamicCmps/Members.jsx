@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { InviteMemberModal } from "../dynamicModalCmps/InviteMemberModal"
 import { MembersModal } from "../dynamicModalCmps/MembersModal"
-import { useClickOutside } from "../../hooks/useClickOutside "
+import { useClickOutside } from "../../hooks/useClickOutside"
 import { AvatarGroupCmp } from "../utilsCmps/AvatarGroupCmp"
 
 
