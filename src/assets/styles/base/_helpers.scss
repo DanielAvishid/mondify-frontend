@@ -78,8 +78,8 @@
 // BORDER
 
 .focus {
-    // margin-inline-start: -0.8px;
-    border: 0.8px solid $primary-color !important;
+    outline-offset: -1px;
+    outline: 1px solid $primary-color !important;
 
     &.title-col {
         // margin-inline-start: 0;
