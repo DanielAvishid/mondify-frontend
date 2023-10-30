@@ -202,7 +202,7 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
                         </nav>
                     </div>
                 </div>
-                {(filterBy.title && !boards.length) && <div className="no-result">
+                {(filterBy.title && !boards.length) && (isSideBarHover || isSidBarOpen) && <div className="no-result">
                     <div className="img-container">
                         <img className="img" src="https://cdn.monday.com/images/search_empty_state.svg" />
                     </div>
