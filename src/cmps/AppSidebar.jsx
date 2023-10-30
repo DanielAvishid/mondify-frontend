@@ -59,6 +59,11 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
         setIsSideBarHover(false)
     }
 
+    function handleSearchChange(ev) {
+        console.log(ev)
+
+    }
+
     function toggleOpenMenu(boardId, ev) {
         ev.stopPropagation()
         setOpenState((prevState) => ({
@@ -77,37 +82,76 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
     }
 
     return (
-        <section className={`app-sidebar ${isSidBarOpen ? '' : 'close'} ${(isSideBarHover && !isSidBarOpen) ? 'hover' : ''}`} onMouseEnter={(ev) => handleContainerMouseEnter(ev)} onMouseLeave={handleContainerMouseLeave}>
-            {<button className={`close-btn ${!isSidBarOpen ? 'close' : ''}`} onClick={toggleSidebar} >
-                <Icon className="icon" icon={isSidBarOpen ? NavigationChevronLeft : NavigationChevronRight} />
+        <section
+            className={`app-sidebar ${isSidBarOpen ? '' : 'close'} ${(isSideBarHover && !isSidBarOpen) ? 'hover' : ''}`}
+            onMouseEnter={(ev) => handleContainerMouseEnter(ev)}
+            onMouseLeave={handleContainerMouseLeave}>
+            {<button
+                className={`close-btn ${!isSidBarOpen ? 'close' : ''}`}
+                onClick={toggleSidebar} >
+                <Icon
+                    className="icon"
+                    icon={isSidBarOpen ? NavigationChevronLeft : NavigationChevronRight} />
             </button>}
             {<section className="expand-sidebar">
-                {isSideBarHover && <button className="close-btn" onClick={toggleSidebar} onMouseEnter={emptyFunction}>
-                    <Icon className="icon" icon={isSidBarOpen ? NavigationChevronLeft : NavigationChevronRight} />
+                {isSideBarHover && <button
+                    className="close-btn"
+                    onClick={toggleSidebar}
+                    onMouseEnter={emptyFunction}>
+                    <Icon
+                        className="icon"
+                        icon={isSidBarOpen ? NavigationChevronLeft : NavigationChevronRight} />
                 </button>}
                 <div className="general-btns">
-                    <Button leftIcon={Home} kind="tertiary" className={`home ${location.pathname === '/board' ? 'active' : ''}`} onClick={() => navigate('/board')}>Home</Button>
-                    <Button leftIcon={MyWeek} kind="tertiary" className="my-week">My work</Button>
+                    <Button
+                        leftIcon={Home}
+                        kind="tertiary"
+                        className={`home ${location.pathname === '/board' ? 'active' : ''}`}
+                        onClick={() => navigate('/board')}>
+                        Home
+                    </Button>
+                    <Button
+                        leftIcon={MyWeek}
+                        kind="tertiary"
+                        className="my-week">
+                        My work
+                    </Button>
                 </div>
                 <div className="workspace">
                     <div className="tools">
                         <div className="workspace-select">
-                            <Button className={`workspace-dropdown ${selectedClass()}`} kind="tertiary" onClick={() => toggleModal()}>
+                            <Button
+                                className={`workspace-dropdown ${selectedClass()}`}
+                                kind="tertiary"
+                                onClick={() => toggleModal()}>
                                 <div className="workspace-icon">
                                     <span className="letter-icon">M</span>
                                     <Icon className="home-icon" icon={GoHomeFill} />
                                 </div>
-                                <span className="workspace-title">Main workspace</span>
+                                <span className="workspace-title">
+                                    Main workspace
+                                </span>
                                 <Icon className="drop-icon" icon={DropdownChevronDown} />
                             </Button>
                         </div>
                         <div className="search-add">
-                            <div className={`search-container ${showBorder ? 'is-focus' : ''}`} onMouseEnter={() => setSearchHoverState(true)} onMouseLeave={() => setSearchHoverState(false)}>
+                            <div
+                                className={`search-container ${showBorder ? 'is-focus' : ''}`}
+                                onMouseEnter={() => setSearchHoverState(true)}
+                                onMouseLeave={() => setSearchHoverState(false)}>
                                 <Icon className="search-icon" icon={Search} />
-                                <input onFocus={toggleBorder} onBlur={toggleBorder} className="search-input" type="text" placeholder="Search" />
+                                <input
+                                    onFocus={toggleBorder}
+                                    onBlur={toggleBorder}
+                                    className="search-input"
+                                    type="text"
+                                    placeholder="Search"
+                                    onChange={(ev) => handleSearchChange(ev)} />
                                 <div className="filter-btn-container">
                                     <Tooltip
-                                        className="filter-tool-tip" content="Filters" animationType="expand">
+                                        className="filter-tool-tip"
+                                        content="Filters"
+                                        animationType="expand">
                                         <div />
                                     </Tooltip>
                                     {searchHoverState && <Button className="filter-btn" kind={Button.kinds.TERTIARY} >
@@ -121,7 +165,11 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
                         </div>
                         <nav className="board-nav">
                             {boards.map(board =>
-                                <Link onMouseEnter={() => toggleHoverMenu(board._id)} onMouseLeave={() => toggleHoverMenu(board._id)} key={board._id} to={`/board/${board._id}`}>
+                                <Link
+                                    onMouseEnter={() => toggleHoverMenu(board._id)}
+                                    onMouseLeave={() => toggleHoverMenu(board._id)}
+                                    key={board._id}
+                                    to={`/board/${board._id}`}>
                                     <Button
                                         kind="tertiary"
                                         className={`board-btn ${location.pathname.includes(board._id) ? 'active' : ''}`}>
@@ -129,17 +177,33 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
                                             <Icon className="board-icon" icon={Board} />
                                             <span className="board-title">{board.title}</span>
                                         </div>
-                                        {(boardHoverState[board._id] || openState[board._id]) && <MenuButton className="board-options"
+                                        {(boardHoverState[board._id] || openState[board._id]) && <MenuButton
+                                            className="board-options"
                                             onClick={(ev) => toggleOpenMenu(board._id, ev)}>
                                             <Menu id="menu" size="large" className="menu-modal">
-                                                <MenuItem icon={Duplicate} title="Duplicate Board" onClick={() => onDuplicateBoard({ boardId: board._id })} />
-                                                <MenuItem icon={Delete} title="Delete" onClick={() => onRemoveBoard({ boardId: board._id })} />
+                                                <MenuItem
+                                                    icon={Duplicate}
+                                                    title="Duplicate Board"
+                                                    onClick={() => onDuplicateBoard({ boardId: board._id })} />
+                                                <MenuItem
+                                                    icon={Delete}
+                                                    title="Delete"
+                                                    onClick={() => onRemoveBoard({ boardId: board._id })} />
                                             </Menu>
                                         </MenuButton>}
                                     </Button>
                                 </Link>)}
                         </nav>
-                        {/* {isModalOpen && <div className="workspace-modal">
+                    </div>
+                </div>
+            </section>}
+        </section >
+    )
+}
+
+
+
+{/* {isModalOpen && <div className="workspace-modal">
                             <div className="modal-top">
                                 <div className="search">
                                     <Search className="search-input" placeholder="Search for a board" />
@@ -165,12 +229,8 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
                                 </Button>
                             </div>
                         </div>} */}
-                    </div>
-                </div>
-            </section>}
-        </section >
-    )
-}
+
+
 //     return (
 //         <section className="app-sidebar flex column">
 //             <button className="close-btn" onClick={toggleSidebar}>

@@ -78,17 +78,20 @@
 // BORDER
 
 .focus {
-    &::after {
-        position: absolute;
-        content: '';
-        pointer-events: none;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        outline-offset: -1px;
-        outline: 1px solid $primary-color;
-    }
+    outline-offset: -1px;
+    outline: 1px solid $primary-color;
+
+    // &::after {
+    //     position: absolute;
+    //     content: '';
+    //     pointer-events: none;
+    //     top: 0;
+    //     left: 0;
+    //     width: 100%;
+    //     height: 100%;
+    //     outline-offset: -1px;
+    //     outline: 1px solid $primary-color;
+    // }
 
     &.title-col {
         // margin-inline-start: 0;
