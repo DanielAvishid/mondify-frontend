@@ -1,9 +1,8 @@
-import { Avatar, AvatarGroup, Box, Button, Icon, Search, TextField } from "monday-ui-react-core"
-import { Invite, Close } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { useEffect, useRef, useState } from "react"
 import { InviteMemberModal } from "../dynamicModalCmps/InviteMemberModal"
 import { MembersModal } from "../dynamicModalCmps/MembersModal"
 import { useClickOutside } from "../../hooks/useClickOutside "
+import { AvatarGroupCmp } from "../utilsCmps/AvatarGroupCmp"
 
 
 export function Members({ info, task, board, onSaveBoard, setIsTaskFocus }) {
@@ -56,26 +55,7 @@ export function Members({ info, task, board, onSaveBoard, setIsTaskFocus }) {
             onClick={onClickMembersCell}
         >
             <span className="plus-container flex align-center justify-center">+</span>
-
-            <AvatarGroup max={1} size={Avatar.sizes.SMALL}>
-                {participateMembers.length > 0 ? participateMembers.map((member) => {
-                    return (
-                        <Avatar
-                            key={member._id}
-                            size={Avatar.sizes.SMALL}
-                            type={Avatar.types.IMG}
-                            src={member.imgUrl}
-                            ariaLabel={member.fullname}
-                        />
-                    )
-                }) :
-                    <Avatar
-                        size={Avatar.sizes.SMALL}
-                        type={Avatar.types.IMG}
-                        src={"https://style.monday.com/static/media/person1.de30c8ee.png"}
-                    />
-                }
-            </AvatarGroup>
+            <AvatarGroupCmp members={participateMembers} />
 
             {
                 isModalOpen ?

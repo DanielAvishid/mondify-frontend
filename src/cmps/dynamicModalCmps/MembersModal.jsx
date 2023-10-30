@@ -5,29 +5,27 @@ export function MembersModal({ board, task, membersIds, handleSearch, searchTerm
     return (
         <div className="members-modal">
             <section className="participate-members flex">
-                {participateMembers.length > 0 &&
-
-                    participateMembers.map((member) => {
-                        return (
-                            <div className="member-container flex align-center" key={member._id}>
-                                <Avatar
-                                    className="avatar"
-                                    key={member._id}
-                                    size={Avatar.sizes.SMALL}
-                                    type={Avatar.types.IMG}
-                                    src={member.imgUrl}
-                                    ariaLabel={member.fullname}
+                {participateMembers.length > 0 && participateMembers.map((member) => {
+                    return (
+                        <div className="member-container flex align-center" key={member._id}>
+                            <Avatar
+                                className="avatar"
+                                key={member._id}
+                                size={Avatar.sizes.SMALL}
+                                type={Avatar.types.IMG}
+                                src={member.imgUrl}
+                                ariaLabel={member.fullname}
+                            />
+                            <span className="member-name">{member.fullname}</span>
+                            <div className="remove-member flex align-center justify-center" onClick={() => onRemoveMember(member._id)}>
+                                <Icon
+                                    icon={Close}
+                                    iconSize={8}
                                 />
-                                <span className="member-name">{member.fullname}</span>
-                                <div className="remove-member flex align-center justify-center" onClick={() => onRemoveMember(member._id)}>
-                                    <Icon
-                                        icon={Close}
-                                        iconSize={8}
-                                    />
-                                </div>
                             </div>
-                        )
-                    })
+                        </div>
+                    )
+                })
                 }
             </section>
             <section className="member-list-container">
