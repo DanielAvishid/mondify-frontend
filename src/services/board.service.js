@@ -18,6 +18,7 @@ export const boardService = {
     getEmptyBoard,
     getEmptyGroup,
     getEmptyTask,
+    getEmptyStatusLabel
 }
 
 async function query(filterBy = {}) {
@@ -275,7 +276,7 @@ function getEmptyBoard() {
                     {
                         "id": utilService.makeId(),
                         "title": "Make it look better",
-                        "status": "Done",
+                        "status": "ls103",
                         "priority": "Medium",
                         "timeline": [1677619200000, 1680124800000],
                         "members": ["UjCos"],
@@ -283,7 +284,7 @@ function getEmptyBoard() {
                     {
                         "id": utilService.makeId(),
                         "title": "Fix main button",
-                        "status": "Working on it",
+                        "status": "ls101",
                         "priority": "Critical",
                         "timeline": [1677532800000, 1679872000000],
                         "members": ["KKLLSS", "WOWOWO"],
@@ -291,7 +292,7 @@ function getEmptyBoard() {
                     {
                         "id": utilService.makeId(),
                         "title": "Check for new libraries",
-                        "status": "Done",
+                        "status": "ls103",
                         "priority": "Medium",
                         "timeline": [1676880000000, 1680201600000],
                         "members": ["KKLLSS"],
@@ -299,7 +300,7 @@ function getEmptyBoard() {
                     {
                         "id": utilService.makeId(),
                         "title": "Update modal layout",
-                        "status": "Working on it",
+                        "status": "ls101",
                         "priority": "Critical",
                         "timeline": [1676880000000, 1680201600000],
                         "members": ["KKLLSS", "WOWOWO", "UjCos"],
@@ -315,7 +316,7 @@ function getEmptyBoard() {
                     {
                         "id": utilService.makeId(),
                         "title": "Data collection",
-                        "status": "Done",
+                        "status": "ls103",
                         "priority": "Medium",
                         "timeline": [1677187200000, 1680110400000],
                         "members": ["UjCos"],
@@ -323,7 +324,7 @@ function getEmptyBoard() {
                     {
                         "id": utilService.makeId(),
                         "title": "Renew data",
-                        "status": "Done",
+                        "status": "ls103",
                         "priority": "Critical",
                         "timeline": [1677484800000, 1680153600000],
                         "members": ["KKLLSS", "WOWOWO"],
@@ -331,7 +332,7 @@ function getEmptyBoard() {
                     {
                         "id": utilService.makeId(),
                         "title": "Check for duplicates",
-                        "status": "Working on it",
+                        "status": "ls101",
                         "priority": "Medium",
                         "timeline": [1677619200000, 1680345600000],
                         "members": ["WOWOWO"],
@@ -407,6 +408,14 @@ function getEmptyTask(title = 'New Item') {
         priority: "Critical",
         members: ["UjCos"],
         timeline: []
+    }
+}
+
+function getEmptyStatusLabel() {
+    return {
+        id: utilService.makeId(),
+        title: '',
+        color: utilService.getRandomLabelColor()
     }
 }
 

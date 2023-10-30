@@ -1,16 +1,17 @@
 import { Button, ColorPicker, Divider, EditableHeading, Icon, IconButton } from "monday-ui-react-core";
 import { Edit, Drag, Close, AddSmall, HighlightColorBucket } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { useState } from "react";
+import { utilService } from "../../services/util.service";
+import { boardService } from "../../services/board.service";
 
-export function LabelModal({ keyName, board, labels, onSaveBoard }) {
+export function LabelModal({ keyName, board, onSaveBoard, task, group, cmpType }) {
     const [isEditMode, setIsEditMode] = useState(false)
     const [palleteOpenState, setPalleteOpenState] = useState({})
     const [hoverState, setHoverState] = useState({})
-    const [editableLabels, setEditableLabels] = useState(labels)
-    const [editingIndex, setEditingIndex] = useState(null)
+    const [editableLabels, setEditableLabels] = useState(board[keyName])
 
-    const viewNum = (labels.length >= 6) ? 6 : labels.length
-    const editNum = (labels.length >= 6) ? 6 : labels.length + 1
+    const viewNum = (editableLabels.length >= 6) ? 6 : editableLabels.length
+    const editNum = (editableLabels.length >= 6) ? 6 : editableLabels.length + 1
 
     const styleViewMode = {
         gridTemplateRows: `repeat(${viewNum}, 1fr)`
@@ -45,11 +46,37 @@ export function LabelModal({ keyName, board, labels, onSaveBoard }) {
         }))
     }
 
-    function handleChange(ev, index) {
-        console.log('TEST')
+    function onRemoveLabel(labelId) {
+        const value = editableLabels.filter(label => label.id !== labelId)
+        setEditableLabels(value)
+        onSaveBoard({ board, key: keyName, value })
+    }
+
+    function onAddLabel() {
+        const newLabels = [...editableLabels]
+        const newLabel = boardService.getEmptyStatusLabel()
+        newLabels.push(newLabel)
+        onSaveBoard({ board, key: keyName, value: newLabels })
+    }
+
+    function handleTitleChange(ev, index) {
         const newLabels = [...editableLabels]
         newLabels[index].title = ev.target.value
         setEditableLabels(newLabels)
+        onSaveBoard({ board, key: keyName, value: editableLabels })
+    }
+
+    function handleColorChange(value, index) {
+        const colorToSave = utilService.getHexColor(value[0])
+        const newLabels = [...editableLabels]
+        newLabels[index].color = colorToSave
+        setEditableLabels(newLabels)
+        onSaveBoard({ board, key: keyName, value: editableLabels })
+        setPalleteOpenState({})
+    }
+
+    function handleLabelPick(labelId) {
+        onSaveBoard({ board, taskId: task.id, groupId: group.id, key: 'status', value: labelId })
     }
 
     function stopPropagation(ev) {
@@ -60,14 +87,18 @@ export function LabelModal({ keyName, board, labels, onSaveBoard }) {
         <section className="label-modal relative">
             <div className="label-content">
                 {!isEditMode && <div className="label-view-container" style={styleViewMode}>
-                    {labels.map((label, index) =>
-                        <button key={label.id} className="label-picker" style={{ backgroundColor: label.color }}>
+                    {editableLabels.map((label, index) =>
+                        <button
+                            key={label.id}
+                            className="label-picker"
+                            style={{ backgroundColor: label.color }}
+                            onClick={() => handleLabelPick(label.id)}>
                             {editableLabels[index].title}
                         </button>
                     )}
                 </div>}
                 {isEditMode && <div className="label-edit-container" style={styleEditMode}>
-                    {labels.map((label, index) =>
+                    {editableLabels.map((label, index) =>
                         <div
                             key={label.id}
                             className="label-edit label-edit-layout"
@@ -79,23 +110,32 @@ export function LabelModal({ keyName, board, labels, onSaveBoard }) {
                                 <button
                                     className="color-btn"
                                     style={{ backgroundColor: label.color }}
-                                    onClick={(ev) => togglePallete(ev, label.id)}>
+                                    onClick={(ev) => togglePallete(ev, label.id)}
+                                    disabled={label.isDefault}>
                                     <Icon iconType={Icon.type.SVG} icon={HighlightColorBucket} iconLabel="my bolt svg icon" iconSize={16} style={{ color: '#fff' }} />
                                 </button>
                                 <input
                                     className="label-input"
                                     placeholder={getPlaceHolder(label.isDefault)}
                                     value={editableLabels[index].title} type="text"
-                                    onChange={(ev) => handleChange(ev, index)}
-                                    onBlur={() => onSaveBoard({ key: keyName, value: editableLabels, board })} />
+                                    onChange={(ev) => handleTitleChange(ev, index)}
+                                    onBlur={() => onSaveBoard({ board, key: keyName, value: editableLabels })} />
                             </div>
-                            {hoverState[label.id] && <Button size={Button.sizes.XXS} kind={Button.kinds.TERTIARY}>
+                            {hoverState[label.id] && <Button
+                                size={Button.sizes.XXS}
+                                kind={Button.kinds.TERTIARY}
+                                onClick={() => onRemoveLabel(label.id)}
+                                disabled={(label.isDefault || board.groups.some(group => group.tasks.some(task => task[cmpType] === label.id)))}>
                                 <Icon iconSize={16} icon={Close} />
                             </Button>}
-                            {palleteOpenState[label.id] && <ColorPicker className="color-picker" colorSize="small" />}
+                            {palleteOpenState[label.id] && <ColorPicker
+                                className="color-picker"
+                                colorSize="small"
+                                showColorNameTooltip={true}
+                                onSave={(value) => handleColorChange(value, index)} />}
                         </div>)}
                     <div className="add-btn-container label-edit-layout">
-                        <Button className="add-btn middle" leftIcon={AddSmall} kind={Button.kinds.SECONDARY}>
+                        <Button className="add-btn middle" leftIcon={AddSmall} kind={Button.kinds.SECONDARY} onClick={(ev) => onAddLabel(ev)}>
                             New label
                         </Button>
                     </div>

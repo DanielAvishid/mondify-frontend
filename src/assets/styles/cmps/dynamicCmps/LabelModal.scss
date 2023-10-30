@@ -4,7 +4,7 @@
     left: 50%;
     transform: translate(-50%);
     z-index: 400;
-    max-width: 880px; // rem?
+    max-width: max-content; // rem?
     min-width: 200px; // rem?
     background-color: white;
     box-shadow: 0 8px 16px 0 $modal-shadow-color;
@@ -16,6 +16,7 @@
 
         .label-view-container {
             display: grid;
+            grid-auto-flow: column;
             gap: 8px; // rem?
             padding: 16px 24px 8px; // rem?
             overflow-x: auto;
@@ -45,7 +46,8 @@
         .label-edit-container {
             // use helper?
             display: grid;
-            gap: 8px;
+            grid-auto-flow: column;
+            row-gap: 8px;
             align-items: center;
             padding: 16px 12px 0px;
 

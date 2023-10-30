@@ -13,8 +13,10 @@ export const utilService = {
     lowercaseFirstLetter,
     calculateDaysDifference,
     getRandomColor,
+    getRandomLabelColor,
     isEmailValid,
-    darkenColor
+    darkenColor,
+    getHexColor
 }
 
 function makeId(length = 6) {
@@ -200,6 +202,18 @@ function darkenColor(color, factor = 0.2) {
 
     // If the input color had an alpha component, add it to the result
     return isHexWithAlpha ? `${newHexColor}${color.slice(7)}` : newHexColor;
+}
+
+function getHexColor(colorName) {
+    const colorPallete = [{ colorName: 'grass_green', colorHex: '#037f4c' }, { colorName: 'done-green', colorHex: '#00c875' }, { colorName: 'bright-green', colorHex: '#9cd326' }, { colorName: 'saladish', colorHex: '#cab641' }, { colorName: 'egg_yolk', colorHex: '#ffcb00' }, { colorName: 'working_orange', colorHex: '#fdab3d' }, { colorName: 'dark-orange', colorHex: '#ff642e' }, { colorName: 'peach', colorHex: '#ffadad' }, { colorName: 'sunset', colorHex: '#ff7575' }, { colorName: 'stuck-red', colorHex: '#e2445c' }, { colorName: 'dark-red', colorHex: '#bb3354' }, { colorName: 'sofia_pink', colorHex: '#ff158a' }, { colorName: 'lipstick', colorHex: '#ff5ac4' }, { colorName: 'bubble', colorHex: '#faa1f1' }, { colorName: 'purple', colorHex: '#a25ddc' }, { colorName: 'dark_purple', colorHex: '#784bd1' }, { colorName: 'berry', colorHex: '#7e3b8a' }, { colorName: 'dark_indigo', colorHex: '#401694' }, { colorName: 'indigo', colorHex: '#5559df' }, { colorName: 'navy', colorHex: '#225091' }, { colorName: 'bright-blue', colorHex: '#579bfc' }, { colorName: 'dark-blue', colorHex: '#0086c0' }, { colorName: 'aquamarine', colorHex: '#4eccc6' }, { colorName: 'chili-blue', colorHex: '#66ccff' }, { colorName: 'river', colorHex: '#68a1bd' }, { colorName: 'winter', colorHex: '#9aadbd' }, { colorName: 'explosive', colorHex: '#c4c4c4' }, { colorName: 'american_gray', colorHex: '#808080' }, { colorName: 'blackish', colorHex: '#333333' }, { colorName: 'brown', colorHex: '#7f5347' }, { colorName: 'orchid', colorHex: '#d974b0' }, { colorName: 'tan', colorHex: '#ad967a' }, { colorName: 'sky', colorHex: '#a1e3f6' }, { colorName: 'coffee', colorHex: '#bd816e' }, { colorName: 'royal', colorHex: '#2b76e5' }, { colorName: 'teal', colorHex: '#175a63' }, { colorName: 'lavender', colorHex: '#bda8f9' }, { colorName: 'steel', colorHex: '#a9bee8' }, { colorName: 'lilac', colorHex: '#9d99b9' }, { colorName: 'pecan', colorHex: '#563e3e' }]
+    const currColor = colorPallete.find(color => color.colorName === colorName)
+    return currColor.colorHex
+}
+
+function getRandomLabelColor() {
+    const colorPallete = ['#037f4c', '#00c875', '#9cd326', '#cab641', '#ffcb00', '#fdab3d', '#ff642e', '#ffadad', '#ff7575', '#e2445c', '#bb3354', '#ff158a', '#ff5ac4', '#faa1f1', '#a25ddc', '#784bd1', '#7e3b8a', '#401694', '#5559df', '#225091', '#579bfc', '#0086c0', '#4eccc6', '#66ccff', '#68a1bd', '#9aadbd', '#c4c4c4', '#808080', '#333333', '#7f5347', '#d974b0', '#ad967a', '#a1e3f6', '#bd816e', '#2b76e5', '#175a63', '#bda8f9', '#a9bee8', '#9d99b9', '#563e3e']
+    const randomIndex = Math.floor(Math.random() * colorPallete.length)
+    return colorPallete[randomIndex]
 }
 
 

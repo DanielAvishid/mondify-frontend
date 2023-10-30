@@ -68,7 +68,7 @@ const DynamicCmp = ({ task, group, board, cmpType, info, onSaveBoard, setIsTaskF
         case "priority":
             return <Priority info={info} board={board} onSaveBoard={onSaveBoard} setIsTaskFocus={setIsTaskFocus} />;
         case "status":
-            return <Status cmpType={cmpType} info={info} board={board} onSaveBoard={onSaveBoard} setIsTaskFocus={setIsTaskFocus} />;
+            return <Status group={group} task={task} cmpType={cmpType} labelId={info} board={board} onSaveBoard={onSaveBoard} setIsTaskFocus={setIsTaskFocus} />;
         case "members":
             return <Members info={info} task={task} board={board} onSaveBoard={onSaveBoard} setIsTaskFocus={setIsTaskFocus} />;
         case "timeline":
