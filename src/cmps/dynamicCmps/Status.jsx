@@ -20,9 +20,8 @@ export function Status({ labelId, board, onSaveBoard, cmpType, setIsTaskFocus, t
         backgroundColor: currLabel.color
     }
 
-
     //change to normal function (non-arrow-function)
-    const onClickMembersCell = () => {
+    const onClickStatusCell = () => {
         setIsTaskFocus(true)
         setIsFocus(true)
         setIsModalOpen(!isModalOpen)
@@ -33,10 +32,15 @@ export function Status({ labelId, board, onSaveBoard, cmpType, setIsTaskFocus, t
             style={customStyle}
             className={`task-item status status status-col grid align-center justify-center ${isFocus ? 'focus' : ''}`}
             ref={statusCell}
-            onClick={onClickMembersCell}
-        >
+            onClick={onClickStatusCell}>
             <span>{currLabel.title}</span>
-            {isModalOpen && <LabelModal keyName={cmpType + 'Labels'} board={board} labels={board[cmpType + 'Labels']} onSaveBoard={onSaveBoard} task={task} group={group} cmpType={cmpType} />}
+            {isModalOpen && <LabelModal
+                keyName={cmpType + 'Labels'}
+                board={board}
+                labels={board[cmpType + 'Labels']}
+                onSaveBoard={onSaveBoard} task={task}
+                group={group}
+                cmpType={cmpType} />}
         </td>
     )
 }
