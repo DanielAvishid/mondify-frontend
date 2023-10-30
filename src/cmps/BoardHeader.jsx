@@ -165,7 +165,7 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                         <MenuItem icon={Download} title="import Items" />
                     </SplitButtonMenu>} />
                 <div className="btns-container">
-                    <div className={`search-container ${isInputFocus ? 'focus' : ''} ${isTyping ? 'typing' : ''}`}>
+                    <div className={`search-container ${isInputFocus ? 'is-focus' : ''} ${isTyping ? 'typing' : ''}`}>
                         <Icon className="search-icon" icon={Search} />
                         <input
                             className={`search-input`}

@@ -102,7 +102,7 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
                             </Button>
                         </div>
                         <div className="search-add">
-                            <div className={`search-container ${showBorder ? 'focus' : ''}`} onMouseEnter={() => setSearchHoverState(true)} onMouseLeave={() => setSearchHoverState(false)}>
+                            <div className={`search-container ${showBorder ? 'is-focus' : ''}`} onMouseEnter={() => setSearchHoverState(true)} onMouseLeave={() => setSearchHoverState(false)}>
                                 <Icon className="search-icon" icon={Search} />
                                 <input onFocus={toggleBorder} onBlur={toggleBorder} className="search-input" type="text" placeholder="Search" />
                                 <div className="filter-btn-container">
