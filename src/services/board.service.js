@@ -23,13 +23,10 @@ export const boardService = {
 
 async function query(filterBy = {}) {
     let boards = await storageService.query(STORAGE_KEY)
-    // if (filterBy.txt) {
-    //     const regex = new RegExp(filterBy.txt, 'i')
-    //     boards = boards.filter(car => regex.test(car.vendor) || regex.test(car.description))
-    // }
-    // if (filterBy.price) {
-    //     boards = boards.filter(car => car.price <= filterBy.price)
-    // }
+    if (filterBy.title) {
+        const regax = new RegExp(filterBy.title, 'i')
+        boards = boards.filter(board => regax.test(board.title))
+    }
     return boards
 }
 

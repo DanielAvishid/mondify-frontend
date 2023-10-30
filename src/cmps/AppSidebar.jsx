@@ -1,12 +1,12 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button, Icon, Menu, MenuButton, MenuItem, MenuTitle, SplitButton, Tooltip } from "monday-ui-react-core";
-import { Home, MyWeek, AddSmall, Menu as MenuIcon, Favorite, Filter, Board, Duplicate, Gantt, Delete, Add, DropdownChevronDown, Search, NavigationChevronLeft, NavigationChevronRight } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
-import { useState } from "react";
+import { Home, MyWeek, AddSmall, Menu as MenuIcon, Favorite, Filter, Board, Duplicate, Gantt, Delete, Add, DropdownChevronDown, Search, NavigationChevronLeft, NavigationChevronRight, CloseSmall } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
+import { useRef, useState } from "react";
 import { boardService } from "../services/board.service";
 import { GoHomeFill, GoStarFill } from "react-icons/go";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
-export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoard, updateBoards }) {
+export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoard, updateBoards, handleBoardsFilter, filterBy }) {
     const [isSideBarHover, setIsSideBarHover] = useState(false)
     const [isSidBarOpen, setIsSideBarOpen] = useState(true)
     const [showBorder, setShowBorder] = useState(false)
@@ -14,6 +14,7 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
     const [boardHoverState, setBoardHoverState] = useState({})
     const [searchHoverState, setSearchHoverState] = useState(false)
     const [openState, setOpenState] = useState({})
+    const inputRef = useRef(null)
     const location = useLocation()
     const navigate = useNavigate()
 
@@ -59,11 +60,6 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
         setIsSideBarHover(false)
     }
 
-    function handleSearchChange(ev) {
-        console.log(ev)
-
-    }
-
     function toggleOpenMenu(boardId, ev) {
         ev.stopPropagation()
         setOpenState((prevState) => ({
@@ -93,7 +89,7 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
                     className="icon"
                     icon={isSidBarOpen ? NavigationChevronLeft : NavigationChevronRight} />
             </button>}
-            {<section className="expand-sidebar">
+            <section className="expand-sidebar">
                 {isSideBarHover && <button
                     className="close-btn"
                     onClick={toggleSidebar}
@@ -139,24 +135,34 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
                                 className={`search-container ${showBorder ? 'is-focus' : ''}`}
                                 onMouseEnter={() => setSearchHoverState(true)}
                                 onMouseLeave={() => setSearchHoverState(false)}>
-                                <Icon className="search-icon" icon={Search} />
+                                <Icon className="search-icon" icon={Search} onClick={() => inputRef.current.focus()} />
                                 <input
+                                    style={{ width: filterBy.title ? '104px' : '128px' }}
                                     onFocus={toggleBorder}
                                     onBlur={toggleBorder}
                                     className="search-input"
                                     type="text"
                                     placeholder="Search"
-                                    onChange={(ev) => handleSearchChange(ev)} />
-                                <div className="filter-btn-container">
-                                    <Tooltip
-                                        className="filter-tool-tip"
-                                        content="Filters"
-                                        animationType="expand">
-                                        <div />
-                                    </Tooltip>
-                                    {searchHoverState && <Button className="filter-btn" kind={Button.kinds.TERTIARY} >
-                                        <Icon className="filter-icon" icon={Filter} />
-                                    </Button>}
+                                    onChange={(ev) => handleBoardsFilter(ev.target.value)}
+                                    ref={inputRef} />
+                                <div className="flex">
+                                    <div className="clear-btn-container">
+                                        {filterBy.title &&
+                                            <Button
+                                                className="clear-btn"
+                                                kind={Button.kinds.TERTIARY}
+                                                onClick={() => { handleBoardsFilter(''); inputRef.current.value = '' }}>
+                                                <Icon className="close-icon" icon={CloseSmall} />
+                                            </Button>}
+                                    </div>
+                                    <div className="filter-btn-container">
+                                        {(searchHoverState || inputRef.current === document.activeElement) &&
+                                            <Button
+                                                className="filter-btn"
+                                                kind={Button.kinds.TERTIARY} >
+                                                <Icon className="filter-icon" icon={Filter} />
+                                            </Button>}
+                                    </div>
                                 </div>
                             </div>
                             <Button className="new-btn" onClick={onAddBoard}>
@@ -196,7 +202,14 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
                         </nav>
                     </div>
                 </div>
-            </section>}
+                {(filterBy.title && !boards.length) && <div className="no-result">
+                    <div className="img-container">
+                        <img className="img" src="https://cdn.monday.com/images/search_empty_state.svg" />
+                    </div>
+                    <p className="heading">No results found</p>
+                    <p className="text">Please check your search terms or filters.</p>
+                </div>}
+            </section>
         </section >
     )
 }

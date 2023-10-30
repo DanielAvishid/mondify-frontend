@@ -10,7 +10,7 @@
     .expand-sidebar {
         background-color: $primary-background-color;
         border-top-right-radius: 10px;
-        transition: left .5s ease;
+        transition: left .3s ease;
         height: 100vh;
     }
 
@@ -220,19 +220,22 @@
                         border: 0;
                         margin-block-end: 2px;
                         padding-inline-start: 5px;
-                        width: 128px;
+                        max-width: 128px;
+                        min-width: 104px;
 
                         &:focus-visible {
                             outline: none;
                         }
                     }
 
-                    .filter-btn-container {
+                    .filter-btn-container,
+                    .clear-btn-container {
                         position: relative;
                         max-height: 24px;
                         max-width: 24px;
 
-                        .filter-btn {
+                        .filter-btn,
+                        .clear-btn {
                             padding: 0;
                             max-height: 24px;
                             min-width: 24px;
@@ -242,6 +245,12 @@
                                 width: 16px;
                                 height: 16px;
                                 color: $chat-icon-color;
+                            }
+
+                            .close-icon {
+                                width: 20px;
+                                height: 20px;
+                                color: $primary-text-color;
                             }
                         }
 
@@ -277,8 +286,8 @@
                     padding: 0;
                     font-size: rem(14px);
                     max-height: em(39px);
-                    min-width: 233px;
-                    max-width: 233px;
+                    min-width: 235px;
+                    max-width: 235px;
                     border-radius: 4px;
 
                     &.active {
@@ -406,6 +415,37 @@
                     }
                 }
             }
+        }
+    }
+
+    .no-result {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-block-start: 52px;
+        padding-inline: 29px;
+        margin-inline: auto;
+        text-align: center;
+
+        .img-container {
+            max-width: 181px;
+
+            .img {
+                height: 160px;
+            }
+        }
+
+        .heading {
+            font-size: rem(16px);
+            font-weight: 500;
+            line-height: 24px;
+            font-family: Poppins, Roboto, Noto Sans Hebrew, Noto Kufi Arabic, Noto Sans JP, sans-serif;
+        }
+
+        .text {
+            font-size: rem(14px);
+            font-family: Figtree, Roboto, "Noto Sans Hebrew", "Noto Kufi Arabic", "Noto Sans JP", sans-serif;
+            line-height: 21px;
         }
     }
 }
