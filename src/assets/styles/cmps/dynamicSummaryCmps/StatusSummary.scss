@@ -1,0 +1,20 @@
+.defualt-summary {
+    width: 100%;
+    margin: rem(8px);
+    height: rem(24px);
+    background-color: $default-task-val-bgc;
+    position: relative;
+
+    .summary-item {
+        // position: absolute;
+        // left: 0;
+        // top: 0;
+        z-index: 10;
+        height: 100%;
+
+        &:hover {
+            height: 120%;
+            transition: all .2s ease-in-out;
+        }
+    }
+}

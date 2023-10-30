@@ -2,6 +2,7 @@ import { utilService } from "../services/util.service";
 import { Timeline } from "./dynamicCmps/Timeline";
 import { Members } from "./dynamicCmps/Members";
 import { TimelineSummary } from "./dynamicSummaryCmps/TimelineSummary";
+import { StatusSummary } from "./dynamicSummaryCmps/StatusSummary";
 
 
 export function ProgressBar({ board, group }) {
@@ -11,7 +12,7 @@ export function ProgressBar({ board, group }) {
             case 'timeline':
                 return <TimelineSummary group={group} />
             case 'status':
-                return <span></span>
+                return <StatusSummary group={group} board={board} />
             case 'priority':
                 return <span></span>
             case 'members':

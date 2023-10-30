@@ -25,7 +25,7 @@ export function TimelineSummary({ group }) {
             style={backgroundStyle}
             onMouseEnter={() => setIsHover(true)}
             onMouseLeave={() => setIsHover(false)}
-            className="inner-container"
+            className="timeline-summary inner-container"
         // onClick={() => setIsModalOpen(!isModalOpen)}
         >
             {finalDates.length ? (
