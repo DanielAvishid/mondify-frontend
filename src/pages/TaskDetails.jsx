@@ -1,25 +1,26 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router"
 import { getById, saveBoard } from "../store/actions/board.action"
-import { Avatar, AvatarGroup, Button, EditableHeading, Menu, MenuButton, MenuItem, Tab, TabList, Heading, Badge, Link, Icon } from "monday-ui-react-core"
-import { Close, Attach, Delete, Home, Time } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
+import { Avatar, AvatarGroup, Button, EditableHeading, Menu, MenuButton, MenuItem, Tab, TabList, Heading, Badge, Link, Icon, MenuDivider, Divider } from "monday-ui-react-core"
+import { Close, Drag, Attach, Delete, Home, Time, Add } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { remove } from "../store/actions/board.action"
 import userImgUrl from '../assets/img/user-img.png'
 import updateImgUrl from '../assets/img/update-img.png'
 import { utilService } from "../services/util.service"
 import { useSelector } from "react-redux"
+import { showSuccessMsg } from "../services/event-bus.service"
 
 export function TaskDetails() {
     const boards = useSelector(storeState => storeState.boardModule.boards)
     const navigate = useNavigate()
     const { boardId, taskId } = useParams()
     const [task, setTask] = useState(null)
-    const [wroteUpdate, setWroteUpdate] = useState(false)
-    const [newUpdateText, setNewUpdateText] = useState('')
+    const [isUpdateMode, setIsUpdateMode] = useState(false)
+    // const [wroteUpdate, setWroteUpdate] = useState(false)
+    // const [newUpdateText, setNewUpdateText] = useState('')
 
     useEffect(() => {
         loadTask()
-        setWroteUpdate(false)
     }, [boardId, taskId, boards])
 
     async function loadTask() {
@@ -33,12 +34,24 @@ export function TaskDetails() {
         }
     }
 
-    async function onRemoveTask() {
+    async function onRemoveTask({ boardId, taskId }) {
         try {
             await remove({ boardId, taskId })
-            navigate(`/board/${boardId}`)
+            showSuccessMsg(`We successfully deleted 1 item`)
+        } catch {
+            console.log('Had issues in board details', err)
+            console.log('ShowErrorMsg')
+        }
+    }
+
+    async function handleTaskTitleChange(ev) {
+        if (!ev.target.value) return
+        try {
+            await saveBoard({ key: 'title', value: ev.target.value, boardId, taskId })
+            console.log('ShowSuccessesMsg')
         } catch (err) {
-            console.log("error msg", err);
+            console.log('Had issues in save board', err)
+            console.log('ShowErrorMsg')
         }
     }
 
@@ -94,25 +107,104 @@ export function TaskDetails() {
 
     return (
         <section className="task-details">
-            <section className="header">
-                <div className="close-container">
-                    <Button className="close-btn" kind={Button.kinds.TERTIARY}>
-                        <Icon className="close-icon" icon={Close} />
-                    </Button>
+            <section className="task-details-content">
+                <div className="header">
+                    <div className="title-container">
+                        <div className="close-btn-container">
+                            <Button className="close-btn" kind={Button.kinds.TERTIARY}>
+                                <Icon className="close-icon" icon={Close} />
+                            </Button>
+                        </div>
+                        <div className="task-edit-container">
+                            <EditableHeading
+                                value={task.title}
+                                className="task-title-input"
+                                type="h2"
+                                inputType={'textarea'}
+                                onBlur={(ev) => handleTaskTitleChange(ev)}
+                            />
+                            <div className="subscribe-container">
+                                <button className="subscribe-btn">
+                                    <AvatarGroup size="small" className="avatar-group">
+                                        <Avatar
+                                            className="avatar"
+                                            ariaLabel="Hadas Fahri"
+                                            src="https://style.monday.com/static/media/person1.de30c8ee.png"
+                                            type="img"
+                                        />
+                                        {/* <Avatar
+                                    ariaLabel="Sergey Roytman"
+                                    src="https://style.monday.com/static/media/person2.24c7233e.png"
+                                    type="img"
+                                /> */}
+                                    </AvatarGroup>
+                                </button>
+                                <MenuButton className="subscriber-menu">
+                                    <Menu id="menu" size="large">
+                                        <MenuItem title="Manage subscribers" />
+                                        <MenuItem title="Delete" onClick={() => onRemoveTask({ boardId, taskId })} />
+                                    </Menu>
+                                </MenuButton>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="tabs-container">
+                        <TabList className="tab-list">
+                            <Tab key='main' tabInnerClassName='updates-tab' icon={Home}>Updates</Tab>
+                            <Tab key='kanban' tabInnerClassName='tab'>Files</Tab>
+                            <Tab key='kanban' tabInnerClassName='tab activity-tab'>Activity Log</Tab>
+                        </TabList>
+                    </div>
+
+                    {/* <div className="close-container">
+                        <Button className="close-btn" kind={Button.kinds.TERTIARY}>
+                            <Icon className="close-icon" icon={Close} />
+                        </Button>
+                    </div> */}
+                    <div className="task-title-container">
+                        {/* <EditableHeading
+                            className="task-title-input"
+                            type="h2"
+                            value="This heading is editable"
+                            inputType={'textarea'}
+                        /> */}
+                        <div className="subscribe-container">
+                            {/* <button className="subscribe-btn">
+                                <AvatarGroup size="small" className="avatar-group">
+                                <Avatar
+                                        className="avatar"
+                                        ariaLabel="Hadas Fahri"
+                                        src="https://style.monday.com/static/media/person1.de30c8ee.png"
+                                        type="img"
+                                    />
+                                <Avatar
+                                    ariaLabel="Sergey Roytman"
+                                    src="https://style.monday.com/static/media/person2.24c7233e.png"
+                                    type="img"
+                                />
+                                </AvatarGroup>
+                            </button> */}
+                            {/* <MenuButton className="subscriber-menu">
+                                <Menu id="menu" size="large">
+                                    <MenuItem title="Manage subscribers" />
+                                    <MenuItem title="Delete" />
+                                </Menu>
+                            </MenuButton> */}
+                        </div>
+                    </div>
                 </div>
-                <div className="task-title-container">
-                    <EditableHeading
-                        className="task-title-input"
-                        type="h2"
-                        value="This heading is editable"
-                        inputType={'textarea'}
-                    />
-                    <div>
-                        <h1>HI</h1>
+                <div className="main-content">
+                    <div className="updates">
+                        {!isUpdateMode && <button className="update-btn" onClick={() => setIsUpdateMode(true)}>
+                            Write an update...
+                        </button>}
                     </div>
                 </div>
             </section>
-        </section>
+            <button className="drag-btn">
+                <Icon className="close-icon" icon={Drag} />
+            </button>
+        </section >
     )
     // return (
     //     <section className='task-details flex column'>
