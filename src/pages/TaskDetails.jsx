@@ -88,112 +88,135 @@ export function TaskDetails() {
     }
 
     if (!task) return <span></span>
-    console.log(task);
-    const { id, title, members, updates } = task
-    console.log(updates);
+    // console.log(task);
+    // const { id, title, members, updates } = task
+    // console.log(updates);
+
     return (
-        <section className='task-details flex column'>
-            <article>
-                <Button
-                    className="close-btn"
-                    kind="tertiary" leftIcon={Close}
-                    size="sm"
-                    onClick={() => navigate(`/board/${boardId}`)}>
-
-                </Button>
-            </article>
-
-            <article className="flex align-center justify-between">
-                <article>
+        <section className="task-details">
+            <section className="header">
+                <div className="close-container">
+                    <Button className="close-btn" kind={Button.kinds.TERTIARY}>
+                        <Icon className="close-icon" icon={Close} />
+                    </Button>
+                </div>
+                <div className="task-title-container">
                     <EditableHeading
-                        type={EditableHeading.types.h4}
-                        value={title}
-                        tooltip='Click to Edit'
-                        tooltipPosition="bottom"
-                        customColor="#323338"
-                        onBlur={(ev) => saveBoard({ key: 'title', value: ev.target.value, boardId, taskId })}
-                        onKeyDown={handleKeyPress}
+                        className="task-title-input"
+                        type="h2"
+                        value="This heading is editable"
+                        inputType={'textarea'}
                     />
-                </article>
-                <article className="flex align-center justify-between">
-                    <AvatarGroup size="small" type="img" max={3}>
-                        {members.map(member =>
-                            <Avatar
-                                key={member}
-                                ariaLabel={member}
-                                src={userImgUrl} />)}
-                    </AvatarGroup>
-
-                    <MenuButton>
-                        <Menu id="menu" size="large">
-                            <MenuItem icon={Delete} title="Delete" onClick={onRemoveTask} />
-                        </Menu>
-                    </MenuButton>
-                </article>
-            </article>
-
-            <TabList className="update-list">
-                <Tab tabInnerClassName='tab' icon={Home}>Updates</Tab>
-                <Tab>Files</Tab>
-                <Tab>Activity Log</Tab>
-            </TabList>
-
-            {!wroteUpdate && <Button
-                className="write-update-btn"
-                kind="Tertiary"
-                onClick={onWrite}>
-                Write an Update...
-            </Button>}
-
-            {wroteUpdate && <section className="add-update">
-                <article className="text-sec">
-                    <article className="text-tools">
-                    </article>
-                    <textarea onChange={handleChange} value={newUpdateText}></textarea>
-                </article>
-                <article className="flex align-center  justify-between">
-                    <Button
-                        className="add-files-btn"
-                        kind="Tertiary"
-                        leftIcon={Attach}>
-                        Add files
-                    </Button>
-                    <Button
-                        className="update-btn"
-                        onClick={onUpdate}>
-                        Update
-                    </Button>
-                </article>
-            </section>}
-
-            {(updates && updates.length > 0) && <section className="updates-container">
-                {updates.map(update => <article className="update-txt" key={update.id}>
-                    <article className="flex align-center justify-between">
-                        <div className="flex align-center">
-                            <Avatar src={update.by.imgUrl} type="img" />
-                            <h3>{update.by.fullname}</h3>
-                        </div>
-                        <div className="flex align-center">
-                            <Icon icon={Time} />
-                            <Link ariaLabel={"member"} text={utilService.getTimePassed(update.at)} />
-                            <MenuButton >
-                                <Menu id="menu" size="large">
-                                    <MenuItem icon={Delete} title="Delete update" onClick={() => onRemoveUpdate(update.id)} />
-                                </Menu>
-                            </MenuButton>
-                        </div>
-                    </article>
-                    <textarea disabled defaultValue={update.text}></textarea>
-                </article>)}
-            </section>}
-
-            {(!updates || !updates.length) && <article className="no-updates-text">
-                <img src={updateImgUrl} />
-                <h1>No updates yet for this item</h1>
-                <p>Be the first one to update about progress, mention someone</p>
-                <p>or upload files to share with your team members</p>
-            </article>}
-
+                    <div>
+                        <h1>HI</h1>
+                    </div>
+                </div>
+            </section>
         </section>
     )
+    // return (
+    //     <section className='task-details flex column'>
+    //         <article>
+    //             <Button
+    //                 className="close-btn"
+    //                 kind="tertiary" leftIcon={Close}
+    //                 size="sm"
+    //                 onClick={() => navigate(`/board/${boardId}`)}>
+
+    //             </Button>
+    //         </article>
+
+    //         <article className="flex align-center justify-between">
+    //             <article>
+    //                 <EditableHeading
+    //                     type={EditableHeading.types.h4}
+    //                     value={title}
+    //                     tooltip='Click to Edit'
+    //                     tooltipPosition="bottom"
+    //                     customColor="#323338"
+    //                     onBlur={(ev) => saveBoard({ key: 'title', value: ev.target.value, boardId, taskId })}
+    //                     onKeyDown={handleKeyPress}
+    //                 />
+    //             </article>
+    //             <article className="flex align-center justify-between">
+    //                 <AvatarGroup size="small" type="img" max={3}>
+    //                     {members.map(member =>
+    //                         <Avatar
+    //                             key={member}
+    //                             ariaLabel={member}
+    //                             src={userImgUrl} />)}
+    //                 </AvatarGroup>
+
+    //                 <MenuButton>
+    //                     <Menu id="menu" size="large">
+    //                         <MenuItem icon={Delete} title="Delete" onClick={onRemoveTask} />
+    //                     </Menu>
+    //                 </MenuButton>
+    //             </article>
+    //         </article>
+
+    //         <TabList className="update-list">
+    //             <Tab tabInnerClassName='tab' icon={Home}>Updates</Tab>
+    //             <Tab>Files</Tab>
+    //             <Tab>Activity Log</Tab>
+    //         </TabList>
+
+    //         {!wroteUpdate && <Button
+    //             className="write-update-btn"
+    //             kind="Tertiary"
+    //             onClick={onWrite}>
+    //             Write an Update...
+    //         </Button>}
+
+    //         {wroteUpdate && <section className="add-update">
+    //             <article className="text-sec">
+    //                 <article className="text-tools">
+    //                 </article>
+    //                 <textarea onChange={handleChange} value={newUpdateText}></textarea>
+    //             </article>
+    //             <article className="flex align-center  justify-between">
+    //                 <Button
+    //                     className="add-files-btn"
+    //                     kind="Tertiary"
+    //                     leftIcon={Attach}>
+    //                     Add files
+    //                 </Button>
+    //                 <Button
+    //                     className="update-btn"
+    //                     onClick={onUpdate}>
+    //                     Update
+    //                 </Button>
+    //             </article>
+    //         </section>}
+
+    //         {(updates && updates.length > 0) && <section className="updates-container">
+    //             {updates.map(update => <article className="update-txt" key={update.id}>
+    //                 <article className="flex align-center justify-between">
+    //                     <div className="flex align-center">
+    //                         <Avatar src={update.by.imgUrl} type="img" />
+    //                         <h3>{update.by.fullname}</h3>
+    //                     </div>
+    //                     <div className="flex align-center">
+    //                         <Icon icon={Time} />
+    //                         <Link ariaLabel={"member"} text={utilService.getTimePassed(update.at)} />
+    //                         <MenuButton >
+    //                             <Menu id="menu" size="large">
+    //                                 <MenuItem icon={Delete} title="Delete update" onClick={() => onRemoveUpdate(update.id)} />
+    //                             </Menu>
+    //                         </MenuButton>
+    //                     </div>
+    //                 </article>
+    //                 <textarea disabled defaultValue={update.text}></textarea>
+    //             </article>)}
+    //         </section>}
+
+    //         {(!updates || !updates.length) && <article className="no-updates-text">
+    //             <img src={updateImgUrl} />
+    //             <h1>No updates yet for this item</h1>
+    //             <p>Be the first one to update about progress, mention someone</p>
+    //             <p>or upload files to share with your team members</p>
+    //         </article>}
+
+    //     </section>
+    // )
 }
