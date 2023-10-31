@@ -1,0 +1,39 @@
+
+import { Button, Icon, IconButton, SplitButton, TextField } from "monday-ui-react-core";
+import { DropdownChevronDown, PersonRound, Rotate, DocShareable } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
+
+export function ActivityDetails() {
+    return (
+        <div className="activity-details">
+            <div className="automation-activity flex align-center justify-between">
+                <span>Other activities</span>
+                <div>
+                    {/* <span className="btn">Integration Activity</span>
+                    <span className="btn">Automations Activity</span> */}
+                    <Button size={Button.sizes.SMALL} kind={Button.kinds.TERTIARY}>Integration Activity</Button>
+                    <Button size={Button.sizes.SMALL} kind={Button.kinds.TERTIARY}>Automations Activity</Button>
+                </div>
+            </div>
+            <div className="activity-filter flex justify-between">
+                <div className="flex">
+                    <Button size={Button.sizes.SMALL} className="filter-log">
+                        <span>Filter Log</span>
+                        <Icon icon={DropdownChevronDown} iconSize={18} className="icon" />
+                    </Button>
+                    <div className="input">
+                        <TextField placeholder="Filter by name" />
+                    </div>
+                    <Button size={Button.sizes.SMALL} kind={Button.kinds.TERTIARY} className="person" ariaLabel="Filter by person">
+
+                        <Icon icon={PersonRound} iconSize={22} className="icon" />
+                        <span>person</span>
+                    </Button>
+                </div>
+                <div className="options flex">
+                    <IconButton icon={Rotate} kind={IconButton.kinds.TERTIARY} size={IconButton.sizes.SMALL} ariaLabel="My tertiary IconButton" />
+                    <IconButton icon={DocShareable} kind={IconButton.kinds.TERTIARY} size={IconButton.sizes.SMALL} ariaLabel="My tertiary IconButton" />
+                </div>
+            </div>
+        </div>
+    )
+}

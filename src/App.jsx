@@ -12,6 +12,8 @@ import { store } from './store/store'
 import { GroupList } from './cmps/GroupList';
 import { Kanban } from './cmps/Kanban';
 import { BoardList } from './pages/BoardList';
+import { BoardActivity } from './pages/BoardActivity';
+
 
 export function App() {
   return (
@@ -25,6 +27,7 @@ export function App() {
               <Route element={<BoardDetails />} path=":boardId">
                 <Route element={<GroupList />} path="">
                   <Route element={<TaskDetails />} path="task/:taskId" />
+                  <Route element={<BoardActivity />} path="activity_log" />
                 </Route>
                 <Route element={<Kanban />} path="views/kanban">
                   <Route element={<TaskDetails />} path="task/:taskId" />

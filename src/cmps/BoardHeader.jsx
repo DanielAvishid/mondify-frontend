@@ -13,6 +13,8 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
     const inputRef = useRef(null)
     const navigate = useNavigate()
 
+    const activityUrl = `/board/${board._id}/activity_log`
+
     function handleKeyPress(ev) {
         if (ev.key === 'Enter') {
             onSaveBoard({ board, key: 'title', value: ev.target.value })
@@ -73,7 +75,7 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                     </div>
                 </div>
                 <div className="options-container">
-                    <Button className="activity-btn" kind={Button.kinds.TERTIARY} size={Button.sizes.SMALL}>
+                    <Button className="activity-btn" kind={Button.kinds.TERTIARY} size={Button.sizes.SMALL} onClick={() => navigate(activityUrl)}>
                         Activity
                         <AvatarGroup max={2} size={Avatar.sizes.SMALL}>
                             <Avatar className="avatar" type={Avatar.types.IMG} src="https://style.monday.com/static/media/person1.de30c8ee.png" ariaLabel="Hadas Fahri" />
