@@ -138,12 +138,12 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemoveGrou
                                 <table className="table-header full main-layout">
                                     <thead className="table-container table first" style={{ borderColor: group.style.backgroundColor }}>
                                         <tr className="table-row flex">
-                                            <th className="task-item title-col flex align-center justify-center">
+                                            <th className=" title-col flex align-center justify-center">
                                                 <div className="checkbox flex align-center justify-center"><Checkbox checked={masterChecked} onChange={handleMasterChange} /></div>
                                                 <div className="title-name flex align-center justify-center"><span>Item</span></div>
                                             </th>
                                             {board.cmpsOrder.map((cmp, idx) => (
-                                                <th key={idx} className={`task-item cmp-title ${cmp.type}-col flex align-center justify-center`}>
+                                                <th key={idx} className={` cmp-title ${cmp.type}-col flex align-center justify-center`}>
                                                     <span>
                                                         <EditableHeading
                                                             type={EditableHeading.types.h6}
@@ -194,7 +194,7 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemoveGrou
                                 <table className="add-task full main-layout" onMouseEnter={() => setOpacity('')} onMouseLeave={() => setOpacity('80')}>
                                     <tbody className={`table-container table last ${addTaskBgc}`} style={{ borderColor: group.style.backgroundColor + opacity }}>
                                         <tr className="table-row flex">
-                                            <td className="task-item title-col flex align-center justify-center">
+                                            <td className=" title-col flex align-center justify-center">
                                                 <div className="checkbox flex align-center justify-center"><Checkbox disabled /></div>
                                                 <div className="title-name flex align-center justify-center">
                                                     <input

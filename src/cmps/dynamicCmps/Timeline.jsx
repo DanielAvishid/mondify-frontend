@@ -40,7 +40,7 @@ export function Timeline({ info, task, board, group, onSaveBoard, setIsTaskFocus
 
     return (
         <td
-            className={`task-item timeline timeline-col grid align-center justify-center  ${isFocus ? 'focus' : ''}`}
+            className={` timeline timeline-col grid align-center justify-center  ${isFocus ? 'focus' : ''}`}
             ref={timelineCell}
         >
             {info.length > 0 && < AiOutlineClose className="remove-date" onClick={() => onSaveBoard({ board, taskId: task.id, key: "timeline", value: [] })} />}
@@ -48,7 +48,7 @@ export function Timeline({ info, task, board, group, onSaveBoard, setIsTaskFocus
                 style={backgroundStyle}
                 onMouseEnter={() => setIsHover(true)}
                 onMouseLeave={() => setIsHover(false)}
-                className="inner-container"
+                className="date-container"
                 onClick={onClickTimelineCell}
             >
                 {info.length ? (
