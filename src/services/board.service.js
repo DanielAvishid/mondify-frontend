@@ -447,7 +447,8 @@ function getEmptyTask(title = 'New Item') {
         status: "Done",
         priority: "Critical",
         members: ["UjCos"],
-        timeline: []
+        timeline: [],
+        Date: null
     }
 }
 
