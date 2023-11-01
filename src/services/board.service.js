@@ -356,7 +356,7 @@ function getEmptyBoard() {
                     },
                     {
                         "id": utilService.makeId(),
-                        "title": "Continuous Integration Setup",
+                        "title": "Integration Setup",
                         "status": "ls102",
                         "priority": "lp101",
                         "timeline": [1697835558000, 1697835558000],
@@ -412,7 +412,7 @@ function getEmptyBoard() {
                     },
                     {
                         "id": utilService.makeId(),
-                        "title": "Check for new libraries",
+                        "title": "Check New libraries",
                         "status": "ls102",
                         "priority": "lp103",
                         "timeline": [1698835558000, 1698835558000],
