@@ -77,7 +77,7 @@ export function Home() {
                         </span>
                     </div>
                     <div className="get-started">
-                        <button className="start-btn" onClick={() => navigate('/board/#')}>
+                        <button className="start-btn" onClick={() => navigate('/board')}>
                             <span className="span">Get Started</span>
                             <Icon className="icon" icon={MoveArrowRight} iconSize="14" />
                         </button>
@@ -122,7 +122,7 @@ export function Home() {
                         <div className="btn-container" >
                             <button
                                 className="start-btn"
-                                onClick={() => navigate('/board/#')}
+                                onClick={() => navigate('/board')}
                                 style={{ background: isHeroBtnHover ? utilService.getHeroBtnBg(hoverCardsColorsBtn, true) : utilService.getHeroBtnBg(cardsColorsBtn) }}
                                 onMouseEnter={() => setIsHeroBtnHover(true)}
                                 onMouseLeave={() => setIsHeroBtnHover(false)}>
@@ -159,7 +159,7 @@ export function Home() {
                     <div className="right-container">
                         <p>Boost your team's alignment, efficiency, and productivity by customizing any workflow to fit your needs.</p>
                         <div className="btn-container">
-                            <button className="btn" onClick={() => navigate('/board/#')}>
+                            <button className="btn" onClick={() => navigate('/board')}>
                                 <span className="span">Get Started</span>
                                 <Icon className="icon" icon={MoveArrowRight} iconSize="14" />
                             </button>
@@ -227,7 +227,7 @@ export function Home() {
                         <div className="btn-container" >
                             <button
                                 className="btn"
-                                onClick={() => navigate('/board/#')}>
+                                onClick={() => navigate('/board')}>
                                 <span className="span">Get Started</span>
                                 <Icon className="icon" icon={MoveArrowRight} iconSize="18" />
                             </button>
