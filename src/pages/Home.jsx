@@ -143,7 +143,7 @@ export function Home() {
                                 <Icon className="icon" icon={MoveArrowRight} iconSize="18" />
                             </button>
                         </div>
-                        <p className="small-words">No credit card needed   ✦    Unlimited time on Free plan</p>
+                        <p className="small-words">No credit card needed   <span className="icon">✦</span>    Unlimited time on Free plan</p>
                     </div>
                 </div>
             </div>
@@ -235,7 +235,7 @@ export function Home() {
                             <span>Deliver your best work </span><b>with mondify.com</b>
                         </h2>
                         <div className="small-words">
-                            <span>No credit card needed   ✦    Unlimited time on Free plan</span>
+                            <span>No credit card needed   <span className="icon">✦</span>    Unlimited time on Free plan</span>
                         </div>
                         <div className="btn-container" >
                             <button

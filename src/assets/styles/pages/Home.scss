@@ -211,6 +211,10 @@
                     line-height: 8px;
                     font-weight: 300;
                     color: $icon-secondary-color;
+
+                    .icon {
+                        padding-inline: 5px;
+                    }
                 }
             }
 
@@ -496,6 +500,10 @@
                         line-height: rem(32px);
                         text-align: center;
                         color: $primary-background-color;
+                    }
+
+                    .icon {
+                        padding-inline: 5px;
                     }
                 }
 
