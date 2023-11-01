@@ -23,3 +23,29 @@
         @content;
     }
 }
+
+@mixin primaryBtn($size, $color) {
+    cursor: pointer;
+    transition: backgrounc-color .1s ease;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 40px;
+
+    @if $size ==small {
+        padding-inline-end: 16px;
+        padding-inline-start: 17px;
+        height: 40px;
+
+        &:hover {
+            background-color: #5151d5;
+        }
+    }
+
+    @if $color ==normal {
+        background-color: $button-purple;
+        color: $primary-background-color;
+    }
+}
