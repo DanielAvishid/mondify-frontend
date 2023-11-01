@@ -99,7 +99,6 @@ export function TaskDetails() {
                     kind="tertiary" leftIcon={Close}
                     size="sm"
                     onClick={() => navigate(`/board/${boardId}`)}>
-
                 </Button>
             </article>
 

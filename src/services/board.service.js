@@ -179,6 +179,11 @@ function getEmptyBoard() {
         description: "Manage any type of project. Assign owners, set timelines and keep track of where your project stands.",
         isStarred: false,
         archivedAt: Date.now(),
+        createdBy: {
+            "_id": "UjCos",
+            "fullname": "Carmel Amarillio",
+            "imgUrl": "https://hips.hearstapps.com/ghk.h-cdn.co/assets/16/08/gettyimages-464163411.jpg?crop=1.0xw:1xh;center,top&resize=980:*"
+        },
         style: {
             backgroundImage: ""
         },

@@ -121,7 +121,7 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
                                 kind="tertiary"
                                 onClick={() => toggleModal()}>
                                 <div className="workspace-icon">
-                                    <span className="letter-">M</span>
+                                    <span className="letter">M</span>
                                     <Icon className="home-icon" icon={GoHomeFill} />
                                 </div>
                                 <span className="workspace-title">

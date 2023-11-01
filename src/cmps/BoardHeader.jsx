@@ -3,6 +3,7 @@ import { NavigationChevronDown, DropdownChevronDown, DropdownChevronUp, Home, De
 import { useRef, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { boardService } from "../services/board.service"
+import { ModalFull } from "./ModalFull"
 
 export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveBoard, onDuplicateBoard }) {
 
@@ -10,6 +11,7 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
     const [isInputFocus, setIsInputFocus] = useState(false)
     const [isTyping, setIsTyping] = useState(false)
     const [inputValue, setInputValue] = useState('')
+    const [isModalOpen, setIsModalOpen] = useState(false)
     const inputRef = useRef(null)
     const navigate = useNavigate()
 
@@ -70,7 +72,13 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                         onKeyDown={handleKeyPress}
                     />
                     <div>
-                        <IconButton iconClassName='info-icon' icon={Info} kind={IconButton.kinds.TERTIARY} size={IconButton.sizes.SMALL} ariaLabel="Show board description" />
+                        <IconButton
+                            iconClassName='info-icon'
+                            icon={Info}
+                            kind={IconButton.kinds.TERTIARY}
+                            size={IconButton.sizes.SMALL}
+                            ariaLabel="Show board description"
+                            onClick={() => setIsModalOpen(true)} />
                         <IconButton iconClassName='info-icon' icon={Favorite} kind={IconButton.kinds.TERTIARY} size={IconButton.sizes.SMALL} ariaLabel="Add to favorites" />
                     </div>
                 </div>
@@ -93,7 +101,7 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                         className="menu-btn" component={MenuIcon}>
                         <Menu id="menu">
                             <MenuTitle caption="Board options" captionPosition={MenuTitle.positions.TOP} />
-                            <MenuItem icon={Edit} iconType={MenuItem.iconType.SVG} title="Rename board" />
+                            <MenuItem icon={Edit} iconType={MenuItem.iconType.SVG} title="Rename board" onClick={() => setIsModalOpen(true)} />
                             <MenuItem icon={Duplicate} iconType={MenuItem.iconType.SVG}
                                 title="Duplicate board" onClick={() => { onDuplicateBoard({ boardId: board._id }) }} />
                             <MenuItem icon={Delete} iconType={MenuItem.iconType.SVG} title="Delete board"
@@ -154,7 +162,7 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                         className="menu-btn" component={MenuIcon}>
                         <Menu id="menu">
                             <MenuTitle caption="Board options" captionPosition={MenuTitle.positions.TOP} />
-                            <MenuItem icon={Edit} iconType={MenuItem.iconType.SVG} title="Rename board" />
+                            <MenuItem icon={Edit} iconType={MenuItem.iconType.SVG} title="Rename board" onClick={() => setIsModalOpen(true)} />
                             <MenuItem icon={Duplicate} iconType={MenuItem.iconType.SVG}
                                 title="Duplicate board" onClick={() => onDuplicateBoard({ boardId: board._id })} />
                             <MenuItem icon={Delete} iconType={MenuItem.iconType.SVG} title="Delete board"
@@ -197,6 +205,7 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                     </Button>
                 </div>
             </section>
+            {isModalOpen && <ModalFull board={board} onSaveBoard={onSaveBoard} />}
         </section >
     )
 }
