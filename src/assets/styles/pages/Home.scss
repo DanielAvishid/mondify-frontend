@@ -3,9 +3,13 @@
     display: grid;
 
     .header-container {
+        background-color: $primary-background-color;
+        position: sticky;
+        top: 0;
         height: 72px;
+        z-index: 1000;
 
-        .scrolled {
+        &.scrolled {
             &::after {
                 content: "";
                 position: absolute;

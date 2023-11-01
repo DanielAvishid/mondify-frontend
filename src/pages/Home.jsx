@@ -2,7 +2,7 @@ import { Icon, Link } from "monday-ui-react-core"
 import { useNavigate } from "react-router-dom"
 import { MoveArrowRight, Check } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import imgUrl from '../assets/img/monday-img.png'
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { utilService } from "../services/util.service"
 
 export function Home() {
@@ -12,8 +12,22 @@ export function Home() {
     const [isCardChecked, setIsCardChecked] = useState([false, false, false, false, false, false, false, false, false])
     const [cardsColorsBtn, setCardsColorsBtn] = useState([])
     const [isScale, setIsScale] = useState(false)
+    const [isScroll, setIsScroll] = useState(false)
     const [hoverCardsColorsBtn, setHoverCardsColorsBtn] = useState([])
     const navigate = useNavigate()
+
+    useEffect(() => {
+        function handleScroll() {
+            if (window.scrollY > 0) {
+                setIsScroll(true)
+            } else setIsScroll(false)
+        }
+        window.addEventListener('scroll', handleScroll)
+
+        return () => {
+            window.removeEventListener('scroll', handleCardClick)
+        }
+    }, [])
 
     const scale = isScale ? 1.05 : 1;
 
@@ -25,7 +39,6 @@ export function Home() {
 
     const cardsIcon = utilService.getHeroIcons()
     const companiesLogos = utilService.getLogos()
-
 
     function handleCardClick(idx, value) {
         isCardChecked[idx] = !value
@@ -68,7 +81,7 @@ export function Home() {
 
     return (
         <section className="home-page">
-            <div className="header-container">
+            <div className={`header-container ${isScroll ? 'scrolled' : ''}`}>
                 <header className="header">
                     <div className="logo">
                         <img src={imgUrl} alt="" />
