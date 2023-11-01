@@ -12,7 +12,7 @@ export function AppHeader() {
     return (
         <section className="app-header flex justify-between align-center">
             <section className="flex align-center">
-                <IconButton className="switcher-btn" icon={Switcher} kind={IconButton.kinds.TERTIARY} />
+                <IconButton className="switcher-btn" icon={Switcher} kind={IconButton.kinds.TERTIARY} onClick={() => navigate('/#')} />
                 <p onClick={() => navigate('/board')} className="logo"><span>mondify</span> work management</p>
             </section>
             <section className="flex justify-center align-center  gap4">
