@@ -44,6 +44,7 @@
 
     >.activity-details {
         padding: 0 rem(25px);
+        overflow-y: auto;
 
         // color: $black;
         >.automation-activity {

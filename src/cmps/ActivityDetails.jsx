@@ -33,8 +33,8 @@ export function ActivityDetails({ board }) {
                     </Button>
                 </div>
                 <div className="options flex">
-                    <IconButton icon={Rotate} kind={IconButton.kinds.TERTIARY} size={IconButton.sizes.SMALL} ariaLabel="My tertiary IconButton" />
-                    <IconButton icon={DocShareable} kind={IconButton.kinds.TERTIARY} size={IconButton.sizes.SMALL} ariaLabel="My tertiary IconButton" />
+                    <IconButton icon={Rotate} kind={IconButton.kinds.TERTIARY} size={IconButton.sizes.SMALL} ariaLabel="Refresh" />
+                    <IconButton icon={DocShareable} kind={IconButton.kinds.TERTIARY} size={IconButton.sizes.SMALL} ariaLabel="Export" />
                 </div>
             </div>
             <ActivityList board={board} />

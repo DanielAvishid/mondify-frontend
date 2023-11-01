@@ -27,11 +27,6 @@ export function ActivityPreview({ board, activity }) {
             prevValue
             newValue
             break;
-        case 'updates':
-            // const newObject = activity.newValue[myArray.length - 1];
-            prevValue =
-                newValue
-            break;
         case 'title':
             prevValue = activity.prevValue
             newValue = activity.newValue
@@ -47,9 +42,8 @@ export function ActivityPreview({ board, activity }) {
     }
 
 
-    // utilService.formatDateFromTimestamp(info)
-
     let place;
+
     if (activity.location.task) {
         for (const group of board.groups) {
             const task = group.tasks.find((task) => task.title);
