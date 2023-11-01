@@ -121,6 +121,7 @@
                 margin-block-end: rem(56px);
 
                 .card {
+                    cursor: pointer;
                     display: grid;
                     justify-content: center;
                     align-items: center;
@@ -135,6 +136,10 @@
                     transition: 0.1s;
                     text-align: center;
 
+                    &:active {
+                        transform: scale(.97);
+                    }
+
                     .checkbox {
                         position: absolute;
                         top: 8px;
@@ -144,6 +149,10 @@
                         border-radius: 0.25rem;
                         border: 0.8px solid $selectable-cluster-border;
                         transition: 0.1s;
+
+                        .check-icon {
+                            color: $primary-background-color;
+                        }
                     }
 
                     .cluster-img {
@@ -166,33 +175,41 @@
                 }
             }
 
-            .btn-container {
-                display: grid;
+            .bottom-container {
+                text-align: center;
                 margin: auto;
-                align-items: center;
-                margin-block-end: 20px;
+                display: flex;
+                flex-direction: column;
+                transition: transform .3s;
 
-                .start-btn {
-                    @include primaryBtn($size: normal, $color: normal);
+                .btn-container {
+                    display: grid;
+                    margin: auto;
+                    align-items: center;
+                    margin-block-end: 20px;
 
-                    .span {
-                        line-height: rem(17px);
-                        font-weight: 300;
-                        text-align: center;
-                        font-family: Poppins, Roboto, Helvetica, Arial, sans-serif;
-                        font-size: rem(16px);
+                    .start-btn {
+                        @include primaryBtn($size: normal, $color: normal);
+
+                        .span {
+                            font-weight: 300;
+                            text-align: center;
+                            font-family: Poppins, Roboto, Helvetica, Arial, sans-serif;
+                            font-size: rem(16px);
+                        }
                     }
+                }
+
+                .small-words {
+                    text-align: center;
+                    font-size: rem(13px);
+                    font-family: Poppins, Roboto, Helvetica, Arial, sans-serif;
+                    line-height: 8px;
+                    font-weight: 300;
+                    color: $icon-secondary-color;
                 }
             }
 
-            .small-words {
-                text-align: center;
-                font-size: rem(13px);
-                font-family: Poppins, Roboto, Helvetica, Arial, sans-serif;
-                line-height: 8px;
-                font-weight: 300;
-                color: $icon-secondary-color;
-            }
 
             // .cards-container {
             //     margin-block-start: 48px;
@@ -225,8 +242,280 @@
 
 
     }
-}
 
+    .big-img-section {
+        padding-block-start: 20px;
+        margin-block-end: 80px;
+        min-height: auto;
+        width: 100%;
+        max-width: none;
+        display: flex;
+        justify-content: center;
+
+        .big-img {
+            width: 100%;
+            height: auto;
+        }
+    }
+
+    .companies-section {
+        padding-block-end: 90px;
+        max-width: 1440px;
+        margin: auto;
+
+        .title-container {
+            padding: 0 32px;
+            margin-block-end: 24px;
+
+            h2 {
+                color: #333;
+                font-family: Poppins, Roboto, Helvetica, Arial, sans-serif;
+                font-size: rem(22px);
+                font-weight: 400;
+                line-height: rem(32px);
+                text-align: center;
+                word-break: break-word;
+            }
+        }
+
+        .logos-container {
+            margin: auto;
+            display: grid;
+            grid-auto-flow: column;
+            justify-content: center;
+            width: 100%;
+
+            .logo {
+                width: 150px;
+                padding: 24px 0;
+                display: flex;
+                justify-content: center;
+
+                .logo-img {
+                    max-height: 69px;
+                    max-width: 118px;
+                }
+            }
+        }
+    }
+
+    .side-by-side-text-section {
+        max-width: 1440px;
+        margin: auto;
+        height: 100%;
+        display: grid;
+        justify-content: center;
+        padding-block-start: 64px;
+        padding-block-end: 90px;
+
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-auto-flow: column;
+            padding-inline: 32px;
+            max-width: 1440px;
+
+            .big-title {
+                b {
+                    font-family: Poppins, Roboto, Helvetica, Arial, sans-serif;
+                    font-size: rem(36px);
+                    line-height: rem(48px);
+                }
+            }
+
+            .right-container {
+                p {
+                    font-size: rem(22px);
+                    font-weight: 300;
+                    line-height: rem(40px);
+                }
+
+                .btn-container {
+                    display: grid;
+                    margin: auto;
+                    align-items: center;
+                    margin-block-start: 32px;
+
+                    .btn {
+                        @include primaryBtn($size: normal, $color: normal);
+
+                        .span {
+                            font-weight: 300;
+                            text-align: center;
+                            font-family: Poppins, Roboto, Helvetica, Arial, sans-serif;
+                            font-size: rem(16px);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .review-cards-section {
+        padding-block-start: 80px;
+        padding-block-end: 100px;
+        max-width: 1440px;
+        margin: auto;
+
+        .title-container {
+            display: grid;
+            justify-content: center;
+            margin-block-end: 20px;
+
+            .stars-container {
+                display: flex;
+                justify-content: center;
+                width: max-content;
+                height: 20px;
+                margin: auto;
+                margin-block-end: 24px;
+            }
+
+            h2 {
+                margin-block-end: 16px;
+
+                b {
+                    font-size: rem(36px);
+                    font-family: Poppins, Roboto, Helvetica, Arial, sans-serif;
+                    text-align: center;
+                    color: #333;
+                }
+            }
+
+            p {
+                color: #333;
+                font-size: 1.125rem;
+                font-family: Poppins, Roboto, Helvetica, Arial, sans-serif;
+                line-height: rem(32px);
+                text-align: center;
+                font-weight: 300;
+            }
+
+        }
+
+        .review-cards {
+            margin: auto;
+            display: grid;
+            grid-auto-flow: column;
+            justify-content: center;
+            align-items: center;
+
+            .review-card {
+                position: relative;
+                width: 286px;
+                z-index: 100;
+                margin: 32px 10px 0;
+                padding: 32px;
+                border-radius: 8px;
+                background-color: $primary-background-color;
+                box-shadow: 0px 8px 24px 0 rgba(29, 140, 242, 0.16);
+                transition: filter 0.2s ease-in-out;
+                color: #333333;
+
+                &:hover {
+                    box-shadow: 0px 8px 24px 0 rgba(29, 140, 242, 0.32);
+                }
+
+                .img-container {
+                    display: grid;
+                    justify-content: center;
+                    align-items: center;
+                    margin-block-end: 16px;
+                    height: 100px;
+
+                    .img {
+                        max-height: 100px;
+                        max-width: 206px;
+                    }
+                }
+
+                .first-text {
+                    color: #515151;
+                    font-size: 1.125rem;
+                    line-height: 24px;
+                    letter-spacing: -0.5px;
+                    font-weight: 400;
+                    margin-block-end: 24px;
+                    min-height: 64px;
+                    text-align: center;
+                    font-family: Poppins, Roboto, Helvetica, Arial, sans-serif;
+                }
+
+                .second-text {
+                    font-family: Poppins, Roboto, Helvetica, Arial, sans-serif;
+                    font-size: rem(16px);
+                    line-height: 24px;
+                    text-align: center;
+                    color: #515151;
+                    font-weight: 300;
+                }
+            }
+        }
+    }
+
+    .full-width-section {
+        background-color: #181b34;
+        padding-block-end: 64px;
+
+        .container {
+            max-width: 1440px;
+            margin: auto;
+
+            .content {
+                max-width: 1100px;
+                margin: auto;
+                display: grid;
+                justify-content: center;
+                padding: 0 32px;
+
+                h2 {
+                    margin-block-end: 16px;
+                    font-size: rem(28px);
+                    line-height: 40px;
+                    text-align: center;
+                    color: $primary-background-color;
+
+                    span {
+                        font-size: rem(28px);
+                        font-weight: 300;
+                    }
+                }
+
+                .small-words {
+                    margin-inline: auto;
+                    margin-block-end: 32px;
+
+                    span {
+                        font-family: Poppins, Roboto, Helvetica, Arial, sans-serif;
+                        font-weight: 300;
+                        font-size: rem(18px);
+                        line-height: rem(32px);
+                        text-align: center;
+                        color: $primary-background-color;
+                    }
+                }
+
+                .btn-container {
+                    display: grid;
+                    margin: auto;
+                    align-items: center;
+
+                    .btn {
+                        @include primaryBtn($size: normal, $color: normal);
+
+                        .span {
+                            font-weight: 300;
+                            text-align: center;
+                            font-family: Poppins, Roboto, Helvetica, Arial, sans-serif;
+                            font-size: rem(16px);
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+}
 
 // .home-page {
 

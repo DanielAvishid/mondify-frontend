@@ -1,3 +1,5 @@
+import { el } from "date-fns/locale"
+
 export const utilService = {
     makeId,
     makeLorem,
@@ -17,7 +19,10 @@ export const utilService = {
     getRandomLabelColor,
     isEmailValid,
     darkenColor,
-    getHexColor
+    getHexColor,
+    getHeroBtnBg,
+    getHeroIcons,
+    getLogos
 }
 
 function makeId(length = 6) {
@@ -231,6 +236,31 @@ function getRandomLabelColor() {
     const colorPallete = ['#037f4c', '#00c875', '#9cd326', '#cab641', '#ffcb00', '#fdab3d', '#ff642e', '#ffadad', '#ff7575', '#e2445c', '#bb3354', '#ff158a', '#ff5ac4', '#faa1f1', '#a25ddc', '#784bd1', '#7e3b8a', '#401694', '#5559df', '#225091', '#579bfc', '#0086c0', '#4eccc6', '#66ccff', '#68a1bd', '#9aadbd', '#c4c4c4', '#808080', '#333333', '#7f5347', '#d974b0', '#ad967a', '#a1e3f6', '#bd816e', '#2b76e5', '#175a63', '#bda8f9', '#a9bee8', '#9d99b9', '#563e3e']
     const randomIndex = Math.floor(Math.random() * colorPallete.length)
     return colorPallete[randomIndex]
+}
+
+function getHeroBtnBg(colors, isHover = false) {
+    let res = '#6161FF'
+    if (isHover) {
+        res = '#5151d5'
+    }
+    if (colors.length === 1) res = `linear-gradient(90deg, ${colors[0].color} 0%, ${colors[0].color}ee 100%)`
+    if (colors.length === 2) res = `linear-gradient(90deg, ${colors[0].color} 0%, ${colors[1].color} 100%)`
+    else if (colors.length === 3) res = `linear-gradient(90deg, ${colors[0].color} 0%, ${colors[1].color} 50%, ${colors[2].color} 100%)`
+    else if (colors.length === 4) res = `linear-gradient(90deg, ${colors[0].color} 0%, ${colors[1].color} 33.333333333333336%, ${colors[2].color} 66.66666666666667%, ${colors[3].color} 100%)`
+    else if (colors.length === 5) res = `linear-gradient(90deg, ${colors[0].color} 0%, ${colors[1].color} 25%, ${colors[2].color} 50%, ${colors[3].color} 75%, ${colors[4].color} 100%)`
+    else if (colors.length === 6) res = `linear-gradient(90deg, ${colors[0].color} 0%, ${colors[1].color} 20%, ${colors[2].color} 40%, ${colors[3].color} 60%, ${colors[4].color} 80%, ${colors[5].color} 100%)`
+    else if (colors.length === 7) res = `linear-gradient(90deg, ${colors[0].color} 0%, ${colors[1].color} 16.666666666666668%, ${colors[2].color} 33.333333333333336%, ${colors[3].color} 50%, ${colors[4].color} 66.66666666666667%, ${colors[5].color} 83.33333333333334%, ${colors[6].color} 100%)`
+    else if (colors.length === 8) res = `linear-gradient(90deg, ${colors[0].color} 0%, ${colors[1].color} 14.285714285714286%, ${colors[2].color} 28.571428571428573%, ${colors[3].color} 42.85714285714286%, ${colors[4].color} 57.142857142857146%, ${colors[5].color} 71.42857142857143%, ${colors[6].color} 85.71428571428572%, ${colors[7].color} 100%)`
+    else if (colors.length === 9) res = `linear-gradient(90deg, ${colors[0].color} 0%, ${colors[1].color} 12.5%, ${colors[2].color} 25%, ${colors[3].color} 37.5%, ${colors[4].color} 50%, ${colors[5].color} 62.5%, ${colors[6].color} 75%, ${colors[7].color} 87.5%, ${colors[8].color} 100%)`
+    return res
+}
+
+function getHeroIcons() {
+    return ["https://dapulse-res.cloudinary.com/image/upload/f_auto,q_auto/Generator_featured images/Home Page - 2022 Rebrand/first_fold/icons/design_icon.png", "https://dapulse-res.cloudinary.com/image/upload/f_auto,q_auto/Generator_featured images/Home Page - 2022 Rebrand/first_fold/icons/dev_icon.png", "https://dapulse-res.cloudinary.com/image/upload/f_auto,q_auto/Generator_featured images/Home Page - 2022 Rebrand/first_fold/icons/marketing_icon.png", "https://dapulse-res.cloudinary.com/image/upload/f_auto,q_auto/Generator_featured images/Home Page - 2022 Rebrand/first_fold/icons/pmo_icon.png", "https://dapulse-res.cloudinary.com/image/upload/f_auto,q_auto/Generator_featured images/Home Page - 2022 Rebrand/first_fold/icons/crm_icon.png", "https://dapulse-res.cloudinary.com/image/upload/f_auto,q_auto/Generator_featured images/Home Page - 2022 Rebrand/first_fold/icons/task_icon.png", "https://dapulse-res.cloudinary.com/image/upload/f_auto,q_auto/Generator_featured images/Home Page - 2022 Rebrand/first_fold/icons/hr_icon.png", "https://dapulse-res.cloudinary.com/image/upload/f_auto,q_auto/Generator_featured images/Home Page - 2022 Rebrand/first_fold/icons/operations_icon.png", "https://dapulse-res.cloudinary.com/image/upload/f_auto,q_auto/Generator_featured images/Home Page - 2022 Rebrand/first_fold/icons/workflows_icon.png"]
+}
+
+function getLogos() {
+    return ["https://dapulse-res.cloudinary.com/image/upload/f_auto,q_auto/remote_mondaycom_static/img/customers/logos-v2/HoltCat.png", "https://dapulse-res.cloudinary.com/image/upload/f_auto,q_auto/remote_mondaycom_static/img/customers/logos-v2/canva.png", "https://dapulse-res.cloudinary.com/image/upload/f_auto,q_auto/remote_mondaycom_static/img/customers/logos-v2/coca_cola.png", "https://dapulse-res.cloudinary.com/image/upload/f_auto,q_auto/remote_mondaycom_static/img/customers/logos-v2/oxy.png", "https://dapulse-res.cloudinary.com/image/upload/f_auto,q_auto/remote_mondaycom_static/img/customers/logos-v2/lionsgate.png", "https://dapulse-res.cloudinary.com/image/upload/f_auto,q_auto/remote_mondaycom_static/img/customers/logos-v2/carrefour.png", "https://dapulse-res.cloudinary.com/image/upload/f_auto,q_auto/remote_mondaycom_static/img/customers/logos-v2/bd.png", "https://dapulse-res.cloudinary.com/image/upload/f_auto,q_auto/remote_mondaycom_static/img/customers/logos-v2/glossier.png", "https://dapulse-res.cloudinary.com/image/upload/f_auto,q_auto/remote_mondaycom_static/img/customers/logos-v2/universal.png"]
 }
 
 

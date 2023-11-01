@@ -63,9 +63,10 @@
     }
 
     @if $size==normal {
-        padding-block: 16px;
+        padding-block: 13px;
         padding-inline-start: 32px;
         padding-inline-end: 20px;
+        max-width: max-content;
         min-height: 49px;
         max-height: min-content;
 
