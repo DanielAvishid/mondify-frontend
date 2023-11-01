@@ -1,11 +1,11 @@
 import { useState } from "react"
 import { utilService } from "../../services/util.service"
 
-export function TimelineSummary({ group }) {
+export function TimelineSummary({ group, type }) {
 
     const [isHover, setIsHover] = useState(false)
 
-    const timelines = group.tasks.map(task => task.timeline)
+    const timelines = group.tasks.map(task => task[type]).filter(Boolean)
     const flattenedTimelines = [].concat(...timelines)
     const minTimeline = Math.min(...flattenedTimelines)
     const maxTimeline = Math.max(...flattenedTimelines)
@@ -25,7 +25,7 @@ export function TimelineSummary({ group }) {
             style={backgroundStyle}
             onMouseEnter={() => setIsHover(true)}
             onMouseLeave={() => setIsHover(false)}
-            className="timeline-summary inner-container"
+            className="timeline-summary date-container"
         // onClick={() => setIsModalOpen(!isModalOpen)}
         >
             {finalDates.length ? (

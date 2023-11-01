@@ -30,7 +30,7 @@ export function Priority({ labelId, board, onSaveBoard, cmpType, setIsTaskFocus,
     return (
         <td
             style={customStyle}
-            className={`task-item priority priority-col grid align-center justify-center ${isFocus ? 'focus' : ''}`}
+            className={` priority priority-col grid align-center justify-center ${isFocus ? 'focus' : ''}`}
             ref={priorityCell}
             onClick={onClickPriorityCell}>
             <span>{currLabel.title}</span>

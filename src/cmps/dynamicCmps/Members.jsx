@@ -50,7 +50,7 @@ export function Members({ info, task, board, onSaveBoard, setIsTaskFocus }) {
 
     return (
         <td
-            className={`task-item members members-col flex align-center justify-center ${isFocus ? 'focus' : ''}`}
+            className={`members members-col flex align-center justify-center ${isFocus ? 'focus' : ''}`}
             ref={membersCell}
             onClick={onClickMembersCell}
         >

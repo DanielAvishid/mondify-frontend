@@ -52,12 +52,11 @@
     left: calc(50% - rem(8px));
     height: rem(16px);
     width: rem(16px);
-    background-color: $white;
+    background-color: $primary-background-color;
     transform: rotate(45deg);
 }
 
 .modal {
-    min-width: rem(360px);
     height: fit-content;
     position: absolute;
     top: 2.5rem;
@@ -99,4 +98,14 @@
     }
 
 
+}
+
+// LONG TEXT
+
+.ellipsis-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: absolute;
+    max-width: 85%;
 }

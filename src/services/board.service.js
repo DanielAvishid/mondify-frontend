@@ -83,43 +83,68 @@ async function addTaskFromHeader(board, task) {
 }
 // update({ board, boardId, groupId, value: task }) === addTask()
 // update({ board, boardId, taskId, key: title, value: "new title" }) === updateTask()
+
 async function update({ board, boardId, groupId, taskId, key, value }) {
     if (!board) {
-        board = await storageService.get(STORAGE_KEY, boardId)
+        board = await storageService.get(STORAGE_KEY, boardId);
     }
+
+    const location = {
+        board: boardId,
+        group: groupId,
+        task: taskId,
+        key
+    };
+
+    let prevValue;
+
     if (taskId) {
         if (!groupId) {
-            const updatedGroups = board.groups.map(group => {
-                const updatedTasks = group.tasks.map(task => {
+            const updatedGroups = board.groups.map((group) => {
+                const updatedTasks = group.tasks.map((task) => {
                     if (task.id === taskId) {
-                        return { ...task, [key]: value }
+                        prevValue = task[key]; // Store the previous value
+                        return { ...task, [key]: value };
                     }
                     return task;
-                })
-                return { ...group, tasks: updatedTasks }
-            })
-            board = { ...board, groups: updatedGroups }
+                });
+                return { ...group, tasks: updatedTasks };
+            });
+            board = { ...board, groups: updatedGroups };
         } else {
-            const groupIdx = board.groups.findIndex((group) => group.id === groupId)
-            const taskIdx = board.groups[groupIdx].tasks.findIndex((task) => task.id === taskId)
-            board.groups[groupIdx].tasks[taskIdx][key] = value
+            const groupIdx = board.groups.findIndex((group) => group.id === groupId);
+            const taskIdx = board.groups[groupIdx].tasks.findIndex((task) => task.id === taskId);
+            prevValue = board.groups[groupIdx].tasks[taskIdx][key]; // Store the previous value
+            board.groups[groupIdx].tasks[taskIdx][key] = value;
         }
     } else if (groupId) {
-        const groupIdx = board.groups.findIndex((group) => group.id === groupId)
+        const groupIdx = board.groups.findIndex((group) => group.id === groupId);
         if (!key) {
-            board.groups[groupIdx].tasks.push(value)
+            board.groups[groupIdx].tasks.push(value);
         } else {
-            board.groups[groupIdx][key] = value
+            prevValue = board.groups[groupIdx][key]; // Store the previous value
+            board.groups[groupIdx][key] = value;
         }
     } else {
         if (!key) {
-            board.groups.push(value)
+            board.groups.push(value);
         } else {
-            board[key] = value
+            prevValue = board[key]; // Store the previous value
+            board[key] = value;
         }
     }
+
+    const change = {
+        prevValue,
+        newValue: value,
+        timestamp: Date.now(),
+        location
+    };
+
+    board.activities.unshift(change);
+
     console.log('SERVICE', board);
-    return await storageService.put(STORAGE_KEY, board)
+    return await storageService.put(STORAGE_KEY, board);
 }
 
 async function duplicate({ boardId, groupId, taskId }) {
@@ -422,7 +447,8 @@ function getEmptyTask(title = 'New Item') {
         status: "Done",
         priority: "Critical",
         members: ["UjCos"],
-        timeline: []
+        timeline: [],
+        Date: null
     }
 }
 

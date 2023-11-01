@@ -73,7 +73,7 @@
 
         >.table-row {
             border-block-end: 1px solid $table-border;
-            height: 2.25rem;
+            height: rem(36px);
 
             >.title-col,
             >.members-col,
@@ -82,7 +82,7 @@
             >.status-col,
             >.timeline-col {
                 border-inline-end: 1px solid $table-border;
-                height: 2.25rem;
+                height: rem(36px);
             }
 
             >.title-col {
@@ -90,7 +90,7 @@
 
                 >.title-name,
                 >.checkbox {
-                    height: 2.25rem;
+                    height: rem(36px);
                 }
 
                 >.checkbox {

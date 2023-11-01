@@ -88,9 +88,9 @@ export function TaskDetails() {
     }
 
     if (!task) return <span></span>
-    console.log(task);
+    // console.log(task);
     const { id, title, members, updates } = task
-    console.log(updates);
+    // console.log(updates);
     return (
         <section className='task-details flex column'>
             <article>
