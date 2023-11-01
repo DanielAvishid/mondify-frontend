@@ -76,7 +76,7 @@ async function addBoard(board) {
     return await storageService.post(STORAGE_KEY, board)
 }
 
-async function addTaskFromHeader(board, task) {
+async function addTaskFromHeader(board, task = getEmptyTask()) {
     board.groups[0].tasks.unshift(task)
     const savedBoard = await storageService.put(STORAGE_KEY, board)
     return savedBoard
@@ -444,9 +444,9 @@ function getEmptyTask(title = 'New Item') {
     return {
         id: utilService.makeId(),
         title,
-        status: "Done",
-        priority: "Critical",
-        members: ["UjCos"],
+        status: "ls104",
+        priority: "lp105",
+        members: [],
         timeline: [],
         Date: null
     }
