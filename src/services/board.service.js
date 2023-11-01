@@ -147,46 +147,6 @@ async function update({ board, boardId, groupId, taskId, key, value }) {
     return await storageService.put(STORAGE_KEY, board);
 }
 
-
-// async function update({ board, boardId, groupId, taskId, key, value }) {
-//     if (!board) {
-//         board = await storageService.get(STORAGE_KEY, boardId)
-//     }
-//     if (taskId) {
-//         if (!groupId) {
-//             const updatedGroups = board.groups.map(group => {
-//                 const updatedTasks = group.tasks.map(task => {
-//                     if (task.id === taskId) {
-//                         return { ...task, [key]: value }
-//                     }
-//                     return task;
-//                 })
-//                 return { ...group, tasks: updatedTasks }
-//             })
-//             board = { ...board, groups: updatedGroups }
-//         } else {
-//             const groupIdx = board.groups.findIndex((group) => group.id === groupId)
-//             const taskIdx = board.groups[groupIdx].tasks.findIndex((task) => task.id === taskId)
-//             board.groups[groupIdx].tasks[taskIdx][key] = value
-//         }
-//     } else if (groupId) {
-//         const groupIdx = board.groups.findIndex((group) => group.id === groupId)
-//         if (!key) {
-//             board.groups[groupIdx].tasks.push(value)
-//         } else {
-//             board.groups[groupIdx][key] = value
-//         }
-//     } else {
-//         if (!key) {
-//             board.groups.push(value)
-//         } else {
-//             board[key] = value
-//         }
-//     }
-//     console.log('SERVICE', board);
-//     return await storageService.put(STORAGE_KEY, board)
-// }
-
 async function duplicate({ boardId, groupId, taskId }) {
     const board = await storageService.get(STORAGE_KEY, boardId)
     console.log(boardId, 'SERVICE')

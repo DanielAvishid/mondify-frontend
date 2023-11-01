@@ -10,7 +10,7 @@ export function ActivityHeader({ board, navigate }) {
             </div>
             <div className="title-container flex align-center">
                 <span className="board-title">{board.title}</span>
-                <span className="activity-type"> Log</span>
+                <span className="activity-type">Log</span>
             </div>
             <div className="activity-view-container">
                 <TabList className="tab-list" size="sm">

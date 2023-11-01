@@ -17,7 +17,8 @@ export const utilService = {
     getRandomLabelColor,
     isEmailValid,
     darkenColor,
-    getHexColor
+    getHexColor,
+    capitalizeFirstLetter
 }
 
 function makeId(length = 6) {
@@ -231,6 +232,10 @@ function getRandomLabelColor() {
     const colorPallete = ['#037f4c', '#00c875', '#9cd326', '#cab641', '#ffcb00', '#fdab3d', '#ff642e', '#ffadad', '#ff7575', '#e2445c', '#bb3354', '#ff158a', '#ff5ac4', '#faa1f1', '#a25ddc', '#784bd1', '#7e3b8a', '#401694', '#5559df', '#225091', '#579bfc', '#0086c0', '#4eccc6', '#66ccff', '#68a1bd', '#9aadbd', '#c4c4c4', '#808080', '#333333', '#7f5347', '#d974b0', '#ad967a', '#a1e3f6', '#bd816e', '#2b76e5', '#175a63', '#bda8f9', '#a9bee8', '#9d99b9', '#563e3e']
     const randomIndex = Math.floor(Math.random() * colorPallete.length)
     return colorPallete[randomIndex]
+}
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 

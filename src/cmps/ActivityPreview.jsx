@@ -5,6 +5,49 @@ import { Avatar, Icon } from "monday-ui-react-core";
 export function ActivityPreview({ board, activity }) {
     console.log(activity);
     const time = utilService.getTimePassed(activity.timestamp)
+    const changeType = utilService.capitalizeFirstLetter(activity.location.key)
+
+    let prevValue;
+    let newValue;
+
+    switch (activity.location.key) {
+        case 'timeline':
+            prevValue
+            newValue
+            break;
+        case 'date':
+            prevValue = utilService.formatDateFromTimestamp(activity.prevValue)
+            newValue = utilService.formatDateFromTimestamp(activity.newValue)
+            break;
+        case 'status':
+            prevValue
+            newValue
+            break;
+        case 'priority':
+            prevValue
+            newValue
+            break;
+        case 'updates':
+            // const newObject = activity.newValue[myArray.length - 1];
+            prevValue =
+                newValue
+            break;
+        case 'title':
+            prevValue = activity.prevValue
+            newValue = activity.newValue
+            break;
+        case 'members':
+            prevValue
+            newValue
+            break;
+        default:
+            prevValue
+            newValue
+            break;
+    }
+
+
+    // utilService.formatDateFromTimestamp(info)
 
     let place;
     if (activity.location.task) {
@@ -39,15 +82,17 @@ export function ActivityPreview({ board, activity }) {
                 />
                 <span className="ellipsis-text place-span">{place}</span>
             </div>
-            <div className="activity-change flex align-center">
-                <div className="change-type flex">
-                    <Icon icon={Time} className="type-icon" />
-                    <span>type</span>
+            <div className="change-type flex align-center relative">
+                <Icon icon={Time} className="type-icon" />
+                <span className="ellipsis-text">{changeType}</span>
+            </div>
+            <div className="change-values flex align-center">
+                <div className="flex align-center justify-center relative">
+                    <span className="prev-val ellipsis-text">{prevValue}</span>
                 </div>
-                <div className="change-values flex align-center">
-                    <span className="prev-val flex justify-center">{activity.prevValue}</span>
-                    <Icon icon={NavigationChevronRight} className="change-icon" />
-                    <span className="new-val flex justify-center">{activity.newValue}</span>
+                <Icon icon={NavigationChevronRight} className="change-icon" />
+                <div className="flex align-center justify-center relative">
+                    <span className="new-val ellipsis-text">{newValue}</span>
                 </div>
             </div>
         </div>
