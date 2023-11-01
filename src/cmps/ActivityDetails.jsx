@@ -5,7 +5,7 @@ import { ActivityList } from "./ActivityList";
 
 
 
-export function ActivityDetails() {
+export function ActivityDetails({ board }) {
     return (
         <main className="activity-details">
             <div className="automation-activity flex align-center justify-between">
@@ -37,7 +37,7 @@ export function ActivityDetails() {
                     <IconButton icon={DocShareable} kind={IconButton.kinds.TERTIARY} size={IconButton.sizes.SMALL} ariaLabel="My tertiary IconButton" />
                 </div>
             </div>
-            <ActivityList />
+            <ActivityList board={board} />
         </main>
     )
 }

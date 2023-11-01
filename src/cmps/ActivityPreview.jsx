@@ -1,12 +1,16 @@
+import { utilService } from "../services/util.service";
 import { Time, NavigationChevronRight } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { Avatar, Icon } from "monday-ui-react-core";
 
-export function ActivityPreview() {
+export function ActivityPreview({ activity }) {
+    console.log(activity);
+    const time = utilService.getTimePassed(activity.timestamp)
+
     return (
         <div className="activity-preview flex align-center">
             <div className="activity-time flex">
                 <Icon icon={Time} className="flex align-center" />
-                <span>Time</span>
+                <span>{time}</span>
             </div>
             <div className="activity-place flex align-center">
                 <Avatar

@@ -22,7 +22,7 @@ export function BoardActivity() {
     return (
         <section className="board-activity flex column">
             <ActivityHeader board={board} navigate={navigate} />
-            <ActivityDetails />
+            <ActivityDetails board={board} />
             {/* <MenuDivider className='menu-divider' /> */}
 
 

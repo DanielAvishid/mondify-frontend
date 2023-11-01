@@ -1,10 +1,11 @@
 import { ActivityPreview } from "./ActivityPreview";
 
-export function ActivityList() {
+export function ActivityList({ board }) {
     return (
         <section className="activity-list">
-            {/* MAPPING */}
-            <ActivityPreview />
+            {board.activities.map(activity => (
+                <ActivityPreview activity={activity} />
+            ))}
         </section>
     )
 }
