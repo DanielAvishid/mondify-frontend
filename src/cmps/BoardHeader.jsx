@@ -171,7 +171,7 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                     onClick={() => onAddTaskFromHeader(board)}
                     secondaryDialogContent={<SplitButtonMenu id="split-menu">
                         <MenuItem icon={Group} title="New group of Items" onClick={onAddGroup} />
-                        <MenuItem icon={Download} title="import Items" />
+                        {/* <MenuItem icon={Download} title="import Items" /> */}
                     </SplitButtonMenu>} />
                 <div className="btns-container">
                     <div className={`search-container ${isInputFocus ? 'is-focus' : ''} ${isTyping ? 'typing' : ''}`}>
