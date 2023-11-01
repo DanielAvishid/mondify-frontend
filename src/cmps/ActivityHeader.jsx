@@ -19,6 +19,7 @@ export function ActivityHeader({ board, navigate }) {
                     <Tab key='updates' tabInnerClassName='tab'>Updates</Tab>
                 </TabList>
             </div>
+            {/* <MenuDivider className='menu-divider' /> */}
         </header>
     )
 }

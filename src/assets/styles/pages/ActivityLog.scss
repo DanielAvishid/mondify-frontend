@@ -5,7 +5,7 @@
     top: 0;
     right: 0;
     height: 100%;
-    width: rem(736px);
+    width: rem(600px);
     box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.2);
 
     >.activity-header {
@@ -45,7 +45,7 @@
         padding: 0 rem(25px);
 
         // color: $black;
-        .automation-activity {
+        >.automation-activity {
             height: 48px;
             font-size: 14px;
             padding: 16px 16px 16px 24px;
@@ -59,7 +59,7 @@
         }
 
 
-        .activity-filter {
+        >.activity-filter {
             margin: rem(24px) 0 rem(16px);
 
             .filter-log {
@@ -90,6 +90,71 @@
                 gap: rem(4px);
             }
 
+        }
+
+        >.activity-list {
+
+            >.activity-preview {
+
+                height: rem(55px);
+                padding: rem(8px) rem(8px) rem(8px) rem(16px);
+
+                >.activity-time {
+                    width: rem(56px);
+                }
+
+                >.activity-place {
+                    flex-grow: 1;
+                    padding-inline-start: rem(36px);
+                    position: relative;
+
+                    >.avatar {
+                        width: rem(30px);
+                        height: rem(30px);
+                        position: absolute;
+                        left: 0;
+
+                        .circle_4a0201e550 {
+                            border: 0;
+                        }
+                    }
+                }
+
+                >.activity-change {
+                    flex-grow: 1;
+                    margin-inline-start: rem(16px);
+
+                    >.change-type {
+                        padding: 0 rem(2px) 0 rem(20px);
+                        position: relative;
+                        flex: 1;
+
+                        >.type-icon {
+                            position: absolute;
+                            left: 0;
+                        }
+                    }
+
+                    >.change-values {
+                        margin-inline-start: rem(32px);
+                        flex-grow: 2;
+
+                        >.prev-val,
+                        >.new-val {
+                            padding: 0 rem(8px);
+                            flex-grow: 1;
+                        }
+
+                        >.change-icon {
+                            color: $default-task-val-bgc;
+                        }
+                    }
+                }
+
+                span {
+                    font-family: "Roboto", sans-serif;
+                }
+            }
         }
     }
 
