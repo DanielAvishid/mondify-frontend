@@ -29,23 +29,74 @@
     transition: backgrounc-color .1s ease;
     display: flex;
     align-items: center;
-    width: 100%;
+    justify-content: baseline;
     height: 100%;
     border: none;
     border-radius: 40px;
 
     @if $size ==small {
-        padding-inline-end: 16px;
-        padding-inline-start: 17px;
-        height: 40px;
+        padding-inline-end: rem(14px);
+        padding-inline-start: rem(16px);
+        padding-block: rem(8px);
+        min-height: 40px;
 
         &:hover {
-            background-color: #5151d5;
+            .icon {
+                padding-inline-start: rem(9px);
+                padding-inline-end: 0;
+            }
+        }
+
+        .icon {
+            min-width: min-content;
+            padding-inline-start: rem(5px);
+            padding-inline-end: rem(4px);
+            transition: padding 0.3s ease-in-out;
+
+            svg {
+                font-size: rem(16px);
+                color: $primary-background-color;
+                width: 12px;
+                height: 10px;
+            }
+        }
+    }
+
+    @if $size==normal {
+        padding-block: 16px;
+        padding-inline-start: 32px;
+        padding-inline-end: 20px;
+        min-height: 49px;
+        max-height: min-content;
+
+        &:hover {
+            .icon {
+                padding-inline-start: rem(14px);
+                padding-inline-end: 0;
+            }
+        }
+
+        .icon {
+            min-width: min-content;
+            padding-inline-start: rem(10px);
+            padding-inline-end: rem(4px);
+            transition: padding 0.3s ease-in-out;
+
+            svg {
+                font-size: rem(16px);
+                color: $primary-background-color;
+                width: 12px;
+                height: 10px;
+            }
         }
     }
 
     @if $color ==normal {
         background-color: $button-purple;
         color: $primary-background-color;
+
+        &:hover {
+            background-color: #5151d5;
+        }
     }
 }
