@@ -3,13 +3,13 @@ import { Close } from "/node_modules/monday-ui-react-core/src/components/Icon/Ic
 import { GoHomeFill } from "react-icons/go";
 import { utilService } from "../services/util.service";
 
-export function ModalFull({ board, onSaveBoard }) {
+export function ModalFull({ board, onSaveBoard, onCloseModal }) {
 
     return (
         <section className="modal-full">
             <div className="modal-container">
                 <div className="content-container">
-                    <Button className="close-btn" kind={Button.kinds.TERTIARY}>
+                    <Button className="close-btn" kind={Button.kinds.TERTIARY} onClick={onCloseModal}>
                         <Icon className="close-icon" icon={Close} />
                     </Button>
                     <div className="container">

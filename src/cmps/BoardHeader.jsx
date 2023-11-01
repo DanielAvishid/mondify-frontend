@@ -24,6 +24,10 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
         }
     }
 
+    function onCloseModal() {
+        setIsModalOpen(false)
+    }
+
     function handleInputFocus() {
         setIsInputFocus(true)
     }
@@ -205,7 +209,7 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                     </Button>
                 </div>
             </section>
-            {isModalOpen && <ModalFull board={board} onSaveBoard={onSaveBoard} />}
+            {isModalOpen && <ModalFull board={board} onSaveBoard={onSaveBoard} onCloseModal={onCloseModal} />}
         </section >
     )
 }
