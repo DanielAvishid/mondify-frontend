@@ -98,13 +98,13 @@
                         }
 
                         .edit-description {
-
                             padding: 0;
 
                             .headingComponent_c12f87e3d8.singleLineEllipsis_134602c895 {
                                 padding: 2px;
                                 padding-inline: 3px;
                                 border: none;
+                                overflow: hidden;
                             }
 
                             .editableInputWrapper_8e7f29624b {
@@ -168,6 +168,50 @@
                                 font-family: Figtree, Roboto, "Noto Sans Hebrew", "Noto Kufi Arabic", "Noto Sans JP", sans-serif;
                                 line-height: 21px;
                                 color: $primary-text-color;
+                            }
+
+                            .workspace-icon {
+                                width: rem(24px);
+                                height: rem(24px);
+                                position: relative;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                background-color: $light_blue_special;
+                                border-radius: 8px;
+                                color: #fff;
+                                margin-inline-end: rem(3px);
+
+                                .letter {
+                                    vertical-align: baseline;
+                                    font-size: rem(16px);
+                                }
+
+                                .home-icon {
+                                    width: 14px;
+                                    color: black;
+                                    position: absolute;
+                                    top: 13px;
+                                    left: 17px;
+                                }
+                            }
+
+                            .avatar {
+                                width: 30px;
+                                height: 30px;
+                                margin-inline-end: 3px;
+                            }
+
+                            .board-info {
+                                display: flex;
+                                justify-content: baseline;
+
+                                .board-icon {
+                                    color: $icon-secondary-color;
+                                    width: 22px;
+                                    height: 22px;
+                                    padding-block-end: 5px;
+                                }
                             }
                         }
                     }

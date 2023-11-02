@@ -3,7 +3,7 @@ import { NavigationChevronDown, DropdownChevronDown, DropdownChevronUp, Home, De
 import { useRef, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { boardService } from "../services/board.service"
-import { ModalFull } from "./ModalFull"
+import { BoardModal } from "./BoardModal"
 
 export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveBoard, onDuplicateBoard }) {
 
@@ -117,7 +117,7 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
             {(!isCollapse && board.description) && <section className={`second-row-container`}>
                 <div className="flex align-center">
                     <p className="board-description">{board.description}</p>
-                    <span className="see-more">See More</span>
+                    <span className="see-more" onClick={() => setIsModalOpen(true)}>See More</span>
                 </div>
             </section>}
             <section className={`container third-row-container ${!board.description ? 'no-description' : ''} ${isCollapse ? 'collapse' : ''}`}>
@@ -209,7 +209,7 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                     </Button>
                 </div>
             </section>
-            {isModalOpen && <ModalFull board={board} onSaveBoard={onSaveBoard} onCloseModal={onCloseModal} />}
+            {isModalOpen && <BoardModal board={board} onSaveBoard={onSaveBoard} onCloseModal={onCloseModal} />}
         </section >
     )
 }
