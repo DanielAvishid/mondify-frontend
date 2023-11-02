@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router"
-import { getById, saveBoard } from "../store/actions/board.action"
+import { duplicate, getById, saveBoard } from "../store/actions/board.action"
 import { Avatar, AvatarGroup, Button, EditableHeading, Menu, MenuButton, MenuItem, Tab, TabList, Heading, Badge, Link, Icon, MenuDivider, Divider } from "monday-ui-react-core"
 import { Close, Drag, Attach, Home, Time, Add, Duplicate, Delete } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { remove } from "../store/actions/board.action"
@@ -38,7 +38,7 @@ export function TaskDetails() {
         try {
             await remove({ boardId, taskId })
             showSuccessMsg(`We successfully deleted 1 item`)
-        } catch {
+        } catch (err) {
             console.log('Had issues in board details', err)
             console.log('ShowErrorMsg')
         }
@@ -115,9 +115,9 @@ export function TaskDetails() {
                         <div className="task-edit-container">
                             <EditableHeading
                                 className="task-title-input"
-                                type="h1"
-                                value="This heading is editable"
-                            />
+                                type="h2"
+                                value={task.title}
+                                onBlur={(ev) => handleTaskTitleChange(ev)} />
                             <div className="subscribe-container">
                                 <button className="subscribe-btn">
                                     <AvatarGroup
@@ -139,11 +139,9 @@ export function TaskDetails() {
                                     className="subscriber-menu">
                                     <Menu id="menu" size="large" className="menu-modal">
                                         <MenuItem
-                                            icon={Duplicate}
-                                            title="Duplicate Board" />
-                                        <MenuItem
                                             icon={Delete}
-                                            title="Delete" />
+                                            title="Delete"
+                                            onClick={() => onRemoveTask({ boardId, taskId })} />
                                     </Menu>
                                 </MenuButton>
                             </div>
@@ -159,9 +157,12 @@ export function TaskDetails() {
                 </div>
                 <div className="main-content">
                     <div className="updates">
-                        {!isUpdateMode && <button className="update-btn" onClick={() => setIsUpdateMode(true)}>
-                            Write an update...
-                        </button>}
+                        <div className="update-btn-container">
+                            {!isUpdateMode && <button className="update-btn" onClick={() => setIsUpdateMode(true)}>
+                                Write an update...
+                            </button>}
+                        </div>
+
                     </div>
                 </div>
             </section>

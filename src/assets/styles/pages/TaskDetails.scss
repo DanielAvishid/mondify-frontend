@@ -214,25 +214,30 @@
             margin-block-start: 20px;
             margin-inline: 20px;
 
-            .update-btn {
-                border: 1px solid $primary-color;
-                background-color: transparent;
-                font-size: rem(16px);
-                font-family: Figtree, Roboto, "Noto Sans Hebrew", "Noto Kufi Arabic", "Noto Sans JP", sans-serif;
-                border-radius: 8px;
-                padding: 10px 20px;
-                color: $primary-text-color;
-                cursor: text;
-                transition: color .15s ease;
-                width: 100%;
-                text-align: left;
-                max-width: 750px;
+            .update-btn-container {
+                margin: auto;
 
-                &:hover {
-                    color: $icon-secondary-color;
-                    background-color: $primary-background-hover-color;
+                .update-btn {
+                    border: 1px solid $primary-color;
+                    background-color: transparent;
+                    font-size: rem(16px);
+                    font-family: Figtree, Roboto, "Noto Sans Hebrew", "Noto Kufi Arabic", "Noto Sans JP", sans-serif;
+                    border-radius: 8px;
+                    padding: 10px 20px;
+                    color: $primary-text-color;
+                    cursor: text;
+                    transition: color .15s ease;
+                    width: 100%;
+                    text-align: left;
+                    max-width: 750px;
+
+                    &:hover {
+                        color: $icon-secondary-color;
+                        background-color: $primary-background-hover-color;
+                    }
                 }
             }
+
         }
     }
 
