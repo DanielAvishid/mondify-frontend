@@ -10,7 +10,9 @@ export function ProgressBar({ board, group }) {
     const renderCmpSpan = (cmp) => {
         switch (cmp.type) {
             case 'timeline':
-                return <TimelineSummary group={group} />
+                return <TimelineSummary group={group} type={cmp.type} />
+            case 'date':
+                return <TimelineSummary group={group} type={cmp.type} />
             case 'status':
                 return <LabelsSummary group={group} board={board} type={cmp.type} />
             case 'priority':
@@ -27,7 +29,7 @@ export function ProgressBar({ board, group }) {
             <tfoot className="table-container table" style={{ borderColor: "transparent" }}>
                 <tr className="table-row flex">
                     {board.cmpsOrder.map((cmp, idx) => (
-                        <td key={idx} className={`${cmp.type}-col ${cmp.type} task-item flex align-center justify-center`}>
+                        <td key={idx} className={`${cmp.type}-col ${cmp.type} flex align-center justify-center`}>
                             {renderCmpSpan(cmp)}
                         </td>
                     ))}

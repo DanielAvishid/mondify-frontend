@@ -101,9 +101,6 @@ export function TaskDetails() {
     }
 
     if (!task) return <span></span>
-    // console.log(task);
-    // const { id, title, members, updates } = task
-    // console.log(updates);
 
     return (
         <section className="task-details">
@@ -114,82 +111,6 @@ export function TaskDetails() {
                             <Button className="close-btn" kind={Button.kinds.TERTIARY}>
                                 <Icon className="close-icon" icon={Close} />
                             </Button>
-                        </div>
-                        <div className="task-edit-container">
-                            <EditableHeading
-                                value={task.title}
-                                className="task-title-input"
-                                type="h2"
-                                inputType={'textarea'}
-                                onBlur={(ev) => handleTaskTitleChange(ev)}
-                            />
-                            <div className="subscribe-container">
-                                <button className="subscribe-btn">
-                                    <AvatarGroup size="small" className="avatar-group">
-                                        <Avatar
-                                            className="avatar"
-                                            ariaLabel="Hadas Fahri"
-                                            src="https://style.monday.com/static/media/person1.de30c8ee.png"
-                                            type="img"
-                                        />
-                                        {/* <Avatar
-                                    ariaLabel="Sergey Roytman"
-                                    src="https://style.monday.com/static/media/person2.24c7233e.png"
-                                    type="img"
-                                /> */}
-                                    </AvatarGroup>
-                                </button>
-                                <MenuButton className="subscriber-menu">
-                                    <Menu id="menu" size="large">
-                                        <MenuItem title="Manage subscribers" />
-                                        <MenuItem title="Delete" onClick={() => onRemoveTask({ boardId, taskId })} />
-                                    </Menu>
-                                </MenuButton>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="tabs-container">
-                        <TabList className="tab-list">
-                            <Tab key='main' tabInnerClassName='updates-tab' icon={Home}>Updates</Tab>
-                            <Tab key='kanban' tabInnerClassName='tab'>Files</Tab>
-                            <Tab key='kanban' tabInnerClassName='tab activity-tab'>Activity Log</Tab>
-                        </TabList>
-                    </div>
-
-                    {/* <div className="close-container">
-                        <Button className="close-btn" kind={Button.kinds.TERTIARY}>
-                            <Icon className="close-icon" icon={Close} />
-                        </Button>
-                    </div> */}
-                    <div className="task-title-container">
-                        {/* <EditableHeading
-                            className="task-title-input"
-                            type="h2"
-                            value="This heading is editable"
-                            inputType={'textarea'}
-                        /> */}
-                        <div className="subscribe-container">
-                            {/* <button className="subscribe-btn">
-                                <AvatarGroup size="small" className="avatar-group">
-                                <Avatar
-                                        className="avatar"
-                                        ariaLabel="Hadas Fahri"
-                                        src="https://style.monday.com/static/media/person1.de30c8ee.png"
-                                        type="img"
-                                    />
-                                <Avatar
-                                    ariaLabel="Sergey Roytman"
-                                    src="https://style.monday.com/static/media/person2.24c7233e.png"
-                                    type="img"
-                                />
-                                </AvatarGroup>
-                            </button> */}
-                            {/* <MenuButton className="subscriber-menu">
-                                <Menu id="menu" size="large">
-                                    <MenuItem title="Manage subscribers" />
-                                    <MenuItem title="Delete" />
-                                </Menu>
-                            </MenuButton> */}
                         </div>
                     </div>
                 </div>
@@ -206,6 +127,162 @@ export function TaskDetails() {
             </button>
         </section >
     )
+    {/* return (
+<section className='task-details flex column'>
+<article>
+<Button
+className="close-btn"
+kind="tertiary" leftIcon={Close}
+size="sm"
+onClick={() => navigate(`/board/${boardId}`)}>
+</Button>
+</article>
+
+<article className="flex align-center justify-between">
+<article>
+<EditableHeading
+type={EditableHeading.types.h4}
+value={title}
+tooltip='Click to Edit'
+tooltipPosition="bottom"
+customColor="#323338"
+onBlur={(ev) => saveBoard({ key: 'title', value: ev.target.value, boardId, taskId })}
+onKeyDown={handleKeyPress}
+/>
+</article>
+<article className="flex align-center justify-between">
+<AvatarGroup size="small" type="img" max={3}>
+{members.map(member =>
+    <Avatar
+        key={member}
+        ariaLabel={member}
+        src={userImgUrl} />)}
+</AvatarGroup>
+
+<MenuButton>
+<Menu id="menu" size="large">
+    <MenuItem icon={Delete} title="Delete" onClick={onRemoveTask} />
+</Menu>
+</MenuButton>
+</article>
+</article>
+
+<TabList className="update-list">
+<Tab tabInnerClassName='tab' icon={Home}>Updates</Tab>
+<Tab>Files</Tab>
+<Tab>Activity Log</Tab>
+</TabList>
+
+{!wroteUpdate && <Button
+className="write-update-btn"
+kind="Tertiary"
+onClick={onWrite}>
+Write an Update...
+</Button>}
+
+{wroteUpdate && <section className="add-update">
+<article className="text-sec">
+<article className="text-tools">
+</article>
+<textarea onChange={handleChange} value={newUpdateText}></textarea>
+</article>
+<article className="flex align-center  justify-between">
+<Button
+className="add-files-btn"
+kind="Tertiary"
+leftIcon={Attach}>
+Add files
+</Button>
+<Button
+className="update-btn"
+onClick={onUpdate}>
+Update
+</Button>
+</article>
+</section>} */}
+
+    {/* {(updates && updates.length > 0) && <section className="updates-container">
+{updates.map(update => <article className="update-txt" key={update.id}>
+<article className="flex align-center justify-between">
+<div className="flex align-center">
+    <Avatar src={update.by.imgUrl} type="img" />
+    <h3>{update.by.fullname}</h3>
+</div>
+<div className="task-edit-container">
+    <EditableHeading
+        value={task.title}
+        className="task-title-input"
+        type="h2"
+        inputType={'textarea'}
+        onBlur={(ev) => handleTaskTitleChange(ev)}
+    />
+    <div className="subscribe-container">
+        <button className="subscribe-btn">
+            <AvatarGroup size="small" className="avatar-group">
+                <Avatar
+                    className="avatar"
+                    ariaLabel="Hadas Fahri"
+                    src="https://style.monday.com/static/media/person1.de30c8ee.png"
+                    type="img"
+                /> */}
+    {/* <Avatar
+            ariaLabel="Sergey Roytman"
+            src="https://style.monday.com/static/media/person2.24c7233e.png"
+            type="img"
+        /> */}
+    {/* </AvatarGroup>
+        </button>
+        <MenuButton className="subscriber-menu">
+            <Menu id="menu" size="large">
+                <MenuItem title="Manage subscribers" />
+                <MenuItem title="Delete" onClick={() => onRemoveTask({ boardId, taskId })} />
+            </Menu>
+        </MenuButton>
+    </div>
+</div>
+</div>
+<div className="tabs-container">
+<TabList className="tab-list">
+    <Tab key='main' tabInnerClassName='updates-tab' icon={Home}>Updates</Tab>
+    <Tab key='kanban' tabInnerClassName='tab'>Files</Tab>
+    <Tab key='kanban' tabInnerClassName='tab activity-tab'>Activity Log</Tab>
+</TabList>
+</div> */}
+
+    {/* <div className="close-container">
+<Button className="close-btn" kind={Button.kinds.TERTIARY}>
+    <Icon className="close-icon" icon={Close} />
+</Button>
+</div> */}
+    {/* <div className="task-title-container"> */ }
+    {/* <EditableHeading
+    className="task-title-input"
+    type="h2"
+    value="This heading is editable"
+    inputType={'textarea'}
+/> */}
+    {/* <div className="subscribe-container"> */ }
+    {/* <button className="subscribe-btn">
+        <AvatarGroup size="small" className="avatar-group">
+        <Avatar
+                className="avatar"
+                ariaLabel="Hadas Fahri"
+                src="https://style.monday.com/static/media/person1.de30c8ee.png"
+                type="img"
+            />
+        <Avatar
+            ariaLabel="Sergey Roytman"
+            src="https://style.monday.com/static/media/person2.24c7233e.png"
+            type="img"
+        />
+        </AvatarGroup>
+    </button> */}
+    {/* <MenuButton className="subscriber-menu">
+        <Menu id="menu" size="large">
+            <MenuItem title="Manage subscribers" />
+            <MenuItem title="Delete" />
+        </Menu>
+    </MenuButton> */}
     // return (
     //     <section className='task-details flex column'>
     //         <article>

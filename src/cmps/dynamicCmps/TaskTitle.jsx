@@ -36,7 +36,7 @@ export function TaskTitle({ boardId, task, onSaveBoard, isChecked, handleCheckbo
 
     return (
         <td
-            className={`task-item task-title title-col flex align-center ${isFocus ? 'focus' : ''}`}
+            className={` task-title title-col flex align-center ${isFocus ? 'focus' : ''}`}
             ref={titleCell}
         >
             <div className="checkbox flex align-center justify-center">

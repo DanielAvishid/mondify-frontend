@@ -76,50 +76,75 @@ async function addBoard(board) {
     return await storageService.post(STORAGE_KEY, board)
 }
 
-async function addTaskFromHeader(board, task) {
+async function addTaskFromHeader(board, task = getEmptyTask()) {
     board.groups[0].tasks.unshift(task)
     const savedBoard = await storageService.put(STORAGE_KEY, board)
     return savedBoard
 }
 // update({ board, boardId, groupId, value: task }) === addTask()
 // update({ board, boardId, taskId, key: title, value: "new title" }) === updateTask()
+
 async function update({ board, boardId, groupId, taskId, key, value }) {
     if (!board) {
-        board = await storageService.get(STORAGE_KEY, boardId)
+        board = await storageService.get(STORAGE_KEY, boardId);
     }
+
+    const location = {
+        board: boardId,
+        group: groupId,
+        task: taskId,
+        key
+    };
+
+    let prevValue;
+
     if (taskId) {
         if (!groupId) {
-            const updatedGroups = board.groups.map(group => {
-                const updatedTasks = group.tasks.map(task => {
+            const updatedGroups = board.groups.map((group) => {
+                const updatedTasks = group.tasks.map((task) => {
                     if (task.id === taskId) {
-                        return { ...task, [key]: value }
+                        prevValue = task[key]; // Store the previous value
+                        return { ...task, [key]: value };
                     }
                     return task;
-                })
-                return { ...group, tasks: updatedTasks }
-            })
-            board = { ...board, groups: updatedGroups }
+                });
+                return { ...group, tasks: updatedTasks };
+            });
+            board = { ...board, groups: updatedGroups };
         } else {
-            const groupIdx = board.groups.findIndex((group) => group.id === groupId)
-            const taskIdx = board.groups[groupIdx].tasks.findIndex((task) => task.id === taskId)
-            board.groups[groupIdx].tasks[taskIdx][key] = value
+            const groupIdx = board.groups.findIndex((group) => group.id === groupId);
+            const taskIdx = board.groups[groupIdx].tasks.findIndex((task) => task.id === taskId);
+            prevValue = board.groups[groupIdx].tasks[taskIdx][key]; // Store the previous value
+            board.groups[groupIdx].tasks[taskIdx][key] = value;
         }
     } else if (groupId) {
-        const groupIdx = board.groups.findIndex((group) => group.id === groupId)
+        const groupIdx = board.groups.findIndex((group) => group.id === groupId);
         if (!key) {
-            board.groups[groupIdx].tasks.push(value)
+            board.groups[groupIdx].tasks.push(value);
         } else {
-            board.groups[groupIdx][key] = value
+            prevValue = board.groups[groupIdx][key]; // Store the previous value
+            board.groups[groupIdx][key] = value;
         }
     } else {
         if (!key) {
-            board.groups.push(value)
+            board.groups.push(value);
         } else {
-            board[key] = value
+            prevValue = board[key]; // Store the previous value
+            board[key] = value;
         }
     }
+
+    const change = {
+        prevValue,
+        newValue: value,
+        timestamp: Date.now(),
+        location
+    };
+
+    board.activities.unshift(change);
+
     console.log('SERVICE', board);
-    return await storageService.put(STORAGE_KEY, board)
+    return await storageService.put(STORAGE_KEY, board);
 }
 
 async function duplicate({ boardId, groupId, taskId }) {
@@ -150,10 +175,15 @@ async function duplicate({ boardId, groupId, taskId }) {
 ////////////////////////////////////////////////////////////////////////////// get empty
 function getEmptyBoard() {
     return {
-        title: "Mondify tasks",
+        title: "New Board",
         description: "Manage any type of project. Assign owners, set timelines and keep track of where your project stands.",
         isStarred: false,
         archivedAt: Date.now(),
+        createdBy: {
+            "_id": "UjCos",
+            "fullname": "Carmel Amarillio",
+            "imgUrl": "https://hips.hearstapps.com/ghk.h-cdn.co/assets/16/08/gettyimages-464163411.jpg?crop=1.0xw:1xh;center,top&resize=980:*"
+        },
         style: {
             backgroundImage: ""
         },
@@ -219,58 +249,149 @@ function getEmptyBoard() {
                         "title": "Fix handle change func",
                         "status": "ls101",
                         "priority": "lp103",
-                        "timeline": [1677619200000, 1679952000000],
+                        "timeline": [1698155558000, 1698955558000],
                         "members": ["WOWOWO"],
-                        "date": 1697619200000
+                        "date": 1699635558000
                     },
                     {
                         "id": utilService.makeId(),
                         "title": "Remove tasks",
                         "status": "ls103",
                         "priority": "lp101",
-                        "timeline": [1678128000000, 1679872000000],
+                        "timeline": [1697855558000, 1696755558000],
                         "members": ["UjCos"],
-                        "date": 1690619200000
+                        "date": 1699435558000
                     },
                     {
                         "id": utilService.makeId(),
                         "title": "Update response time",
-                        "status": "ls103",
-                        "priority": "lp103",
-                        "timeline": [1677388800000, 1680048000000],
+                        "status": "ls102",
+                        "priority": "lp102",
+                        "timeline": [],
                         "members": ["KKLLSS", "UjCos"],
-                        "date": 1699819200000
+                        "date": 1699235558000
                     },
                     {
                         "id": utilService.makeId(),
                         "title": "Add rating stars",
                         "status": "ls101",
-                        "priority": "lp103",
-                        "timeline": [167772800000, 1680288000000],
+                        "priority": "lp101",
+                        "timeline": [1698825558000, 1698925558000],
                         "members": ["WOWOWO"],
-                        "date": 1678119200000
+                        "date": 1698255558000
                     },
                     {
                         "id": utilService.makeId(),
                         "title": "Update react version",
-                        "status": "ls103",
+                        "status": "ls102",
                         "priority": "lp101",
-                        "timeline": [1666041200000, 1677041200000],
+                        "timeline": [1698155558000, 1698955558000],
                         "members": ["UjCos"],
-                        "date": 1699619200000
+                        "date": 1699235558000
                     },
                     {
                         "id": utilService.makeId(),
                         "title": "Update response time",
-                        "status": "ls103",
+                        "status": "ls101",
                         "priority": "lp103",
-                        "timeline": [1677043200000, 1679971200000],
+                        "timeline": [1697655558000, 1699955558000],
                         "members": ["KKLLSS", "UjCos"],
-                        "date": 1657619200000
+                        "date": 1698555558000
                     },
                 ],
                 "style": { "backgroundColor": "#579BFC" }
+            }, {
+                "id": utilService.makeId(),
+                "title": "Managment",
+                "archivedAt": Date.now(),
+                "tasks": [
+                    {
+                        "id": utilService.makeId(),
+                        "title": "Implement Data Structures",
+                        "status": "ls102",
+                        "priority": "lp103",
+                        "timeline": [1698795558000, 1697153558000],
+                        "members": ["KKLLSS", "WOWOWO", "UjCos"],
+                        "date": 1698955558000
+                    },
+                    {
+                        "id": utilService.makeId(),
+                        "title": "Optimize Algorithms",
+                        "status": "ls103",
+                        "priority": "lp102",
+                        "timeline": [1698835558000, 1698875558000],
+                        "members": ["UjCos", "WOWOWO"],
+                        "date": 1697235558000
+                    },
+                    {
+                        "id": utilService.makeId(),
+                        "title": "Database Design",
+                        "status": "ls103",
+                        "priority": "lp101",
+                        "timeline": [],
+                        "members": ["KKLLSS", "UjCos"],
+                        "date": null
+                    },
+                    {
+                        "id": utilService.makeId(),
+                        "title": "UI/UX Improvements",
+                        "status": "ls101",
+                        "priority": "lp102",
+                        "timeline": [1698815558000, 1698335558000],
+                        "members": ["WOWOWO"],
+                        "date": 1692835558000
+                    },
+                    {
+                        "id": utilService.makeId(),
+                        "title": "Security Audit",
+                        "status": "ls101",
+                        "priority": "lp101",
+                        "timeline": [1698155558000, 1698955558000],
+                        "members": ["WOWOWO"],
+                        "date": 1698155558000
+                    },
+                    {
+                        "id": utilService.makeId(),
+                        "title": "Machine Learning Module",
+                        "status": "ls103",
+                        "priority": "lp102",
+                        "timeline": [],
+                        "members": ["UjCos"],
+                        "date": null
+                    },
+                    {
+                        "id": utilService.makeId(),
+                        "title": "Integration Setup",
+                        "status": "ls102",
+                        "priority": "lp101",
+                        "timeline": [1697835558000, 1697835558000],
+                        "members": ["WOWOWO", "KKLLSS"],
+                        "date": 1699235558000
+                    },
+                    {
+                        "id": utilService.makeId(),
+                        "title": "Bug Fixes",
+                        "status": "ls101",
+                        "priority": "lp101",
+                        "timeline": [1698835558000, 1698835558000],
+                        "members": ["WOWOWO", "UjCos"],
+                        "date": 1698835558000
+                    },
+                    {
+                        "id": utilService.makeId(),
+                        "title": "Documentation Update",
+                        "status": "ls103",
+                        "priority": "lp103",
+                        "timeline": [],
+                        "members": ["UjCos", "KKLLSS"],
+                        "date": null
+                    }
+                ],
+                "style": {
+                    "backgroundColor": "#ff4d4d"
+                }
             },
+
             {
                 "id": utilService.makeId(),
                 "title": "UI/UX",
@@ -280,37 +401,37 @@ function getEmptyBoard() {
                         "id": utilService.makeId(),
                         "title": "Make it look better",
                         "status": "ls103",
-                        "priority": "lp103",
-                        "timeline": [1677619200000, 1680124800000],
+                        "priority": "lp102",
+                        "timeline": [1698235558000, 1696835558000],
                         "members": ["UjCos"],
-                        "date": 1676619200000
+                        "date": 1698335558000
                     },
                     {
                         "id": utilService.makeId(),
                         "title": "Fix main button",
-                        "status": "ls101",
+                        "status": "ls102",
                         "priority": "lp101",
-                        "timeline": [1677532800000, 1679872000000],
+                        "timeline": [1697835558000, 1699235558000],
                         "members": ["KKLLSS", "WOWOWO"],
-                        "date": 1679919200000
+                        "date": 1679819200000
                     },
                     {
                         "id": utilService.makeId(),
-                        "title": "Check for new libraries",
-                        "status": "ls103",
+                        "title": "Check New libraries",
+                        "status": "ls102",
                         "priority": "lp103",
-                        "timeline": [1676880000000, 1680201600000],
+                        "timeline": [1698835558000, 1698835558000],
                         "members": ["KKLLSS"],
-                        "date": 1677339200000
+                        "date": 1698835558000
                     },
                     {
                         "id": utilService.makeId(),
                         "title": "Update modal layout",
-                        "status": "ls101",
+                        "status": "ls103",
                         "priority": "lp101",
-                        "timeline": [1676880000000, 1680201600000],
+                        "timeline": [1698835558000, 1698835558000],
                         "members": ["KKLLSS", "WOWOWO", "UjCos"],
-                        "date": 1679119200000
+                        "date": 1698835558000
                     }
                 ],
                 "style": { "backgroundColor": "#A25DDC" }
@@ -323,29 +444,29 @@ function getEmptyBoard() {
                     {
                         "id": utilService.makeId(),
                         "title": "Data collection",
-                        "status": "ls103",
+                        "status": "ls101",
                         "priority": "lp103",
-                        "timeline": [1677187200000, 1680110400000],
+                        "timeline": [1698835558000, 1698835558000],
                         "members": ["UjCos"],
-                        "date": 1673619200000
+                        "date": 1698835558000
                     },
                     {
                         "id": utilService.makeId(),
                         "title": "Renew data",
-                        "status": "ls103",
+                        "status": "ls102",
                         "priority": "lp101",
-                        "timeline": [1677484800000, 1680153600000],
+                        "timeline": [1698835558000, 1698835558000],
                         "members": ["KKLLSS", "WOWOWO"],
-                        "date": 1674619200000
+                        "date": null
                     },
                     {
                         "id": utilService.makeId(),
                         "title": "Check for duplicates",
                         "status": "ls101",
-                        "priority": "lp103",
-                        "timeline": [1677619200000, 1680345600000],
+                        "priority": "lp102",
+                        "timeline": [1698835558000, 1698835558000],
                         "members": ["WOWOWO"],
-                        "date": 1687619200000
+                        "date": 1698835558000
                     },
                 ],
                 "style": { "backgroundColor": "#00c875" }
@@ -419,10 +540,11 @@ function getEmptyTask(title = 'New Item') {
     return {
         id: utilService.makeId(),
         title,
-        status: "Done",
-        priority: "Critical",
-        members: ["UjCos"],
-        timeline: []
+        status: "ls104",
+        priority: "lp105",
+        members: [],
+        timeline: [],
+        Date: null
     }
 }
 

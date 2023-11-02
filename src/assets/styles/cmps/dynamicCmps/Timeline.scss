@@ -19,12 +19,17 @@
         color: $primary-text-color;
     }
 
-    >.inner-container {
+}
+
+.timeline,
+.date {
+
+    >.date-container {
         display: grid;
         align-items: center;
         justify-content: center;
-        width: 6.875rem;
-        height: 1.375rem;
+        width: rem(110px);
+        height: rem(22px);
         border-radius: 2em;
         color: $white;
         background-color: $default-task-val-bgc;
