@@ -7,6 +7,7 @@
     transition: opacity .1s ease-in-out;
 
     .modal-container {
+        z-index: 1100;
         position: absolute;
         inset: 50% auto auto 50%;
         background-color: $primary-background-color;
