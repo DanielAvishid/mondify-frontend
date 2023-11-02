@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router"
 import { getById, saveBoard } from "../store/actions/board.action"
 import { Avatar, AvatarGroup, Button, EditableHeading, Menu, MenuButton, MenuItem, Tab, TabList, Heading, Badge, Link, Icon, MenuDivider, Divider } from "monday-ui-react-core"
-import { Close, Drag, Attach, Delete, Home, Time, Add } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
+import { Close, Drag, Attach, Home, Time, Add, Duplicate, Delete } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { remove } from "../store/actions/board.action"
 import userImgUrl from '../assets/img/user-img.png'
 import updateImgUrl from '../assets/img/update-img.png'
@@ -108,10 +108,53 @@ export function TaskDetails() {
                 <div className="header">
                     <div className="title-container">
                         <div className="close-btn-container">
-                            <Button className="close-btn" kind={Button.kinds.TERTIARY}>
+                            <Button className="close-btn" kind={Button.kinds.TERTIARY} onClick={() => navigate(`/board/${boardId}`)}>
                                 <Icon className="close-icon" icon={Close} />
                             </Button>
                         </div>
+                        <div className="task-edit-container">
+                            <EditableHeading
+                                className="task-title-input"
+                                type="h1"
+                                value="This heading is editable"
+                            />
+                            <div className="subscribe-container">
+                                <button className="subscribe-btn">
+                                    <AvatarGroup
+                                        className="avatar-group"
+                                        size="small">
+                                        <Avatar
+                                            ariaLabel="Yossi Saadi"
+                                            src="https://style.monday.com/static/media/person3.3661bfe5.png"
+                                            type="img"
+                                        />
+                                        <Avatar
+                                            ariaLabel="Mark Roytstein"
+                                            text="MR"
+                                            type="text"
+                                        />
+                                    </AvatarGroup>
+                                </button>
+                                <MenuButton
+                                    className="subscriber-menu">
+                                    <Menu id="menu" size="large" className="menu-modal">
+                                        <MenuItem
+                                            icon={Duplicate}
+                                            title="Duplicate Board" />
+                                        <MenuItem
+                                            icon={Delete}
+                                            title="Delete" />
+                                    </Menu>
+                                </MenuButton>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="tabs-container">
+                        <TabList className="tab-list">
+                            <Tab key='main' tabInnerClassName='updates-tab' icon={Home}>Updates</Tab>
+                            <Tab key='files' tabInnerClassName='tab'>Files</Tab>
+                            <Tab key='activity' tabInnerClassName='tab activity-tab'>Activity Log</Tab>
+                        </TabList>
                     </div>
                 </div>
                 <div className="main-content">
