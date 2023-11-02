@@ -1,11 +1,9 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useNavigate, useParams } from "react-router"
-import { duplicate, getById, saveBoard } from "../store/actions/board.action"
-import { Avatar, AvatarGroup, Button, EditableHeading, Menu, MenuButton, MenuItem, Tab, TabList, Heading, Badge, Link, Icon, MenuDivider, Divider } from "monday-ui-react-core"
-import { Close, Drag, Attach, Home, Time, Add, Duplicate, Delete } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
+import { getById, saveBoard } from "../store/actions/board.action"
+import { Avatar, AvatarGroup, Button, EditableHeading, Menu, MenuButton, MenuItem, Tab, TabList, Icon } from "monday-ui-react-core"
+import { Close, Drag, Home, Time, Delete } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { remove } from "../store/actions/board.action"
-import userImgUrl from '../assets/img/user-img.png'
-import updateImgUrl from '../assets/img/update-img.png'
 import { utilService } from "../services/util.service"
 import { useSelector } from "react-redux"
 import { showSuccessMsg } from "../services/event-bus.service"
@@ -16,8 +14,8 @@ export function TaskDetails() {
     const { boardId, taskId } = useParams()
     const [task, setTask] = useState(null)
     const [isUpdateMode, setIsUpdateMode] = useState(false)
-    // const [wroteUpdate, setWroteUpdate] = useState(false)
-    // const [newUpdateText, setNewUpdateText] = useState('')
+    const editorContainer = useRef()
+    const textareaRef = useRef(null)
 
     useEffect(() => {
         loadTask()
@@ -55,11 +53,18 @@ export function TaskDetails() {
         }
     }
 
-    function onUpdate() {
+    function handleTextareaInput() {
+        const textarea = textareaRef.current
+        textarea.style.height = 'auto'
+        textarea.style.height = textarea.scrollHeight + 'px'
+    }
+
+    function onUpdateClick() {
+        console.log(textareaRef.current.value)
         const value = task.updates || []
         const update = {
             id: utilService.makeId(),
-            text: newUpdateText,
+            text: textareaRef.current.value,
             at: Date.now(),
             by: {
                 "_id": "UjCos",
@@ -70,14 +75,14 @@ export function TaskDetails() {
         value.unshift(update)
         try {
             saveBoard({ key: 'updates', value, boardId, taskId })
-            setNewUpdateText('')
+            setIsUpdateMode(false)
         } catch (err) {
             console.log('canot add update to task', err);
         }
     }
 
-    function onRemoveUpdate(updates) {
-        const value = task.updates.filter(update => update.id !== updates)
+    function onRemoveUpdate(updateId) {
+        const value = task.updates.filter(update => update.id !== updateId)
         try {
             saveBoard({ key: 'updates', value, boardId, taskId })
         } catch (err) {
@@ -85,25 +90,11 @@ export function TaskDetails() {
         }
     }
 
-    function onWrite() {
-        setWroteUpdate(true)
-    }
-
-    function handleChange({ target }) {
-        setNewUpdateText(target.value)
-    }
-
-    function handleKeyPress(ev) {
-        if (ev.key === 'Enter') {
-            saveBoard({ key: 'title', value: ev.target.value, boardId, taskId })
-            ev.target.blur()
-        }
-    }
-
     if (!task) return <span></span>
 
     return (
-        <section className="task-details">
+        <section
+            className="task-details">
             <section className="task-details-content">
                 <div className="header">
                     <div className="title-container">
@@ -123,16 +114,14 @@ export function TaskDetails() {
                                     <AvatarGroup
                                         className="avatar-group"
                                         size="small">
-                                        <Avatar
-                                            ariaLabel="Yossi Saadi"
-                                            src="https://style.monday.com/static/media/person3.3661bfe5.png"
-                                            type="img"
-                                        />
-                                        <Avatar
-                                            ariaLabel="Mark Roytstein"
-                                            text="MR"
-                                            type="text"
-                                        />
+                                        {task.members && task.members.map(member =>
+                                            <Avatar
+                                                key={member}
+                                                ariaLabel="Yossi Saadi"
+                                                src="https://style.monday.com/static/media/person3.3661bfe5.png"
+                                                type="img"
+                                            />
+                                        )}
                                     </AvatarGroup>
                                 </button>
                                 <MenuButton
@@ -156,17 +145,80 @@ export function TaskDetails() {
                     </div>
                 </div>
                 <div className="main-content">
-                    <div className="updates">
-                        <div className="update-btn-container">
-                            {!isUpdateMode && <button className="update-btn" onClick={() => setIsUpdateMode(true)}>
-                                Write an update...
-                            </button>}
+                    <div className="updates-container">
+                        <div className="updates">
+                            {!isUpdateMode && <div className="update-btn-container">
+                                <button className="update-btn" onClick={() => setIsUpdateMode(true)}>
+                                    Write an update...
+                                </button>
+                            </div>}
+                            {isUpdateMode && <div className="post-editor" ref={editorContainer}>
+                                <div className="text-tools">
+                                </div>
+                                <div className="text-area">
+                                    <textarea
+                                        ref={textareaRef}
+                                        onInput={handleTextareaInput}
+                                        rows={1}
+                                        style={{ overflowY: 'auto' }}></textarea>
+                                </div>
+                            </div>}
+                            {isUpdateMode && <div className="btn-container">
+                                <Button size="small" onClick={onUpdateClick}>
+                                    Update
+                                </Button>
+                            </div>}
                         </div>
-
+                        <div className="updates-list">
+                            {task.updates && task.updates.map(update =>
+                                <div key={update} className="update">
+                                    <div className="update-header">
+                                        <Avatar
+                                            className="avatar"
+                                            size="large"
+                                            src={update.by.imgUrl}
+                                            type="img"
+                                        />
+                                        <div className="title">
+                                            <span>{update.by.fullname}</span>
+                                        </div>
+                                        <div className="top-right">
+                                            <div className="flex align-center">
+                                                <Icon icon={Time} />
+                                                <span>39m</span>
+                                            </div>
+                                            <MenuButton
+                                                className="update-menu">
+                                                <Menu id="menu" size="large" className="menu-modal">
+                                                    <MenuItem
+                                                        icon={Delete}
+                                                        title="Delete"
+                                                        onClick={() => onRemoveUpdate(update.id)} />
+                                                </Menu>
+                                            </MenuButton>
+                                        </div>
+                                    </div>
+                                    <div className="update-body">
+                                        <p>{update.text}</p>
+                                    </div>
+                                </div>
+                            )}
+                            {!task.updates.length && <div className="no-updates">
+                                <div>
+                                    <img src="https://cdn.monday.com/images/pulse-page-empty-state.svg" alt="" />
+                                    <h2>No updates yet for this item</h2>
+                                    <p>
+                                        Be the first one to update about progress, mention someone <br />
+                                        or upload files to share with your team members
+                                    </p>
+                                </div>
+                            </div>}
+                        </div>
                     </div>
                 </div>
             </section>
-            <button className="drag-btn">
+            <button
+                className="drag-btn">
                 <Icon className="close-icon" icon={Drag} />
             </button>
         </section >

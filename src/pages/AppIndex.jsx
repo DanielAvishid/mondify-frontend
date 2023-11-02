@@ -27,7 +27,7 @@ export function AppIndex() {
 
     async function onSaveBoard({ board, boardId, groupId, taskId, key, value }) {
         try {
-            await saveBoard({ key: 'title', value: ev.target.value, boardId, taskId })
+            await saveBoard({ board, boardId, groupId, taskId, key, value })
             console.log('ShowSuccessesMsg')
         } catch (err) {
             console.log('Had issues in save board', err)
