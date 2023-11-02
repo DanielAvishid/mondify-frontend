@@ -1,4 +1,7 @@
 import { utilService } from "../services/util.service";
+import { DateRange } from "./utilsCmps/DateRange";
+import { LabelValue } from "./utilsCmps/LabelValue";
+import { TextValue } from "./utilsCmps/TextValue";
 import { Time, NavigationChevronRight } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { Avatar, Icon } from "monday-ui-react-core";
 
@@ -7,29 +10,29 @@ export function ActivityPreview({ board, activity }) {
     const time = utilService.getTimePassed(activity.timestamp)
     const changeType = utilService.capitalizeFirstLetter(activity.location.key)
 
-    let prevValue;
-    let newValue;
+    let prevValue
+    let newValue
 
     switch (activity.location.key) {
         case 'timeline':
-            prevValue
-            newValue
+            prevValue = <DateRange value={activity.prevValue} isNew={false} />
+            newValue = <DateRange value={activity.newValue} isNew={true} />
             break;
         case 'date':
-            prevValue = utilService.formatDateFromTimestamp(activity.prevValue)
-            newValue = utilService.formatDateFromTimestamp(activity.newValue)
+            prevValue = <TextValue value={utilService.formatDateFromTimestamp(activity.prevValue)} />
+            newValue = <TextValue value={utilService.formatDateFromTimestamp(activity.newValue)} />
             break;
         case 'status':
-            prevValue
-            newValue
+            prevValue = <LabelValue value={activity.prevValue} board={board} cmpType='status' />
+            newValue = <LabelValue value={activity.newValue} board={board} cmpType='status' />
             break;
         case 'priority':
-            prevValue
-            newValue
+            prevValue = <LabelValue value={activity.prevValue} board={board} cmpType='priority' />
+            newValue = <LabelValue value={activity.newValue} board={board} cmpType='priority' />
             break;
         case 'title':
-            prevValue = activity.prevValue
-            newValue = activity.newValue
+            prevValue = <TextValue value={activity.prevValue} />
+            newValue = <TextValue value={activity.newValue} />
             break;
         case 'members':
             prevValue
@@ -49,11 +52,10 @@ export function ActivityPreview({ board, activity }) {
             const task = group.tasks.find((task) => task.title);
             if (task) {
                 place = task.title;
-                break; // Stop searching after finding the first task with a title
+                break
             }
         }
     } else if (activity.location.group) {
-        // Find the group by groupId
         const group = board.groups.find((group) => group.id === activity.location.group);
         if (group) {
             place = group.title;
@@ -81,13 +83,9 @@ export function ActivityPreview({ board, activity }) {
                 <span className="ellipsis-text">{changeType}</span>
             </div>
             <div className="change-values flex align-center">
-                <div className="flex align-center justify-center relative">
-                    <span className="prev-val ellipsis-text">{prevValue}</span>
-                </div>
+                {prevValue}
                 <Icon icon={NavigationChevronRight} className="change-icon" />
-                <div className="flex align-center justify-center relative">
-                    <span className="new-val ellipsis-text">{newValue}</span>
-                </div>
+                {newValue}
             </div>
         </div>
     )

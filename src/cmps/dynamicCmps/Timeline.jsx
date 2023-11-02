@@ -18,7 +18,7 @@ export function Timeline({ info, task, board, group, onSaveBoard, setIsTaskFocus
     const bgcToShow = isHover ? darkerGroupBgc : defaultGroupBgc
 
     const { text, percentage } = utilService.getDateToShow(info)
-    const backgroundStyle = (info.length) ? {
+    const style = (info.length) ? {
         background: `linear-gradient(90deg, ${bgcToShow} ${+percentage}%, var(--inverted-color-background) 0%)`
     } : {}
 
@@ -40,12 +40,12 @@ export function Timeline({ info, task, board, group, onSaveBoard, setIsTaskFocus
 
     return (
         <td
-            className={`timeline timeline-col grid align-center justify-center ${isFocus ? 'focus' : ''}`}
+            className={`timeline timeline-col flex align-center justify-center ${isFocus ? 'focus' : ''}`}
             ref={timelineCell}
         >
             {info.length > 0 && < AiOutlineClose className="remove-date" onClick={() => onSaveBoard({ board, taskId: task.id, key: "timeline", value: [] })} />}
             <div
-                style={backgroundStyle}
+                style={style}
                 onMouseEnter={() => setIsHover(true)}
                 onMouseLeave={() => setIsHover(false)}
                 className="date-container"
@@ -56,7 +56,6 @@ export function Timeline({ info, task, board, group, onSaveBoard, setIsTaskFocus
                 ) : (
                     <span>{isHover ? `Set Dates` : '-'}</span>
                 )}
-
             </div>
 
             {isModalOpen && <TimelineModal newDate={newDate} handleDatePick={handleDatePick} />}

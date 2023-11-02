@@ -24,7 +24,7 @@ export function DueDate({ labelId, board, onSaveBoard, cmpType, info, setIsTaskF
     const isDone = statusLabels.some(label => label.color === '#00c875' && label.id === taskStatus);
 
     const currentDate = new Date();
-    const isPastDate = info ? new Date(info) < currentDate : false;
+    const isDatePass = new Date(info) < currentDate;
 
     const handleDatePick = (date) => {
         console.log('date', date);
@@ -51,9 +51,12 @@ export function DueDate({ labelId, board, onSaveBoard, cmpType, info, setIsTaskF
         >
             {info ?
                 <div className="inner-container flex align-center justify-center">
-                    {isPastDate ?
-                        <PiWarningCircleFill className="sign warning" /> :
-                        <PiCheckCircleFill className="sign check" />
+                    {isDone ?
+                        isDatePass ?
+                            <PiWarningCircleFill className="sign check" /> :
+                            <PiCheckCircleFill className="sign check" />
+                        :
+                        <PiWarningCircleFill className="sign warning" />
                     }
                     <span className={`${isDone ? 'done' : ''}`}>{dueDate}</span>
                     <AiOutlineClose className="remove-date" onClick={() => onSaveBoard({ board, taskId: task.id, key: "date", value: null })} />

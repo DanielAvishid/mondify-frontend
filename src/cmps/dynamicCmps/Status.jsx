@@ -30,7 +30,7 @@ export function Status({ labelId, board, onSaveBoard, cmpType, setIsTaskFocus, t
     return (
         <td
             style={customStyle}
-            className={` status status status-col grid align-center justify-center ${isFocus ? 'focus' : ''}`}
+            className={`status status-col grid align-center justify-center ${isFocus ? 'focus' : ''}`}
             ref={statusCell}
             onClick={onClickStatusCell}>
             <span>{currLabel.title}</span>

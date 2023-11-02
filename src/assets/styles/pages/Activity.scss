@@ -141,6 +141,34 @@
                     display: grid;
                     grid-template-columns: 1fr rem(16px) 1fr;
 
+                    >.date-range {
+                        flex: 1;
+                        height: rem(20px);
+                        color: $white;
+                        background-color: $default-task-val-bgc;
+                        border-radius: rem(11px);
+
+                        &.new-val {
+                            background-color: $dark_dark_blue;
+                        }
+
+                        &.prev-val {
+                            background-color: $darker_red;
+                        }
+
+                        >span {
+                            font-size: rem(12px);
+                        }
+                    }
+
+                    >.label-value {
+                        height: rem(39px);
+                        flex: 1;
+                        color: $white;
+                        background-color: $default-task-val-bgc;
+                        border-radius: rem(2px);
+                    }
+
 
                     >.prev-val,
                     >.new-val {

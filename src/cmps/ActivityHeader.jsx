@@ -14,7 +14,7 @@ export function ActivityHeader({ board, navigate }) {
             </div>
             <div className="activity-view-container">
                 <TabList className="tab-list" size="sm">
-                    <Tab key='avtivity' tabInnerClassName='tab'>Avtivity</Tab>
+                    <Tab key='avtivity' tabInnerClassName='tab'>Activity</Tab>
                     <Tab key='last-viewed' tabInnerClassName='tab'>Last Viewed</Tab>
                     <Tab key='updates' tabInnerClassName='tab'>Updates</Tab>
                 </TabList>

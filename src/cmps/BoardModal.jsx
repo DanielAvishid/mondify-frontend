@@ -1,24 +1,13 @@
-import { Avatar, Button, EditableHeading, Icon, useClickOutside } from "monday-ui-react-core"
+import { Avatar, Button, EditableHeading, Icon } from "monday-ui-react-core"
 import { Close, Board } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { GoHomeFill } from "react-icons/go";
 import { utilService } from "../services/util.service";
-import { useRef } from "react";
 
 export function BoardModal({ board, onSaveBoard, onCloseModal }) {
 
-    // const modalContainer = useRef()
-    // const { isFocus, setIsFocus } = useClickOutside(modalContainer)
-    // const { isFocus: isModalOpen, setIsFocus: setIsModalOpen } = useClickOutside(modalContainer)
-
-    // const onClickModalContainer = () => {
-    //     setIsModalFocus(true)
-    //     setIsFocus(true)
-    //     setIsModalOpen(!isModalOpen)
-    // }
-
     return (
-        <section className="modal-full">
-            <div className="modal-container">
+        <section className="modal-full" onClick={onCloseModal}>
+            <div className="modal-container" onClick={(ev) => ev.stopPropagation()}>
                 <div className="content-container">
                     <Button className="close-btn" kind={Button.kinds.TERTIARY} onClick={onCloseModal}>
                         <Icon className="close-icon" icon={Close} />
