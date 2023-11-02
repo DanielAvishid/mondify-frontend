@@ -1,4 +1,5 @@
 import { utilService } from "../services/util.service";
+import { DateRange } from "./utilsCmps/DateRange";
 import { Time, NavigationChevronRight } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { Avatar, Icon } from "monday-ui-react-core";
 
@@ -7,13 +8,13 @@ export function ActivityPreview({ board, activity }) {
     const time = utilService.getTimePassed(activity.timestamp)
     const changeType = utilService.capitalizeFirstLetter(activity.location.key)
 
-    let prevValue;
-    let newValue;
+    let prevValue
+    let newValue
 
     switch (activity.location.key) {
         case 'timeline':
-            prevValue
-            newValue
+            prevValue = <DateRange info={activity.prevValue} />
+            newValue = <DateRange info={activity.newValue} />
             break;
         case 'date':
             prevValue = utilService.formatDateFromTimestamp(activity.prevValue)
