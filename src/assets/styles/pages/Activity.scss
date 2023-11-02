@@ -139,12 +139,15 @@
                     }
                 }
 
-                // >.members-value {
-                //     // flex: 1;
-                //     grid-column: 6 / 7;
-                //     padding-inline-start: rem(36px);
-                // }
-                >.tasks-values {
+                >.group-value {
+
+                    >.group-title {
+                        padding-inline-start: rem(48px);
+                    }
+                }
+
+                >.tasks-values,
+                >.group-value {
                     grid-column: 6 / 7;
                 }
 

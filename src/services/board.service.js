@@ -159,7 +159,9 @@ async function update({ board, boardId, groupId, taskId, key, value }) {
     } else if (groupId) {
         const groupIdx = board.groups.findIndex((group) => group.id === groupId);
         if (key === 'tasks') {
-            change = createChange(board.groups[groupIdx][key], value, value[value.length - 1].title, 'Created');
+            change = createChange(board.groups[groupIdx][key], value, value[value.length - 1].title, 'created');
+        } else if (key === 'title') {
+            change = createChange(board.groups[groupIdx][key], value, board.groups[groupIdx].title, 'Group Title Change');
         } else {
             change = createChange(board.groups[groupIdx][key], value, board.groups[groupIdx].title, key);
         }

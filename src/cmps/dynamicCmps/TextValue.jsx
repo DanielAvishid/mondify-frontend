@@ -7,7 +7,7 @@ export function TextValue({ activity }) {
     let prevValue = activity.prevValue
     let newValue = activity.newValue
 
-    if (activity.location.key === 'date') {
+    if (activity.key === 'date') {
         prevValue = activity.prevValue ? utilService.formatDateFromTimestamp(activity.prevValue) : '-'
         newValue = activity.newValue ? utilService.formatDateFromTimestamp(activity.newValue) : '-'
     }

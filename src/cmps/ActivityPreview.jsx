@@ -1,10 +1,11 @@
 import { utilService } from "../services/util.service";
-import { DateRange } from "./utilsCmps/DateRange";
-import { LabelValue } from "./utilsCmps/LabelValue";
-import { MembersValue } from "./utilsCmps/MembersValue";
-import { TasksValue } from "./utilsCmps/TasksValue";
-import { TextValue } from "./utilsCmps/TextValue";
-import { Time, NavigationChevronRight } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
+import { DateRange } from "./dynamicCmps/DateRange";
+import { GroupValue } from "./dynamicCmps/GroupValue";
+import { LabelValue } from "./dynamicCmps/LabelValue";
+import { MembersValue } from "./dynamicCmps/MembersValue";
+import { TasksValue } from "./dynamicCmps/TasksValue";
+import { TextValue } from "./dynamicCmps/TextValue";
+import { Time } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { Avatar, Icon } from "monday-ui-react-core";
 
 export function ActivityPreview({ board, activity }) {
@@ -15,23 +16,11 @@ export function ActivityPreview({ board, activity }) {
 
     const title = activity.title
 
-    // if (activity.location.task) {
-    //     for (const group of board.groups) {
-    //         const task = group.tasks.find((task) => task.id === activity.location.task);
-    //         if (task) {
-    //             place = task.title;
-    //             break
-    //         }
-    //     }
-    // } else if (activity.location.group) {
-    //     const group = board.groups.find((group) => group.id === activity.location.group);
-    //     if (group) {
-    //         place = group.title;
-    //     }
-    // } else {
-    //     changeType = 'Group Created'
-    //     place = board.groups[board.groups.length - 1].title;
-    // }
+    let style = activity.key === 'Group Created' || activity.key === 'Group Title Change' ? {
+        color: board.groups[board.groups.length - 1].style.backgroundColor
+    } : {
+        color: '#323338'
+    }
 
     return (
         <div className="activity-preview flex align-center">
@@ -45,44 +34,36 @@ export function ActivityPreview({ board, activity }) {
                     src={"https://style.monday.com/static/media/person1.de30c8ee.png"}
                     className="avatar"
                 />
-                <span className="ellipsis-text place-span">{title}</span>
+                <span className="ellipsis-text place-span" style={style}>{title}</span>
             </div>
             <div className="change-type flex align-center relative">
                 <Icon icon={Time} className="type-icon" />
                 <span className="ellipsis-text">{changeType}</span>
             </div>
-            {/* <DynamicCmp activity={activity} board={board} /> */}
+            <DynamicCmp activity={activity} board={board} />
         </div>
     )
 }
 
 const DynamicCmp = ({ activity, board }) => {
-    // NEED TO ADD BOARD ID AND ON SAVE BOARD TO THE CMPS PROPS
-    let prevValue
-    let newValue
-    switch (activity.location.key) {
+
+    switch (activity.key) {
         case 'timeline':
             return <DateRange activity={activity} />
-            break;
         case 'date':
-            return <TextValue activity={activity} />
-        case 'status':
-            return <LabelValue activity={activity} board={board} cmpType='status' />
-        case 'priority':
-            return <LabelValue activity={activity} board={board} cmpType='priority' />
+        case 'Group Title Change':
         case 'title':
             return <TextValue activity={activity} />
+        case 'status':
+        case 'priority':
+            return <LabelValue activity={activity} board={board} cmpType={activity.key} />
         case 'members':
             return <MembersValue activity={activity} board={board} />
-        case 'groups':
-            prevValue
-            newValue
-            break
         case 'tasks':
             return <TasksValue activity={activity} board={board} />
+        case 'created':
+            return <GroupValue activity={activity} board={board} />
         default:
-            prevValue
-            newValue
-            break;
+            return null;
     }
 };
