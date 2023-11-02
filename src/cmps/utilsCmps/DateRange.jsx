@@ -1,12 +1,11 @@
 import { utilService } from "../../services/util.service"
 
-export function DateRange({ info }) {
-    console.log(info);
-    const { text, percentage } = utilService.getDateToShow(info)
+export function DateRange({ value, isNew }) {
+    const { text, percentage } = utilService.getDateToShow(value)
 
     return (
-        <div className="date-container">
-            <span>{text}</span>
+        <div className={`date-range relative flex align-center justify-center ${text ? (isNew ? 'new-val' : 'prev-val') : ''}`}>
+            <span className="ellipsis-text">{text ? text : '-'}</span>
         </div>
     )
 }
