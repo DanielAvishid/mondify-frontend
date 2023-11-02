@@ -117,7 +117,7 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
             {(!isCollapse && board.description) && <section className={`second-row-container`}>
                 <div className="flex align-center">
                     <p className="board-description">{board.description}</p>
-                    <span className="see-more">See More</span>
+                    <span className="see-more" onClick={() => setIsModalOpen(true)}>See More</span>
                 </div>
             </section>}
             <section className={`container third-row-container ${!board.description ? 'no-description' : ''} ${isCollapse ? 'collapse' : ''}`}>
