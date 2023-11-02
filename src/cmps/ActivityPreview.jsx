@@ -8,30 +8,30 @@ import { Time, NavigationChevronRight } from "/node_modules/monday-ui-react-core
 import { Avatar, Icon } from "monday-ui-react-core";
 
 export function ActivityPreview({ board, activity }) {
-    console.log(activity);
+    console.log('activity', activity);
 
     const time = utilService.getTimePassed(activity.timestamp)
-    let changeType = utilService.capitalizeFirstLetter(activity.location.key)
+    const changeType = utilService.capitalizeFirstLetter(activity.key)
 
-    let place;
+    const title = activity.title
 
-    if (activity.location.task) {
-        for (const group of board.groups) {
-            const task = group.tasks.find((task) => task.title);
-            if (task) {
-                place = task.title;
-                break
-            }
-        }
-    } else if (activity.location.group) {
-        const group = board.groups.find((group) => group.id === activity.location.group);
-        if (group) {
-            place = group.title;
-        }
-    } else {
-        changeType = 'Group Created'
-        place = board.groups[board.groups.length - 1].title;
-    }
+    // if (activity.location.task) {
+    //     for (const group of board.groups) {
+    //         const task = group.tasks.find((task) => task.id === activity.location.task);
+    //         if (task) {
+    //             place = task.title;
+    //             break
+    //         }
+    //     }
+    // } else if (activity.location.group) {
+    //     const group = board.groups.find((group) => group.id === activity.location.group);
+    //     if (group) {
+    //         place = group.title;
+    //     }
+    // } else {
+    //     changeType = 'Group Created'
+    //     place = board.groups[board.groups.length - 1].title;
+    // }
 
     return (
         <div className="activity-preview flex align-center">
@@ -45,13 +45,13 @@ export function ActivityPreview({ board, activity }) {
                     src={"https://style.monday.com/static/media/person1.de30c8ee.png"}
                     className="avatar"
                 />
-                <span className="ellipsis-text place-span">{place}</span>
+                <span className="ellipsis-text place-span">{title}</span>
             </div>
             <div className="change-type flex align-center relative">
                 <Icon icon={Time} className="type-icon" />
                 <span className="ellipsis-text">{changeType}</span>
             </div>
-            <DynamicCmp activity={activity} board={board} />
+            {/* <DynamicCmp activity={activity} board={board} /> */}
         </div>
     )
 }
