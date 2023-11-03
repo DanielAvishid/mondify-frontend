@@ -5,7 +5,7 @@ import { LabelValue } from "./dynamicCmps/LabelValue";
 import { MembersValue } from "./dynamicCmps/MembersValue";
 import { TasksValue } from "./dynamicCmps/TasksValue";
 import { TextValue } from "./dynamicCmps/TextValue";
-import { Time } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
+import { Add, Calendar, Comment, Delete, Edit, Favorite, File, Invite, Person, Status, TextCopy, Time, Timeline, Update } from "monday-ui-react-core/icons"
 import { Avatar, Icon } from "monday-ui-react-core";
 
 export function ActivityPreview({ board, activity }) {
@@ -37,7 +37,7 @@ export function ActivityPreview({ board, activity }) {
                 <span className="ellipsis-text place-span" style={style}>{title}</span>
             </div>
             <div className="change-type flex align-center relative">
-                <Icon icon={Time} className="type-icon" />
+                <DynamicIcon type={changeType} />
                 <span className="ellipsis-text">{changeType}</span>
             </div>
             <DynamicCmp activity={activity} board={board} />
@@ -67,3 +67,40 @@ const DynamicCmp = ({ activity, board }) => {
             return null;
     }
 };
+
+function DynamicIcon({ type }) {
+    console.log('type', type);
+    switch (type) {
+        case 'Members':
+            return <Icon icon={Person} className="type-icon" />
+        case 'Status':
+        case 'Priority':
+            return <Icon icon={Status} className="type-icon" />
+        case 'Date':
+            return <Icon icon={Calendar} className="type-icon" />
+        case 'Timeline':
+            return <Icon icon={Timeline} className="type-icon" />
+        case 'Created':
+        case 'Group Created':
+            return <Icon icon={Add} className="type-icon" />
+        case 'Title':
+            return <Icon icon={TextCopy} className="type-icon" />
+        case 'Group Title Change':
+            return <Icon icon={Edit} className="type-icon" />
+        case 'Deleted':
+        case 'Group Deleted':
+            return <Icon icon={Delete} className="type-icon" />
+        // case 'File':
+        //     return <Icon icon={File} className="type-icon" />
+        // case 'Update':
+        //     return <Icon icon={Update} className="type-icon" />
+        // case 'Subscribed':
+        //     return <Icon icon={Invite} className="type-icon" />
+        // case 'Favorite':
+        //     return <Icon icon={Favorite} className="type-icon" />
+        // case 'Comment':
+        //     return <Icon icon={Comment} className="type-icon" />
+        default:
+            break
+    }
+}
