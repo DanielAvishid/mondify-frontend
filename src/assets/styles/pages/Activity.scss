@@ -114,14 +114,17 @@
                     position: relative;
 
                     >.avatar {
-                        width: rem(30px);
-                        height: rem(30px);
                         position: absolute;
                         left: 0;
+                    }
+                }
 
-                        .circle_4a0201e550 {
-                            border: 0;
-                        }
+                .avatar {
+                    width: rem(30px);
+                    height: rem(30px);
+
+                    .circle_4a0201e550 {
+                        border: 0;
                     }
                 }
 
@@ -136,13 +139,35 @@
                     }
                 }
 
+                >.group-value {
+
+                    >.group-title {
+                        padding-inline-start: rem(48px);
+                    }
+                }
+
+                >.tasks-values,
+                >.group-value {
+                    grid-column: 6 / 7;
+                }
+
                 >.change-values {
                     grid-column: 6 / 7;
                     display: grid;
                     grid-template-columns: 1fr rem(16px) 1fr;
+                    align-items: center;
+
+                    >* {
+                        flex: 1;
+                    }
+
+                    >.avatar {
+                        grid-column: 3 / 4;
+                        display: flex;
+                        align-self: center;
+                    }
 
                     >.date-range {
-                        flex: 1;
                         height: rem(20px);
                         color: $white;
                         background-color: $default-task-val-bgc;
@@ -163,7 +188,6 @@
 
                     >.label-value {
                         height: rem(39px);
-                        flex: 1;
                         color: $white;
                         background-color: $default-task-val-bgc;
                         border-radius: rem(2px);

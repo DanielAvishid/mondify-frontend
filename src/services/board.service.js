@@ -45,21 +45,66 @@ async function getById({ board, boardId, taskId }) {
 
 async function remove({ board, boardId, groupId, taskId }) {
     if (!board) {
-        board = await storageService.get(STORAGE_KEY, boardId)
+        board = await storageService.get(STORAGE_KEY, boardId);
     }
+
+    const createChange = (prevValue, title, key = "Deleted") => ({
+        prevValue,
+        newValue: [],
+        timestamp: Date.now(),
+        key,
+        title,
+    });
+
+    let change = null;
+
     if (taskId) {
         const groupsToSave = board.groups.map(group => {
-            const updatedTasks = group.tasks.filter(task => task.id !== taskId)
-            return { ...group, tasks: updatedTasks }
-        })
-        board = { ...board, groups: groupsToSave }
+            const updatedTasks = group.tasks.filter(task => {
+                if (task.id === taskId) {
+                    change = createChange(task, task.title);
+                }
+                return task.id !== taskId;
+            });
+            return { ...group, tasks: updatedTasks };
+        });
+        board = { ...board, groups: groupsToSave };
     } else if (groupId) {
-        board.groups = board.groups.filter((group) => group.id !== groupId)
+        const groupToRemove = board.groups.find(group => group.id === groupId);
+        if (groupToRemove) {
+            change = createChange(groupToRemove, groupToRemove.title, 'Group Deleted');
+            board.groups = board.groups.filter(group => group.id !== groupId);
+        }
     } else {
-        return await storageService.remove(STORAGE_KEY, boardId)
+        return await storageService.remove(STORAGE_KEY, boardId);
     }
-    return await storageService.put(STORAGE_KEY, board)
+
+    if (change) {
+        board.activities.unshift(change);
+    }
+
+    return await storageService.put(STORAGE_KEY, board);
 }
+
+
+
+// async function remove({ board, boardId, groupId, taskId }) {
+//     if (!board) {
+//         board = await storageService.get(STORAGE_KEY, boardId)
+//     }
+//     if (taskId) {
+//         const groupsToSave = board.groups.map(group => {
+//             const updatedTasks = group.tasks.filter(task => task.id !== taskId)
+//             return { ...group, tasks: updatedTasks }
+//         })
+//         board = { ...board, groups: groupsToSave }
+//     } else if (groupId) {
+//         board.groups = board.groups.filter((group) => group.id !== groupId)
+//     } else {
+//         return await storageService.remove(STORAGE_KEY, boardId)
+//     }
+//     return await storageService.put(STORAGE_KEY, board)
+// }
 
 async function addBoard(board) {
     board.createdBy = userService.getLoggedinUser() || {
@@ -89,63 +134,112 @@ async function update({ board, boardId, groupId, taskId, key, value }) {
         board = await storageService.get(STORAGE_KEY, boardId);
     }
 
-    const location = {
-        board: boardId,
-        group: groupId,
-        task: taskId,
-        key
-    };
+    const createChange = (prevValue, newValue, title, key) => ({
+        prevValue,
+        newValue,
+        timestamp: Date.now(),
+        title,
+        key,
+    });
 
-    let prevValue;
+    let change = null;
 
     if (taskId) {
-        if (!groupId) {
-            const updatedGroups = board.groups.map((group) => {
-                const updatedTasks = group.tasks.map((task) => {
-                    if (task.id === taskId) {
-                        prevValue = task[key]; // Store the previous value
-                        return { ...task, [key]: value };
-                    }
-                    return task;
-                });
-                return { ...group, tasks: updatedTasks };
+        const groupsToSave = board.groups.map((group) => {
+            const updatedTasks = group.tasks.map((task) => {
+                if (task.id === taskId) {
+                    change = createChange(task[key], value, task.title, key);
+                    return { ...task, [key]: value };
+                }
+                return task;
             });
-            board = { ...board, groups: updatedGroups };
-        } else {
-            const groupIdx = board.groups.findIndex((group) => group.id === groupId);
-            const taskIdx = board.groups[groupIdx].tasks.findIndex((task) => task.id === taskId);
-            prevValue = board.groups[groupIdx].tasks[taskIdx][key]; // Store the previous value
-            board.groups[groupIdx].tasks[taskIdx][key] = value;
-        }
+            return { ...group, tasks: updatedTasks };
+        });
+        board = { ...board, groups: groupsToSave };
     } else if (groupId) {
         const groupIdx = board.groups.findIndex((group) => group.id === groupId);
-        if (!key) {
-            board.groups[groupIdx].tasks.push(value);
+        if (key === 'tasks') {
+            change = createChange(board.groups[groupIdx][key], value, value[value.length - 1].title, 'created');
+        } else if (key === 'title') {
+            change = createChange(board.groups[groupIdx][key], value, board.groups[groupIdx].title, 'Group Title Change');
         } else {
-            prevValue = board.groups[groupIdx][key]; // Store the previous value
-            board.groups[groupIdx][key] = value;
+            change = createChange(board.groups[groupIdx][key], value, board.groups[groupIdx].title, key);
         }
+        board.groups[groupIdx][key] = value;
     } else {
-        if (!key) {
-            board.groups.push(value);
-        } else {
-            prevValue = board[key]; // Store the previous value
-            board[key] = value;
-        }
+        change = createChange(board[key], value, 'New Group', 'Group Created');
+        board[key] = value;
     }
 
-    const change = {
-        prevValue,
-        newValue: value,
-        timestamp: Date.now(),
-        location
-    };
-
-    board.activities.unshift(change);
+    if (change) {
+        board.activities.unshift(change);
+    }
 
     console.log('SERVICE', board);
     return await storageService.put(STORAGE_KEY, board);
 }
+// async function update({ board, boardId, groupId, taskId, key, value }) {
+//     if (!board) {
+//         board = await storageService.get(STORAGE_KEY, boardId);
+//     }
+
+//     const location = {
+//         board: boardId,
+//         group: groupId,
+//         task: taskId,
+//         key
+//     };
+
+//     let prevValue;
+
+//     if (taskId) {
+//         if (!groupId) {
+//             const updatedGroups = board.groups.map((group) => {
+//                 const updatedTasks = group.tasks.map((task) => {
+//                     if (task.id === taskId) {
+//                         prevValue = task[key]; // Store the previous value
+//                         return { ...task, [key]: value };
+//                     }
+//                     return task;
+//                 });
+//                 return { ...group, tasks: updatedTasks };
+//             });
+//             board = { ...board, groups: updatedGroups };
+//         } else {
+//             const groupIdx = board.groups.findIndex((group) => group.id === groupId);
+//             const taskIdx = board.groups[groupIdx].tasks.findIndex((task) => task.id === taskId);
+//             prevValue = board.groups[groupIdx].tasks[taskIdx][key]; // Store the previous value
+//             board.groups[groupIdx].tasks[taskIdx][key] = value;
+//         }
+//     } else if (groupId) {
+//         const groupIdx = board.groups.findIndex((group) => group.id === groupId);
+//         if (!key) {
+//             board.groups[groupIdx].tasks.push(value);
+//         } else {
+//             prevValue = board.groups[groupIdx][key]; // Store the previous value
+//             board.groups[groupIdx][key] = value;
+//         }
+//     } else {
+//         if (!key) {
+//             board.groups.push(value);
+//         } else {
+//             prevValue = board[key]; // Store the previous value
+//             board[key] = value;
+//         }
+//     }
+
+//     const change = {
+//         prevValue,
+//         newValue: value,
+//         timestamp: Date.now(),
+//         location
+//     };
+
+//     board.activities.unshift(change);
+
+//     console.log('SERVICE', board);
+//     return await storageService.put(STORAGE_KEY, board);
+// }
 
 async function duplicate({ boardId, groupId, taskId }) {
     const board = await storageService.get(STORAGE_KEY, boardId)
