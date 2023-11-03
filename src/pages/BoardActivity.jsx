@@ -6,6 +6,7 @@ import userImgUrl from '../assets/img/user-img.png'
 import updateImgUrl from '../assets/img/update-img.png'
 import { ActivityHeader } from "../cmps/ActivityHeader"
 import { ActivityDetails } from "../cmps/ActivityDetails"
+import { useState } from "react"
 
 export function BoardActivity() {
 
@@ -15,14 +16,31 @@ export function BoardActivity() {
 
     const board = boards.find((board) => board._id === boardId);
 
-    console.log('boardId', boardId);
-    console.log('boards', boards);
-    console.log('currect board', board);
+    const activities = board.activities
+    const [filteredActivities, setFilteredActivities] = useState(activities)
+    const [searchTerm, setSearchTerm] = useState('')
+
+    const handleSearch = (searchValue) => {
+        console.log('searchValue', searchValue);
+
+        const filtered = activities.filter((activity) =>
+            activity.title.toLowerCase().includes(searchValue.toLowerCase())
+        )
+
+        console.log('filtered', filtered);
+
+        setSearchTerm(searchValue)
+        setFilteredActivities(filtered)
+    }
 
     return (
         <section className="board-activity flex column">
             <ActivityHeader board={board} navigate={navigate} />
-            <ActivityDetails board={board} />
+            <ActivityDetails
+                board={board}
+                filteredActivities={filteredActivities}
+                searchTerm={searchTerm}
+                handleSearch={handleSearch} />
             {/* <MenuDivider className='menu-divider' /> */}
 
 

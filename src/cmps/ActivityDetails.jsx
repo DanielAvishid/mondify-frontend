@@ -3,9 +3,7 @@ import { Button, Icon, IconButton, SplitButton, TextField } from "monday-ui-reac
 import { DropdownChevronDown, PersonRound, Rotate, DocShareable } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { ActivityList } from "./ActivityList";
 
-
-
-export function ActivityDetails({ board }) {
+export function ActivityDetails({ board, filteredActivities, searchTerm, handleSearch }) {
     return (
         <main className="activity-details">
             <div className="automation-activity flex align-center justify-between">
@@ -23,9 +21,9 @@ export function ActivityDetails({ board }) {
                         <span>Filter Log</span>
                         <Icon icon={DropdownChevronDown} iconSize={18} className="icon" />
                     </Button>
-                    <div className="input">
-                        <TextField placeholder="Filter by name" />
-                    </div>
+                    {/* <div className="input"> */}
+                    <TextField value={searchTerm} onChange={handleSearch} placeholder="Filter by name" />
+                    {/* </div> */}
                     <Button size={Button.sizes.SMALL} kind={Button.kinds.TERTIARY} className="person" ariaLabel="Filter by person">
 
                         <Icon icon={PersonRound} iconSize={22} className="icon" />
@@ -37,7 +35,7 @@ export function ActivityDetails({ board }) {
                     <IconButton icon={DocShareable} kind={IconButton.kinds.TERTIARY} size={IconButton.sizes.SMALL} ariaLabel="Export" />
                 </div>
             </div>
-            <ActivityList board={board} />
+            <ActivityList board={board} filteredActivities={filteredActivities} />
         </main>
     )
 }
