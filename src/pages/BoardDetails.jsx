@@ -1,14 +1,15 @@
-import { Outlet, useNavigate, useOutletContext, useParams } from "react-router-dom";
+import { Outlet, useLocation, useNavigate, useOutletContext, useParams } from "react-router-dom";
 import { BoardHeader } from "../cmps/BoardHeader";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getById } from "../store/actions/board.action";
 import { useSelector } from "react-redux";
 import { boardService } from "../services/board.service";
 import { DeletedBoard } from "../cmps/DeletedBoard";
+import { TaskDetails } from "./TaskDetails";
 
 export function BoardDetails() {
     const boards = useSelector(storeState => storeState.boardModule.boards)
-    const [onSaveBoard, onRemoveBoard, onRemoveGroup, onRemoveTask, onDuplicateBoard, onDuplicateGroup, onDuplicateTask] = useOutletContext()
+    const [onSaveBoard, onRemoveBoard, onRemoveGroup, onRemoveTask, onDuplicateBoard, onDuplicateGroup, onDuplicateTask, setContainerWidth] = useOutletContext()
     const [board, setBoard] = useState(null)
     const { boardId } = useParams()
     const navigate = useNavigate()
@@ -49,7 +50,8 @@ export function BoardDetails() {
     )
 
     return (
-        <section className="board-details main-layout">
+        <section
+            className="board-details main-layout">
             <BoardHeader onAddTaskFromHeader={onAddTaskFromHeader} onDuplicateBoard={onDuplicateBoard} board={board} onRemoveBoard={onRemoveBoard} onSaveBoard={onSaveBoard} />
             <Outlet context={[board, onSaveBoard, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask]} />
         </section>

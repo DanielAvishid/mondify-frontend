@@ -1,17 +1,22 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { AppHeader } from "../cmps/AppHeader";
 import { AppSidebar } from "../cmps/AppSidebar";
 import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { duplicate, loadBoards, remove, saveBoard } from "../store/actions/board.action";
 import { SET_BOARDS } from "../store/reducers/board.reducer";
 import { store } from "../store/store";
 import { showSuccessMsg } from "../services/event-bus.service";
+import { TaskDetails } from "./TaskDetails";
 
 export function AppIndex() {
 
     const [filterBy, setFilterBy] = useState({})
+    const navigate = useNavigate()
     const boards = useSelector(storeState => storeState.boardModule.boards)
+    const location = useLocation()
+    const [isResizing, setIsResizing] = useState(false)
+    const [width, setWidth] = useState(null)
 
     useEffect(() => {
         onLoadBoards(filterBy)
@@ -59,6 +64,7 @@ export function AppIndex() {
         try {
             await remove({ boardId, taskId })
             showSuccessMsg(`We successfully deleted 1 item`)
+            navigate(`${boardId}`)
         } catch {
             console.log('Had issues in board details', err)
             console.log('ShowErrorMsg')
@@ -101,8 +107,21 @@ export function AppIndex() {
         store.dispatch({ type: SET_BOARDS, boards })
     }
 
+    function handleMouseMove(ev) {
+        if (isResizing) {
+            setWidth(ev.clientX)
+        }
+    }
+
+    function handleMouseUp() {
+        setIsResizing(false)
+    }
+
     return (
-        <section className="app-index">
+        <section
+            className="app-index"
+            onMouseMove={(ev) => handleMouseMove(ev)}
+            onMouseUp={handleMouseUp}>
             <AppHeader />
             <section className="main-container">
                 <AppSidebar
@@ -114,6 +133,7 @@ export function AppIndex() {
                     handleBoardsFilter={handleBoardsFilter}
                     filterBy={filterBy} />
                 <Outlet context={[onSaveBoard, onRemoveBoard, onRemoveGroup, onRemoveTask, onDuplicateBoard, onDuplicateGroup, onDuplicateTask, boards]} />
+                {location.pathname.includes('task') && <TaskDetails onSaveBoard={onSaveBoard} onRemoveTask={onRemoveTask} setIsResizing={setIsResizing} width={width} />}
             </section>
         </section>
     )

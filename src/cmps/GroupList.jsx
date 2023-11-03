@@ -96,7 +96,7 @@ export function GroupList() {
                     )}
                 </Droppable>
             </DragDropContext>
-            <Outlet />
+            {/* <Outlet /> */}
         </>
     )
 }

@@ -3,23 +3,20 @@ import { useNavigate, useParams } from "react-router"
 import { getById, saveBoard } from "../store/actions/board.action"
 import { Avatar, AvatarGroup, Button, EditableHeading, Menu, MenuButton, MenuItem, Tab, TabList, Icon } from "monday-ui-react-core"
 import { Close, Drag, Home, Time, Delete } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
-import { remove } from "../store/actions/board.action"
 import { utilService } from "../services/util.service"
 import { useSelector } from "react-redux"
-import { showSuccessMsg } from "../services/event-bus.service"
 
-export function TaskDetails() {
+export function TaskDetails({ onSaveBoard, onRemoveTask, setIsResizing, width, containerWidth }) {
     const boards = useSelector(storeState => storeState.boardModule.boards)
     const navigate = useNavigate()
     const { boardId, taskId } = useParams()
     const [task, setTask] = useState(null)
     const [isUpdateMode, setIsUpdateMode] = useState(false)
-    const editorContainer = useRef()
     const textareaRef = useRef(null)
 
     useEffect(() => {
         loadTask()
-    }, [boardId, taskId, boards])
+    }, [boards, taskId, boardId])
 
     async function loadTask() {
         try {
@@ -32,26 +29,11 @@ export function TaskDetails() {
         }
     }
 
-    async function onRemoveTask({ boardId, taskId }) {
-        try {
-            await remove({ boardId, taskId })
-            showSuccessMsg(`We successfully deleted 1 item`)
-        } catch (err) {
-            console.log('Had issues in board details', err)
-            console.log('ShowErrorMsg')
-        }
+    function onTitleInputBlur(ev) {
+        if (!ev.target.value) return
+        onSaveBoard({ key: 'title', value: ev.target.value, boardId, taskId })
     }
 
-    async function handleTaskTitleChange(ev) {
-        if (!ev.target.value) return
-        try {
-            await saveBoard({ key: 'title', value: ev.target.value, boardId, taskId })
-            console.log('ShowSuccessesMsg')
-        } catch (err) {
-            console.log('Had issues in save board', err)
-            console.log('ShowErrorMsg')
-        }
-    }
 
     function handleTextareaInput() {
         const textarea = textareaRef.current
@@ -90,11 +72,17 @@ export function TaskDetails() {
         }
     }
 
+    function handleMouseDown(ev) {
+        ev.preventDefault()
+        setIsResizing(true)
+    }
+
     if (!task) return <span></span>
 
     return (
         <section
-            className="task-details">
+            className='task-details'
+            style={{ width: width ? `calc(100vw - ${width}px)` : '570px' }}>
             <section className="task-details-content">
                 <div className="header">
                     <div className="title-container">
@@ -108,7 +96,7 @@ export function TaskDetails() {
                                 className="task-title-input"
                                 type="h2"
                                 value={task.title}
-                                onBlur={(ev) => handleTaskTitleChange(ev)} />
+                                onBlur={(ev) => onTitleInputBlur(ev)} />
                             <div className="subscribe-container">
                                 <button className="subscribe-btn">
                                     <AvatarGroup
@@ -144,7 +132,7 @@ export function TaskDetails() {
                         </TabList>
                     </div>
                 </div>
-                <div className="main-content">
+                {/* <div className="main-content">
                     <div className="updates-container">
                         <div className="updates">
                             {!isUpdateMode && <div className="update-btn-container">
@@ -215,10 +203,11 @@ export function TaskDetails() {
                             </div>}
                         </div>
                     </div>
-                </div>
+                </div> */}
             </section>
             <button
-                className="drag-btn">
+                className="drag-btn"
+                onMouseDown={(ev) => handleMouseDown(ev)}>
                 <Icon className="close-icon" icon={Drag} />
             </button>
         </section >
