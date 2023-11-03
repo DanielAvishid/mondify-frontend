@@ -4,6 +4,8 @@ import { useRef, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { boardService } from "../services/board.service"
 import { BoardModal } from "./BoardModal"
+import { MembersFilterModal } from "./MembersFilterModal"
+import { useClickOutside } from "../hooks/useClickOutside"
 
 export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveBoard, onDuplicateBoard, filterBy, setFilterBy, sortBy }) {
 
@@ -13,6 +15,10 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
     const [inputValue, setInputValue] = useState('')
     const [isModalOpen, setIsModalOpen] = useState(false)
     const inputRef = useRef(null)
+
+    const personBtn = useRef();
+    const { isFocus: isPersonModalOpen, setIsFocus: setIsPersonModalOpen } = useClickOutside(personBtn);
+
     const navigate = useNavigate()
 
     const activityUrl = `/board/${board._id}/activity_log`
@@ -205,9 +211,20 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                             <Icon className="setting-icon" icon={SettingsKnobs} />
                         </Button>}
                     </div>
-                    <Button className="person-btn" ariaLabel="Filter by person" kind={Button.kinds.TERTIARY}>
+                    <Button
+                        className="person-btn relative"
+                        ariaLabel="Filter by person"
+                        kind={Button.kinds.TERTIARY}
+                        ref={personBtn}
+                        onClick={() => setIsPersonModalOpen(!isPersonModalOpen)}
+                    >
                         <Icon className="setting-icon" icon={PersonRound} />
                         <span>Person</span>
+                        {isPersonModalOpen &&
+                            <div className="modal" onClick={(ev) => ev.stopPropagation()}>
+                                <MembersFilterModal members={board.members} filterBy={filterBy} setFilterBy={setFilterBy} />
+                            </div>
+                        }
                     </Button>
                 </div>
             </section>
