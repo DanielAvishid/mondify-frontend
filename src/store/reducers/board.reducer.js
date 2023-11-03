@@ -4,16 +4,21 @@ export const ADD_BOARD = 'ADD_BOARD'
 export const UPDATE_BOARD = 'UPDATE_BOARD'
 export const UNDO_REMOVE_BOARD = 'UNDO_REMOVE_BOARD'
 export const BOARD_UNDO = 'BOARD_UNDO'
+export const SET_BOARD = 'SET_BOARD'
 
 const initialState = {
     boards: [],
-    lastBoards: []
+    lastBoards: [],
+    board: null,
 }
 
 export function boardReducer(state = initialState, action) {
+
     var boards
     var lastBoards
     switch (action.type) {
+        case SET_BOARD:
+            return { ...state, board: action.board }
         case SET_BOARDS:
             lastBoards = [...action.boards]
             return { ...state, boards: action.boards }

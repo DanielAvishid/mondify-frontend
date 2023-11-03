@@ -18,7 +18,8 @@ export const boardService = {
     getEmptyBoard,
     getEmptyGroup,
     getEmptyTask,
-    getEmptyStatusLabel
+    getEmptyStatusLabel,
+    getBoardById
 }
 
 async function query(filterBy = {}) {
@@ -85,26 +86,6 @@ async function remove({ board, boardId, groupId, taskId }) {
 
     return await storageService.put(STORAGE_KEY, board);
 }
-
-
-
-// async function remove({ board, boardId, groupId, taskId }) {
-//     if (!board) {
-//         board = await storageService.get(STORAGE_KEY, boardId)
-//     }
-//     if (taskId) {
-//         const groupsToSave = board.groups.map(group => {
-//             const updatedTasks = group.tasks.filter(task => task.id !== taskId)
-//             return { ...group, tasks: updatedTasks }
-//         })
-//         board = { ...board, groups: groupsToSave }
-//     } else if (groupId) {
-//         board.groups = board.groups.filter((group) => group.id !== groupId)
-//     } else {
-//         return await storageService.remove(STORAGE_KEY, boardId)
-//     }
-//     return await storageService.put(STORAGE_KEY, board)
-// }
 
 async function addBoard(board) {
     board.createdBy = userService.getLoggedinUser() || {
@@ -178,68 +159,7 @@ async function update({ board, boardId, groupId, taskId, key, value }) {
     console.log('SERVICE', board);
     return await storageService.put(STORAGE_KEY, board);
 }
-// async function update({ board, boardId, groupId, taskId, key, value }) {
-//     if (!board) {
-//         board = await storageService.get(STORAGE_KEY, boardId);
-//     }
 
-//     const location = {
-//         board: boardId,
-//         group: groupId,
-//         task: taskId,
-//         key
-//     };
-
-//     let prevValue;
-
-//     if (taskId) {
-//         if (!groupId) {
-//             const updatedGroups = board.groups.map((group) => {
-//                 const updatedTasks = group.tasks.map((task) => {
-//                     if (task.id === taskId) {
-//                         prevValue = task[key]; // Store the previous value
-//                         return { ...task, [key]: value };
-//                     }
-//                     return task;
-//                 });
-//                 return { ...group, tasks: updatedTasks };
-//             });
-//             board = { ...board, groups: updatedGroups };
-//         } else {
-//             const groupIdx = board.groups.findIndex((group) => group.id === groupId);
-//             const taskIdx = board.groups[groupIdx].tasks.findIndex((task) => task.id === taskId);
-//             prevValue = board.groups[groupIdx].tasks[taskIdx][key]; // Store the previous value
-//             board.groups[groupIdx].tasks[taskIdx][key] = value;
-//         }
-//     } else if (groupId) {
-//         const groupIdx = board.groups.findIndex((group) => group.id === groupId);
-//         if (!key) {
-//             board.groups[groupIdx].tasks.push(value);
-//         } else {
-//             prevValue = board.groups[groupIdx][key]; // Store the previous value
-//             board.groups[groupIdx][key] = value;
-//         }
-//     } else {
-//         if (!key) {
-//             board.groups.push(value);
-//         } else {
-//             prevValue = board[key]; // Store the previous value
-//             board[key] = value;
-//         }
-//     }
-
-//     const change = {
-//         prevValue,
-//         newValue: value,
-//         timestamp: Date.now(),
-//         location
-//     };
-
-//     board.activities.unshift(change);
-
-//     console.log('SERVICE', board);
-//     return await storageService.put(STORAGE_KEY, board);
-// }
 
 async function duplicate({ boardId, groupId, taskId }) {
     const board = await storageService.get(STORAGE_KEY, boardId)
@@ -264,6 +184,56 @@ async function duplicate({ boardId, groupId, taskId }) {
     }
 
     return await storageService.put(STORAGE_KEY, board)
+}
+
+async function getBoardById(boardId, filterBy = { txt: '', person: null }, sortBy) {
+    let board = await storageService.get(STORAGE_KEY, boardId)
+    if (filterBy.txt) {
+        const regex = new RegExp(filterBy.txt, 'i')
+        board.groups = board.groups.map((group) => {
+            const filteredTasks = group.tasks.filter((task) => regex.test(task.title))
+
+            // If there are matching tasks or the group title matches, include the group
+            if (filteredTasks.length > 0 || regex.test(group.title)) {
+                if (filteredTasks.length > 0) {
+                    group.tasks = filteredTasks
+                }
+                return group;
+            }
+            // If no matching tasks and group title doesn't match, exclude the group
+            return null
+        }).filter((group) => group !== null) // Remove groups without matching tasks or title
+    }
+
+    if (filterBy.person) {
+        board.groups = board.groups.map((group) => {
+            const filteredTasks = group.tasks.filter((task) => task.memberIds.includes(filterBy.person._id))
+
+            if (filteredTasks.length > 0) {
+                group.tasks = filteredTasks
+                return group;
+            }
+
+            return null;
+        }).filter((group) => group !== null)
+    }
+    if (sortBy) {
+        board.groups = board.groups.sort((a, b) => {
+            const titleA = a.title.toLowerCase();
+            const titleB = b.title.toLowerCase();
+
+            if (titleA < titleB) {
+                return -1
+            } else if (titleA > titleB) {
+                return 1
+            } else {
+                return 0
+            }
+        })
+
+    }
+
+    return board;
 }
 
 ////////////////////////////////////////////////////////////////////////////// get empty

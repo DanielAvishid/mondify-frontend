@@ -1,5 +1,5 @@
 import { boardService } from "../../services/board.service";
-import { ADD_BOARD, BOARD_UNDO, REMOVE_BOARD, SET_BOARDS, UPDATE_BOARD } from "../reducers/board.reducer";
+import { ADD_BOARD, BOARD_UNDO, REMOVE_BOARD, SET_BOARD, SET_BOARDS, UPDATE_BOARD } from "../reducers/board.reducer";
 import { store } from "../store"
 
 export function getActionAddBoard(board) {
@@ -23,6 +23,20 @@ export async function loadBoards(boardsFilter) {
         throw err
     } finally {
         // store.dispatch({ type: SET_IS_LOADING, isLoading: false })
+    }
+}
+
+export async function loadBoard(boardId, filterBy, sortBy) {
+    await getBoardById(boardId, filterBy, sortBy)
+}
+
+export async function getBoardById(boardId, filterBy, sortBy) {
+    try {
+        const board = await boardService.getBoardById(boardId, filterBy, sortBy)
+        store.dispatch({ type: SET_BOARD, board })
+    } catch (err) {
+        console.log('Board Actions: err in Getting Board', err)
+        throw err
     }
 }
 

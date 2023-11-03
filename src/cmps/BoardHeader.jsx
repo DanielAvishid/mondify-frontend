@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { boardService } from "../services/board.service"
 import { BoardModal } from "./BoardModal"
 
-export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveBoard, onDuplicateBoard }) {
+export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveBoard, onDuplicateBoard, filterBy, setFilterBy, sortBy }) {
 
     const [isCollapse, setIsCollapse] = useState(false)
     const [isInputFocus, setIsInputFocus] = useState(false)
@@ -40,6 +40,7 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
     }
 
     function handleInputChange(ev) {
+        setFilterBy({ ...filterBy, txt: ev.target.value })
         if (ev.target.value) {
             setIsTyping(true)
             setInputValue(ev.target.value)
@@ -192,6 +193,7 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                             className={`search-input`}
                             type="text"
                             ref={inputRef}
+                            value={filterBy.txt}
                             onFocus={handleInputFocus}
                             onChange={(ev) => handleInputChange(ev)}
                             onBlur={handleInputBlur}
