@@ -1,12 +1,14 @@
 .group-preview {
     position: relative;
     padding-block-end: 1.75rem;
+    background-color: $primary-background-color;
+
 
     .group-header {
+        background-color: $primary-background-color;
         position: sticky;
         top: 0;
         z-index: 15;
-        background-color: $primary-background-color;
 
         .title-header {
             height: 2.5rem;
@@ -59,9 +61,11 @@
 
 
     .table-container {
+        background-color: $primary-background-color;
         border-inline-start: 6px solid;
         padding-inline-end: 0.5rem;
         min-width: 100vw;
+        // width: calc(100% - rem(40px));
 
         &.first {
             border-top-left-radius: 5px;
@@ -81,6 +85,7 @@
             >.priority-col,
             >.status-col,
             >.timeline-col {
+                // background-color: $primary-background-color;
                 border-inline-end: 1px solid $table-border;
                 height: rem(36px);
             }

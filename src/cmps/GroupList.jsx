@@ -33,18 +33,19 @@ export function GroupList() {
 
 
     return (
-        <div>
+        <div className="group-list main-layout full">
             <Droppable droppableId="groups" type="groups">
                 {(provided, snapshot) => (
-                    <ul
-                        className="group-list main-layout full"
+                    <section
+                        className="main-layout full"
                         {...provided.droppableProps}
                         ref={provided.innerRef}
                     >
-                        {groups.map((group, index) => {
-                            <li
+                        {groups.map((group, index) => (
+
+                            <article
                                 key={group.id}
-                                className="full"
+                                className="main-layout full"
                                 data-group-id={group.id}
                             >
                                 <GroupPreview
@@ -58,13 +59,12 @@ export function GroupList() {
                                     onDuplicateTask={onDuplicateTask}
                                     collapseAll={snapshot.isDraggingOver}
                                 />
-                            </li>
-                        })}
+                            </article>
+                        ))}
                         {provided.placeholder}
-                    </ul>
+                    </section>
                 )}
             </Droppable>
-
             {groups.length !== 0 && <div className="add-group-container middle">
                 <Button
                     className="new-group-btn"
@@ -75,6 +75,7 @@ export function GroupList() {
                     <span>Add new group</span>
                 </Button>
             </div>}
+
             <Outlet />
         </div>
     )
