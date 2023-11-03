@@ -31,72 +31,51 @@ export function GroupList() {
         setGroups(value)
     }
 
+
     return (
-        <>
-            <DragDropContext onDragEnd={handleOnDragEnd}>
-                <Droppable droppableId="group" type="group">
-                    {(provided) => (
-                        <div {...provided.droppableProps} ref={provided.innerRef} className="group-list main-layout full">
-                            {groups.map((group, index) => (
-                                <Draggable draggableId={group.id} index={index} key={group.id}>
-                                    {(provided) => (
-                                        <article
-                                            key={group.id}
-                                            className="full"
-                                            {...provided.dragHandleProps}
-                                            {...provided.draggableProps}
-                                            ref={provided.innerRef}
-                                        >
-                                            <GroupPreview
-                                                board={board}
-                                                group={group}
-                                                onSaveBoard={onSaveBoard}
-                                                onRemoveGroup={onRemoveGroup}
-                                                onRemoveTask={onRemoveTask}
-                                                onDuplicateGroup={onDuplicateGroup}
-                                                onDuplicateTask={onDuplicateTask}
-                                            // onDuplicate={onDuplicate}
-                                            // onRemove={onRemove} 
-                                            />
-                                        </article>
-                                    )}
-                                    {/* {(provided) => (
-                                        <article
-                                            className="full"
-                                            {...provided.dragHandleProps}
-                                            {...provided.draggableProps}
-                                            ref={provided.innerRef}
-                                        >
-                                            <GroupPreview
-                                                // key={group.id}
-                                                board={board}
-                                                group={group}
-                                                onSaveBoard={onSaveBoard}
-                                                onDuplicateGroup={onDuplicateGroup}
-                                                onDuplicateTask={onDuplicateTask}
-                                                onRemoveGroup={onRemoveGroup}
-                                                onRemoveTask={onRemoveTask}
-                                            />
-                                        </article>
-                                    )} */}
-                                </Draggable>
-                            ))}
-                            {provided.placeholder}
-                            <div className="add-group-container middle">
-                                <Button
-                                    className="new-group-btn"
-                                    noSidePadding={true}
-                                    kind={Button.kinds.SECONDARY}
-                                    onClick={onAddGroup}>
-                                    <Icon className="add-icon" icon={Add} />
-                                    <span>Add new group</span>
-                                </Button>
-                            </div>
-                        </div>
-                    )}
-                </Droppable>
-            </DragDropContext>
+        <div>
+            <Droppable droppableId="groups" type="groups">
+                {(provided, snapshot) => (
+                    <ul
+                        className="group-list main-layout full"
+                        {...provided.droppableProps}
+                        ref={provided.innerRef}
+                    >
+                        {groups.map((group, index) => {
+                            <li
+                                key={group.id}
+                                className="full"
+                                data-group-id={group.id}
+                            >
+                                <GroupPreview
+                                    index={index}
+                                    board={board}
+                                    group={group}
+                                    onSaveBoard={onSaveBoard}
+                                    onRemoveGroup={onRemoveGroup}
+                                    onRemoveTask={onRemoveTask}
+                                    onDuplicateGroup={onDuplicateGroup}
+                                    onDuplicateTask={onDuplicateTask}
+                                    collapseAll={snapshot.isDraggingOver}
+                                />
+                            </li>
+                        })}
+                        {provided.placeholder}
+                    </ul>
+                )}
+            </Droppable>
+
+            {groups.length !== 0 && <div className="add-group-container middle">
+                <Button
+                    className="new-group-btn"
+                    noSidePadding={true}
+                    kind={Button.kinds.SECONDARY}
+                    onClick={onAddGroup}>
+                    <Icon className="add-icon" icon={Add} />
+                    <span>Add new group</span>
+                </Button>
+            </div>}
             <Outlet />
-        </>
+        </div>
     )
 }

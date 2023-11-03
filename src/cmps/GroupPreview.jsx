@@ -8,7 +8,7 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { useEffect, useState } from "react";
 import { ProgressBar } from "./ProgressBar";
 
-export function GroupPreview({ board, group, onSaveBoard, progress, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask }) {
+export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask, collapseAll }) {
 
     const [opacity, setOpacity] = useState('80')
     const { style, title } = group
@@ -91,134 +91,150 @@ export function GroupPreview({ board, group, onSaveBoard, progress, onRemoveGrou
 
     return (
         <section className="group-preview main-layout full flex align-center justify-center">
-            <DragDropContext onDragEnd={handleOnDragEnd}>
-                <Droppable droppableId="task" type="group">
-                    {(provided) => (
-                        <div {...provided.droppableProps} ref={provided.innerRef} className=" main-layout full">
+            <Draggable droppableId={group.id} index={index}>
+                {(provider) => (
+                    <div
+                        {...provider.draggableProps}
+                        {...provider.dragHandleProps}
+                        ref={provider.innerRef}
+                        className=" main-layout full">
 
-                            <div className="group-header main-layout full">
-                                {/* <div className="group-header main-layout full"> */}
-                                <div className="title-header main-layout full">
-                                    <div className="group-menu-container start flex justify-end align-center">
-                                        <MenuButton className="group-menu">
-                                            <Menu id="menu" size="large">
-                                                <MenuItem icon={Duplicate} title="Duplicate this group" onClick={() => onDuplicateGroup({ boardId: board._id, groupId: group.id })} />
-                                                <MenuItem icon={Delete} title="Delete" onClick={() => onRemoveGroup({ boardId: board._id, groupId: group.id })} />
-                                            </Menu>
-                                        </MenuButton>
-                                    </div>
-                                    <div className="group-title flex align-center">
-                                        <span className="flex" style={{ color: group.style.backgroundColor }}>
-                                            {/* cant get the label . why ? */}
-
-                                            <Icon
-                                                customColor={group.style.backgroundColor}
-                                                icon={DropdownChevronDown}
-                                                iconSize={22}
-                                                ariaLabel="Collapse group" />
-                                        </span>
-                                        <span>
-                                            <EditableHeading
-                                                type={EditableHeading.types.h4}
-                                                value={title}
-                                                tooltip='Click to Edit'
-                                                tooltipPosition="bottom"
-                                                customColor={group.style.backgroundColor}
-                                                onBlur={(ev) => onSaveBoard({ key: 'title', value: ev.target.value, boardId: board._id, groupId: group.id })}
-                                                onKeyDown={handleKeyPress}
-                                            />
-                                        </span>
-                                        <span className="items-count">
-                                            {group.tasks.length === 0 && "No items"}
-                                            {group.tasks.length === 1 && "1 project"}
-                                            {group.tasks.length > 1 && `${group.tasks.length} Items`}
-                                        </span>
-                                    </div>
+                        <div className="group-header main-layout full">
+                            {/* <div className="group-header main-layout full"> */}
+                            <div className="title-header main-layout full">
+                                <div className="group-menu-container start flex justify-end align-center">
+                                    <MenuButton className="group-menu">
+                                        <Menu id="menu" size="large">
+                                            <MenuItem icon={Duplicate} title="Duplicate this group" onClick={() => onDuplicateGroup({ boardId: board._id, groupId: group.id })} />
+                                            <MenuItem icon={Delete} title="Delete" onClick={() => onRemoveGroup({ boardId: board._id, groupId: group.id })} />
+                                        </Menu>
+                                    </MenuButton>
                                 </div>
-                                <table className="table-header full main-layout">
-                                    <thead className="table-container table first" style={{ borderColor: group.style.backgroundColor }}>
-                                        <tr className="table-row flex">
-                                            <th className=" title-col flex align-center justify-center">
-                                                <div className="checkbox flex align-center justify-center"><Checkbox checked={masterChecked} onChange={handleMasterChange} /></div>
-                                                <div className="title-name flex align-center justify-center"><span>Item</span></div>
-                                            </th>
-                                            {board.cmpsOrder.map((cmp, idx) => (
-                                                <th key={idx} className={` cmp-title ${cmp.type}-col flex align-center justify-center`}>
-                                                    <span>
-                                                        <EditableHeading
-                                                            type={EditableHeading.types.h6}
-                                                            value={cmp.title}
-                                                        // customColor={group.style.backgroundColor}
-                                                        // onBlur={(ev) => onSaveBoard({ key: 'title', value: ev.target.value, boardId: board._id, groupId: group.id })}
-                                                        // onKeyDown={handleKeyPress}
-                                                        />
-                                                    </span>
-                                                </th>
-                                            ))}
-                                            <th className="add-column">
-                                                <IconButton icon={Add} kind={IconButton.kinds.TERTIARY} ariaLabel="Add Column" size={IconButton.sizes.SMALL} />
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                </table>
+                                <div className="group-title flex align-center">
+                                    <span className="flex" style={{ color: group.style.backgroundColor }}>
+                                        {/* cant get the label . why ? */}
+
+                                        <Icon
+                                            customColor={group.style.backgroundColor}
+                                            icon={DropdownChevronDown}
+                                            iconSize={22}
+                                            ariaLabel="Collapse group" />
+                                    </span>
+                                    <span>
+                                        <EditableHeading
+                                            type={EditableHeading.types.h4}
+                                            value={title}
+                                            tooltip='Click to Edit'
+                                            tooltipPosition="bottom"
+                                            customColor={group.style.backgroundColor}
+                                            onBlur={(ev) => onSaveBoard({ key: 'title', value: ev.target.value, boardId: board._id, groupId: group.id })}
+                                            onKeyDown={handleKeyPress}
+                                        />
+                                    </span>
+                                    <span className="items-count">
+                                        {group.tasks.length === 0 && "No items"}
+                                        {group.tasks.length === 1 && "1 project"}
+                                        {group.tasks.length > 1 && `${group.tasks.length} Items`}
+                                    </span>
+                                </div>
                             </div>
-
-                            {tasks.map((task, index) => (
-                                <Draggable draggableId={task.id} index={index} key={task.id}>
-                                    {(provided) => (
-                                        <article
-                                            className="dnd-task main-layout full"
-                                            {...provided.dragHandleProps}
-                                            {...provided.draggableProps}
-                                            ref={provided.innerRef}
-                                        >
-
-                                            <TaskPreview
-                                                key={task.id}
-                                                board={board}
-                                                group={group}
-                                                task={task}
-                                                onSaveBoard={onSaveBoard}
-                                                onDuplicateTask={onDuplicateTask}
-                                                onRemoveTask={onRemoveTask}
-                                                isChecked={checkboxes[task.id]}
-                                                handleCheckboxChange={handleCheckboxChange}
-                                            />
-                                        </article>
-                                    )}
-                                </Draggable>
-                            ))}
-                            {provided.placeholder}
-
-                            <div className="group-footer full main-layout">
-                                <table className="add-task full main-layout" onMouseEnter={() => setOpacity('')} onMouseLeave={() => setOpacity('80')}>
-                                    <tbody className={`table-container table last ${addTaskBgc}`} style={{ borderColor: group.style.backgroundColor + opacity }}>
-                                        <tr className="table-row flex">
-                                            <td className=" title-col flex align-center justify-center">
-                                                <div className="checkbox flex align-center justify-center"><Checkbox disabled /></div>
-                                                <div className="title-name flex align-center justify-center">
-                                                    <input
-                                                        type="text"
-                                                        placeholder={"+ Add Item"}
-                                                        value={taskTitleToAdd}
-                                                        onBlur={(ev) => onAddTask(ev.target.value)}
-                                                        onFocus={onChangeBgc}
-                                                        onChange={(ev) => setTaskTitleToAdd(ev.target.value)}
-                                                        onKeyPress={handleAddTask}
+                            <table className="table-header full main-layout">
+                                <thead className="table-container table first" style={{ borderColor: group.style.backgroundColor }}>
+                                    <tr className="table-row flex">
+                                        <th className=" title-col flex align-center justify-center">
+                                            <div className="checkbox flex align-center justify-center"><Checkbox checked={masterChecked} onChange={handleMasterChange} /></div>
+                                            <div className="title-name flex align-center justify-center"><span>Item</span></div>
+                                        </th>
+                                        {board.cmpsOrder.map((cmp, idx) => (
+                                            <th key={idx} className={` cmp-title ${cmp.type}-col flex align-center justify-center`}>
+                                                <span>
+                                                    <EditableHeading
+                                                        type={EditableHeading.types.h6}
+                                                        value={cmp.title}
+                                                    // customColor={group.style.backgroundColor}
+                                                    // onBlur={(ev) => onSaveBoard({ key: 'title', value: ev.target.value, boardId: board._id, groupId: group.id })}
+                                                    // onKeyDown={handleKeyPress}
                                                     />
-                                                    <span className="guidance" style={{ opacity: taskTitleToAdd ? 1 : 0 }}>Enter to add another item</span>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <ProgressBar board={board} group={group} />
-                            </div>
-
+                                                </span>
+                                            </th>
+                                        ))}
+                                        <th className="add-column">
+                                            <IconButton icon={Add} kind={IconButton.kinds.TERTIARY} ariaLabel="Add Column" size={IconButton.sizes.SMALL} />
+                                        </th>
+                                    </tr>
+                                </thead>
+                            </table>
                         </div>
-                    )}
-                </Droppable>
-            </DragDropContext>
+
+                        <Droppable droppableId={group.id}>
+                            {(provided) => (
+                                <div
+                                    className="task-list"
+                                    {...provided.droppableProps}
+                                    ref={provided.innerRef}
+                                >
+                                    {tasks.map((task, index) => (
+                                        <Draggable
+                                            key={task.id}
+                                            draggableId={task.id}
+                                            index={index}
+                                        >
+                                            {(provided) => (
+                                                <div
+                                                    key={task.id}
+                                                    className="dnd-task main-layout full"
+                                                    {...provided.dragHandleProps}
+                                                    {...provided.draggableProps}
+                                                    ref={provided.innerRef}
+                                                >
+                                                    <TaskPreview
+                                                        key={task.id}
+                                                        board={board}
+                                                        group={group}
+                                                        task={task}
+                                                        onSaveBoard={onSaveBoard}
+                                                        onDuplicateTask={onDuplicateTask}
+                                                        onRemoveTask={onRemoveTask}
+                                                        isChecked={checkboxes[task.id]}
+                                                        handleCheckboxChange={handleCheckboxChange}
+                                                    />
+                                                </div>
+                                            )}
+                                        </Draggable>
+                                    ))}
+                                    {provided.placeholder}
+                                </div>
+                            )}
+                        </Droppable>
+
+                        <div className="group-footer full main-layout">
+                            <table className="add-task full main-layout" onMouseEnter={() => setOpacity('')} onMouseLeave={() => setOpacity('80')}>
+                                <tbody className={`table-container table last ${addTaskBgc}`} style={{ borderColor: group.style.backgroundColor + opacity }}>
+                                    <tr className="table-row flex">
+                                        <td className=" title-col flex align-center justify-center">
+                                            <div className="checkbox flex align-center justify-center"><Checkbox disabled /></div>
+                                            <div className="title-name flex align-center justify-center">
+                                                <input
+                                                    type="text"
+                                                    placeholder={"+ Add Item"}
+                                                    value={taskTitleToAdd}
+                                                    onBlur={(ev) => onAddTask(ev.target.value)}
+                                                    onFocus={onChangeBgc}
+                                                    onChange={(ev) => setTaskTitleToAdd(ev.target.value)}
+                                                    onKeyPress={handleAddTask}
+                                                />
+                                                <span className="guidance" style={{ opacity: taskTitleToAdd ? 1 : 0 }}>Enter to add another item</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <ProgressBar board={board} group={group} />
+                        </div>
+
+                    </div>
+                )}
+            </Draggable >
         </section >
     )
 }
