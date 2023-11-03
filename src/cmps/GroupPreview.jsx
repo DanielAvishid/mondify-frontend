@@ -7,9 +7,11 @@ import { boardService } from "../services/board.service";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { useEffect, useState } from "react";
 import { ProgressBar } from "./ProgressBar";
+import { GroupPreviewCollapse } from "./GroupPreviewCollapse";
 
 export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask, collapseAll }) {
 
+    const [isCollapse, setIsCollapse] = useState(false)
     const [opacity, setOpacity] = useState('80')
     const { style, title } = group
     const [tasks, setTasks] = useState(group.tasks)
@@ -89,6 +91,10 @@ export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, 
         }
     }
 
+    if (isCollapse) return (
+        <GroupPreviewCollapse handleKeyPress={handleKeyPress} board={board} group={group} onDuplicateGroup={onDuplicateGroup} onSaveBoard={onSaveBoard} onRemoveGroup={onRemoveGroup} setIsCollapse={setIsCollapse} />
+    )
+
     return (
         <Draggable draggableId={group.id} index={index}>
             {(provider) => (
@@ -118,7 +124,9 @@ export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, 
                                         customColor={group.style.backgroundColor}
                                         icon={DropdownChevronDown}
                                         iconSize={22}
-                                        ariaLabel="Collapse group" />
+                                        ariaLabel="Collapse group"
+                                        onClick={() => setIsCollapse(true)}
+                                    />
                                 </span>
                                 <span>
                                     <EditableHeading

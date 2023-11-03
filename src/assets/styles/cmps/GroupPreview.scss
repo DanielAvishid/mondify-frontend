@@ -75,22 +75,22 @@
             border-bottom-left-radius: 5px;
         }
 
-        >.table-row {
+        .table-row {
             border-block-end: 1px solid $table-border;
             height: rem(36px);
 
-            >.title-col,
-            >.members-col,
-            >.date-col,
-            >.priority-col,
-            >.status-col,
-            >.timeline-col {
+            .title-col,
+            .members-col,
+            .date-col,
+            .priority-col,
+            .status-col,
+            .timeline-col {
                 // background-color: $primary-background-color;
                 border-inline-end: 1px solid $table-border;
                 height: rem(36px);
             }
 
-            >.title-col {
+            .title-col {
                 width: rem(390px);
 
                 >.title-name,
@@ -108,15 +108,15 @@
                 }
             }
 
-            >.members-col {
+            .members-col {
                 width: rem(100px);
             }
 
 
-            >.date-col,
-            >.priority-col,
-            >.status-col,
-            >.timeline-col {
+            .date-col,
+            .priority-col,
+            .status-col,
+            .timeline-col {
                 width: rem(140px);
             }
 

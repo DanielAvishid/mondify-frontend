@@ -20,17 +20,6 @@ export function BoardDetails() {
         loadBoard(boardId, filterBy, sortBy)
     }, [boardId, filterBy, sortBy])
 
-    // async function loadBoard() {
-    //     try {
-    //         const board = await getById({ boardId })
-    //         setBoard(board)
-    //     } catch (err) {
-    //         console.log('Had issues in board details', err)
-    //         console.log('ShowErrorMsg')
-    //         navigate('/board')
-    //     }
-    // }
-
     async function onAddTaskFromHeader(board) {
         const taskToAdd = boardService.getEmptyTask()
         try {
@@ -40,29 +29,6 @@ export function BoardDetails() {
             console.log('ShowErrorMsg')
         }
     }
-
-    // function toggleIsSearch() {
-    //     if (filterBy.txt) return
-    //     setIsSearch((prevIsSearch) => !prevIsSearch)
-    // }
-
-
-    // const groups = board.groups
-    // const [filteredGroups, setFilteredGroups] = useState(groups)
-    // const [searchTerm, setSearchTerm] = useState('')
-
-    // const handleSearch = (searchValue) => {
-    //     console.log('searchValue', searchValue);
-
-    //     const filtered = groups.filter((activity) =>
-    //         activity.title.toLowerCase().includes(searchValue.toLowerCase())
-    //     )
-
-    //     console.log('filtered', filtered);
-
-    //     setSearchTerm(searchValue)
-    //     setFilteredActivities(filtered)
-    // }
 
     if (currBoard === undefined) return <DeletedBoard />
 
@@ -89,50 +55,6 @@ export function BoardDetails() {
             await onSaveBoard({ board: currBoard, boardId: currBoard._id, key: 'groups', value: newGroups })
             return
         }
-
-        // if (type === 'kanban-tasks') {
-        //     const sourceLabel = source.droppableId.split('-')[2]
-        //     const destinationLabel = destination.droppableId.split('-')[2]
-        //     const taskId = draggableId.split('-')[2]
-
-        //     const newGroups = [...currBoard.groups].map(group => {
-        //         const tasks = [...group.tasks]
-        //         tasks.map(task => {
-        //             if (task.id === taskId) task.status = destinationLabel
-        //             else return task
-        //         })
-        //         return { ...group, tasks }
-        //     })
-        //     const newBoard = { ...currBoard, groups: newGroups }
-        //     await updateBoardOptimistic('board', currBoard._id, null, null, { key: 'groups', value: newGroups }, newBoard)
-        //     return
-        // }
-
-        // if (type === 'kanban-groups') {
-        //     if (currBoard.kanbanCmpsOrder) {
-        //         const newCmpsOrder = [...currBoard.kanbanCmpsOrder]
-        //         const [removed] = newCmpsOrder.splice(source.index, 1)
-        //         newCmpsOrder.splice(destination.index, 0, removed)
-        //         const newBoard = { ...currBoard, kanbanCmpsOrder: newCmpsOrder }
-        //         await updateBoardOptimistic('board', currBoard._id, null, null, { key: 'kanbanCmpsOrder', value: newCmpsOrder }, newBoard)
-        //     }
-        //     else {
-        //         const kanbanCmpsOrder = getLabelsInUse()
-        //         console.log('kanbanCmpsOrder:', kanbanCmpsOrder)
-        //         const newBoard = { ...currBoard, kanbanCmpsOrder }
-        //         await updateBoardOptimistic('board', currBoard._id, null, null, { key: 'kanbanCmpsOrder', value: kanbanCmpsOrder }, newBoard)
-        //     }
-        //     return
-        // }
-
-        // if (type === 'columns') {
-        //     const newCmpsOrder = [...currBoard.cmpsOrder]
-        //     const [removed] = newCmpsOrder.splice(source.index, 1)
-        //     newCmpsOrder.splice(destination.index, 0, removed)
-        //     const newBoard = { ...currBoard, cmpsOrder: newCmpsOrder }
-        //     await updateBoardOptimistic('board', currBoard._id, null, null, { key: 'cmpsOrder', value: newCmpsOrder }, newBoard)
-        //     return
-        // }
 
         const start = currBoard.groups.find(group => group.id === source.droppableId)
         const finish = currBoard.groups.find(group => group.id === destination.droppableId)

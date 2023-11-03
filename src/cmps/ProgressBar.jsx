@@ -10,11 +10,9 @@ export function ProgressBar({ board, group }) {
     const renderCmpSpan = (cmp) => {
         switch (cmp.type) {
             case 'timeline':
-                return <TimelineSummary group={group} type={cmp.type} />
             case 'date':
                 return <TimelineSummary group={group} type={cmp.type} />
             case 'status':
-                return <LabelsSummary group={group} board={board} type={cmp.type} />
             case 'priority':
                 return <LabelsSummary group={group} board={board} type={cmp.type} />
             case 'members':
