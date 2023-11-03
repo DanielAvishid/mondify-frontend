@@ -319,26 +319,9 @@
             display: flex;
             gap: rem(6px);
 
-            .person-btn {
-                height: rem(32px);
-                display: flex;
-                padding: 0;
-                padding-inline-start: 6px;
-                padding-inline-end: 12px;
-                min-width: min-content;
 
-                svg {
-                    color: $icon-secondary-color;
-                    margin-inline-end: 6px;
-                    width: rem(20px);
-                    height: rem(20px);
-                }
-
-                span {
-                    line-height: 33px;
-                    font-weight: 500;
-                    color: $icon-secondary-color;
-                }
+            .focused {
+                background: #cce5ff;
             }
 
             .search-container {

@@ -1,5 +1,5 @@
-import { Menu, MenuButton, Search as SearchInput, MenuItem, EditableHeading, MenuTitle, Button, MenuDivider, TabList, Tab, Table, SplitButton, SplitButtonMenu, IconButton, Icon, AvatarGroup, Avatar } from "monday-ui-react-core"
-import { NavigationChevronDown, DropdownChevronDown, DropdownChevronUp, Home, Delete, Download, Group, Search, PersonRound, CloseSmall, Chart, Edit, Favorite, ShortText, Info, AddSmall, Duplicate, Table as TableIcon, Menu as MenuIcon, Invite, SettingsKnobs } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
+import { Menu, MenuButton, Search as SearchInput, MenuItem, EditableHeading, MenuTitle, Button, MenuDivider, TabList, Tab, Table, SplitButton, SplitButtonMenu, IconButton, Icon, AvatarGroup, Avatar, Tooltip } from "monday-ui-react-core"
+import { NavigationChevronDown, Sort, DropdownChevronDown, DropdownChevronUp, Home, Delete, Download, Group, Search, PersonRound, CloseSmall, Chart, Edit, Favorite, ShortText, Info, AddSmall, Duplicate, Table as TableIcon, Menu as MenuIcon, Invite, SettingsKnobs } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { useRef, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { boardService } from "../services/board.service"
@@ -7,7 +7,7 @@ import { BoardModal } from "./BoardModal"
 import { MembersFilterModal } from "./MembersFilterModal"
 import { useClickOutside } from "../hooks/useClickOutside"
 
-export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveBoard, onDuplicateBoard, filterBy, setFilterBy, sortBy }) {
+export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveBoard, onDuplicateBoard, filterBy, setFilterBy, sortBy, setSortBy }) {
 
     const [isCollapse, setIsCollapse] = useState(false)
     const [isInputFocus, setIsInputFocus] = useState(false)
@@ -211,21 +211,38 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                             <Icon className="setting-icon" icon={SettingsKnobs} />
                         </Button>}
                     </div>
-                    <Button
-                        className="person-btn relative"
-                        ariaLabel="Filter by person"
-                        kind={Button.kinds.TERTIARY}
-                        ref={personBtn}
-                        onClick={() => setIsPersonModalOpen(!isPersonModalOpen)}
-                    >
-                        <Icon className="setting-icon" icon={PersonRound} />
-                        <span>Person</span>
-                        {isPersonModalOpen &&
-                            <div className="modal" onClick={(ev) => ev.stopPropagation()}>
-                                <MembersFilterModal members={board.members} filterBy={filterBy} setFilterBy={setFilterBy} />
-                            </div>
-                        }
-                    </Button>
+                    <Tooltip
+                        content='Filter by person'
+                        animationType="expand">
+                        <Button
+                            className={`person-btn ${isPersonModalOpen ? 'focused' : ''}`}
+                            leftIcon={PersonRound}
+                            kind="tertiary"
+                            size="small"
+                            ref={personBtn}
+                            onClick={() => setIsPersonModalOpen(!isPersonModalOpen)}
+                        >
+                            Person
+                            {isPersonModalOpen &&
+                                <div className="modal" onClick={(ev) => ev.stopPropagation()}>
+                                    <MembersFilterModal members={board.members} filterBy={filterBy} setFilterBy={setFilterBy} />
+                                </div>
+                            }
+                        </Button>
+                    </Tooltip>
+                    <Tooltip
+                        content='Sort groups'
+                        animationType="expand">
+                        <Button
+                            className={`sortby-btn ${sortBy ? 'focused' : ''}`}
+                            onClick={() => setSortBy(!sortBy)}
+                            leftIcon={Sort}
+                            kind="tertiary"
+                            size="small"
+                        >
+                            Sort
+                        </Button>
+                    </Tooltip>
                 </div>
             </section>
             {isModalOpen && <BoardModal board={board} onSaveBoard={onSaveBoard} onCloseModal={onCloseModal} />}

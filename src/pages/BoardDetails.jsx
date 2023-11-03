@@ -18,7 +18,7 @@ export function BoardDetails() {
 
     useEffect(() => {
         loadBoard(boardId, filterBy, sortBy)
-    }, [boardId, filterBy, boards])
+    }, [boardId, filterBy, sortBy])
 
     // async function loadBoard() {
     //     try {
@@ -167,8 +167,6 @@ export function BoardDetails() {
 
     return (
         <section className="board-details main-layout">
-
-
             <BoardHeader
                 onAddTaskFromHeader={onAddTaskFromHeader}
                 onDuplicateBoard={onDuplicateBoard}
@@ -178,6 +176,7 @@ export function BoardDetails() {
                 filterBy={filterBy}
                 setFilterBy={setFilterBy}
                 sortBy={sortBy}
+                setSortBy={setSortBy}
             />
             <DragDropContext onDragEnd={onDragEnd} className="main-layout full">
                 <Outlet context={[currBoard, onSaveBoard, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask]} />
