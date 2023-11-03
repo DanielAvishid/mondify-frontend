@@ -311,6 +311,7 @@ function getEmptyBoard() {
                     {
                         "id": utilService.makeId(),
                         "title": "Fix handle change func",
+                        "updates": [],
                         "status": "ls101",
                         "priority": "lp103",
                         "timeline": [1698155558000, 1698955558000],
@@ -320,6 +321,7 @@ function getEmptyBoard() {
                     {
                         "id": utilService.makeId(),
                         "title": "Remove tasks",
+                        "updates": [],
                         "status": "ls103",
                         "priority": "lp101",
                         "timeline": [1697855558000, 1696755558000],
@@ -329,6 +331,7 @@ function getEmptyBoard() {
                     {
                         "id": utilService.makeId(),
                         "title": "Update response time",
+                        "updates": [],
                         "status": "ls102",
                         "priority": "lp102",
                         "timeline": [],
@@ -338,6 +341,7 @@ function getEmptyBoard() {
                     {
                         "id": utilService.makeId(),
                         "title": "Add rating stars",
+                        "updates": [],
                         "status": "ls101",
                         "priority": "lp101",
                         "timeline": [1698825558000, 1698925558000],
@@ -347,6 +351,7 @@ function getEmptyBoard() {
                     {
                         "id": utilService.makeId(),
                         "title": "Update react version",
+                        "updates": [],
                         "status": "ls102",
                         "priority": "lp101",
                         "timeline": [1698155558000, 1698955558000],
@@ -356,6 +361,7 @@ function getEmptyBoard() {
                     {
                         "id": utilService.makeId(),
                         "title": "Update response time",
+                        "updates": [],
                         "status": "ls101",
                         "priority": "lp103",
                         "timeline": [1697655558000, 1699955558000],
@@ -372,6 +378,7 @@ function getEmptyBoard() {
                     {
                         "id": utilService.makeId(),
                         "title": "Implement Data Structures",
+                        "updates": [],
                         "status": "ls102",
                         "priority": "lp103",
                         "timeline": [1698795558000, 1697153558000],
@@ -381,6 +388,7 @@ function getEmptyBoard() {
                     {
                         "id": utilService.makeId(),
                         "title": "Optimize Algorithms",
+                        "updates": [],
                         "status": "ls103",
                         "priority": "lp102",
                         "timeline": [1698835558000, 1698875558000],
@@ -390,6 +398,7 @@ function getEmptyBoard() {
                     {
                         "id": utilService.makeId(),
                         "title": "Database Design",
+                        "updates": [],
                         "status": "ls103",
                         "priority": "lp101",
                         "timeline": [],
@@ -399,6 +408,7 @@ function getEmptyBoard() {
                     {
                         "id": utilService.makeId(),
                         "title": "UI/UX Improvements",
+                        "updates": [],
                         "status": "ls101",
                         "priority": "lp102",
                         "timeline": [1698815558000, 1698335558000],
@@ -408,6 +418,7 @@ function getEmptyBoard() {
                     {
                         "id": utilService.makeId(),
                         "title": "Security Audit",
+                        "updates": [],
                         "status": "ls101",
                         "priority": "lp101",
                         "timeline": [1698155558000, 1698955558000],
@@ -417,6 +428,7 @@ function getEmptyBoard() {
                     {
                         "id": utilService.makeId(),
                         "title": "Machine Learning Module",
+                        "updates": [],
                         "status": "ls103",
                         "priority": "lp102",
                         "timeline": [],
@@ -426,6 +438,7 @@ function getEmptyBoard() {
                     {
                         "id": utilService.makeId(),
                         "title": "Integration Setup",
+                        "updates": [],
                         "status": "ls102",
                         "priority": "lp101",
                         "timeline": [1697835558000, 1697835558000],
@@ -435,6 +448,7 @@ function getEmptyBoard() {
                     {
                         "id": utilService.makeId(),
                         "title": "Bug Fixes",
+                        "updates": [],
                         "status": "ls101",
                         "priority": "lp101",
                         "timeline": [1698835558000, 1698835558000],
@@ -444,6 +458,7 @@ function getEmptyBoard() {
                     {
                         "id": utilService.makeId(),
                         "title": "Documentation Update",
+                        "updates": [],
                         "status": "ls103",
                         "priority": "lp103",
                         "timeline": [],
@@ -464,6 +479,7 @@ function getEmptyBoard() {
                     {
                         "id": utilService.makeId(),
                         "title": "Make it look better",
+                        "updates": [],
                         "status": "ls103",
                         "priority": "lp102",
                         "timeline": [1698235558000, 1696835558000],
@@ -473,6 +489,7 @@ function getEmptyBoard() {
                     {
                         "id": utilService.makeId(),
                         "title": "Fix main button",
+                        "updates": [],
                         "status": "ls102",
                         "priority": "lp101",
                         "timeline": [1697835558000, 1699235558000],
@@ -482,6 +499,7 @@ function getEmptyBoard() {
                     {
                         "id": utilService.makeId(),
                         "title": "Check New libraries",
+                        "updates": [],
                         "status": "ls102",
                         "priority": "lp103",
                         "timeline": [1698835558000, 1698835558000],
@@ -491,6 +509,7 @@ function getEmptyBoard() {
                     {
                         "id": utilService.makeId(),
                         "title": "Update modal layout",
+                        "updates": [],
                         "status": "ls103",
                         "priority": "lp101",
                         "timeline": [1698835558000, 1698835558000],
@@ -508,6 +527,7 @@ function getEmptyBoard() {
                     {
                         "id": utilService.makeId(),
                         "title": "Data collection",
+                        "updates": [],
                         "status": "ls101",
                         "priority": "lp103",
                         "timeline": [1698835558000, 1698835558000],
@@ -517,6 +537,7 @@ function getEmptyBoard() {
                     {
                         "id": utilService.makeId(),
                         "title": "Renew data",
+                        "updates": [],
                         "status": "ls102",
                         "priority": "lp101",
                         "timeline": [1698835558000, 1698835558000],
@@ -526,6 +547,7 @@ function getEmptyBoard() {
                     {
                         "id": utilService.makeId(),
                         "title": "Check for duplicates",
+                        "updates": [],
                         "status": "ls101",
                         "priority": "lp102",
                         "timeline": [1698835558000, 1698835558000],
