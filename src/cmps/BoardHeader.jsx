@@ -123,7 +123,7 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
             </section>}
             {(!isCollapse && board.description) && <section className={`second-row-container`}>
                 <div className="flex align-center">
-                    <p className="board-description">{board.description}</p>
+                    <p className="board-description" onClick={() => setIsModalOpen(true)}>{board.description}</p>
                     <span className="see-more" onClick={() => setIsModalOpen(true)}>See More</span>
                 </div>
             </section>}
