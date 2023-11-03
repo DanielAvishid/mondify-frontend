@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
+    vertical-align: baseline;
     height: 100%;
     position: absolute;
     top: 0;
@@ -10,9 +11,9 @@
     min-width: 570px;
     max-width: calc(100vw - 265px);
     background-color: $primary-background-color;
-    box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 
-    .drag-btn {
+    >.drag-btn {
         position: absolute;
         top: 0;
         left: 0;
@@ -32,28 +33,28 @@
         }
     }
 
-    .header {
+    >.task-details-header {
         flex: 0 1 auto;
         flex-grow: 0;
 
-        .title-container {
+        >.title-container {
             text-align: left;
             margin: 20px 20px 6px 24px;
 
-            .close-btn-container {
+            >.close-btn-container {
                 display: flex;
                 justify-content: space-between;
                 align-items: flex-start;
                 min-height: 24px;
                 margin-inline-start: -6px;
 
-                .close-btn {
+                >.close-btn {
                     padding: 0;
                     min-width: min-content;
                     width: 24px;
                     height: 24px;
 
-                    .close-icon {
+                    >.close-icon {
                         color: #777777;
                         width: 16px;
                         height: 16px;
@@ -61,12 +62,12 @@
                 }
             }
 
-            .task-edit-container {
+            >.task-edit-container {
                 display: flex;
                 align-items: flex-start;
                 margin-block-start: 2px;
 
-                .task-title-input {
+                >.task-title-input {
                     min-height: 28px;
 
                     .headingComponent_c12f87e3d8 {
@@ -86,11 +87,11 @@
                     }
                 }
 
-                .subscribe-container {
+                >.subscribe-container {
                     display: flex;
                     justify-content: end;
 
-                    .subscribe-btn {
+                    >.subscribe-btn {
                         position: relative;
                         padding: 0;
                         margin-inline-start: 10px;
@@ -109,7 +110,7 @@
                             width: 1px;
                         }
 
-                        .avatar-group {
+                        >.avatar-group {
                             padding: 0;
                             flex-wrap: nowrap;
 
@@ -120,7 +121,7 @@
                         }
                     }
 
-                    .subscriber-menu {
+                    >.subscriber-menu {
                         margin-block-start: -1px;
                         width: 26px;
                         height: 26px;
@@ -138,7 +139,7 @@
             }
         }
 
-        .tabs-container {
+        >.tabs-container {
             padding-inline: 24px;
             border-bottom: 1px solid $table-border;
 
@@ -175,7 +176,7 @@
                     }
                 }
 
-                .activity-tab {
+                >.activity-tab {
                     padding-inline-start: 15px;
                 }
 
@@ -207,19 +208,25 @@
         }
     }
 
-    .main-content {
-        flex: 1 1 auto;
-        flex-grow: 1;
-        margin-inline: auto;
+    >.task-details-updates {
+        overflow: auto;
 
-        .updates {
+        >.container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            flex: 1 1 auto;
+            flex-grow: 1;
             margin-block-start: 20px;
-            margin-inline: auto;
+            margin-inline: 20px;
 
-            .update-btn-container {
-                margin: auto;
+            >.header-container {
+                margin-inline: auto;
+                margin-block-end: rem(40px);
+                max-width: 750px;
+                width: 100%;
 
-                .update-btn {
+                >.update-btn {
                     border: 1px solid $primary-color;
                     background-color: transparent;
                     font-size: rem(16px);
@@ -238,11 +245,184 @@
                         background-color: $primary-background-hover-color;
                     }
                 }
+
+                >.update-editor {
+                    border: 1px solid #82b7ec;
+                    border-radius: rem(8px);
+                    overflow: auto;
+                    padding-block-end: 32px;
+
+                    >.editor-toolbar {
+                        height: 40px;
+                        border-bottom: 1px solid $selectable-cluster-border;
+                        border-radius: rem(8px) rem(8px) 0 0;
+                    }
+
+                    >.textarea-container {
+                        min-height: 70px;
+                        max-height: 400px;
+                        padding: rem(16px) rem(18px);
+                        vertical-align: baseline;
+
+                        >textarea {
+                            width: 100%;
+                            border: none;
+                            resize: none;
+                            font-family: Figtree, Roboto, Noto Sans Hebrew, Noto Kufi Arabic, Noto Sans JP, sans-serif;
+                            font-size: rem(16px);
+                            font-weight: 400;
+                            color: $primary-text-color;
+                            white-space: normal;
+                            line-height: rem(24px);
+                            padding: 0;
+                            padding-block-start: 6px;
+                            max-height: 380px;
+
+                            &:focus-visible {
+                                outline: none;
+                            }
+                        }
+                    }
+                }
+
+                >.submit-container {
+                    margin-block-start: 5px;
+                    text-align: end;
+                }
             }
 
+            >.updates-list {
+                margin-inline: auto;
+                max-width: 750px;
+                width: 100%;
+
+                >.update {
+                    position: relative;
+                    margin-block-end: rem(16px);
+                    vertical-align: baseline;
+                    border: 1px solid $table-border;
+                    border-radius: 8px;
+
+                    >.update-header {
+                        position: relative;
+                        padding: rem(16px);
+                        min-height: rem(68px);
+                        padding-block-end: rem(8px);
+                        display: flex;
+
+                        .avatar {
+                            width: rem(42px);
+                            height: rem(42px);
+                        }
+
+                        .fullname {
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            margin-inline-start: rem(8px);
+                            width: calc(100% - 180px);
+
+                            span {
+                                line-height: rem(18px);
+                                font-size: rem(16px);
+                                font-family: Figtree, Roboto, "Noto Sans Hebrew", "Noto Kufi Arabic", "Noto Sans JP", sans-serif;
+                            }
+                        }
+
+                        .update-info {
+                            position: absolute;
+                            top: 16px;
+                            right: 16px;
+                            z-index: 1;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            color: $icon-secondary-color;
+
+                            .update-menu {
+                                margin-inline-start: rem(2px);
+                                width: rem(24px);
+                                height: rem(24px);
+
+                                svg {
+                                    width: rem(16px);
+                                    height: rem(16px);
+                                }
+                            }
+                        }
+                    }
+
+                    >.update-body {
+                        padding: 0 rem(15px) rem(15px) rem(15px);
+                        padding-block-start: rem(8px);
+
+                        p {
+                            font-size: rem(16px);
+                            font-family: Figtree, Roboto, "Noto Sans Hebrew", "Noto Kufi Arabic", "Noto Sans JP", sans-serif;
+                            font-weight: 400;
+                            line-height: rem(24px);
+                            text-wrap: wrap;
+                            white-space-collapse: collapse;
+                            word-break: break-word;
+                            margin-block-end: rem(5px);
+                        }
+                    }
+                }
+
+                >.no-updates {
+                    margin-block-start: min(100px, 8vh);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    text-align: center;
+
+                    img {
+                        padding-block-end: rem(24px);
+                        width: 290px;
+                    }
+
+                    h2 {
+                        margin-block-start: rem(15px);
+                        margin-inline-start: rem(15px);
+                        margin-block-end: rem(16px);
+                        color: $primary-text-color;
+                        font-size: rem(24px);
+                        font-family: Poppins, Roboto, "Noto Sans Hebrew", "Noto Kufi Arabic", "Noto Sans JP", sans-serif;
+                        font-weight: 500;
+                        line-height: rem(32px);
+                    }
+
+                    p {
+                        font-size: rem(16px);
+                        font-family: Figtree, Roboto, "Noto Sans Hebrew", "Noto Kufi Arabic", "Noto Sans JP", sans-serif;
+                        font-weight: 400;
+                        line-height: rem(20px);
+                        color: $primary-text-color;
+                    }
+                }
+            }
+        }
+
+    }
+
+    >.task-details-activity {
+        position: relative;
+        overflow: auto;
+
+        >.container {
+            // position: absolute;
+            // top: 0;
+            // left: 0;
+            display: flex;
+            flex-direction: column;
+            margin-inline: rem(25px);
+            margin-block-start: rem(16px);
         }
     }
 }
+
+
+
 
 // .task-details-content {
 //     display: grid;
