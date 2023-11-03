@@ -9,7 +9,6 @@ import { Add, Calendar, Comment, Delete, Edit, Favorite, File, Invite, Person, S
 import { Avatar, Icon } from "monday-ui-react-core";
 
 export function ActivityPreview({ board, activity }) {
-    console.log('activity', activity);
 
     const time = utilService.getTimePassed(activity.timestamp)
     const changeType = utilService.capitalizeFirstLetter(activity.key)
@@ -69,7 +68,6 @@ const DynamicCmp = ({ activity, board }) => {
 };
 
 function DynamicIcon({ type }) {
-    console.log('type', type);
     switch (type) {
         case 'Members':
             return <Icon icon={Person} className="type-icon" />
