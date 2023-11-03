@@ -319,6 +319,10 @@
             display: flex;
             gap: rem(6px);
 
+            .person-btn,
+            .sortby-btn {
+                color: $icon-secondary-color;
+            }
 
             .focused {
                 background: #cce5ff;
