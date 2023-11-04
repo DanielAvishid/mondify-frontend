@@ -20,8 +20,6 @@ export function TimelineSummary({ group, type }) {
         background: `linear-gradient(90deg, ${bgcToShow} ${+percentage}%, var(--inverted-color-background) 0%)`
     }
 
-    console.log('finalDates', finalDates);
-
     return (
         <div
             style={backgroundStyle}
