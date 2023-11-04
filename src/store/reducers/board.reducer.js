@@ -15,7 +15,7 @@ export const REMOVE_SELECTED_TASKS = 'REMOVE_SELECTED_TASKS'
 const initialState = {
     boards: [],
     lastBoards: [],
-    selectedTasks: [],
+    selectedTasks: {},
     board: undefined,
 }
 

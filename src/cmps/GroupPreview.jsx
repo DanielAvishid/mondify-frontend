@@ -16,7 +16,6 @@ import { useDispatch } from "react-redux";
 export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask, isCollapse, setIsCollapse, updateIsCollapse }) {
     const selectedTasks = useSelector(state => state.boardModule.selectedTasks)
     const dispatch = useDispatch()
-    console.log(selectedTasks);
 
     const [opacity, setOpacity] = useState('80')
     const { style, title } = group
@@ -44,12 +43,20 @@ export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, 
             updatedCheckboxes[taskId] = !masterChecked;
         }
 
-        const updatedSelectedTasks = { ...selectedTasks, [group.id]: updatedCheckboxes };
-        console.log('updatedSelectedTasks', updatedSelectedTasks);
+        setCheckboxes(updatedCheckboxes);
+
+        const updatedSelectedTasks = { ...selectedTasks };
+
+        if (!masterChecked) {
+            updatedSelectedTasks[group.id] = Object.keys(checkboxes).reduce((acc, taskId) => {
+                acc[taskId] = true;
+                return acc;
+            }, {});
+        } else {
+            delete updatedSelectedTasks[group.id];
+        }
 
         dispatch({ type: SET_SELECTED_TASKS, selectedTasks: updatedSelectedTasks })
-
-        setCheckboxes(updatedCheckboxes);
     }
 
     const handleCheckboxChange = (taskId) => {
@@ -61,7 +68,16 @@ export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, 
         if (!updatedSelectedTasks[group.id]) {
             updatedSelectedTasks[group.id] = {};
         }
-        updatedSelectedTasks[group.id][taskId] = updatedCheckboxes[taskId];
+
+        if (updatedCheckboxes[taskId]) {
+            updatedSelectedTasks[group.id][taskId] = true;
+        } else {
+            delete updatedSelectedTasks[group.id][taskId];
+        }
+
+        if (Object.keys(updatedSelectedTasks[group.id]).length === 0) {
+            delete updatedSelectedTasks[group.id];
+        }
 
         dispatch({ type: SET_SELECTED_TASKS, selectedTasks: updatedSelectedTasks })
 

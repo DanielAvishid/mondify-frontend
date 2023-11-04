@@ -1,0 +1,13 @@
+.checkbox-modal {
+    transition: opacity 150ms, transform 150ms;
+    background-color: $primary-background-color;
+    position: sticky;
+    bottom: rem(35px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: rem(800px);
+    height: rem(63px);
+    z-index: 500;
+    border-radius: rem(5px);
+    box-shadow: 0 4px 16px 5px $modal-shadow-color;
+}

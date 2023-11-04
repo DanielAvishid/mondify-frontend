@@ -5,17 +5,21 @@ import { Button, Icon } from "monday-ui-react-core";
 import { boardService } from "../services/board.service";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { CheckboxModal } from "./CheckboxModal";
 
 export function GroupList() {
     const [board, onSaveBoard, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask, isCollapse, setIsCollapse, updateIsCollapse, onAddGroup] = useOutletContext()
     const [groups, setGroups] = useState(board.groups)
+    const selectedTasks = useSelector(state => state.boardModule.selectedTasks)
 
     useEffect(() => {
         setGroups(board.groups)
     }, [board])
 
     return (
-        <div className="group-list main-layout full">
+
+        <div className="group-list main-layout full relative">
             <Droppable droppableId="groups" type="groups">
                 {(provided, snapshot) => (
                     <section
@@ -49,6 +53,7 @@ export function GroupList() {
                     </section>
                 )}
             </Droppable>
+            {Object.keys(selectedTasks).length > 0 && <CheckboxModal board={board} onSaveBoard={onSaveBoard} />}
             {groups.length !== 0 && <div className="add-group-container middle">
                 <Button
                     className="new-group-btn"
@@ -59,7 +64,6 @@ export function GroupList() {
                     <span>Add new group</span>
                 </Button>
             </div>}
-
             <Outlet />
         </div>
     )
