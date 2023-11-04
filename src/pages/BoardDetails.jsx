@@ -15,11 +15,45 @@ export function BoardDetails() {
     const [board, setBoard] = useState(null)
     const [filterBy, setFilterBy] = useState({ txt: '', person: null })
     const [sortBy, setSortBy] = useState(false)
+    const [isCollapse, setIsCollapse] = useState({})
+    const [isInitialSetupComplete, setIsInitialSetupComplete] = useState(false);
 
     useEffect(() => {
         loadBoard(boardId, filterBy, sortBy)
     }, [boardId, filterBy, sortBy, boards])
 
+    useEffect(() => {
+        if (board && !isInitialSetupComplete) {
+            const initialIsCollapse = {};
+            board.groups.forEach(group => {
+                initialIsCollapse[group.id] = false;
+            });
+            setIsCollapse(initialIsCollapse);
+            setIsInitialSetupComplete(true);
+        }
+    }, [board, isInitialSetupComplete]);
+
+    function updateIsCollapse(value, currentIsCollapse) {
+        const updatedIsCollapse = {};
+        for (const key in currentIsCollapse) {
+            updatedIsCollapse[key] = value;
+        }
+        setIsCollapse(updatedIsCollapse);
+    }
+
+    function onAddGroup(place = null) {
+        console.log(place);
+        const newGroup = boardService.getEmptyGroup()
+        const value = (place === 'top') ? [newGroup, ...board.groups] : [...board.groups, newGroup]
+        console.log('value', value);
+
+        setIsCollapse((prevIsCollapse) => ({
+            ...prevIsCollapse,
+            [newGroup.id]: false
+        }));
+
+        onSaveBoard({ boardId: board._id, key: 'groups', value })
+    }
 
     async function loadBoard() {
         try {
@@ -111,9 +145,10 @@ export function BoardDetails() {
                 setFilterBy={setFilterBy}
                 sortBy={sortBy}
                 setSortBy={setSortBy}
+                onAddGroup={onAddGroup}
             />
             <DragDropContext onDragEnd={onDragEnd} className="main-layout full">
-                <Outlet context={[board, onSaveBoard, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask]} />
+                <Outlet context={[board, onSaveBoard, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask, isCollapse, setIsCollapse, updateIsCollapse, onAddGroup]} />
             </DragDropContext>
         </section>
     )

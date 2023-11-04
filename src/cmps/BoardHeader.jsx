@@ -7,7 +7,7 @@ import { BoardModal } from "./BoardModal"
 import { MembersFilterModal } from "./MembersFilterModal"
 import { useClickOutside } from "../hooks/useClickOutside"
 
-export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveBoard, onDuplicateBoard, filterBy, setFilterBy, sortBy, setSortBy }) {
+export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveBoard, onDuplicateBoard, filterBy, setFilterBy, sortBy, setSortBy, onAddGroup }) {
 
     const [isCollapse, setIsCollapse] = useState(false)
     const [isInputFocus, setIsInputFocus] = useState(false)
@@ -60,12 +60,6 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
         inputRef.current.focus()
         setIsTyping(false)
         setIsInputFocus(true)
-    }
-
-    function onAddGroup() {
-        const newGroup = boardService.getEmptyGroup()
-        const value = [newGroup, ...board.groups]
-        onSaveBoard({ boardId: board._id, key: 'groups', value })
     }
 
     return (
@@ -189,7 +183,7 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                 <SplitButton className='split-btn' children="New Item" size={SplitButton.sizes.SMALL}
                     onClick={() => onAddTaskFromHeader(board)}
                     secondaryDialogContent={<SplitButtonMenu id="split-menu">
-                        <MenuItem icon={Group} title="New group of Items" onClick={onAddGroup} />
+                        <MenuItem icon={Group} title="New group of Items" onClick={() => onAddGroup('top')} />
                         {/* <MenuItem icon={Download} title="import Items" /> */}
                     </SplitButtonMenu>} />
                 <div className="btns-container">
