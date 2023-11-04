@@ -1,5 +1,6 @@
 import { userService } from "../../services/user.service";
 import { SET_USER } from "../reducers/user.reducer";
+import { store } from "../store"
 
 export async function login(credentials) {
     try {

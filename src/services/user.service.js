@@ -53,6 +53,7 @@ async function login(userCred) {
 }
 
 async function signup(userCred) {
+    console.log(userCred)
     if (!userCred.imgUrl) userCred.imgUrl = 'https://cdn1.monday.com/dapulse_default_photo.png'
     const user = await storageService.post('user', userCred)
     // const user = await httpService.post('auth/signup', userCred)

@@ -2,7 +2,7 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { AppHeader } from "../cmps/AppHeader";
 import { AppSidebar } from "../cmps/AppSidebar";
 import { useSelector } from "react-redux";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { duplicate, loadBoards, remove, saveBoard } from "../store/actions/board.action";
 import { SET_BOARDS } from "../store/reducers/board.reducer";
 import { store } from "../store/store";
@@ -14,6 +14,7 @@ export function AppIndex() {
     const [filterBy, setFilterBy] = useState({})
     const navigate = useNavigate()
     const boards = useSelector(storeState => storeState.boardModule.boards)
+    const user = useSelector(storeState => storeState.userModule.loggedinUser)
     const location = useLocation()
     const [isResizing, setIsResizing] = useState(false)
     const [width, setWidth] = useState(null)
@@ -122,7 +123,7 @@ export function AppIndex() {
             className="app-index"
             onMouseMove={(ev) => handleMouseMove(ev)}
             onMouseUp={handleMouseUp}>
-            <AppHeader />
+            <AppHeader user={user} />
             <section className="main-container">
                 <AppSidebar
                     boards={boards}
@@ -138,26 +139,3 @@ export function AppIndex() {
         </section>
     )
 }
-
-
-
-
-
-// async function onDuplicate({ boardId, groupId, taskId }) {
-//     try {
-//         await duplicate({ boardId, groupId, taskId })
-//         showSuccessMsg(`Duplicating Board`)
-//     } catch (err) {
-//         console.log('ShowErrorMsg')
-//     }
-// }
-
-// async function onRemove({ board, boardId, groupId, taskId }) {
-//     try {
-//         await remove({ board, boardId, groupId, taskId })
-//         showSuccessMsg(`We successfully deleted the board`)
-//     } catch (err) {
-//         console.log('Had issues in board details', err)
-//         console.log('ShowErrorMsg')
-//     }
-// }
