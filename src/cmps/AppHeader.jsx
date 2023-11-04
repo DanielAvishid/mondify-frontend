@@ -3,7 +3,7 @@ import { Avatar, IconButton } from "monday-ui-react-core";
 import { Switcher, Notifications, Inbox, Invite, Apps, Search, Help } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { MsgModalSuccess } from "./MsgModalSuccess";
 import { useNavigate } from "react-router";
-import { signup } from '../store/actions/user.action';
+import { login, logout, signup } from '../store/actions/user.action';
 
 export function AppHeader({ user }) {
 
@@ -19,11 +19,13 @@ export function AppHeader({ user }) {
                 <IconButton
                     icon={Notifications}
                     kind={IconButton.kinds.TERTIARY}
-                    ariaLabel="Notifications" />
+                    ariaLabel="Notifications"
+                    onClick={() => login({ username: 'Danielol' })} />
                 <IconButton
                     icon={Inbox}
                     kind={IconButton.kinds.TERTIARY}
-                    ariaLabel="Inbox" />
+                    ariaLabel="Inbox"
+                    onClick={() => logout()} />
                 <IconButton
                     icon={Invite}
                     kind={IconButton.kinds.TERTIARY}
