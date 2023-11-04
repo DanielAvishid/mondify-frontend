@@ -1,4 +1,4 @@
-import { Outlet, useNavigate, useOutletContext, useParams } from "react-router-dom";
+import { Outlet, useLocation, useNavigate, useOutletContext, useParams } from "react-router-dom";
 import { BoardHeader } from "../cmps/BoardHeader";
 import { useEffect, useState } from "react";
 import { getById, loadBoard } from "../store/actions/board.action";

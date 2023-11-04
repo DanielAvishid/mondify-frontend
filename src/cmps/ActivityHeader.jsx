@@ -1,4 +1,4 @@
-import { Tab, TabList, IconButton, MenuDivider } from "monday-ui-react-core"
+import { Tab, TabList, IconButton } from "monday-ui-react-core"
 import { Close } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 
 export function ActivityHeader({ board, navigate }) {
@@ -6,7 +6,7 @@ export function ActivityHeader({ board, navigate }) {
     return (
         <header className="activity-header">
             <div className="close-container">
-                <IconButton icon={Close} kind={IconButton.kinds.TERTIARY} size={IconButton.sizes.SMALL} onClick={() => navigate(location)} />
+                <IconButton className="close-btn" icon={Close} kind={IconButton.kinds.TERTIARY} onClick={() => navigate(location)} />
             </div>
             <div className="title-container flex align-center">
                 <span className="board-title">{board.title}</span>
@@ -19,7 +19,6 @@ export function ActivityHeader({ board, navigate }) {
                     <Tab key='updates' tabInnerClassName='tab'>Updates</Tab>
                 </TabList>
             </div>
-            {/* <MenuDivider className='menu-divider' /> */}
         </header>
     )
 }

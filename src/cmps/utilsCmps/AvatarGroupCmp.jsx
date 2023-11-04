@@ -2,7 +2,7 @@ import { Avatar, AvatarGroup } from "monday-ui-react-core"
 
 export function AvatarGroupCmp({ members }) {
     return (
-        <AvatarGroup max={1} size={Avatar.sizes.SMALL}>
+        <AvatarGroup max={1} size={Avatar.sizes.SMALL} className="avatar-group-cmp">
             {members.length > 0 ? members.map((member) => {
                 return (
                     <Avatar
