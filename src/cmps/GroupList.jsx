@@ -10,6 +10,18 @@ export function GroupList() {
     const [board, onSaveBoard, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask] = useOutletContext()
     const [groups, setGroups] = useState(board.groups)
 
+    const result = {};
+
+    groups.forEach(group => {
+        if (group.id) {
+            result[group.id] = false;
+        }
+    });
+
+    console.log(result);
+
+    const [isCollapse, setIsCollapse] = useState(result)
+
     useEffect(() => {
         setGroups(board.groups)
     }, [board])
@@ -22,14 +34,14 @@ export function GroupList() {
         onSaveBoard({ boardId: board._id, key: 'groups', value })
     }
 
-    function handleOnDragEnd(result) {
-        if (!result.destination) return;
-        const value = [...groups]
-        const group = value.splice(result.source.index, 1)[0];
-        value.splice(result.destination.index, 0, group)
-        onSaveBoard({ boardId: board._id, key: 'groups', value })
-        setGroups(value)
-    }
+    // function handleOnDragEnd(result) {
+    //     if (!result.destination) return;
+    //     const value = [...groups]
+    //     const group = value.splice(result.source.index, 1)[0];
+    //     value.splice(result.destination.index, 0, group)
+    //     onSaveBoard({ boardId: board._id, key: 'groups', value })
+    //     setGroups(value)
+    // }
 
 
     return (
@@ -57,7 +69,8 @@ export function GroupList() {
                                     onRemoveTask={onRemoveTask}
                                     onDuplicateGroup={onDuplicateGroup}
                                     onDuplicateTask={onDuplicateTask}
-                                    collapseAll={snapshot.isDraggingOver}
+                                    isCollapse={isCollapse}
+                                    setIsCollapse={setIsCollapse}
                                 />
                             </article>
                         ))}

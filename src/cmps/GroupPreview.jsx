@@ -9,9 +9,8 @@ import { useEffect, useState } from "react";
 import { ProgressBar } from "./ProgressBar";
 import { GroupPreviewCollapse } from "./GroupPreviewCollapse";
 
-export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask, collapseAll }) {
+export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask, isCollapse, setIsCollapse }) {
 
-    const [isCollapse, setIsCollapse] = useState(false)
     const [opacity, setOpacity] = useState('80')
     const { style, title } = group
     const [tasks, setTasks] = useState(group.tasks)
@@ -91,8 +90,8 @@ export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, 
         }
     }
 
-    if (isCollapse) return (
-        <GroupPreviewCollapse handleKeyPress={handleKeyPress} board={board} group={group} onDuplicateGroup={onDuplicateGroup} onSaveBoard={onSaveBoard} onRemoveGroup={onRemoveGroup} setIsCollapse={setIsCollapse} />
+    if (isCollapse[group.id]) return (
+        <GroupPreviewCollapse handleKeyPress={handleKeyPress} board={board} group={group} onDuplicateGroup={onDuplicateGroup} onSaveBoard={onSaveBoard} onRemoveGroup={onRemoveGroup} isCollapse={isCollapse} setIsCollapse={setIsCollapse} />
     )
 
     return (
@@ -118,14 +117,13 @@ export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, 
                             </div>
                             <div className="group-title flex align-center">
                                 <span className="flex" style={{ color: group.style.backgroundColor }}>
-                                    {/* cant get the label . why ? */}
 
                                     <Icon
                                         customColor={group.style.backgroundColor}
                                         icon={DropdownChevronDown}
                                         iconSize={22}
                                         ariaLabel="Collapse group"
-                                        onClick={() => setIsCollapse(true)}
+                                        onClick={() => setIsCollapse({ ...isCollapse, [group.id]: true })}
                                     />
                                 </span>
                                 <span>

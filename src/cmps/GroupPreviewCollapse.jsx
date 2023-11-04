@@ -5,7 +5,7 @@ import { MembersSummary } from "./dynamicSummaryCmps/MembersSummary";
 import { LabelsSummary } from "./dynamicSummaryCmps/LabelsSummary";
 import { TimelineSummary } from "./dynamicSummaryCmps/TimelineSummary";
 
-export function GroupPreviewCollapse({ handleKeyPress, board, group, onDuplicateGroup, onSaveBoard, onRemoveGroup, setIsCollapse }) {
+export function GroupPreviewCollapse({ handleKeyPress, board, group, onDuplicateGroup, onSaveBoard, onRemoveGroup, isCollapse, setIsCollapse }) {
 
     const style = {
         borderColor: group.style.backgroundColor
@@ -47,7 +47,7 @@ export function GroupPreviewCollapse({ handleKeyPress, board, group, onDuplicate
                                     iconSize={22}
                                     style={{ color: group.style.backgroundColor }}
                                     className="Collapse-group"
-                                    onClick={() => setIsCollapse(false)}
+                                    onClick={() => setIsCollapse({ ...isCollapse, [group.id]: false })}
                                 />
                                 <EditableHeading
                                     type={EditableHeading.types.h4}
