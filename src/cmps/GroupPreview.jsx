@@ -40,10 +40,14 @@ export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, 
         setMasterChecked(!masterChecked);
         const updatedCheckboxes = { ...checkboxes };
 
-        // Set all checkboxes to the state of the master checkbox
         for (const taskId in updatedCheckboxes) {
             updatedCheckboxes[taskId] = !masterChecked;
         }
+
+        const updatedSelectedTasks = { ...selectedTasks, [group.id]: updatedCheckboxes };
+        console.log('updatedSelectedTasks', updatedSelectedTasks);
+
+        dispatch({ type: SET_SELECTED_TASKS, selectedTasks: updatedSelectedTasks })
 
         setCheckboxes(updatedCheckboxes);
     }
