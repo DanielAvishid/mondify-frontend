@@ -17,12 +17,21 @@
             max-width: rem(32px);
 
             >.close-btn {
-                padding: rem(4px) rem(8px);
+                width: 28px !important;
+                height: 32px !important;
+
+                svg {
+                    width: rem(16px);
+                    height: rem(16px);
+                }
+
+                // padding: rem(4px) rem(8px);
             }
         }
 
         >.title-container {
             height: rem(30px);
+            margin-block-end: rem(6px);
 
             >.board-title,
             >.activity-type {
@@ -212,6 +221,7 @@
     }
 
     .activity-view-container {
+        border-bottom: 1px solid $selectable-cluster-border;
 
         .tabsList_d5873650d7 {
             padding: 0;
@@ -223,49 +233,20 @@
             .tabWrapper_e21268071d {
                 padding: 0;
                 border-bottom-color: transparent;
+                border-bottom: none;
+                margin-inline-end: rem(8px);
             }
 
             .tab {
-                height: rem(32px);
+                height: rem(23px);
                 padding: 0;
-                padding-inline: 16px;
+                padding-inline: rem(8px);
                 font-size: rem(14px);
-                margin-inline-start: -1px;
-                margin-block-end: 2px;
 
-                &::after {
-                    content: '';
-                    height: rem(16px);
-                    position: absolute;
-                    top: 8px;
-                    right: 0px;
-                    background-color: $table-border;
-                    width: 1px;
-                }
-            }
+                margin-block-start: rem(7px);
 
-            .main-tab {
-                height: rem(32px);
-                padding: 0;
-                padding-inline-start: 8px;
-                padding-inline-end: 15px;
-                font-size: rem(14px);
-                margin-block-end: 2px;
-
-                svg {
-                    margin-inline-end: 7px;
-                    width: 16px;
-                    height: 16px;
-                }
-
-                &::after {
-                    content: '';
-                    height: rem(16px);
-                    position: absolute;
-                    top: 8px;
-                    right: 0px;
-                    background-color: $table-border;
-                    width: 1px;
+                &:hover {
+                    background-color: transparent;
                 }
             }
         }
