@@ -16,23 +16,10 @@ export function BoardDetails() {
     const [filterBy, setFilterBy] = useState({ txt: '', person: null })
     const [sortBy, setSortBy] = useState(false)
 
-    const result = {};
-
-    if (board) {
-        board.groups.forEach(group => {
-            if (group.id) {
-                result[group.id] = false;
-            }
-        })
-    }
-
-    console.log(result);
-
-    const [isCollapse, setIsCollapse] = useState(result)
-
     useEffect(() => {
         loadBoard(boardId, filterBy, sortBy)
     }, [boardId, filterBy, sortBy, boards])
+
 
     async function loadBoard() {
         try {
@@ -126,7 +113,7 @@ export function BoardDetails() {
                 setSortBy={setSortBy}
             />
             <DragDropContext onDragEnd={onDragEnd} className="main-layout full">
-                <Outlet context={[board, onSaveBoard, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask, isCollapse, setIsCollapse]} />
+                <Outlet context={[board, onSaveBoard, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask]} />
             </DragDropContext>
         </section>
     )

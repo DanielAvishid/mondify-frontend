@@ -7,18 +7,46 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { useEffect, useState } from "react";
 
 export function GroupList() {
-    const [board, onSaveBoard, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask, isCollapse, setIsCollapse] = useOutletContext()
+    const [board, onSaveBoard, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask] = useOutletContext()
     const [groups, setGroups] = useState(board.groups)
 
     useEffect(() => {
         setGroups(board.groups)
     }, [board])
 
+    const result = {};
+
+    if (board) {
+        board.groups.forEach(group => {
+            if (group.id) {
+                result[group.id] = false;
+            }
+        })
+    }
+
+    const [isCollapse, setIsCollapse] = useState(result)
+
+
+    function updateIsCollapse(value, currentIsCollapse) {
+        const updatedIsCollapse = {};
+        for (const key in currentIsCollapse) {
+            updatedIsCollapse[key] = value;
+        }
+        setIsCollapse(updatedIsCollapse);
+    }
+
+
     // const demoBoard = _createBoardDemo()
     // console.log(demoBoard);
     function onAddGroup() {
         const newGroup = boardService.getEmptyGroup()
         const value = [...board.groups, newGroup]
+
+        setIsCollapse((prevIsCollapse) => ({
+            ...prevIsCollapse,
+            [newGroup.id]: false
+        }));
+
         onSaveBoard({ boardId: board._id, key: 'groups', value })
     }
 
@@ -59,6 +87,7 @@ export function GroupList() {
                                     onDuplicateTask={onDuplicateTask}
                                     isCollapse={isCollapse}
                                     setIsCollapse={setIsCollapse}
+                                    updateIsCollapse={updateIsCollapse}
                                 />
                             </article>
                         ))}

@@ -1,6 +1,6 @@
 
 import { Checkbox, EditableHeading, Icon, IconButton, Menu, MenuButton, MenuItem } from "monday-ui-react-core"
-import { Add, Duplicate, Delete, DropdownChevronDown } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
+import { Add, Duplicate, Delete, DropdownChevronDown, Minimize, Open } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { TaskPreview } from "./TaskPreview";
 import { utilService } from "../services/util.service";
 import { boardService } from "../services/board.service";
@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { ProgressBar } from "./ProgressBar";
 import { GroupPreviewCollapse } from "./GroupPreviewCollapse";
 
-export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask, isCollapse, setIsCollapse }) {
+export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask, isCollapse, setIsCollapse, updateIsCollapse }) {
 
     const [opacity, setOpacity] = useState('80')
     const { style, title } = group
@@ -91,7 +91,10 @@ export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, 
     }
 
     if (isCollapse[group.id]) return (
-        <GroupPreviewCollapse index={index} handleKeyPress={handleKeyPress} board={board} group={group} onDuplicateGroup={onDuplicateGroup} onSaveBoard={onSaveBoard} onRemoveGroup={onRemoveGroup} isCollapse={isCollapse} setIsCollapse={setIsCollapse} />
+        <GroupPreviewCollapse index={index} handleKeyPress={handleKeyPress} board={board}
+            group={group} onDuplicateGroup={onDuplicateGroup} onSaveBoard={onSaveBoard}
+            onRemoveGroup={onRemoveGroup} isCollapse={isCollapse} setIsCollapse={setIsCollapse}
+            updateIsCollapse={updateIsCollapse} />
     )
 
     return (
@@ -110,6 +113,8 @@ export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, 
                             <div className="group-menu-container start flex justify-end align-center">
                                 <MenuButton className="group-menu">
                                     <Menu id="menu" size="large">
+                                        <MenuItem icon={Open} title="Expand all groups" onClick={() => updateIsCollapse(false, isCollapse)} />
+                                        <MenuItem icon={Minimize} title="Collapse all groups" onClick={() => updateIsCollapse(true, isCollapse)} />
                                         <MenuItem icon={Duplicate} title="Duplicate this group" onClick={() => onDuplicateGroup({ boardId: board._id, groupId: group.id })} />
                                         <MenuItem icon={Delete} title="Delete" onClick={() => onRemoveGroup({ boardId: board._id, groupId: group.id })} />
                                     </Menu>

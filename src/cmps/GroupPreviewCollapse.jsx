@@ -1,12 +1,12 @@
 import { EditableHeading, Icon, Menu, MenuButton, MenuItem } from "monday-ui-react-core";
-import { Add, Duplicate, Delete, DropdownChevronRight } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
+import { Add, Duplicate, Delete, DropdownChevronRight, Open, Minimize } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { ProgressBar } from "./ProgressBar";
 import { MembersSummary } from "./dynamicSummaryCmps/MembersSummary";
 import { LabelsSummary } from "./dynamicSummaryCmps/LabelsSummary";
 import { TimelineSummary } from "./dynamicSummaryCmps/TimelineSummary";
 import { Draggable } from "react-beautiful-dnd";
 
-export function GroupPreviewCollapse({ index, handleKeyPress, board, group, onDuplicateGroup, onSaveBoard, onRemoveGroup, isCollapse, setIsCollapse }) {
+export function GroupPreviewCollapse({ index, handleKeyPress, board, group, onDuplicateGroup, onSaveBoard, onRemoveGroup, isCollapse, setIsCollapse, updateIsCollapse }) {
 
     const style = {
         borderColor: group.style.backgroundColor
@@ -41,6 +41,8 @@ export function GroupPreviewCollapse({ index, handleKeyPress, board, group, onDu
                     <div className="group-menu-container start flex justify-end ">
                         <MenuButton className="group-menu">
                             <Menu id="menu" size="large">
+                                <MenuItem icon={Open} title="Expand all groups" onClick={() => updateIsCollapse(false, isCollapse)} />
+                                <MenuItem icon={Minimize} title="Collapse all groups" onClick={() => updateIsCollapse(true, isCollapse)} />
                                 <MenuItem icon={Duplicate} title="Duplicate this group" onClick={() => onDuplicateGroup({ boardId: board._id, groupId: group.id })} />
                                 <MenuItem icon={Delete} title="Delete" onClick={() => onRemoveGroup({ boardId: board._id, groupId: group.id })} />
                             </Menu>
