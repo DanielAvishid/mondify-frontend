@@ -1,7 +1,7 @@
-import { Outlet, useLocation, useNavigate, useOutletContext, useParams } from "react-router-dom";
+import { Outlet, useNavigate, useOutletContext, useParams } from "react-router-dom";
 import { BoardHeader } from "../cmps/BoardHeader";
 import { useEffect, useState } from "react";
-import { getById, loadBoard } from "../store/actions/board.action";
+import { getById } from "../store/actions/board.action";
 import { useSelector } from "react-redux";
 import { boardService } from "../services/board.service";
 import { DeletedBoard } from "../cmps/DeletedBoard";
@@ -10,15 +10,15 @@ import { DragDropContext } from "react-beautiful-dnd";
 export function BoardDetails() {
     const boards = useSelector(storeState => storeState.boardModule.boards)
     const [onSaveBoard, onRemoveBoard, onRemoveGroup, onRemoveTask, onDuplicateBoard, onDuplicateGroup, onDuplicateTask] = useOutletContext()
-    const board = useSelector(state => state.boardModule.board)
     const { boardId } = useParams()
     const navigate = useNavigate()
+    const [board, setBoard] = useState(null)
     const [filterBy, setFilterBy] = useState({ txt: '', person: null })
     const [sortBy, setSortBy] = useState(false)
 
     useEffect(() => {
-        loadBoard()
-    }, [board, filterBy, sortBy])
+        loadBoard(boardId, filterBy, sortBy)
+    }, [boardId, filterBy, sortBy, boards])
 
     async function loadBoard() {
         try {
@@ -41,28 +41,16 @@ export function BoardDetails() {
         }
     }
 
-    if (board === undefined) return <DeletedBoard />
-
-    if (board === null) return (
-        <section className="waiting-load">
-            <div className="loader-container">
-                <img src="https://cdn.monday.com/images/loader/loader.gif" alt="" />
-            </div>
-        </section>
-    )
-
     async function onDragEnd(result) {
         const { destination, source, draggableId, type } = result
         if (!destination) return
         if (destination.droppableId === source.droppableId && destination.index === source.index) return
 
         if (type === 'groups') {
-            console.log('currBoard', board);
             const newGroups = [...board.groups]
             const [removed] = newGroups.splice(source.index, 1)
             newGroups.splice(destination.index, 0, removed)
-            console.log('currBoard', board._id);
-            // const newBoard = { ...currBoard, groups: newGroups }
+            // const newBoard = { ...board, groups: newGroups }
             await onSaveBoard({ board: board, boardId: board._id, key: 'groups', value: newGroups })
             return
         }
@@ -78,7 +66,7 @@ export function BoardDetails() {
                 if (group.id === start.id) return { ...group, tasks: newTasks }
                 return group
             })
-            // const newBoard = { ...currBoard, groups: newGroups }
+            // const newBoard = { ...board, groups: newGroups }
             await onSaveBoard({ board: board, boardId: board._id, key: 'groups', value: newGroups })
             return
         }
@@ -94,12 +82,24 @@ export function BoardDetails() {
             if (group.id === finish.id) return newFinish
             return group
         })
-        // const newBoard = { ...currBoard, groups: newGroups }
+        // const newBoard = { ...board, groups: newGroups }
         await onSaveBoard({ board: board, boardId: board._id, key: 'groups', value: newGroups })
     }
 
+    if (board === undefined) return <DeletedBoard />
+
+    if (board === null) return (
+        <section className="waiting-load">
+            <div className="loader-container">
+                <img src="https://cdn.monday.com/images/loader/loader.gif" alt="" />
+            </div>
+        </section>
+    )
+
     return (
         <section className="board-details main-layout">
+
+
             <BoardHeader
                 onAddTaskFromHeader={onAddTaskFromHeader}
                 onDuplicateBoard={onDuplicateBoard}
@@ -109,7 +109,6 @@ export function BoardDetails() {
                 filterBy={filterBy}
                 setFilterBy={setFilterBy}
                 sortBy={sortBy}
-                setSortBy={setSortBy}
             />
             <DragDropContext onDragEnd={onDragEnd} className="main-layout full">
                 <Outlet context={[board, onSaveBoard, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask]} />
