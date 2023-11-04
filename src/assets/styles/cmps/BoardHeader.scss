@@ -321,6 +321,8 @@
 
             .person-btn,
             .sortby-btn {
+                position: relative;
+                z-index: 2000;
                 color: $icon-secondary-color;
             }
 
