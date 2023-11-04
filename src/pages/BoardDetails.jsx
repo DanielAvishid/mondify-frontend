@@ -17,12 +17,13 @@ export function BoardDetails() {
     const [sortBy, setSortBy] = useState(false)
 
     useEffect(() => {
-        onLoadBoard(boardId, filterBy, sortBy)
+        loadBoard()
     }, [board, filterBy, sortBy])
 
-    async function onLoadBoard(boardId, filterBy, sortBy) {
+    async function loadBoard() {
         try {
-            loadBoard(boardId, filterBy, sortBy)
+            const board = await getById({ boardId, filterBy, sortBy })
+            setBoard(board)
         } catch (err) {
             console.log('Had issues in board details', err)
             console.log('ShowErrorMsg')
