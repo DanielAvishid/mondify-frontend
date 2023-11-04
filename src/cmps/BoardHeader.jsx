@@ -205,7 +205,7 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                             onBlur={handleInputBlur}
                             placeholder="Search" />
                         {isTyping && <Button className="clear-btn btn" kind={Button.kinds.TERTIARY} onClick={() => handleClearInputClick()}>
-                            <Icon className="x-icon" icon={CloseSmall} />
+                            <Icon className="x-icon" icon={CloseSmall} onClick={() => setFilterBy({ ...filterBy, txt: '' })} />
                         </Button>}
                         {(isInputFocus || isTyping) && <Button className="options-btn btn" kind={Button.kinds.TERTIARY}>
                             <Icon className="setting-icon" icon={SettingsKnobs} />
