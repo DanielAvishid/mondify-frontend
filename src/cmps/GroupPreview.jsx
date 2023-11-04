@@ -9,7 +9,14 @@ import { useEffect, useState } from "react";
 import { ProgressBar } from "./ProgressBar";
 import { GroupPreviewCollapse } from "./GroupPreviewCollapse";
 
+import { ADD_SELECTED_TASKS, REMOVE_SELECTED_TASKS, SET_SELECTED_TASKS } from "../store/reducers/board.reducer"
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+
 export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask, isCollapse, setIsCollapse, updateIsCollapse }) {
+    const selectedTasks = useSelector(state => state.boardModule.selectedTasks)
+    const dispatch = useDispatch()
+    console.log(selectedTasks);
 
     const [opacity, setOpacity] = useState('80')
     const { style, title } = group
@@ -46,7 +53,14 @@ export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, 
         updatedCheckboxes[taskId] = !updatedCheckboxes[taskId];
         setCheckboxes(updatedCheckboxes);
 
-        // Update master checkbox state based on individual checkboxes
+        const updatedSelectedTasks = { ...selectedTasks };
+        if (!updatedSelectedTasks[group.id]) {
+            updatedSelectedTasks[group.id] = {};
+        }
+        updatedSelectedTasks[group.id][taskId] = updatedCheckboxes[taskId];
+
+        dispatch({ type: SET_SELECTED_TASKS, selectedTasks: updatedSelectedTasks })
+
         const allChecked = Object.values(updatedCheckboxes).every((value) => value);
         setMasterChecked(allChecked);
     }

@@ -1,7 +1,6 @@
 import { useRef } from "react";
 
 import { useClickOutside } from "../hooks/useClickOutside";
-import { ADD_SELECTED_TASKS, REMOVE_SELECTED_TASKS, SET_SELECTED_TASKS } from "../store/reducers/board.reducer"
 import { Priority } from "./dynamicCmps/Priority";
 import { TaskTitle } from "./dynamicCmps/TaskTitle";
 import { Status } from "./dynamicCmps/Status";
@@ -11,11 +10,8 @@ import { DueDate } from "./dynamicCmps/DueDate";
 
 import { Duplicate, Delete } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { Menu, MenuButton, MenuItem } from "monday-ui-react-core";
-import { useSelector } from "react-redux";
 
 export function TaskPreview({ board, group, task, onSaveBoard, onDuplicateTask, onRemoveTask, isChecked, handleCheckboxChange }) {
-    // const selectedTasks = useSelector(state => state.boardModule.selectedTasks)
-    // console.log(selectedTasks);
 
     const tableRow = useRef();
     const { isFocus: isTaskFocus, setIsFocus: setIsTaskFocus } = useClickOutside(tableRow);
