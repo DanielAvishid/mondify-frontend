@@ -47,7 +47,7 @@
 
 .pointer {
     position: absolute;
-    z-index: 1000;
+    z-index: 100;
     top: rem(-5px);
     left: calc(50% - rem(8px));
     height: rem(16px);
