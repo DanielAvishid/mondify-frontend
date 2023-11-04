@@ -64,11 +64,6 @@
             .editableInputWrapper_8e7f29624b {
                 font-family: Poppins, Roboto, "Noto Sans Hebrew", "Noto Kufi Arabic", "Noto Sans JP", sans-serif;
             }
-
-            .board-title-input {
-
-                &:focus-within {}
-            }
         }
 
         .options-container {
@@ -322,7 +317,7 @@
             .person-btn,
             .sortby-btn {
                 position: relative;
-                z-index: 2000;
+                z-index: 500;
                 color: $icon-secondary-color;
             }
 
@@ -398,57 +393,7 @@
                         margin-inline-end: 26px;
                     }
                 }
-
             }
-
-
-            // class="clickable_a1c09750fe iconContainer_bd65773203 iconContainerHasIcon_8248ff668a iconContainerActive_27f1acb256 disableTextSelection_4c888f6133"
-            // class="clickable_a1c09750fe iconContainer_bd65773203 iconContainerHasIcon_8248ff668a disableTextSelection_4c888f6133"
-
-            // .search-container {
-            //     height: rem(32px);
-            //     display: grid;
-            //     grid-auto-flow: column;
-            //     align-items: center;
-            //     border-radius: 4px;
-            //     padding-inline-start: 8px;
-            //     border: 1px solid transparent;
-
-            //     &:hover {
-            //         background-color: $primary-background-hover-color;
-            //     }
-
-            //     &.focus {
-            //         background-color: $primary-background-color;
-            //         border-color: $primary-color;
-            //         padding-inline-end: rem(70px);
-            //     }
-
-
-            // .search-input {
-            //     cursor: pointer;
-            //     border: 0;
-            //     background-color: transparent;
-            //     width: rem(60px);
-            //     height: rem(28px);
-            //     font-family: Figtree, Roboto, "Noto Sans Hebrew", "Noto Kufi Arabic", "Noto Sans JP", sans-serif;
-            //     font-size: rem(14px);
-            //     transition: width .2s;
-
-            //     &:focus-within {
-            //         cursor: text;
-            //         outline: none;
-            //         width: 163px;
-            //         background-color: $primary-background-color;
-
-            //     }
-            // }
-
-            // .search-icon {
-            //     color: $secondary-text-color;
-            //     width: 20px;
-            //     height: 20px;
-            // }
         }
     }
 }

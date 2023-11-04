@@ -3,7 +3,7 @@
     top: 42px;
     left: 50%;
     transform: translate(-50%);
-    z-index: 400;
+    z-index: 500;
     // width: min-content;
     // max-width: 680px; // rem?
     // min-width: 200px; // rem?
@@ -181,7 +181,7 @@
     }
 
     .square {
-        z-index: 1000;
+        z-index: 500;
         width: 16px;
         height: 16px;
         background-color: $primary-background-color;
