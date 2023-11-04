@@ -27,15 +27,11 @@ export async function loadBoards(boardsFilter) {
 }
 
 export async function loadBoard(boardId, filterBy, sortBy) {
-    await getBoardById(boardId, filterBy, sortBy)
-}
-
-export async function getBoardById(boardId, filterBy, sortBy) {
     try {
         const board = await boardService.getBoardById(boardId, filterBy, sortBy)
         store.dispatch({ type: SET_BOARD, board })
     } catch (err) {
-        console.log('Board Actions: err in Getting Board', err)
+        console.log('board action -> Cannot load board', err)
         throw err
     }
 }

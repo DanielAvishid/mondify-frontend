@@ -10,15 +10,25 @@ import { DragDropContext } from "react-beautiful-dnd";
 export function BoardDetails() {
     const boards = useSelector(storeState => storeState.boardModule.boards)
     const [onSaveBoard, onRemoveBoard, onRemoveGroup, onRemoveTask, onDuplicateBoard, onDuplicateGroup, onDuplicateTask] = useOutletContext()
-    const currBoard = useSelector(state => state.boardModule.board)
+    const board = useSelector(state => state.boardModule.board)
     const { boardId } = useParams()
     const navigate = useNavigate()
     const [filterBy, setFilterBy] = useState({ txt: '', person: null })
     const [sortBy, setSortBy] = useState(false)
 
     useEffect(() => {
-        loadBoard(boardId, filterBy, sortBy)
-    }, [currBoard, filterBy, sortBy])
+        onLoadBoard(boardId, filterBy, sortBy)
+    }, [board, filterBy, sortBy])
+
+    async function onLoadBoard(boardId, filterBy, sortBy) {
+        try {
+            loadBoard(boardId, filterBy, sortBy)
+        } catch (err) {
+            console.log('Had issues in board details', err)
+            console.log('ShowErrorMsg')
+            navigate('/board')
+        }
+    }
 
     async function onAddTaskFromHeader(board) {
         const taskToAdd = boardService.getEmptyTask()
@@ -30,9 +40,9 @@ export function BoardDetails() {
         }
     }
 
-    if (currBoard === undefined) return <DeletedBoard />
+    if (board === undefined) return <DeletedBoard />
 
-    if (currBoard === null) return (
+    if (board === null) return (
         <section className="waiting-load">
             <div className="loader-container">
                 <img src="https://cdn.monday.com/images/loader/loader.gif" alt="" />
@@ -46,29 +56,29 @@ export function BoardDetails() {
         if (destination.droppableId === source.droppableId && destination.index === source.index) return
 
         if (type === 'groups') {
-            console.log('currBoard', currBoard);
-            const newGroups = [...currBoard.groups]
+            console.log('currBoard', board);
+            const newGroups = [...board.groups]
             const [removed] = newGroups.splice(source.index, 1)
             newGroups.splice(destination.index, 0, removed)
-            console.log('currBoard', currBoard._id);
+            console.log('currBoard', board._id);
             // const newBoard = { ...currBoard, groups: newGroups }
-            await onSaveBoard({ board: currBoard, boardId: currBoard._id, key: 'groups', value: newGroups })
+            await onSaveBoard({ board: board, boardId: board._id, key: 'groups', value: newGroups })
             return
         }
 
-        const start = currBoard.groups.find(group => group.id === source.droppableId)
-        const finish = currBoard.groups.find(group => group.id === destination.droppableId)
+        const start = board.groups.find(group => group.id === source.droppableId)
+        const finish = board.groups.find(group => group.id === destination.droppableId)
 
         if (start === finish) {
             const newTasks = [...start.tasks]
             const [removed] = newTasks.splice(source.index, 1)
             newTasks.splice(destination.index, 0, removed)
-            const newGroups = currBoard.groups.map(group => {
+            const newGroups = board.groups.map(group => {
                 if (group.id === start.id) return { ...group, tasks: newTasks }
                 return group
             })
             // const newBoard = { ...currBoard, groups: newGroups }
-            await onSaveBoard({ board: currBoard, boardId: currBoard._id, key: 'groups', value: newGroups })
+            await onSaveBoard({ board: board, boardId: board._id, key: 'groups', value: newGroups })
             return
         }
         const startTasks = [...start.tasks]
@@ -78,13 +88,13 @@ export function BoardDetails() {
         const finishTasks = [...finish.tasks]
         finishTasks.splice(destination.index, 0, task)
         const newFinish = { ...finish, tasks: finishTasks }
-        const newGroups = currBoard.groups.map(group => {
+        const newGroups = board.groups.map(group => {
             if (group.id === start.id) return newStart
             if (group.id === finish.id) return newFinish
             return group
         })
         // const newBoard = { ...currBoard, groups: newGroups }
-        await onSaveBoard({ board: currBoard, boardId: currBoard._id, key: 'groups', value: newGroups })
+        await onSaveBoard({ board: board, boardId: board._id, key: 'groups', value: newGroups })
     }
 
     return (
@@ -92,7 +102,7 @@ export function BoardDetails() {
             <BoardHeader
                 onAddTaskFromHeader={onAddTaskFromHeader}
                 onDuplicateBoard={onDuplicateBoard}
-                board={currBoard}
+                board={board}
                 onRemoveBoard={onRemoveBoard}
                 onSaveBoard={onSaveBoard}
                 filterBy={filterBy}
@@ -101,7 +111,7 @@ export function BoardDetails() {
                 setSortBy={setSortBy}
             />
             <DragDropContext onDragEnd={onDragEnd} className="main-layout full">
-                <Outlet context={[currBoard, onSaveBoard, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask]} />
+                <Outlet context={[board, onSaveBoard, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask]} />
             </DragDropContext>
         </section>
     )
