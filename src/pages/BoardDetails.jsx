@@ -18,7 +18,7 @@ export function BoardDetails() {
 
     useEffect(() => {
         loadBoard(boardId, filterBy, sortBy)
-    }, [boardId, filterBy, sortBy])
+    }, [currBoard, filterBy, sortBy])
 
     async function onAddTaskFromHeader(board) {
         const taskToAdd = boardService.getEmptyTask()
