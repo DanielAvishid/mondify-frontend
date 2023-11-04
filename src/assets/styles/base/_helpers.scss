@@ -47,8 +47,8 @@
 
 .pointer {
     position: absolute;
-    z-index: 21;
-    top: rem(-8px);
+    z-index: 1000;
+    top: rem(-5px);
     left: calc(50% - rem(8px));
     height: rem(16px);
     width: rem(16px);
@@ -59,7 +59,7 @@
 .modal {
     height: fit-content;
     position: absolute;
-    top: 2.5rem;
+    top: rem(42px);
     left: 50%;
     transform: translateX(-50%);
     border-radius: 0.5rem;
