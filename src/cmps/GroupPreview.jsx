@@ -91,7 +91,7 @@ export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, 
     }
 
     if (isCollapse[group.id]) return (
-        <GroupPreviewCollapse handleKeyPress={handleKeyPress} board={board} group={group} onDuplicateGroup={onDuplicateGroup} onSaveBoard={onSaveBoard} onRemoveGroup={onRemoveGroup} isCollapse={isCollapse} setIsCollapse={setIsCollapse} />
+        <GroupPreviewCollapse index={index} handleKeyPress={handleKeyPress} board={board} group={group} onDuplicateGroup={onDuplicateGroup} onSaveBoard={onSaveBoard} onRemoveGroup={onRemoveGroup} isCollapse={isCollapse} setIsCollapse={setIsCollapse} />
     )
 
     return (

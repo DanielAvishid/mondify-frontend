@@ -7,20 +7,8 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { useEffect, useState } from "react";
 
 export function GroupList() {
-    const [board, onSaveBoard, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask] = useOutletContext()
+    const [board, onSaveBoard, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask, isCollapse, setIsCollapse] = useOutletContext()
     const [groups, setGroups] = useState(board.groups)
-
-    const result = {};
-
-    groups.forEach(group => {
-        if (group.id) {
-            result[group.id] = false;
-        }
-    });
-
-    console.log(result);
-
-    const [isCollapse, setIsCollapse] = useState(result)
 
     useEffect(() => {
         setGroups(board.groups)

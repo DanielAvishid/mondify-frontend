@@ -1,6 +1,12 @@
 .collapse {
+    padding-block-end: rem(14px);
+
+    .table-container {
+        height: rem(60px);
+    }
 
     .group-preview-collapse {
+        box-shadow: 0 8px 9px -9px $table-shadow-color;
         height: rem(60px) !important;
         border-block-start: 1px solid $table-border;
 
@@ -18,6 +24,10 @@
                 font-size: rem(13px);
                 margin-inline-start: rem(32px);
             }
+        }
+
+        .cmp-title {
+            color: $chat-icon-color;
         }
 
 
