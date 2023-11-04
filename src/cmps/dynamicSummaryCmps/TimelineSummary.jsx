@@ -20,6 +20,8 @@ export function TimelineSummary({ group, type }) {
         background: `linear-gradient(90deg, ${bgcToShow} ${+percentage}%, var(--inverted-color-background) 0%)`
     }
 
+    console.log('finalDates', finalDates);
+
     return (
         <div
             style={backgroundStyle}
@@ -28,10 +30,10 @@ export function TimelineSummary({ group, type }) {
             className="timeline-summary date-container"
         // onClick={() => setIsModalOpen(!isModalOpen)}
         >
-            {finalDates.length ? (
+            {timelines.length ? (
                 <span>{isHover ? `${utilService.calculateDaysDifference(finalDates)}d` : text}</span>
             ) : (
-                <span>{isHover ? `Set Dates` : '-'}</span>
+                <span>{'-'}</span>
             )}
         </div>
     )

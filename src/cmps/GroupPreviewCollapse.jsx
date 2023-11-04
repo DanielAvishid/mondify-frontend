@@ -20,8 +20,6 @@ export function GroupPreviewCollapse({ index, handleKeyPress, board, group, onDu
             case 'status':
             case 'priority':
                 return <LabelsSummary group={group} board={board} type={cmp.type} />
-            case 'members':
-                return <MembersSummary group={group} board={board} />
             default:
                 return
         }

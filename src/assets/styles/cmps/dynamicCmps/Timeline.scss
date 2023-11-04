@@ -34,7 +34,7 @@
         height: rem(22px);
         border-radius: rem(11px);
         color: $white;
-        background-color: $default-task-val-bgc;
+        background-color: $default-task-val-bgc !important;
 
         >span {
             font-size: 0.813rem;
