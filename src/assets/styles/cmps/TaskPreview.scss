@@ -1,16 +1,16 @@
 .task-preview {
 
+    .status,
+    .priority {
+        border-bottom: 1px solid #d0d4e4;
+    }
+
     &:hover {
 
         .table-row {
 
             box-shadow: 4px 3px 6px -3px $selectable-cluster-border;
             background-color: $lighter-grey;
-
-            // >.status,
-            // >.priority {
-            //     opacity: 0.85;
-            // }
 
             &.checked {
                 background-color: $primary-selected-color;
