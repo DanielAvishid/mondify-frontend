@@ -1,11 +1,55 @@
-.group-preview-collapse {
-    height: rem(60px) !important;
+.collapse {
 
-    >.col {
+    .group-preview-collapse {
         height: rem(60px) !important;
+        border-block-start: 1px solid $table-border;
+
+        header {
+            width: rem(390px);
+            padding: rem(4px) rem(8px) rem(8px) 0;
+            border-inline-end: 1px solid $table-border;
+
+            .Collapse-group {
+                margin-inline-start: rem(8px);
+            }
+
+            .count {
+                color: $chat-icon-color;
+                font-size: rem(13px);
+                margin-inline-start: rem(32px);
+            }
+        }
+
+
+        .members-col {
+            >span {
+                visibility: hidden;
+            }
+        }
+
+        .avatar-group-cmp {
+            visibility: hidden;
+        }
     }
 
-    .members-col {
-        visibility: hidden;
+    .group-menu-container {
+        margin-inline-end: 4px;
+    }
+
+    .group-menu {
+        margin-block-start: rem(6px);
+        opacity: 0;
+        height: 24px;
+        width: 24px;
+
+        >* {
+            z-index: 100;
+        }
+    }
+
+    &:hover {
+        .group-menu {
+            opacity: 1;
+        }
     }
 }

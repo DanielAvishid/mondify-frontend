@@ -20,6 +20,10 @@ export function BoardDetails() {
         loadBoard(boardId, filterBy, sortBy)
     }, [currBoard, filterBy, sortBy])
 
+
+
+
+
     async function onAddTaskFromHeader(board) {
         const taskToAdd = boardService.getEmptyTask()
         try {
