@@ -85,9 +85,9 @@
             .priority-col,
             .status-col,
             .timeline-col {
-                // background-color: $primary-background-color;
                 border-inline-end: 1px solid $table-border;
                 height: rem(36px);
+                position: relative;
             }
 
             .title-col {
