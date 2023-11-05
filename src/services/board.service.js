@@ -230,9 +230,7 @@ async function getBoardById(boardId, filterBy = { txt: '', person: null }, sortB
                 return 0
             }
         })
-
     }
-
     return board;
 }
 

@@ -9,7 +9,7 @@ export const SET_BOARD = 'SET_BOARD'
 const initialState = {
     boards: [],
     lastBoards: [],
-    board: undefined,
+    board: null,
 }
 
 export function boardReducer(state = initialState, action) {
@@ -19,6 +19,7 @@ export function boardReducer(state = initialState, action) {
     switch (action.type) {
         case SET_BOARD:
             return { ...state, board: action.board }
+
         case SET_BOARDS:
             lastBoards = [...action.boards]
             return { ...state, boards: action.boards }
