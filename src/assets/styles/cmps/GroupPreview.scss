@@ -130,6 +130,7 @@
             }
 
             .members-col {
+                cursor: pointer;
                 width: rem(100px);
             }
 
@@ -138,6 +139,7 @@
             .priority-col,
             .status-col,
             .timeline-col {
+                cursor: pointer;
                 width: rem(140px);
             }
 
