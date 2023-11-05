@@ -4,10 +4,13 @@ import { Switcher, Notifications, Inbox, Invite, Apps, Search, Help } from "/nod
 import { MsgModalSuccess } from "./MsgModalSuccess";
 import { useNavigate } from "react-router";
 import { login, logout, signup } from '../store/actions/user.action';
+import { userService } from "../services/user.service";
 
 export function AppHeader({ user }) {
 
     const navigate = useNavigate()
+
+    const defaultUser = userService.getDefaultUser()
 
     return (
         <section className="app-header flex justify-between align-center">
@@ -52,14 +55,12 @@ export function AppHeader({ user }) {
                     <Avatar
                         className='avatar'
                         size="medium"
-                        src={user ? user.imgUrl : 'https://style.monday.com/static/media/person2.24c7233e.png'}
+                        src={user ? user.imgUrl : defaultUser.imgUrl}
                         type="img"
                     />
                 </button>
             </section>
             <MsgModalSuccess />
-
-
         </section>
     )
 }

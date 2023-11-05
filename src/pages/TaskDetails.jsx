@@ -16,10 +16,10 @@ export function TaskDetails({ onSaveBoard, onRemoveTask, setIsResizing, width })
     const navigate = useNavigate()
     const { boardId, taskId } = useParams()
     const [task, setTask] = useState(null)
+    const [filteredActivities, setFilteredActivities] = useState(null)
+    const [searchTerm, setSearchTerm] = useState('')
     const [currentTab, setCurrentTab] = useState('Updates')
     const [isUpdateEditor, setIsUpdateEditor] = useState(false)
-
-    console.log(userService.getLoggedinUser())
 
     useEffect(() => {
         loadTask()
@@ -29,11 +29,25 @@ export function TaskDetails({ onSaveBoard, onRemoveTask, setIsResizing, width })
         try {
             const task = await getById({ boardId, taskId })
             setTask(task)
+            setFilteredActivities(task.activities)
         } catch (err) {
             console.log('Had issues in board details', err)
             console.log('ShowErrorMsg')
             navigate('/board')
         }
+    }
+
+    function handleSearch(searchValue) {
+        console.log('searchValue', searchValue);
+
+        const filtered = activities.filter((activity) =>
+            activity.title.toLowerCase().includes(searchValue.toLowerCase())
+        )
+
+        console.log('filtered', filtered);
+
+        setSearchTerm(searchValue)
+        setFilteredActivities(filtered)
     }
 
     function onTaskTitleChange(ev) {
@@ -88,7 +102,7 @@ export function TaskDetails({ onSaveBoard, onRemoveTask, setIsResizing, width })
                 isUpdateEditor={isUpdateEditor}
                 setIsUpdateEditor={setIsUpdateEditor} />}
 
-            {currentTab === 'Activity Log' && <TaskDetailsActivity />}
+            {currentTab === 'Activity Log' && <TaskDetailsActivity filteredActivities={filteredActivities} />}
 
             <button
                 className="drag-btn"

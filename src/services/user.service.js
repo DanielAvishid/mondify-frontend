@@ -8,6 +8,7 @@ export const userService = {
     logout,
     signup,
     getLoggedinUser,
+    getDefaultUser,
     saveLocalUser,
     getUsers,
     getById,
@@ -54,7 +55,7 @@ async function login(userCred) {
 
 async function signup(userCred) {
     console.log(userCred)
-    if (!userCred.imgUrl) userCred.imgUrl = 'https://cdn1.monday.com/dapulse_default_photo.png'
+    if (!userCred.imgUrl) userCred.imgUrl = 'https://style.monday.com/static/media/person2.24c7233e.png'
     const user = await storageService.post('user', userCred)
     // const user = await httpService.post('auth/signup', userCred)
     return saveLocalUser(user)
@@ -73,5 +74,13 @@ function saveLocalUser(user) {
 
 function getLoggedinUser() {
     return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
+}
+
+function getDefaultUser() {
+    return {
+        _id: 'UjCos',
+        fullname: 'Guest',
+        imgUrl: "https://cdn1.monday.com/dapulse_default_photo.png"
+    }
 }
 
