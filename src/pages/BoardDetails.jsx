@@ -1,6 +1,6 @@
 import { Outlet, useNavigate, useOutletContext, useParams } from "react-router-dom";
 import { BoardHeader } from "../cmps/BoardHeader";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { loadBoard } from "../store/actions/board.action";
 import { useSelector } from "react-redux";
 import { boardService } from "../services/board.service";
@@ -13,12 +13,14 @@ export function BoardDetails() {
     const boards = useSelector(storeState => storeState.boardModule.boards)
     const board = useSelector(storeState => storeState.boardModule.board)
     const [onSaveBoard, onRemoveBoard, onRemoveGroup, onRemoveTask, onDuplicateBoard, onDuplicateGroup, onDuplicateTask] = useOutletContext()
+    const [isScrolling, setIsScrolling] = useState(false)
     const { boardId } = useParams()
     const [filterBy, setFilterBy] = useState({ txt: '', person: null })
     const [sortBy, setSortBy] = useState(false)
     const [isCollapse, setIsCollapse] = useState({})
     const [isInitialSetupComplete, setIsInitialSetupComplete] = useState(false);
     const dispatch = useDispatch()
+    const containerRef = useRef()
 
     useEffect(() => {
         loadBoard(boardId, filterBy, sortBy)
@@ -34,6 +36,29 @@ export function BoardDetails() {
             setIsInitialSetupComplete(true);
         }
     }, [board, isInitialSetupComplete]);
+
+    useEffect(() => {
+        let scrollTimeout
+
+        function handleScroll() {
+            if (scrollTimeout) {
+                clearTimeout(scrollTimeout)
+            }
+
+            scrollTimeout = setTimeout(() => {
+                const container = containerRef.current
+                const atTop = container.scrollTop === 0
+
+                setIsScrolling(atTop ? false : true)
+            }, 2)
+        }
+
+        containerRef.current.addEventListener('scroll', handleScroll)
+
+        return () => {
+            containerRef.current.removeEventListener('scroll', handleScroll)
+        }
+    }, [board])
 
     function updateIsCollapse(value, currentIsCollapse) {
         const updatedIsCollapse = {};
@@ -114,21 +139,27 @@ export function BoardDetails() {
         await onSaveBoard({ board: board, boardId: board._id, key: 'groups', value: newGroups })
     }
 
-    if (board === undefined) return <DeletedBoard />
+    // if (board === undefined) return <DeletedBoard />
 
-    if (board === null) return (
-        <section className="waiting-load">
-            <div className="loader-container">
-                <img src="https://cdn.monday.com/images/loader/loader.gif" alt="" />
-            </div>
-        </section>
-    )
+    // if (board === null) return (
+    //     <section className="waiting-load">
+    //         <div className="loader-container">
+    //             <img src="https://cdn.monday.com/images/loader/loader.gif" alt="" />
+    //         </div>
+    //     </section>
+    // )
 
     return (
-        <section className="board-details main-layout">
-
-
-            <BoardHeader
+        <section
+            className="board-details main-layout"
+            ref={containerRef}>
+            {board === null && <section className="waiting-load">
+                <div className="loader-container">
+                    <img src="https://cdn.monday.com/images/loader/loader.gif" alt="" />
+                </div>
+            </section>}
+            {board === undefined && <DeletedBoard />}
+            {board && <BoardHeader
                 onAddTaskFromHeader={onAddTaskFromHeader}
                 onDuplicateBoard={onDuplicateBoard}
                 board={board}
@@ -139,10 +170,11 @@ export function BoardDetails() {
                 sortBy={sortBy}
                 setSortBy={setSortBy}
                 onAddGroup={onAddGroup}
-            />
-            <DragDropContext onDragEnd={onDragEnd} className="main-layout full">
+                isScrolling={isScrolling}
+            />}
+            {board && < DragDropContext onDragEnd={onDragEnd} className="main-layout full">
                 <Outlet context={[board, onSaveBoard, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask, isCollapse, setIsCollapse, updateIsCollapse, onAddGroup]} />
-            </DragDropContext>
-        </section>
+            </DragDropContext>}
+        </section >
     )
 }

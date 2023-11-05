@@ -7,7 +7,8 @@ import { BoardModal } from "./BoardModal"
 import { MembersFilterModal } from "./MembersFilterModal"
 import { useClickOutside } from "../hooks/useClickOutside"
 
-export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveBoard, onDuplicateBoard, filterBy, setFilterBy, sortBy, setSortBy, onAddGroup }) {
+export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveBoard, onDuplicateBoard, filterBy, setFilterBy, sortBy, setSortBy, onAddGroup, isScrolling }) {
+    console.log(isScrolling)
 
     const [isCollapse, setIsCollapse] = useState(false)
     const [isInputFocus, setIsInputFocus] = useState(false)
@@ -63,8 +64,8 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
     }
 
     return (
-        <section className={`board-header middle ${isCollapse ? 'collapse' : ''}`}>
-            {!isCollapse && <section className="container first-row-container">
+        <section className={`board-header full ${isCollapse ? 'collapse' : ''} ${isScrolling ? 'scrolling' : ''}`}>
+            {!isCollapse && !isScrolling && <section className="container first-row-container">
                 <div className="title-container">
                     <EditableHeading
                         className="board-title-input"
@@ -115,15 +116,15 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                     </MenuButton>
                 </div>
             </section>}
-            {(!isCollapse && board.description) && <section className={`second-row-container`}>
+            {(!isCollapse && !isScrolling && board.description) && <section className={`second-row-container`}>
                 <div className="flex align-center">
                     <p className="board-description" onClick={() => setIsModalOpen(true)}>{board.description}</p>
                     <span className="see-more" onClick={() => setIsModalOpen(true)}>See More</span>
                 </div>
             </section>}
-            <section className={`container third-row-container ${!board.description ? 'no-description' : ''} ${isCollapse ? 'collapse' : ''}`}>
+            <section className={`container third-row-container ${!board.description ? 'no-description' : ''} ${isCollapse || isScrolling ? 'collapse' : ''}`}>
                 <div className="board-view-container">
-                    {isCollapse && <div className="title-container">
+                    {isCollapse || isScrolling && <div className="title-container">
                         <EditableHeading
                             style={{ fontSize: '24px' }}
                             className="board-title-input"
@@ -150,20 +151,15 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                             </Menu>
                         </MenuButton>
                     </div>
-                    {/* <TabList size="sm">
-                        <Tab icon={TableIcon}>Main Table</Tab>
-                        <Tab icon={TableIcon}>Chart</Tab>
-                        <Tab icon={TableIcon}>Calendar</Tab>
-                    </TabList> */}
                 </div>
                 <div className="options-container">
-                    {isCollapse && <Link className="btn" to='#'>
+                    {isCollapse || isScrolling && <Link className="btn" to='#'>
                         <Button className="invite-btn" noSidePadding={true} kind={Button.kinds.SECONDARY}>
                             <Icon className="invite-icon" icon={Invite} />
                             <span>Invite / 1</span>
                         </Button>
                     </Link>}
-                    {isCollapse && <MenuButton tooltipContent='Options' tooltipPosition="top"
+                    {isCollapse || isScrolling && <MenuButton tooltipContent='Options' tooltipPosition="top"
                         className="menu-btn" component={MenuIcon}>
                         <Menu id="menu">
                             <MenuTitle caption="Board options" captionPosition={MenuTitle.positions.TOP} />
@@ -174,8 +170,8 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                                 onClick={() => { onRemove({ board, boardId: board._id }); navigate('/board') }} />
                         </Menu>
                     </MenuButton>}
-                    <IconButton className='collapse-btn' icon={isCollapse ? DropdownChevronDown : DropdownChevronUp} kind={IconButton.kinds.SECONDARY}
-                        size={IconButton.sizes.XXS} ariaLabel={isCollapse ? "Expand header" : "Collapse header"} onClick={() => setIsCollapse(!isCollapse)} />
+                    {!isScrolling && <IconButton className='collapse-btn' icon={isCollapse ? DropdownChevronDown : DropdownChevronUp} kind={IconButton.kinds.SECONDARY}
+                        size={IconButton.sizes.XXS} ariaLabel={isCollapse ? "Expand header" : "Collapse header"} onClick={() => setIsCollapse(!isCollapse)} />}
                 </div>
             </section>
             <MenuDivider className='menu-divider' />

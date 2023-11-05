@@ -64,7 +64,6 @@ export function GroupList() {
                     <span>Add new group</span>
                 </Button>
             </div>}
-            <Outlet />
         </div>
     )
 }
