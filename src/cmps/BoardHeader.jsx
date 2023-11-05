@@ -8,7 +8,6 @@ import { MembersFilterModal } from "./MembersFilterModal"
 import { useClickOutside } from "../hooks/useClickOutside"
 
 export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveBoard, onDuplicateBoard, filterBy, setFilterBy, sortBy, setSortBy, onAddGroup, isScrolling }) {
-    console.log(isScrolling)
 
     const [isCollapse, setIsCollapse] = useState(false)
     const [isInputFocus, setIsInputFocus] = useState(false)
@@ -92,9 +91,9 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                     <Button className="activity-btn" kind={Button.kinds.TERTIARY} size={Button.sizes.SMALL} onClick={() => navigate(activityUrl)}>
                         Activity
                         <AvatarGroup max={2} size={Avatar.sizes.SMALL}>
-                            <Avatar className="avatar" type={Avatar.types.IMG} src="https://style.monday.com/static/media/person1.de30c8ee.png" ariaLabel="Hadas Fahri" />
-                            <Avatar className="avatar" type={Avatar.types.IMG} src="https://style.monday.com/static/media/person2.24c7233e.png" ariaLabel="Sergey Roytman" />
-                            {/* <Avatar type={Avatar.types.IMG} src="https://style.monday.com/static/media/person3.3661bfe5.png" ariaLabel="Yossi Saadi" /> */}
+                            {board.members.map(member =>
+                                <Avatar className="avatar" type={Avatar.types.IMG} src={member.imgUrl} ariaLabel={member.fullname} />
+                            )}
                         </AvatarGroup>
                     </Button>
                     <Link className="btn" to='#'>

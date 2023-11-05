@@ -12,6 +12,7 @@ export function ActivityPreview({ board, activity }) {
 
     const time = utilService.getTimePassed(activity.timestamp)
     const changeType = utilService.capitalizeFirstLetter(activity.key)
+    const user = activity.by
 
     const title = activity.title
 
@@ -30,8 +31,9 @@ export function ActivityPreview({ board, activity }) {
             <div className="activity-place flex align-center">
                 <Avatar
                     type={Avatar.types.IMG}
-                    src={"https://style.monday.com/static/media/person1.de30c8ee.png"}
+                    src={user.imgUrl}
                     className="avatar"
+                    ariaLabel={user.fullname}
                 />
                 <span className="ellipsis-text place-span" style={style}>{title}</span>
             </div>

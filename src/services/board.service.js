@@ -133,6 +133,7 @@ async function update({ board, boardId, groupId, taskId, key, value }) {
                 if (task.id === taskId) {
                     change = createChange(task[key], value, task.title, key);
                     taskChange = createChange(task[key], value, task.title, key)
+                    if (!task.activities) task.activities = []
                     task.activities.unshift(taskChange)
                     return { ...task, [key]: value };
                 }
