@@ -1,7 +1,7 @@
 import { Outlet, useNavigate, useOutletContext, useParams } from "react-router-dom";
 import { BoardHeader } from "../cmps/BoardHeader";
 import { useEffect, useState } from "react";
-import { getById } from "../store/actions/board.action";
+import { loadBoard } from "../store/actions/board.action";
 import { useSelector } from "react-redux";
 import { boardService } from "../services/board.service";
 import { DeletedBoard } from "../cmps/DeletedBoard";
@@ -9,10 +9,9 @@ import { DragDropContext } from "react-beautiful-dnd";
 
 export function BoardDetails() {
     const boards = useSelector(storeState => storeState.boardModule.boards)
+    const board = useSelector(storeState => storeState.boardModule.board)
     const [onSaveBoard, onRemoveBoard, onRemoveGroup, onRemoveTask, onDuplicateBoard, onDuplicateGroup, onDuplicateTask] = useOutletContext()
     const { boardId } = useParams()
-    const navigate = useNavigate()
-    const [board, setBoard] = useState(null)
     const [filterBy, setFilterBy] = useState({ txt: '', person: null })
     const [sortBy, setSortBy] = useState(false)
     const [isCollapse, setIsCollapse] = useState({})
@@ -53,17 +52,6 @@ export function BoardDetails() {
         }));
 
         onSaveBoard({ boardId: board._id, key: 'groups', value })
-    }
-
-    async function loadBoard() {
-        try {
-            const board = await getById({ boardId, filterBy, sortBy })
-            setBoard(board)
-        } catch (err) {
-            console.log('Had issues in board details', err)
-            console.log('ShowErrorMsg')
-            navigate('/board')
-        }
     }
 
     async function onAddTaskFromHeader(board) {

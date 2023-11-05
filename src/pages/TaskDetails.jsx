@@ -8,14 +8,18 @@ import { useSelector } from "react-redux"
 import { TaskDetailsHeader } from "../cmps/TaskDetailsHeader"
 import { TaskDetailsUpdates } from "../cmps/TaskDetailsUpdates"
 import { TaskDetailsActivity } from "../cmps/TaskDetailsActivity"
+import { userService } from "../services/user.service"
 
 export function TaskDetails({ onSaveBoard, onRemoveTask, setIsResizing, width }) {
     const boards = useSelector(storeState => storeState.boardModule.boards)
+    const user = useSelector(storeState => storeState.userModule.loggedinUser)
     const navigate = useNavigate()
     const { boardId, taskId } = useParams()
     const [task, setTask] = useState(null)
     const [currentTab, setCurrentTab] = useState('Updates')
     const [isUpdateEditor, setIsUpdateEditor] = useState(false)
+
+    console.log(userService.getLoggedinUser())
 
     useEffect(() => {
         loadTask()
@@ -43,10 +47,10 @@ export function TaskDetails({ onSaveBoard, onRemoveTask, setIsResizing, width })
             id: utilService.makeId(),
             text: updateValue,
             at: Date.now(),
-            by: {
+            by: user ? user : {
                 "_id": "UjCos",
-                "fullname": "Carmel Amarilio",
-                "imgUrl": "https://hips.hearstapps.com/ghk.h-cdn.co/assets/16/08/gettyimages-464163411.jpg?crop=1.0xw:1xh;center,top&resize=980:*"
+                "fullname": "Guest",
+                "imgUrl": "https://style.monday.com/static/media/person2.24c7233e.png"
             }
         }
         value.unshift(update)
