@@ -124,7 +124,7 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
             </section>}
             <section className={`container third-row-container ${!board.description ? 'no-description' : ''} ${isCollapse || isScrolling ? 'collapse' : ''}`}>
                 <div className="board-view-container">
-                    {isCollapse || isScrolling && <div className="title-container">
+                    {(isCollapse || isScrolling) && <div className="title-container">
                         <EditableHeading
                             style={{ fontSize: '24px' }}
                             className="board-title-input"
@@ -153,13 +153,13 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                     </div>
                 </div>
                 <div className="options-container">
-                    {isCollapse || isScrolling && <Link className="btn" to='#'>
+                    {(isCollapse || isScrolling) && <Link className="btn" to='#'>
                         <Button className="invite-btn" noSidePadding={true} kind={Button.kinds.SECONDARY}>
                             <Icon className="invite-icon" icon={Invite} />
                             <span>Invite / 1</span>
                         </Button>
                     </Link>}
-                    {isCollapse || isScrolling && <MenuButton tooltipContent='Options' tooltipPosition="top"
+                    {(isCollapse || isScrolling) && <MenuButton tooltipContent='Options' tooltipPosition="top"
                         className="menu-btn" component={MenuIcon}>
                         <Menu id="menu">
                             <MenuTitle caption="Board options" captionPosition={MenuTitle.positions.TOP} />

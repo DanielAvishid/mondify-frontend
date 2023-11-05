@@ -14,7 +14,7 @@
 // }
 
 .board-details {
-    grid-template-rows: auto auto;
+    grid-template-rows: min-content auto;
     position: relative;
     background-color: $primary-background-color;
     border-top-left-radius: rem(8px);

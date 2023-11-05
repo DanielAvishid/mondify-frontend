@@ -3,6 +3,7 @@
     padding-block-start: rem(16px);
     padding-inline: rem(38px);
     position: sticky;
+    z-index: 1000;
     top: 0;
     left: 0;
 
@@ -11,10 +12,8 @@
     }
 
     &.scrolling {
-        // padding-block-start: rem(23px);
-        padding-block-start: rem(15px);
-        padding-block-end: rem(26px);
-        z-index: 500;
+        padding-block-start: rem(23px);
+        padding-block-end: rem(14px);
         background-color: $primary-background-color;
     }
 
