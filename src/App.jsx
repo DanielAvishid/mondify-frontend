@@ -13,6 +13,7 @@ import { GroupList } from './cmps/GroupList';
 import { Kanban } from './cmps/Kanban';
 import { BoardList } from './pages/BoardList';
 import { BoardActivity } from './pages/BoardActivity';
+import { Dashboard } from './cmps/Dashboard';
 
 
 export function App() {
@@ -32,6 +33,7 @@ export function App() {
                 <Route element={<Kanban />} path="views/kanban">
                   <Route element={<TaskDetails />} path="task/:taskId" />
                 </Route>
+                <Route element={<Dashboard />} path="views/dashboard" />
               </Route>
             </Route>
           </Routes>
