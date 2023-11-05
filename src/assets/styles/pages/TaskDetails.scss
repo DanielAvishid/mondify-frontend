@@ -582,11 +582,102 @@
                         display: flex;
                         flex: 1.5 0 0px;
                         align-items: center;
+                        vertical-align: baseline;
+
+                        >.separator {
+                            flex: 0 0 16px;
+                            height: 100%;
+                        }
+
+                        >.column-type {
+                            display: flex;
+                            flex: 1.2 0 0;
+                            align-items: center;
+                            position: relative;
+
+                            >.dynamic-icon {
+                                width: 16px;
+                                height: 16px;
+                            }
+
+                            >.text {
+                                cursor: default;
+                                height: 100%;
+                                padding-inline-start: 2px;
+                                width: 100%;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                white-space: nowrap;
+
+                                span {
+                                    line-height: rem(39px);
+                                    font-size: rem(14px);
+                                    font-family: Roboto, sans-serif;
+                                    color: $primary-text-color;
+                                }
+                            }
+                        }
+
+                        >.values-log {
+                            flex: 2.2 0 0;
+                            display: flex;
+                            align-items: center;
+                            margin-inline-start: rem(16px);
+                            vertical-align: baseline;
+
+                            >.values-container {
+                                display: flex;
+                                align-items: center;
+                                overflow: hidden;
+                                flex: 1 1 auto;
+
+                                >.old-value {
+                                    cursor: default;
+                                    flex: 1 0 0;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                    white-space: nowraps;
+                                    padding-inline: rem(8px);
+                                    text-align: center;
+
+                                    span {
+                                        line-height: rem(39px);
+                                        font-size: rem(14px);
+                                        font-family: Roboto, sans-serif;
+                                        letter-spacing: -0.42px;
+                                    }
+                                }
+
+                                >.arrow-icon {
+                                    flex: 0 0 22px;
+                                    width: 22px;
+                                    height: 22px;
+                                    color: #c4c4c4;
+                                }
+
+                                >.new-value {
+                                    cursor: default;
+                                    flex: 1 0 0;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                    white-space: nowrap;
+                                    padding-inline: rem(8px);
+                                    text-align: center;
+
+                                    span {
+                                        line-height: rem(39px);
+                                        font-size: rem(14px);
+                                        font-family: Roboto, sans-serif;
+                                        letter-spacing: -0.42px;
+                                    }
+                                }
+
+
+                            }
+                        }
                     }
                 }
             }
-
-
         }
     }
 }

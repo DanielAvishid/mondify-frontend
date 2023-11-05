@@ -1,5 +1,5 @@
 import { Avatar, Button, Icon } from "monday-ui-react-core"
-import { DropdownChevronDown, PersonRound, Time } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
+import { DropdownChevronDown, PersonRound, Time, TextCopy, DropdownChevronRight } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 
 export function TaskDetailsActivity() {
     return (
@@ -43,15 +43,33 @@ export function TaskDetailsActivity() {
                                 <span>Newsss</span>
                             </div>
                         </div>
+                        <div className="additional-info">
+                            <div className="separator"></div>
+                            <div className="column-type">
+                                <Icon className="dynamic-icon" icon={TextCopy} />
+                                <div className="text">
+                                    <span>Name</span>
+                                </div>
+                            </div>
+                            <div className="separator"></div>
+                            <div className="values-log">
+                                <div className="values-container">
+                                    <div className="old-value">
+                                        <span>Research</span>
+                                    </div>
+                                    <Icon className="arrow-icon" icon={DropdownChevronRight} />
+                                    <div className="new-value">
+                                        <span>Task 1</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div className="activity-container">
                         <div className="time">
                             <Icon icon={Time} className="time-icon" />
                             <span>6h</span>
                         </div>
-                    </div>
-                    <div className="additional-info">
-
                     </div>
                 </div>
             </div>
