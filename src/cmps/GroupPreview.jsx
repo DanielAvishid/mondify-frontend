@@ -172,7 +172,7 @@ export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, 
                                         </th>
                                     ))}
                                     <th className="add-column">
-                                        <IconButton icon={Add} kind={IconButton.kinds.TERTIARY} ariaLabel="Add Column" size={IconButton.sizes.SMALL} />
+                                        <IconButton className="add-btn" icon={Add} kind={IconButton.kinds.TERTIARY} ariaLabel="Add Column" />
                                     </th>
                                 </tr>
                             </thead>
