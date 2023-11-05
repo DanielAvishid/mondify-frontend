@@ -1,47 +1,19 @@
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
-import { Doughnut } from 'react-chartjs-2'
-
-ChartJS.register(ArcElement, Tooltip, Legend,)
+import { DoughnutChart } from "./DoughnutChart";
 
 export function GroupListChart({ board }) {
-
-
-    const data = {
-        labels: ['Yes', 'No'],
-        datasets: [{
-            label: 'Poll',
-            data: [3, 6],
-            backgroundColor: ['green', 'beige'],
-            borderColor: ['black', 'black'],
-        }]
-    }
-
-    const options = {
-        plugins: {
-            legend: {
-                display: false
-            }
-        }
-    }
-
-
     return (
-        <div className='overall-progress-container'>
-            {/* <div>mapping here through groups and showing id done or show a precentage</div> */}
+        <div className="overall-progress-container">
             {board.groups.map((group, index) => (
-                <div className='doughnut-container' key={group.id} style={{ width: `${100 / board.groups.length}%` }}>
-                    <h4>programming</h4>
+                <div
+                    className="doughnut-container"
+                    key={group.id}
+                >
+                    <h4 >{group.title}</h4>
                     <div>
-                        < Doughnut
-                            data={data}
-                            options={options}
-                        ></Doughnut >
-                    </div>
-                    <div>
-                        <span>In progress</span>
+                        <DoughnutChart group={group} />
                     </div>
                 </div>
             ))}
         </div>
-    )
+    );
 }

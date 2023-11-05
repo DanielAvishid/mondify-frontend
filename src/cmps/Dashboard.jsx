@@ -12,7 +12,8 @@ export function Dashboard() {
             <GroupListChart board={board} />
             <MembersChart board={board} />
             <LaunchDate board={board} />
-            <DoughnutChart board={board} />
+            <div></div>
+            {/* <DoughnutChart board={board} /> */}
         </div>
     )
 }

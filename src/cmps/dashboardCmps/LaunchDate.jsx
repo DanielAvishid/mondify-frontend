@@ -10,16 +10,16 @@ export function LaunchDate({ board }) {
     const daysPassTxt = (daysPass > 1) ? `${daysPass} Days` : `${daysPass} Day`
 
     return (
-        <div className='date-counter-container'>
-            <h4>Project</h4>
-            <h4>Launch Date</h4>
-            <div className='flex align-center'>
-                <Icon icon={Launch} iconSize={70} />
-                <div className='flex column'>
-                    <span>{daysPassTxt}</span>
-                    <span>{launchDate}</span>
-                </div>
+        <div className='date-counter-container flex justify-between'>
+            <div className='flex column'>
+                <h4>{board.title}</h4>
+                <h4>Launch Date</h4>
             </div>
-        </div>
+            <Icon icon={Launch} />
+            <div className='date flex column'>
+                <span>{daysPassTxt}</span>
+                <span>{launchDate}</span>
+            </div>
+        </div >
     )
 }

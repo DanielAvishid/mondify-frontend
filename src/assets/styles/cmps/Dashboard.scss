@@ -1,6 +1,5 @@
 .dashboard {
     width: 100%;
-    // height: 100vh;
     background-color: $grey-background-color;
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -14,7 +13,6 @@
         background-color: $primary-background-color;
         border: 1px solid $table-border;
         display: flex;
-        flex-direction: column;
         align-items: center;
         justify-content: center;
     }
@@ -22,9 +20,7 @@
     .overall-progress-container {
         grid-column: 1;
         grid-row: 1/3;
-        flex-direction: row;
-        width: 100%;
-        padding: 0 rem(30px);
+        padding: 0 rem(0px);
         gap: rem(10px);
         overflow-y: hidden;
         overflow-x: auto;
@@ -35,24 +31,61 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: space-evenly;
-            position: relative;
             max-height: 100%;
             max-width: rem(120px);
-            white-space: nowrap;
-            overflow: hidden;
 
             h4 {
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
-                width: 100%;
+                max-width: rem(120px);
                 font-weight: 500;
-                padding-block-end: rem(3px);
+            }
+
+            .empty {
+                background-color: $negative-color;
+
+                .clickable_a1c09750fe {
+                    color: $primary-background-color;
+                    width: rem(75px);
+                    height: rem(75px);
+                    border-radius: 50%;
+                }
+
+            }
+
+            .nothing {
+                background-color: $negative-color;
+
+                .clickable_a1c09750fe {
+                    color: $primary-background-color;
+                    width: rem(90px);
+                    height: rem(90px);
+                    border-radius: 50%;
+                }
+            }
+
+            .all {
+                background-color: $positive-color;
+
+                .clickable_a1c09750fe {
+                    color: $primary-background-color;
+                    width: rem(75px);
+                    height: rem(75px);
+                    border-radius: 50%;
+                }
+            }
+
+            .big-icon {
+                margin: rem(2.5px);
+                width: rem(95px);
+                height: rem(95px);
+                border-radius: 50%;
             }
 
             canvas {
-                max-height: rem(100px);
+                width: rem(100px);
+                height: rem(100px);
             }
         }
 
@@ -65,12 +98,30 @@
 
     .date-counter-container {
         grid-column: 2;
-        grid-row: 1/4;
+        grid-row: 1/2;
+        padding: rem(10px);
+
+        h4 {
+            font-weight: 500;
+        }
+
+        .date {
+            span {
+                font-size: rem(16px);
+            }
+        }
+
+        .clickable_a1c09750fe {
+            padding-inline-start: rem(8px);
+            color: $primary-text-color;
+            width: rem(60px);
+            height: rem(80px);
+        }
     }
 
     >.doughnut-container {
         grid-column: 2;
-        grid-row: 4/-1;
+        grid-row: 2/-1;
 
 
         >div {
