@@ -163,7 +163,7 @@ export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, 
                                 </MenuButton>
                             </div>
                             <div className="group-title flex align-center">
-                                <span className="flex" style={{ color: group.style.backgroundColor }}>
+                                <span className="arrow-icon flex" style={{ color: group.style.backgroundColor }}>
 
                                     <Icon
                                         customColor={group.style.backgroundColor}
@@ -173,7 +173,7 @@ export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, 
                                         onClick={() => setIsCollapse({ ...isCollapse, [group.id]: true })}
                                     />
                                 </span>
-                                <span>
+                                <span className="group-title-edit">
                                     <EditableHeading
                                         type={EditableHeading.types.h4}
                                         value={title}
