@@ -15,9 +15,10 @@ export function AvatarGroupCmp({ members }) {
                 )
             }) :
                 <Avatar
+                    className="default-avatar"
                     size={Avatar.sizes.SMALL}
                     type={Avatar.types.IMG}
-                    src={"https://style.monday.com/static/media/person1.de30c8ee.png"}
+                    src={"https://cdn.monday.com/icons/dapulse-person-column.svg"}
                 />
             }
         </AvatarGroup>
