@@ -174,6 +174,7 @@
                 outline: none;
                 font-size: 0.875rem;
                 // padding: 5px 1.625rem;
+                font-family: Figtree, Roboto, "Noto Sans Hebrew", "Noto Kufi Arabic", "Noto Sans JP", sans-serif;
                 border-radius: 3px;
                 margin: 6px 10px;
                 padding: 2px 0 3px 1rem;
@@ -181,7 +182,7 @@
 
                 &:focus {
                     background-color: $primary-background-color;
-                    border: 1px solid $primary-color;
+                    outline: 1px solid $primary-color;
                 }
             }
 
