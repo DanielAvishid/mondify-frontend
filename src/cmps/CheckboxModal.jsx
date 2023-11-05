@@ -29,6 +29,9 @@ export function CheckboxModal({ board, onSaveBoard }) {
         dispatch({ type: SET_SELECTED_TASKS, selectedTasks: {} });
         // Update the board's groups with the modified tasks
     };
+
+
+
     const groupSpans = Object.keys(selectedTasks).map(groupId => {
         const group = board.groups.find(group => group.id === groupId);
         const taskIds = Object.keys(selectedTasks[groupId]);
@@ -38,24 +41,41 @@ export function CheckboxModal({ board, onSaveBoard }) {
 
         // Create an array of spans with inline background color style
         const spans = Array.from({ length: taskCount }, (_, index) => (
-            <span
+            <div
                 key={index}
                 style={{ backgroundColor: group.style.backgroundColor }}
-            >1</span>
+                className="task-dot"
+            ></div>
         ));
 
         return spans;
     });
+
+    const tasksCount = Object.keys(selectedTasks).reduce((total, groupId) => {
+        return total + Object.keys(selectedTasks[groupId]).length;
+    }, 0);
+
+    const title = (tasksCount > 1) ? 'Tasks selected' : 'Task selected'
+
     return (
         <div className="checkbox-modal">
-            <div className="flex">
-                {groupSpans.map((spans, index) => (
-                    <div key={index} className="group-tasks">
-                        {spans}
+            <div className="inner-checkbox-modal flex">
+                <div className="tasks-count flex align-center justify-center">{tasksCount}</div>
+                <div className="items-selected flex column justify-center">
+                    <div className="flex align-center">
+                        <span className="checkbox-modal-title">{title}</span>
                     </div>
-                ))}
+                    <div className="tasks-dots-container flex align-center">
+                        {groupSpans.map((spans, index) => (
+                            <div key={index} className="group-tasks flex">
+                                {spans}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                <button onClick={handleDeleteTasks}>Delete Tasks</button>
+                <div className="close-checkbox-modal" onClick={() => dispatch({ type: SET_SELECTED_TASKS, selectedTasks: {} })}>close</div>
             </div>
-            <button onClick={handleDeleteTasks}>Delete Tasks</button>
         </div>
     )
 }

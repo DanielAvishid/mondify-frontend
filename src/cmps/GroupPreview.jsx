@@ -23,10 +23,6 @@ export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, 
     const [addTaskBgc, setAddTaskBgc] = useState('')
     const [taskTitleToAdd, setTaskTitleToAdd] = useState('')
 
-    useEffect(() => {
-        setTasks(group.tasks)
-    }, [group])
-
     const tasksCheck = tasks.reduce((acc, task) => {
         acc[task.id] = false;
         return acc;
@@ -34,6 +30,18 @@ export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, 
 
     const [checkboxes, setCheckboxes] = useState(tasksCheck);
     const [masterChecked, setMasterChecked] = useState(false);
+
+    useEffect(() => {
+        setTasks(group.tasks)
+    }, [group])
+
+    useEffect(() => {
+        if (Object.keys(selectedTasks).length === 0) {
+            setCheckboxes(tasksCheck)
+            setMasterChecked(false)
+        }
+    }, [selectedTasks])
+
 
     const handleMasterChange = () => {
         setMasterChecked(!masterChecked);
