@@ -31,6 +31,12 @@
 
     .task-menu {
         opacity: 0;
+        height: 24px;
+        width: 24px;
+
+        >* {
+            z-index: 30;
+        }
     }
 
 }
