@@ -1,17 +1,17 @@
-.waiting-load {
-    position: relative;
-    background-color: $primary-background-color;
-    border-top-left-radius: rem(8px);
+// .waiting-load {
+//     position: relative;
+//     background-color: $primary-background-color;
+//     border-top-left-radius: rem(8px);
 
-    .loader-container {
-        position: absolute;
-        top: 40%;
-        left: 50%;
-        transform: translate(-50%, -40%);
-        width: 90px;
-        height: 90px;
-    }
-}
+//     .loader-container {
+//         position: absolute;
+//         top: 40%;
+//         left: 50%;
+//         transform: translate(-50%, -40%);
+//         width: 90px;
+//         height: 90px;
+//     }
+// }
 
 .board-details {
     grid-template-rows: auto auto;
@@ -27,5 +27,14 @@
 
     &::-webkit-scrollbar-thumb {
         background: rgb(204, 204, 204);
+    }
+
+    .loader-container {
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -40%);
+        width: 90px;
+        height: 90px;
     }
 }
