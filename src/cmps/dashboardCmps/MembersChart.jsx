@@ -77,7 +77,7 @@ export function MembersChart({ board }) {
         },
         plugins: {
             legend: {
-                display: false,
+                // display: false,
             }
         }
     };
