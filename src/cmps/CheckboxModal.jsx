@@ -1,7 +1,13 @@
 import { useSelector } from "react-redux";
 import { SET_SELECTED_TASKS } from "../store/reducers/board.reducer";
 import { useDispatch } from "react-redux";
+
+
+import { Icon } from "monday-ui-react-core"
+import { Close, Delete } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
+
 export function CheckboxModal({ board, onSaveBoard }) {
+
     const selectedTasks = useSelector(state => state.boardModule.selectedTasks)
     const dispatch = useDispatch()
 
@@ -59,22 +65,31 @@ export function CheckboxModal({ board, onSaveBoard }) {
 
     return (
         <div className="checkbox-modal">
-            <div className="inner-checkbox-modal flex">
-                <div className="tasks-count flex align-center justify-center">{tasksCount}</div>
-                <div className="items-selected flex column justify-center">
-                    <div className="flex align-center">
-                        <span className="checkbox-modal-title">{title}</span>
-                    </div>
-                    <div className="tasks-dots-container flex align-center">
-                        {groupSpans.map((spans, index) => (
-                            <div key={index} className="group-tasks flex">
-                                {spans}
-                            </div>
-                        ))}
+            <div className="inner-checkbox-modal flex justify-between">
+                <div className="flex">
+                    <div className="tasks-count flex align-center justify-center">{tasksCount}</div>
+                    <div className="items-selected flex column justify-center">
+                        <div className="flex align-center">
+                            <span className="checkbox-modal-title">{title}</span>
+                        </div>
+                        <div className="tasks-dots-container flex align-center">
+                            {groupSpans.map((spans, index) => (
+                                <div key={index} className="group-tasks flex">
+                                    {spans}
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
-                <button onClick={handleDeleteTasks}>Delete Tasks</button>
-                <div className="close-checkbox-modal" onClick={() => dispatch({ type: SET_SELECTED_TASKS, selectedTasks: {} })}>close</div>
+                <div className="btns-container flex">
+                    <div className="delete-tasks column flex align-center justify-center" onClick={handleDeleteTasks}>
+                        <Icon icon={Delete} iconSize={28} className="delete-icon" />
+                        <span>Delete</span>
+                    </div>
+                    <div className="close-checkbox-modal flex align-center justify-center" onClick={() => dispatch({ type: SET_SELECTED_TASKS, selectedTasks: {} })}>
+                        <Icon icon={Close} iconSize={18} />
+                    </div>
+                </div>
             </div>
         </div>
     )

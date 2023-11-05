@@ -2,10 +2,9 @@
     transition: opacity 150ms, transform 150ms;
     background-color: $primary-background-color;
     position: sticky;
-    // position: static;
     bottom: rem(35px);
     left: 50%;
-    // transform: translateX(-50%);
+    transform: translateX(-50%);
     width: rem(800px);
     height: rem(63px);
     z-index: 500;
@@ -44,6 +43,39 @@
                 }
             }
 
+        }
+
+        .btns-container {
+
+            .delete-tasks {
+                width: 63px;
+                cursor: pointer;
+
+                .delete-icon {
+                    color: $chat-icon-color;
+                    margin-block-end: rem(2px);
+                }
+
+                &:hover {
+                    .delete-icon {
+                        color: $primary-color;
+                    }
+                }
+
+            }
+
+            .close-checkbox-modal {
+
+                width: 63px;
+                cursor: pointer;
+                border-inline-start: 2px solid $table-border;
+
+                &:hover {
+                    >* {
+                        color: $primary-color;
+                    }
+                }
+            }
         }
     }
 }
