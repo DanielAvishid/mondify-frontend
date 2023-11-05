@@ -7,10 +7,6 @@ export const BOARD_UNDO = 'BOARD_UNDO'
 export const SET_BOARD = 'SET_BOARD'
 
 export const SET_SELECTED_TASKS = 'SET_SELECTED_TASKS'
-export const ADD_SELECTED_TASKS = 'ADD_SELECTED_TASKS'
-// export const ADD_SELECTED_TASK = 'ADD_SELECTED_TASK'
-// export const REMOVE_SELECTED_TASK = 'REMOVE_SELECTED_TASK'
-export const REMOVE_SELECTED_TASKS = 'REMOVE_SELECTED_TASKS'
 
 const initialState = {
     boards: [],
@@ -52,38 +48,6 @@ export function boardReducer(state = initialState, action) {
         case SET_SELECTED_TASKS: {
             return { ...state, selectedTasks: action.selectedTasks }
         }
-
-        case ADD_SELECTED_TASKS: {
-            newSelectedTasks = [...state.selectedTasks, ...action.selectedTasks]
-            return { ...state, selectedTasks: newSelectedTasks }
-        }
-
-        // case ADD_SELECTED_TASK: {
-        //     newSelectedTasks = [...state.selectedTasks, action.selectedTask]
-        //     return { ...state, selectedTasks: newSelectedTasks }
-        // }
-
-        // case REMOVE_SELECTED_TASK: {
-        //     const { taskId, groupId } = action.selectedTask
-        //     newSelectedTasks = state.selectedTasks.filter(task =>
-        //         !(task.taskId === taskId && task.groupId === groupId))
-        //     return { ...state, selectedTasks: newSelectedTasks }
-        // }
-
-        case REMOVE_SELECTED_TASKS: {
-            newSelectedTasks = state.selectedTasks.filter(task => {
-                return !action.selectedTasks.some(selectedTask =>
-                    selectedTask.groupId === task.groupId && selectedTask.taskId === task.taskId
-                )
-            })
-            return { ...state, selectedTasks: newSelectedTasks }
-        }
-
-        // case REMOVE_SELECTED_TASKS: {
-        //     newSelectedTasks = state.selectedTasks.filter(taskId => !action.selectedTasks.includes(taskId))
-        //     return { ...state, selectedTasks: newSelectedTasks }
-        // }
-
 
         default:
             return state

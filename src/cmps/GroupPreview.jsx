@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { ProgressBar } from "./ProgressBar";
 import { GroupPreviewCollapse } from "./GroupPreviewCollapse";
 
-import { ADD_SELECTED_TASKS, REMOVE_SELECTED_TASKS, SET_SELECTED_TASKS } from "../store/reducers/board.reducer"
+import { SET_SELECTED_TASKS } from "../store/reducers/board.reducer"
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 
