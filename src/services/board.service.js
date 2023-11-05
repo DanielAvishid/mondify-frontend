@@ -133,13 +133,14 @@ async function update({ board, boardId, groupId, taskId, key, value }) {
                 if (task.id === taskId) {
                     change = createChange(task[key], value, task.title, key);
                     taskChange = createChange(task[key], value, task.title, key)
+                    task.activities.unshift(taskChange)
                     return { ...task, [key]: value };
                 }
                 return task;
             })
             return { ...group, tasks: updatedTasks };
         })
-        board = { ...board, groups: groupsToSave };
+        board = { ...board, groups: groupsToSave }
     } else if (groupId) {
         const groupIdx = board.groups.findIndex((group) => group.id === groupId);
         if (key === 'tasks') {
@@ -157,12 +158,6 @@ async function update({ board, boardId, groupId, taskId, key, value }) {
 
     if (change) {
         board.activities.unshift(change);
-    }
-
-    if (taskChange) {
-        const groupIdx = board.groups.findIndex((group) => group.id === groupId);
-        const taskIdx = board.groups[groupIdx].tasks.findIndex((task) => task.id === taskId)
-        board.groups[groupIdx].tasks[taskIdx].activities.unshift(taskChange)
     }
 
     console.log('SERVICE', board);
