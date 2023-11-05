@@ -18,7 +18,6 @@ export function GroupList() {
     }, [board])
 
     return (
-
         <div className="group-list main-layout full relative">
             <Droppable droppableId="groups" type="groups">
                 {(provided, snapshot) => (

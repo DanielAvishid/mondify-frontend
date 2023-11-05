@@ -56,7 +56,9 @@ export function BoardDetails() {
         containerRef.current.addEventListener('scroll', handleScroll)
 
         return () => {
-            containerRef.current.removeEventListener('scroll', handleScroll)
+            if (containerRef.current) {
+                containerRef.current.removeEventListener('scroll', handleScroll)
+            }
         }
     }, [board])
 
