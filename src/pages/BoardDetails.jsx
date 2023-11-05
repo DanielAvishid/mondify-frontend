@@ -6,6 +6,8 @@ import { useSelector } from "react-redux";
 import { boardService } from "../services/board.service";
 import { DeletedBoard } from "../cmps/DeletedBoard";
 import { DragDropContext } from "react-beautiful-dnd";
+import { useDispatch } from "react-redux";
+import { SET_BOARD } from "../store/reducers/board.reducer";
 
 export function BoardDetails() {
     const boards = useSelector(storeState => storeState.boardModule.boards)
@@ -16,6 +18,7 @@ export function BoardDetails() {
     const [sortBy, setSortBy] = useState(false)
     const [isCollapse, setIsCollapse] = useState({})
     const [isInitialSetupComplete, setIsInitialSetupComplete] = useState(false);
+    const dispatch = useDispatch()
 
     useEffect(() => {
         loadBoard(boardId, filterBy, sortBy)
@@ -50,7 +53,6 @@ export function BoardDetails() {
             ...prevIsCollapse,
             [newGroup.id]: false
         }));
-
         onSaveBoard({ boardId: board._id, key: 'groups', value })
     }
 
@@ -58,7 +60,7 @@ export function BoardDetails() {
         const taskToAdd = boardService.getEmptyTask()
         try {
             const updatedBoard = await boardService.addTaskFromHeader(board, taskToAdd)
-            setBoard(updatedBoard)
+            dispatch({ type: SET_BOARD, board: updatedBoard })
         } catch (err) {
             console.log('ShowErrorMsg')
         }
@@ -73,7 +75,8 @@ export function BoardDetails() {
             const newGroups = [...board.groups]
             const [removed] = newGroups.splice(source.index, 1)
             newGroups.splice(destination.index, 0, removed)
-            // const newBoard = { ...board, groups: newGroups }
+            const newBoard = { ...board, groups: newGroups }
+            dispatch({ type: SET_BOARD, board: newBoard })
             await onSaveBoard({ board: board, boardId: board._id, key: 'groups', value: newGroups })
             return
         }
@@ -89,7 +92,8 @@ export function BoardDetails() {
                 if (group.id === start.id) return { ...group, tasks: newTasks }
                 return group
             })
-            // const newBoard = { ...board, groups: newGroups }
+            const newBoard = { ...board, groups: newGroups }
+            dispatch({ type: SET_BOARD, board: newBoard })
             await onSaveBoard({ board: board, boardId: board._id, key: 'groups', value: newGroups })
             return
         }
@@ -105,7 +109,8 @@ export function BoardDetails() {
             if (group.id === finish.id) return newFinish
             return group
         })
-        // const newBoard = { ...board, groups: newGroups }
+        const newBoard = { ...board, groups: newGroups }
+        dispatch({ type: SET_BOARD, board: newBoard })
         await onSaveBoard({ board: board, boardId: board._id, key: 'groups', value: newGroups })
     }
 

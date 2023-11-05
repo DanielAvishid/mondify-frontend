@@ -228,7 +228,7 @@ export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, 
                                 {...provided.droppableProps}
                                 ref={provided.innerRef}
                             >
-                                {tasks.map((task, index) => (
+                                {board.groups[index].tasks.map((task, index) => (
                                     <Draggable
                                         key={task.id}
                                         draggableId={task.id}
