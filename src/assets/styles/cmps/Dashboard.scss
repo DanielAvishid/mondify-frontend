@@ -1,0 +1,22 @@
+.dashboard {
+    max-width: 100%;
+    background-color: $grey-background-color;
+    display: flex;
+    gap: rem(10px);
+    padding: rem(10px) 0;
+    border-block-start: 1px solid $table-border;
+
+    .left-dashboard {
+        width: rem(272px);
+        background-color: $grey-background-color;
+        display: flex;
+        flex-direction: column;
+        gap: rem(10px);
+
+        >* {
+            border-radius: rem(8px);
+            background-color: $primary-background-color;
+            border: 1px solid $table-border;
+        }
+    }
+}

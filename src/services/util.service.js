@@ -137,7 +137,7 @@ function getDateToShow(timeStamps = []) {
     return { text: `${formatDateMonth(date1)} ${formatDateDay(date1)}, '${year1} - ${formatDateMonth(date2)} ${formatDateDay(date2)}, '${year2}`, percentage }
 }
 
-function formatDateFromTimestamp(timestamp) {
+function formatDateFromTimestamp(timestamp, full = false) {
     if (!timestamp) {
         return '';
     }
@@ -149,7 +149,7 @@ function formatDateFromTimestamp(timestamp) {
     return date.toLocaleDateString('en-US', {
         day: 'numeric',
         month: 'short',
-        year: isCurrentYear ? undefined : 'numeric'
+        year: isCurrentYear && !full ? undefined : 'numeric'
     });
 }
 
@@ -186,7 +186,7 @@ function lowercaseFirstLetter(inputString) {
 
 function calculateDaysDifference(timeStamps) {
     const [minDate, maxDate] = timeStamps;
-    return Math.floor((new Date(maxDate) - new Date(minDate)) / (1000 * 60 * 60 * 24));
+    return Math.floor((new Date(maxDate) - new Date(minDate)) / (1000 * 60 * 60 * 24) + 1);
 }
 
 function getRandomColor() {

@@ -32,6 +32,7 @@
 @import "cmps/MembersFilterModal.scss";
 @import "cmps/GroupPreviewCollapse.scss";
 @import "cmps/CheckboxModal.scss";
+@import "cmps/Dashboard.scss";
 
 //dynamicCmps
 @import "cmps/dynamicCmps/LabelModal.scss";
@@ -49,6 +50,12 @@
 
 //dynamicSummaryCmps
 @import "cmps/dynamicSummaryCmps/LabelsSummary.scss";
+
+//dashboardCharts
+@import "cmps/dashboardCharts/GroupListChart.scss";
+@import "cmps/dashboardCharts/LaunchDate.scss";
+@import "cmps/dashboardCharts/MembersChart.scss";
+@import "cmps/dashboardCharts/DoughnutChart.scss";
 
 //utilsCmps
 @import "cmps/utilsCmps/AvatarGroupCmp.scss"
