@@ -29,7 +29,6 @@ export async function loadBoards(filterBy) {
 export async function loadBoard(boardId, filterBy, sortBy) {
     try {
         const board = await boardService.getBoardById(boardId, filterBy, sortBy)
-        console.log(board)
         store.dispatch({ type: SET_BOARD, board })
     } catch (err) {
         console.log('board action -> Cannot load board', err)
@@ -83,7 +82,6 @@ export async function saveBoard({ board, boardId, groupId, taskId, key, value })
 export async function duplicate({ boardId, groupId, taskId }) {
     try {
         const savedBoard = await boardService.duplicate({ boardId, groupId, taskId })
-        console.log(savedBoard, 'ACTION')
         if (groupId || taskId) {
             store.dispatch({ type: UPDATE_BOARD, board: savedBoard })
         } else {
