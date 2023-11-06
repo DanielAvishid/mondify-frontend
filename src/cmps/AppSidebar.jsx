@@ -199,6 +199,10 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
                                                         icon={Delete}
                                                         title="Delete"
                                                         onClick={() => onRemoveBoard({ boardId: board._id })} />
+                                                    <MenuItem
+                                                        icon={Favorite}
+                                                        title={board.isStarred ? 'Remove from favorite' : 'Add to favorite'}
+                                                        onClick={() => onSaveBoard({ board, key: 'isStarred', value: !board.isStarred })} />
                                                 </Menu>
                                             </MenuButton>
                                         </div>
