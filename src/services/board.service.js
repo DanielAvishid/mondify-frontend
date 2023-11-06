@@ -40,8 +40,7 @@ async function query(filterBy = {}) {
 async function getById({ board, boardId, taskId }) {
     if (!board) {
         try {
-            const board = await httpService.get(BASE_URL + boardId)
-            return board
+            board = await httpService.get(BASE_URL + boardId)
         } catch (err) {
             throw err
         }
