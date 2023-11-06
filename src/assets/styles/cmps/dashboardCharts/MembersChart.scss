@@ -1,9 +1,10 @@
 .members-chart-container {
     display: flex;
     align-items: center;
-    width: 100%;
+    width: rem(800px);
+    height: rem(400px);
     border-radius: rem(8px);
     background-color: $primary-background-color;
     border: 1px solid $table-border;
-    padding: rem(10px);
+    padding: rem(20px);
 }
