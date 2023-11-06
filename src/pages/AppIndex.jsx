@@ -8,6 +8,7 @@ import { SET_BOARDS } from "../store/reducers/board.reducer";
 import { store } from "../store/store";
 import { showSuccessMsg } from "../services/event-bus.service";
 import { TaskDetails } from "./TaskDetails";
+import { BoardActivity } from "./BoardActivity";
 
 export function AppIndex() {
 
@@ -135,6 +136,7 @@ export function AppIndex() {
                     filterBy={filterBy} />
                 <Outlet context={[onSaveBoard, onRemoveBoard, onRemoveGroup, onRemoveTask, onDuplicateBoard, onDuplicateGroup, onDuplicateTask, boards]} />
                 {location.pathname.includes('task') && <TaskDetails onSaveBoard={onSaveBoard} onRemoveTask={onRemoveTask} setIsResizing={setIsResizing} width={width} />}
+                {location.pathname.includes('activity') && <BoardActivity />}
             </section>
         </section>
     )

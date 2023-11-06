@@ -18,7 +18,6 @@ export function GroupList() {
     }, [board])
 
     return (
-
         <div className="group-list main-layout full relative">
             <Droppable droppableId="groups" type="groups">
                 {(provided, snapshot) => (
@@ -27,7 +26,7 @@ export function GroupList() {
                         {...provided.droppableProps}
                         ref={provided.innerRef}
                     >
-                        {groups.map((group, index) => (
+                        {board.groups.map((group, index) => (
 
                             <article
                                 key={group.id}
@@ -54,7 +53,7 @@ export function GroupList() {
                 )}
             </Droppable>
             {Object.keys(selectedTasks).length > 0 && <CheckboxModal board={board} onSaveBoard={onSaveBoard} />}
-            {groups.length !== 0 && <div className="add-group-container middle">
+            {board.groups.length !== 0 && <div className="add-group-container middle">
                 <Button
                     className="new-group-btn"
                     noSidePadding={true}
@@ -64,7 +63,6 @@ export function GroupList() {
                     <span>Add new group</span>
                 </Button>
             </div>}
-            <Outlet />
         </div>
     )
 }

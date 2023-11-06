@@ -163,7 +163,7 @@ export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, 
                                 </MenuButton>
                             </div>
                             <div className="group-title flex align-center">
-                                <span className="flex" style={{ color: group.style.backgroundColor }}>
+                                <span className="arrow-icon flex" style={{ color: group.style.backgroundColor }}>
 
                                     <Icon
                                         customColor={group.style.backgroundColor}
@@ -173,7 +173,7 @@ export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, 
                                         onClick={() => setIsCollapse({ ...isCollapse, [group.id]: true })}
                                     />
                                 </span>
-                                <span>
+                                <span className="group-title-edit flex align-center">
                                     <EditableHeading
                                         type={EditableHeading.types.h4}
                                         value={title}
@@ -183,11 +183,11 @@ export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, 
                                         onBlur={(ev) => onSaveBoard({ key: 'title', value: ev.target.value, boardId: board._id, groupId: group.id })}
                                         onKeyDown={handleKeyPress}
                                     />
-                                </span>
-                                <span className="items-count">
-                                    {group.tasks.length === 0 && "No items"}
-                                    {group.tasks.length === 1 && "1 project"}
-                                    {group.tasks.length > 1 && `${group.tasks.length} Items`}
+                                    <span className="items-count">
+                                        {group.tasks.length === 0 && "No items"}
+                                        {group.tasks.length === 1 && "1 project"}
+                                        {group.tasks.length > 1 && `${group.tasks.length} Items`}
+                                    </span>
                                 </span>
                             </div>
                         </div>
@@ -228,7 +228,7 @@ export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, 
                                 {...provided.droppableProps}
                                 ref={provided.innerRef}
                             >
-                                {tasks.map((task, index) => (
+                                {board.groups[index].tasks.map((task, index) => (
                                     <Draggable
                                         key={task.id}
                                         draggableId={task.id}

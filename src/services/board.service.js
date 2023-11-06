@@ -45,6 +45,7 @@ async function getById({ board, boardId, taskId }) {
 }
 
 async function remove({ board, boardId, groupId, taskId }) {
+    const user = userService.getLoggedinUser()
     if (!board) {
         board = await storageService.get(STORAGE_KEY, boardId);
     }
@@ -55,6 +56,7 @@ async function remove({ board, boardId, groupId, taskId }) {
         timestamp: Date.now(),
         key,
         title,
+        by: user ? user : userService.getDefaultUser()
     });
 
     let change = null;
@@ -88,11 +90,8 @@ async function remove({ board, boardId, groupId, taskId }) {
 }
 
 async function addBoard(board) {
-    board.createdBy = userService.getLoggedinUser() || {
-        "_id": "UjCos",
-        "fullname": "Carmel Amarillio",
-        "imgUrl": "https://hips.hearstapps.com/ghk.h-cdn.co/assets/16/08/gettyimages-464163411.jpg?crop=1.0xw:1xh;center,top&resize=980:*"
-    }
+    const user = userService.getLoggedinUser()
+    board.createdBy = user ? user : userService.getDefaultUser()
     // board.members = [userService.getLoggedinUser() || {
     //     "_id": "UjCos",
     //     "fullname": "Carmel Amarillio",
@@ -111,6 +110,7 @@ async function addTaskFromHeader(board, task = getEmptyTask()) {
 // update({ board, boardId, taskId, key: title, value: "new title" }) === updateTask()
 
 async function update({ board, boardId, groupId, taskId, key, value }) {
+    const user = userService.getLoggedinUser()
     if (!board) {
         board = await storageService.get(STORAGE_KEY, boardId);
     }
@@ -121,30 +121,35 @@ async function update({ board, boardId, groupId, taskId, key, value }) {
         timestamp: Date.now(),
         title,
         key,
-    });
+        by: user ? user : userService.getDefaultUser()
+    })
 
-    let change = null;
+    let change = null
+    let taskChange = null
 
     if (taskId) {
         const groupsToSave = board.groups.map((group) => {
             const updatedTasks = group.tasks.map((task) => {
                 if (task.id === taskId) {
                     change = createChange(task[key], value, task.title, key);
+                    taskChange = createChange(task[key], value, task.title, key)
+                    if (!task.activities) task.activities = []
+                    task.activities.unshift(taskChange)
                     return { ...task, [key]: value };
                 }
                 return task;
-            });
+            })
             return { ...group, tasks: updatedTasks };
-        });
-        board = { ...board, groups: groupsToSave };
+        })
+        board = { ...board, groups: groupsToSave }
     } else if (groupId) {
         const groupIdx = board.groups.findIndex((group) => group.id === groupId);
         if (key === 'tasks') {
-            change = createChange(board.groups[groupIdx][key], value, value[value.length - 1].title, 'created');
+            change = createChange(board.groups[groupIdx][key], value, value[value.length - 1].title, 'created')
         } else if (key === 'title') {
-            change = createChange(board.groups[groupIdx][key], value, board.groups[groupIdx].title, 'Group Title Change');
+            change = createChange(board.groups[groupIdx][key], value, board.groups[groupIdx].title, 'Group Title Change')
         } else {
-            change = createChange(board.groups[groupIdx][key], value, board.groups[groupIdx].title, key);
+            change = createChange(board.groups[groupIdx][key], value, board.groups[groupIdx].title, key)
         }
         board.groups[groupIdx][key] = value;
     } else {
@@ -310,6 +315,7 @@ function getEmptyBoard() {
                         "id": utilService.makeId(),
                         "title": "Fix handle change func",
                         "updates": [],
+                        "activities": [],
                         "status": "ls101",
                         "priority": "lp103",
                         "timeline": [1698155558000, 1698955558000],
@@ -320,6 +326,7 @@ function getEmptyBoard() {
                         "id": utilService.makeId(),
                         "title": "Remove tasks",
                         "updates": [],
+                        "activities": [],
                         "status": "ls103",
                         "priority": "lp101",
                         "timeline": [1697855558000, 1696755558000],
@@ -330,6 +337,7 @@ function getEmptyBoard() {
                         "id": utilService.makeId(),
                         "title": "Update response time",
                         "updates": [],
+                        "activities": [],
                         "status": "ls102",
                         "priority": "lp102",
                         "timeline": [],
@@ -340,6 +348,7 @@ function getEmptyBoard() {
                         "id": utilService.makeId(),
                         "title": "Add rating stars",
                         "updates": [],
+                        "activities": [],
                         "status": "ls101",
                         "priority": "lp101",
                         "timeline": [1698825558000, 1698925558000],
@@ -350,6 +359,7 @@ function getEmptyBoard() {
                         "id": utilService.makeId(),
                         "title": "Update react version",
                         "updates": [],
+                        "activities": [],
                         "status": "ls102",
                         "priority": "lp101",
                         "timeline": [1698155558000, 1698955558000],
@@ -360,6 +370,7 @@ function getEmptyBoard() {
                         "id": utilService.makeId(),
                         "title": "Update response time",
                         "updates": [],
+                        "activities": [],
                         "status": "ls101",
                         "priority": "lp103",
                         "timeline": [1697655558000, 1699955558000],
@@ -377,6 +388,7 @@ function getEmptyBoard() {
                         "id": utilService.makeId(),
                         "title": "Implement Data Structures",
                         "updates": [],
+                        "activities": [],
                         "status": "ls102",
                         "priority": "lp103",
                         "timeline": [1698795558000, 1697153558000],
@@ -387,6 +399,7 @@ function getEmptyBoard() {
                         "id": utilService.makeId(),
                         "title": "Optimize Algorithms",
                         "updates": [],
+                        "activities": [],
                         "status": "ls103",
                         "priority": "lp102",
                         "timeline": [1698835558000, 1698875558000],
@@ -397,6 +410,7 @@ function getEmptyBoard() {
                         "id": utilService.makeId(),
                         "title": "Database Design",
                         "updates": [],
+                        "activities": [],
                         "status": "ls103",
                         "priority": "lp101",
                         "timeline": [],
@@ -407,6 +421,7 @@ function getEmptyBoard() {
                         "id": utilService.makeId(),
                         "title": "UI/UX Improvements",
                         "updates": [],
+                        "activities": [],
                         "status": "ls101",
                         "priority": "lp102",
                         "timeline": [1698815558000, 1698335558000],
@@ -417,6 +432,7 @@ function getEmptyBoard() {
                         "id": utilService.makeId(),
                         "title": "Security Audit",
                         "updates": [],
+                        "activities": [],
                         "status": "ls101",
                         "priority": "lp101",
                         "timeline": [1698155558000, 1698955558000],
@@ -427,6 +443,7 @@ function getEmptyBoard() {
                         "id": utilService.makeId(),
                         "title": "Machine Learning Module",
                         "updates": [],
+                        "activities": [],
                         "status": "ls103",
                         "priority": "lp102",
                         "timeline": [],
@@ -437,6 +454,7 @@ function getEmptyBoard() {
                         "id": utilService.makeId(),
                         "title": "Integration Setup",
                         "updates": [],
+                        "activities": [],
                         "status": "ls102",
                         "priority": "lp101",
                         "timeline": [1697835558000, 1697835558000],
@@ -447,6 +465,7 @@ function getEmptyBoard() {
                         "id": utilService.makeId(),
                         "title": "Bug Fixes",
                         "updates": [],
+                        "activities": [],
                         "status": "ls101",
                         "priority": "lp101",
                         "timeline": [1698835558000, 1698835558000],
@@ -457,6 +476,7 @@ function getEmptyBoard() {
                         "id": utilService.makeId(),
                         "title": "Documentation Update",
                         "updates": [],
+                        "activities": [],
                         "status": "ls103",
                         "priority": "lp103",
                         "timeline": [],
@@ -478,6 +498,7 @@ function getEmptyBoard() {
                         "id": utilService.makeId(),
                         "title": "Make it look better",
                         "updates": [],
+                        "activities": [],
                         "status": "ls103",
                         "priority": "lp102",
                         "timeline": [1698235558000, 1696835558000],
@@ -488,6 +509,7 @@ function getEmptyBoard() {
                         "id": utilService.makeId(),
                         "title": "Fix main button",
                         "updates": [],
+                        "activities": [],
                         "status": "ls102",
                         "priority": "lp101",
                         "timeline": [1697835558000, 1699235558000],
@@ -498,6 +520,7 @@ function getEmptyBoard() {
                         "id": utilService.makeId(),
                         "title": "Check New libraries",
                         "updates": [],
+                        "activities": [],
                         "status": "ls102",
                         "priority": "lp103",
                         "timeline": [1698835558000, 1698835558000],
@@ -508,6 +531,7 @@ function getEmptyBoard() {
                         "id": utilService.makeId(),
                         "title": "Update modal layout",
                         "updates": [],
+                        "activities": [],
                         "status": "ls103",
                         "priority": "lp101",
                         "timeline": [1698835558000, 1698835558000],
@@ -526,6 +550,7 @@ function getEmptyBoard() {
                         "id": utilService.makeId(),
                         "title": "Data collection",
                         "updates": [],
+                        "activities": [],
                         "status": "ls101",
                         "priority": "lp103",
                         "timeline": [1698835558000, 1698835558000],
@@ -536,6 +561,7 @@ function getEmptyBoard() {
                         "id": utilService.makeId(),
                         "title": "Renew data",
                         "updates": [],
+                        "activities": [],
                         "status": "ls102",
                         "priority": "lp101",
                         "timeline": [1698835558000, 1698835558000],
@@ -546,6 +572,7 @@ function getEmptyBoard() {
                         "id": utilService.makeId(),
                         "title": "Check for duplicates",
                         "updates": [],
+                        "activities": [],
                         "status": "ls101",
                         "priority": "lp102",
                         "timeline": [1698835558000, 1698835558000],

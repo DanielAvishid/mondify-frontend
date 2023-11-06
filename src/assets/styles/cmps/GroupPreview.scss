@@ -1,4 +1,5 @@
 .group-preview {
+    grid-template-rows: repeat(3, min-content);
     position: relative;
     padding-block-end: 1.75rem;
     background-color: $primary-background-color;
@@ -7,7 +8,7 @@
     .group-header {
         background-color: $primary-background-color;
         position: sticky;
-        top: 0;
+        top: 132px;
         z-index: 20;
 
         .title-header {
@@ -29,7 +30,17 @@
             }
 
             >.group-title {
-                margin-inline-start: 11px;
+                position: relative;
+
+                .arrow-icon {
+                    position: sticky;
+                    left: 51px;
+                }
+
+                .group-title-edit {
+                    position: sticky;
+                    left: 74px;
+                }
 
                 .editableInputWrapper_8e7f29624b {
                     font-family: Poppins, Roboto, "Noto Sans Hebrew", "Noto Kufi Arabic", "Noto Sans JP", sans-serif;
@@ -38,6 +49,9 @@
 
             .group-menu-container {
                 margin-inline-end: 4px;
+                position: sticky;
+                left: 0;
+                z-index: 100;
             }
 
             .group-menu {
