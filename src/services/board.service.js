@@ -6,9 +6,6 @@ import { httpService } from './http.service.js';
 const STORAGE_KEY = 'boardDB'
 const BASE_URL = 'board/'
 
-console.log(STORAGE_KEY);
-// _createBoard()
-
 export const boardService = {
     query,
     getById,

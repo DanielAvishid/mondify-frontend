@@ -14,9 +14,11 @@ export function getActionUpdateBoard(board) {
     return { type: UPDATE_BOARD, board }
 }
 
-export async function loadBoards(boardsFilter) {
+export async function loadBoards(filterBy) {
     try {
-        const boards = await boardService.query(boardsFilter)
+        console.log(filterBy)
+        const boards = await boardService.query(filterBy)
+        console.log(boards)
         store.dispatch({ type: SET_BOARDS, boards })
     } catch (err) {
         console.log('board action -> Cannot load boards', err)
