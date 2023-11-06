@@ -302,6 +302,10 @@
                         transform: scale(1);
                     }
 
+                    &.menu-focus {
+                        background-color: $border-color;
+                    }
+
                     .container {
                         overflow: hidden;
                         padding-inline-end: 5px;

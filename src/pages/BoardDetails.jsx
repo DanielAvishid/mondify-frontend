@@ -163,12 +163,12 @@ export function BoardDetails() {
         <section
             className="board-details main-layout"
             ref={containerRef}>
-            {board === null && <section className="waiting-load">
+            {board === undefined && <section className="waiting-load">
                 <div className="loader-container">
                     <img src="https://cdn.monday.com/images/loader/loader.gif" alt="" />
                 </div>
             </section>}
-            {board === undefined && <DeletedBoard />}
+            {board === null && <DeletedBoard />}
             {board && <BoardHeader
                 onAddTaskFromHeader={onAddTaskFromHeader}
                 onDuplicateBoard={onDuplicateBoard}

@@ -82,7 +82,6 @@ export async function saveBoard({ board, boardId, groupId, taskId, key, value })
 export async function duplicate({ boardId, groupId, taskId }) {
     try {
         const savedBoard = await boardService.duplicate({ boardId, groupId, taskId })
-        console.log(savedBoard, 'ACTION')
         if (groupId || taskId) {
             store.dispatch({ type: UPDATE_BOARD, board: savedBoard })
         } else {

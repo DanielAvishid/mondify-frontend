@@ -40,8 +40,7 @@ async function query(filterBy = {}) {
 async function getById({ board, boardId, taskId }) {
     if (!board) {
         try {
-            const board = await httpService.get(BASE_URL + boardId)
-            return board
+            board = await httpService.get(BASE_URL + boardId)
         } catch (err) {
             throw err
         }
@@ -129,6 +128,7 @@ async function remove({ board, boardId, groupId, taskId }) {
 async function addBoard(board) {
     const user = userService.getLoggedinUser()
     board.createdBy = user ? user : userService.getDefaultUser()
+    delete board._id
     try {
         return await httpService.post(BASE_URL, board)
     } catch (err) {

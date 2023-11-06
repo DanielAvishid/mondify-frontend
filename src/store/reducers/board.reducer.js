@@ -12,7 +12,7 @@ const initialState = {
     boards: [],
     lastBoards: [],
     selectedTasks: {},
-    board: null,
+    board: undefined,
 }
 
 export function boardReducer(state = initialState, action) {

@@ -60,8 +60,7 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
         setIsSideBarHover(false)
     }
 
-    function toggleOpenMenu(boardId, ev) {
-        ev.stopPropagation()
+    function toggleOpenMenu(boardId) {
         setOpenState((prevState) => ({
             ...prevState,
             [boardId]: !prevState[boardId]
@@ -171,34 +170,40 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
                         </div>
                         <nav className="board-nav">
                             {boards.map(board =>
-                                <Link
+                                <div
                                     onMouseEnter={() => toggleHoverMenu(board._id)}
                                     onMouseLeave={() => toggleHoverMenu(board._id)}
                                     key={board._id}
-                                    to={`/board/${board._id}`}>
+                                    onClick={() => navigate(`/board/${board._id}`)}>
                                     <Button
                                         kind="tertiary"
-                                        className={`board-btn ${location.pathname.includes(board._id) ? 'active' : ''}`}>
+                                        className={`board-btn ${openState[board._id] ? 'menu-focus' : ''} ${location.pathname.includes(board._id) ? 'active' : ''}`}>
                                         <div className="container flex align-center">
                                             <Icon className="board-icon" icon={Board} />
                                             <span className="board-title">{board.title}</span>
                                         </div>
-                                        {(boardHoverState[board._id] || openState[board._id]) && <MenuButton
-                                            className="board-options"
-                                            onClick={(ev) => toggleOpenMenu(board._id, ev)}>
-                                            <Menu id="menu" size="large" className="menu-modal">
-                                                <MenuItem
-                                                    icon={Duplicate}
-                                                    title="Duplicate Board"
-                                                    onClick={() => onDuplicateBoard({ boardId: board._id })} />
-                                                <MenuItem
-                                                    icon={Delete}
-                                                    title="Delete"
-                                                    onClick={() => onRemoveBoard({ boardId: board._id })} />
-                                            </Menu>
-                                        </MenuButton>}
+                                        <div
+                                            style={{ display: (openState[board._id] || boardHoverState[board._id]) ? 'flex' : 'none' }}
+                                            key={board.id}
+                                            onClick={(ev => ev.stopPropagation())}>
+                                            <MenuButton
+                                                className="board-options"
+                                                onMenuShow={() => toggleOpenMenu(board._id)}
+                                                onMenuHide={() => toggleOpenMenu(board._id)}>
+                                                <Menu id="menu" size="large" className="menu-modal">
+                                                    <MenuItem
+                                                        icon={Duplicate}
+                                                        title="Duplicate Board"
+                                                        onClick={() => onDuplicateBoard({ boardId: board._id })} />
+                                                    <MenuItem
+                                                        icon={Delete}
+                                                        title="Delete"
+                                                        onClick={() => onRemoveBoard({ boardId: board._id })} />
+                                                </Menu>
+                                            </MenuButton>
+                                        </div>
                                     </Button>
-                                </Link>)}
+                                </div>)}
                         </nav>
                     </div>
                 </div>
