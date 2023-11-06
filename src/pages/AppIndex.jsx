@@ -24,9 +24,9 @@ export function AppIndex() {
         onLoadBoards(filterBy)
     }, [filterBy])
 
-    async function onLoadBoards(boardsFilter) {
+    async function onLoadBoards(filterBy) {
         try {
-            loadBoards(boardsFilter)
+            loadBoards(filterBy)
         } catch (err) {
             console.log('ShowErrorMsg')
         }

@@ -1,11 +1,10 @@
 import { storageService } from './async-storage.service.js'
 import { utilService } from './util.service.js'
 import { userService } from './user.service.js'
+import { httpService } from './http.service.js';
 
 const STORAGE_KEY = 'boardDB'
-
-console.log(STORAGE_KEY);
-// _createBoard()
+const BASE_URL = 'board/'
 
 export const boardService = {
     query,
@@ -23,32 +22,59 @@ export const boardService = {
 }
 
 async function query(filterBy = {}) {
-    let boards = await storageService.query(STORAGE_KEY)
-    if (filterBy.title) {
-        const regax = new RegExp(filterBy.title, 'i')
-        boards = boards.filter(board => regax.test(board.title))
+    try {
+        const boards = await httpService.get(BASE_URL, { ...filterBy })
+        return boards
+    } catch (err) {
+        throw err
     }
-    return boards
+    // let boards = await storageService.query(STORAGE_KEY)
+    // if (filterBy.title) {
+    //     const regax = new RegExp(filterBy.title, 'i')
+    //     boards = boards.filter(board => regax.test(board.title))
+    // }
+    // return boards
 }
 
 async function getById({ board, boardId, taskId }) {
     if (!board) {
-        board = await storageService.get(STORAGE_KEY, boardId)
+        try {
+            const board = await httpService.get(BASE_URL + boardId)
+            return board
+        } catch (err) {
+            throw err
+        }
     }
     if (taskId) {
         return board.groups.map(group => group.tasks.find(task => task.id === taskId))
             .filter(Boolean)[0];
-
     } else {
-        return storageService.get(STORAGE_KEY, boardId)
+        return board
     }
+    // if (!board) {
+    //     board = await storageService.get(STORAGE_KEY, boardId)
+    // }
+    // if (taskId) {
+    //     return board.groups.map(group => group.tasks.find(task => task.id === taskId))
+    //         .filter(Boolean)[0];
+
+    // } else {
+    //     return storageService.get(STORAGE_KEY, boardId)
+    // }
 }
 
 async function remove({ board, boardId, groupId, taskId }) {
     const user = userService.getLoggedinUser()
     if (!board) {
-        board = await storageService.get(STORAGE_KEY, boardId);
+        try {
+            board = await httpService.get(BASE_URL + boardId)
+        } catch (err) {
+            throw err
+        }
     }
+    // if (!board) {
+    //     board = await storageService.get(STORAGE_KEY, boardId);
+    // }
 
     const createChange = (prevValue, title, key = "Deleted") => ({
         prevValue,
@@ -79,41 +105,60 @@ async function remove({ board, boardId, groupId, taskId }) {
             board.groups = board.groups.filter(group => group.id !== groupId);
         }
     } else {
-        return await storageService.remove(STORAGE_KEY, boardId);
+        try {
+            return await httpService.delete(BASE_URL + boardId)
+        } catch (err) {
+            throw err
+        }
+        // return await storageService.remove(STORAGE_KEY, boardId);
     }
 
     if (change) {
         board.activities.unshift(change);
     }
 
-    return await storageService.put(STORAGE_KEY, board);
+    try {
+        return await httpService.put(BASE_URL + board._id, board)
+    } catch (err) {
+        throw err
+    }
+    // return await storageService.put(STORAGE_KEY, board);
 }
 
 async function addBoard(board) {
     const user = userService.getLoggedinUser()
     board.createdBy = user ? user : userService.getDefaultUser()
-    // board.members = [userService.getLoggedinUser() || {
-    //     "_id": "UjCos",
-    //     "fullname": "Carmel Amarillio",
-    //     "imgUrl": "https://hips.hearstapps.com/ghk.h-cdn.co/assets/16/08/gettyimages-464163411.jpg?crop=1.0xw:1xh;center,top&resize=980:*"
-    // }]
-    console.log(board);
-    return await storageService.post(STORAGE_KEY, board)
+    try {
+        return await httpService.post(BASE_URL, board)
+    } catch (err) {
+        throw err
+    }
+    // return await storageService.post(STORAGE_KEY, board)
 }
 
 async function addTaskFromHeader(board, task = getEmptyTask()) {
     board.groups[0].tasks.unshift(task)
-    const savedBoard = await storageService.put(STORAGE_KEY, board)
-    return savedBoard
+    try {
+        return await httpService.put(BASE_URL + board._id, board)
+    } catch (err) {
+        throw err
+    }
+    // const savedBoard = await storageService.put(STORAGE_KEY, board)
+    // return savedBoard
 }
-// update({ board, boardId, groupId, value: task }) === addTask()
-// update({ board, boardId, taskId, key: title, value: "new title" }) === updateTask()
 
 async function update({ board, boardId, groupId, taskId, key, value }) {
     const user = userService.getLoggedinUser()
     if (!board) {
-        board = await storageService.get(STORAGE_KEY, boardId);
+        try {
+            board = await httpService.get(BASE_URL + boardId)
+        } catch (err) {
+            throw err
+        }
     }
+    // if (!board) {
+    //     board = await storageService.get(STORAGE_KEY, boardId);
+    // }
 
     const createChange = (prevValue, newValue, title, key) => ({
         prevValue,
@@ -161,14 +206,23 @@ async function update({ board, boardId, groupId, taskId, key, value }) {
         board.activities.unshift(change);
     }
 
-    console.log('SERVICE', board);
-    return await storageService.put(STORAGE_KEY, board);
+    try {
+        return await httpService.put(BASE_URL + board._id, board)
+    } catch (err) {
+        throw err
+    }
+    // return await storageService.put(STORAGE_KEY, board);
 }
 
 
 async function duplicate({ boardId, groupId, taskId }) {
-    const board = await storageService.get(STORAGE_KEY, boardId)
-    console.log(boardId, 'SERVICE')
+    let board
+    try {
+        board = await httpService.get(BASE_URL + boardId)
+    } catch (err) {
+        throw err
+    }
+    // const board = await storageService.get(STORAGE_KEY, boardId)
     if (taskId) {
         const groupIdx = board.groups.findIndex((group) => group.id === groupId)
         const task = { ...board.groups[groupIdx].tasks.find((task) => task.id === taskId) }
@@ -188,11 +242,22 @@ async function duplicate({ boardId, groupId, taskId }) {
         return await addBoard(board)
     }
 
-    return await storageService.put(STORAGE_KEY, board)
+    try {
+        return await httpService.put(BASE_URL + board._id, board)
+    } catch (err) {
+        throw err
+    }
+    // return await storageService.put(STORAGE_KEY, board)
 }
 
 async function getBoardById(boardId, filterBy = { txt: '', person: null }, sortBy) {
-    let board = await storageService.get(STORAGE_KEY, boardId)
+    let board
+    try {
+        board = await httpService.get(BASE_URL + boardId)
+    } catch (err) {
+        throw err
+    }
+    // let board = await storageService.get(STORAGE_KEY, boardId)
     if (filterBy.txt) {
         const regex = new RegExp(filterBy.txt, 'i')
         board.groups = board.groups.map((group) => {
