@@ -104,7 +104,7 @@ export function Home() {
                             A platform built for a new way of working
                         </h1>
                     </div>
-                    <h2 className="sub-title">What would you like to manage with monday.com Work OS?</h2>
+                    <h2 className="sub-title">What would you like to manage with mondify Work OS?</h2>
                 </div>
                 <div className="call-to-action">
                     <div className="cards-container">
