@@ -128,6 +128,7 @@ async function remove({ board, boardId, groupId, taskId }) {
 async function addBoard(board) {
     const user = userService.getLoggedinUser()
     board.createdBy = user ? user : userService.getDefaultUser()
+    delete board._id
     try {
         return await httpService.post(BASE_URL, board)
     } catch (err) {
