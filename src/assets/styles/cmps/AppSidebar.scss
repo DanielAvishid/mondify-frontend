@@ -290,6 +290,10 @@
                     max-width: 235px;
                     border-radius: 4px;
 
+                    &.menu-focus {
+                        background-color: $border-color;
+                    }
+
                     &.active {
                         background-color: $primary-selected-color;
 
@@ -300,10 +304,6 @@
 
                     &:active {
                         transform: scale(1);
-                    }
-
-                    &.menu-focus {
-                        background-color: $border-color;
                     }
 
                     .container {
