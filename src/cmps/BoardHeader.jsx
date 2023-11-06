@@ -6,6 +6,7 @@ import { boardService } from "../services/board.service"
 import { BoardModal } from "./BoardModal"
 import { MembersFilterModal } from "./MembersFilterModal"
 import { useClickOutside } from "../hooks/useClickOutside"
+import { AvatarGroupCmp } from "./utilsCmps/AvatarGroupCmp"
 
 export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveBoard, onDuplicateBoard, filterBy, setFilterBy, sortBy, setSortBy, onAddGroup, isScrolling }) {
 
@@ -61,6 +62,9 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
         setIsTyping(false)
         setIsInputFocus(true)
     }
+
+    const filteredMember = board.members.filter((member) => member._id = filterBy.person)
+    console.log(filteredMember);
 
     return (
         <section className={`board-header full ${isCollapse ? 'collapse' : ''} ${isScrolling ? 'scrolling' : ''}`}>
@@ -201,25 +205,44 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                             <Icon className="setting-icon" icon={SettingsKnobs} />
                         </Button>}
                     </div>
-                    <Tooltip
-                        content='Filter by person'
-                        animationType="expand">
-                        <Button
-                            className={`person-btn ${isPersonModalOpen ? 'focused' : ''}`}
-                            leftIcon={PersonRound}
-                            kind="tertiary"
-                            size="small"
-                            ref={personBtn}
-                            onClick={() => setIsPersonModalOpen(!isPersonModalOpen)}
+                    <div className="person-filter-container">
+                        <Tooltip
+                            content='Filter by person'
+                            animationType="expand"
                         >
-                            Person
-                            {isPersonModalOpen &&
-                                <div className="modal" onClick={(ev) => ev.stopPropagation()}>
-                                    <MembersFilterModal members={board.members} filterBy={filterBy} setFilterBy={setFilterBy} />
-                                </div>
-                            }
-                        </Button>
-                    </Tooltip>
+                            <div className="relative">
+                                <Button
+                                    className={`person-btn ${filterBy.person ? 'active' : ''} ${isPersonModalOpen ? 'focused' : ''}`}
+                                    leftIcon={PersonRound}
+                                    kind="tertiary"
+                                    size="small"
+                                    ref={personBtn}
+                                    active={filterBy.person ? true : false}
+                                    onClick={() => setIsPersonModalOpen(!isPersonModalOpen)}
+                                >
+                                    Person
+                                </Button>
+                                {filterBy.person &&
+                                    <>
+                                        <div className="remove-filter show" onClick={() => setFilterBy({ ...filterBy, person: null })}>
+                                            <Icon icon={CloseSmall} />
+                                        </div>
+                                        {/* <Avatar
+                                            size={Avatar.sizes.SMALL}
+                                            type={Avatar.types.IMG}
+                                            src={filteredMember.imgUrl}
+                                        /> */}
+                                    </>
+                                }
+                            </div>
+                        </Tooltip>
+                        {isPersonModalOpen &&
+                            <div className="modal" onClick={(ev) => ev.stopPropagation()}>
+                                <MembersFilterModal members={board.members} filterBy={filterBy} setFilterBy={setFilterBy} />
+                            </div>
+                        }
+
+                    </div>
                     <Tooltip
                         content='Sort groups'
                         animationType="expand">

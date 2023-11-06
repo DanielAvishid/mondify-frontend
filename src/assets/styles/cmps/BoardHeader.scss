@@ -326,6 +326,34 @@
             display: flex;
             gap: rem(6px);
 
+            .person-filter-container {
+                position: relative;
+
+
+                .person-btn {
+                    position: relative;
+
+                    &.active {
+                        padding-inline-end: rem(30px);
+                    }
+                }
+
+                .remove-filter {
+                    visibility: hidden;
+                    color: $icon-secondary-color;
+                    position: absolute;
+                    right: 6px;
+                    top: 20px;
+                    z-index: 501;
+                    transform: translateY(-50%);
+
+                    &.show {
+                        visibility: visible;
+                    }
+                }
+            }
+
+
             .person-btn,
             .sortby-btn {
                 position: relative;
