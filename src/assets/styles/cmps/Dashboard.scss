@@ -1,141 +1,22 @@
 .dashboard {
-    width: 100%;
+    max-width: 100%;
     background-color: $grey-background-color;
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    grid-template-rows: repeat(6, calc(100% / 6 - rem(8px)));
-    gap: 10px;
-    padding: rem(10px) rem(10px) rem(10px) 0;
+    display: flex;
+    gap: rem(10px);
+    padding: rem(10px) 0;
     border-block-start: 1px solid $table-border;
 
-    >* {
-        border-radius: rem(8px);
-        background-color: $primary-background-color;
-        border: 1px solid $table-border;
+    .left-dashboard {
+        width: rem(272px);
+        background-color: $grey-background-color;
         display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .overall-progress-container {
-        grid-column: 1;
-        grid-row: 1/3;
-        // padding: 0 rem(20px);
+        flex-direction: column;
         gap: rem(10px);
-        overflow-y: hidden;
-        overflow-x: auto;
-        height: 100%;
 
-
-        >.doughnut-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            max-height: 100%;
-            max-width: rem(120px);
-
-            h4 {
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                max-width: rem(120px);
-                font-weight: 500;
-            }
-
-            .empty {
-                background-color: $negative-color;
-
-                .clickable_a1c09750fe {
-                    color: $primary-background-color;
-                    width: rem(75px);
-                    height: rem(75px);
-                    border-radius: 50%;
-                }
-
-            }
-
-            .nothing {
-                background-color: $negative-color;
-
-                .clickable_a1c09750fe {
-                    color: $primary-background-color;
-                    width: rem(90px);
-                    height: rem(90px);
-                    border-radius: 50%;
-                }
-            }
-
-            .all {
-                background-color: $positive-color;
-
-                .clickable_a1c09750fe {
-                    color: $primary-background-color;
-                    width: rem(75px);
-                    height: rem(75px);
-                    border-radius: 50%;
-                }
-            }
-
-            .big-icon {
-                margin: rem(2.5px);
-                width: rem(95px);
-                height: rem(95px);
-                border-radius: 50%;
-            }
-
-            canvas {
-                width: rem(100px);
-                height: rem(100px);
-            }
-        }
-
-    }
-
-    .members-chart-container {
-        grid-column: 1;
-        grid-row: 3/-1;
-        padding: rem(10px);
-        // padding: rem(20px);
-    }
-
-    .date-counter-container {
-        grid-column: 2;
-        grid-row: 1/2;
-        padding: rem(10px);
-
-        h4 {
-            font-weight: 500;
-        }
-
-        .date {
-            span {
-                font-size: rem(16px);
-            }
-        }
-
-        .clickable_a1c09750fe {
-            padding-inline-start: rem(8px);
-            color: $primary-text-color;
-            width: rem(60px);
-            height: rem(80px);
+        >* {
+            border-radius: rem(8px);
+            background-color: $primary-background-color;
+            border: 1px solid $table-border;
         }
     }
-
-    >.doughnut-container {
-        grid-column: 2;
-        grid-row: 2/-1;
-
-        >div {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            canvas {
-                max-width: 100%;
-                max-height: 100%;
-            }
-
-        }
-    }
-
 }

@@ -1,0 +1,24 @@
+.date-counter-container {
+    min-width: rem(272px);
+    display: flex;
+    align-items: center;
+    height: fit-content;
+    padding: rem(10px);
+
+    h4 {
+        font-weight: 500;
+    }
+
+    .date {
+        span {
+            font-size: rem(16px);
+        }
+    }
+
+    .clickable_a1c09750fe {
+        padding-inline-start: rem(8px);
+        color: $primary-text-color;
+        width: rem(60px);
+        height: rem(80px);
+    }
+}

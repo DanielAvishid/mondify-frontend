@@ -9,11 +9,11 @@ export function Dashboard() {
 
     return (
         <div className="dashboard full">
-            <GroupListChart board={board} />
+            <div className='left-dashboard'>
+                <LaunchDate board={board} />
+                <GroupListChart board={board} />
+            </div>
             <MembersChart board={board} />
-            <LaunchDate board={board} />
-            <div></div>
-            {/* <DoughnutChart board={board} /> */}
         </div>
     )
 }
