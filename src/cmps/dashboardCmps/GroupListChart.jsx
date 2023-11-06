@@ -8,7 +8,7 @@ export function GroupListChart({ board }) {
                     className="doughnut-container"
                     key={group.id}
                 >
-                    <h4 >{group.title}</h4>
+                    <h4 style={{ color: group.style.backgroundColor }}>{group.title}</h4>
                     <div>
                         <DoughnutChart group={group} />
                     </div>

@@ -18,7 +18,7 @@ export function DoughnutChart({ group }) {
                 backgroundColor: ['#00c875', '#c4c4c4'],
             },
         ],
-    };
+    }
 
     const options = {
         plugins: {
@@ -26,7 +26,23 @@ export function DoughnutChart({ group }) {
                 display: false,
             },
         },
-    };
+    }
+
+    const donePrecentage = Math.floor((data.datasets[0].data[0] / (data.datasets[0].data[1] + data.datasets[0].data[0])) * 100)
+
+    const textCenter = {
+        id: 'textCenter',
+        beforeDatasetsDraw(chart, args, plugins) {
+            const { ctx, data } = chart
+
+            ctx.save()
+            ctx.font = '16px sans-serif'
+            ctx.fillStyle = '#323338'
+            ctx.textAlign = 'center'
+            ctx.textBaseline = 'middle'
+            ctx.fillText(`${donePrecentage}%`, chart.getDatasetMeta(0).data[0].x, chart.getDatasetMeta(0).data[0].y)
+        }
+    }
 
     return (
         <>
@@ -59,7 +75,7 @@ export function DoughnutChart({ group }) {
                 </>
             ) : (
                 <>
-                    <Doughnut data={data} options={options}></Doughnut>
+                    <Doughnut data={data} options={options} plugins={[textCenter]}></Doughnut>
                     <div className='flex justify-center'>
                         <span>In progress</span>
                     </div>
