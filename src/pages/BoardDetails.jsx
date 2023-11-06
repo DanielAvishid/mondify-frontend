@@ -8,6 +8,7 @@ import { DeletedBoard } from "../cmps/DeletedBoard";
 import { DragDropContext } from "react-beautiful-dnd";
 import { useDispatch } from "react-redux";
 import { SET_BOARD } from "../store/reducers/board.reducer";
+import { SOCKET_EMIT_SET_BOARD, socketService } from "../services/socket.service";
 
 export function BoardDetails() {
     const boards = useSelector(storeState => storeState.boardModule.boards)
@@ -61,6 +62,13 @@ export function BoardDetails() {
             }
         }
     }, [board])
+
+    // useEffect(() => {
+    //     socketService.on(SOCKET_EMIT_SET_BOARD, board)
+    //     return () => {
+    //         socketService.off(SOCKET_EMIT_SET_BOARD, board)
+    //     }
+    // }, [])
 
     function updateIsCollapse(value, currentIsCollapse) {
         const updatedIsCollapse = {};

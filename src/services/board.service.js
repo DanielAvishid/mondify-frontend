@@ -2,6 +2,7 @@ import { storageService } from './async-storage.service.js'
 import { utilService } from './util.service.js'
 import { userService } from './user.service.js'
 import { httpService } from './http.service.js';
+import { SOCKET_EVENT_UPDATE_BOARD, socketService } from './socket.service.js';
 
 const STORAGE_KEY = 'boardDB'
 const BASE_URL = 'board/'
@@ -208,6 +209,7 @@ async function update({ board, boardId, groupId, taskId, key, value }) {
 
     try {
         return await httpService.put(BASE_URL + board._id, board)
+        // socketService.emit(SOCKET_EVENT_UPDATE_BOARD, boardId)
     } catch (err) {
         throw err
     }
