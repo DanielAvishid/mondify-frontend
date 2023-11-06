@@ -1,6 +1,6 @@
 .app-index {
     display: grid;
-    grid-template-rows: 45px 95vh;
+    grid-template-rows: 48px calc(100vh - 48px);
     height: 100vh;
     background-color: $grey-background-color;
     overflow-y: hidden;
