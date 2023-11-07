@@ -23,7 +23,8 @@
         }
 
         .expand-sidebar {
-            z-index: 200;
+            background-color: $primary-background-color;
+            z-index: 800;
             position: absolute;
             left: -255px;
         }
