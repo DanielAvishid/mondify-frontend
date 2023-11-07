@@ -1,7 +1,7 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button, Icon, Menu, MenuButton, MenuItem, MenuTitle, SplitButton, Tooltip } from "monday-ui-react-core";
 import { Home, MyWeek, AddSmall, Menu as MenuIcon, Favorite, Filter, Board, Duplicate, Gantt, Delete, Add, DropdownChevronDown, Search, NavigationChevronLeft, NavigationChevronRight, CloseSmall } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { boardService } from "../services/board.service";
 import { GoHomeFill, GoStarFill } from "react-icons/go";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
@@ -11,12 +11,18 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
     const [isSidBarOpen, setIsSideBarOpen] = useState(true)
     const [showBorder, setShowBorder] = useState(false)
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const [isFavoriteMode, setIsFavoriteMode] = useState(false)
     const [boardHoverState, setBoardHoverState] = useState({})
     const [searchHoverState, setSearchHoverState] = useState(false)
+    const [favoriteBoards, setFavoriteBoards] = useState([])
     const [openState, setOpenState] = useState({})
     const inputRef = useRef(null)
     const location = useLocation()
     const navigate = useNavigate()
+
+    useEffect(() => {
+        setFavoriteBoards(boards.filter(board => board.isStarred === true))
+    }, [boards])
 
     function onAddBoard() {
         const board = boardService.getEmptyBoard()
@@ -72,6 +78,16 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
         else return ''
     }
 
+    function toggleFavoriteMode(state) {
+        setIsFavoriteMode(state)
+        toggleModal()
+    }
+
+    function resetHoverAndOpen() {
+        setOpenState({})
+        setBoardHoverState({})
+    }
+
     function emptyFunction() {
         return
     }
@@ -112,7 +128,7 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
                         My work
                     </Button>
                 </div>
-                <div className="workspace">
+                {!isFavoriteMode && <div className="workspace">
                     <div className="tools">
                         <div className="workspace-select">
                             <Button
@@ -128,6 +144,24 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
                                 </span>
                                 <Icon className="drop-icon" icon={DropdownChevronDown} />
                             </Button>
+                            {isModalOpen && <div className={`workspace-modal ${isModalOpen ? 'open' : ''}`}>
+                                <Button kind="tertiary" className={`favorite-btn ${isFavoriteMode ? 'active' : ''}`} onClick={() => { resetHoverAndOpen(); toggleFavoriteMode(true) }}>
+                                    <Icon className="favorite-icon" icon={GoStarFill} />
+                                    <span>Favorites</span>
+                                </Button>
+                                <Button
+                                    className={`workspace-btn ${!isFavoriteMode ? 'active' : ''}`}
+                                    kind="tertiary"
+                                    onClick={() => { resetHoverAndOpen(); toggleFavoriteMode(false) }}>
+                                    <div className="workspace-icon">
+                                        <span className="letter">M</span>
+                                        <Icon className="home-icon" icon={GoHomeFill} />
+                                    </div>
+                                    <span className="workspace-title">
+                                        Main workspace
+                                    </span>
+                                </Button>
+                            </div>}
                         </div>
                         <div className="search-add">
                             <div
@@ -210,14 +244,95 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
                                 </div>)}
                         </nav>
                     </div>
-                </div>
-                {(filterBy.title && !boards.length) && (isSideBarHover || isSidBarOpen) && <div className="no-result">
+                </div>}
+                {isFavoriteMode && <div className="workspace">
+                    <div className="tools">
+                        <div className="workspace-select">
+                            <Button
+                                className={`workspace-dropdown favorite-dropdown ${selectedClass()}`}
+                                kind="tertiary"
+                                onClick={() => toggleModal()}>
+                                <div className="flex align-center">
+                                    <Icon className="favorite-icon" icon={GoStarFill} />
+                                    <span className="workspace-title">Favorites</span>
+                                </div>
+                                <Icon className="drop-icon" icon={DropdownChevronDown} />
+                            </Button>
+                            {isModalOpen && <div className={`workspace-modal ${isModalOpen ? 'open' : ''}`}>
+                                <Button kind="tertiary" className={`favorite-btn ${isFavoriteMode ? 'active' : ''}`} onClick={() => { resetHoverAndOpen(); toggleFavoriteMode(true) }}>
+                                    <Icon className="favorite-icon" icon={GoStarFill} />
+                                    <span>Favorites</span>
+                                </Button>
+                                <Button
+                                    className={`workspace-btn ${!isFavoriteMode ? 'active' : ''}`}
+                                    kind="tertiary"
+                                    onClick={() => { resetHoverAndOpen(); toggleFavoriteMode(false) }}>
+                                    <div className="workspace-icon">
+                                        <span className="letter">M</span>
+                                        <Icon className="home-icon" icon={GoHomeFill} />
+                                    </div>
+                                    <span className="workspace-title">
+                                        Main workspace
+                                    </span>
+                                </Button>
+                            </div>}
+                        </div>
+                        <nav className="board-nav">
+                            {favoriteBoards.map(board =>
+                                <div
+                                    onMouseEnter={() => toggleHoverMenu(board._id)}
+                                    onMouseLeave={() => toggleHoverMenu(board._id)}
+                                    key={board._id}
+                                    onClick={() => navigate(`/board/${board._id}`)}>
+                                    <Button
+                                        kind="tertiary"
+                                        className={`board-btn ${openState[board._id] ? 'menu-focus' : ''} ${location.pathname.includes(board._id) ? 'active' : ''}`}>
+                                        <div className="container flex align-center">
+                                            <Icon className="board-icon" icon={Board} />
+                                            <span className="board-title">{board.title}</span>
+                                        </div>
+                                        <div
+                                            style={{ display: (openState[board._id] || boardHoverState[board._id]) ? 'flex' : 'none' }}
+                                            key={board.id}
+                                            onClick={(ev => ev.stopPropagation())}>
+                                            <MenuButton
+                                                className="board-options"
+                                                onMenuShow={() => toggleOpenMenu(board._id)}
+                                                onMenuHide={() => toggleOpenMenu(board._id)}>
+                                                <Menu id="menu" size="large" className="menu-modal">
+                                                    <MenuItem
+                                                        icon={Favorite}
+                                                        title={board.isStarred ? 'Remove from favorite' : 'Add to favorite'}
+                                                        onClick={() => {
+                                                            onSaveBoard({ board, key: 'isStarred', value: !board.isStarred });
+                                                        }} />
+                                                </Menu>
+                                            </MenuButton>
+                                        </div>
+                                    </Button>
+                                </div>)}
+                        </nav>
+                    </div>
+                </div>}
+
+                {(filterBy.title && !boards.length && !isFavoriteMode) && (isSideBarHover || isSidBarOpen) && <div className="no-result">
                     <div className="img-container">
                         <img className="img" src="https://cdn.monday.com/images/search_empty_state.svg" />
                     </div>
                     <p className="heading">No results found</p>
                     <p className="text">Please check your search terms or filters.</p>
                 </div>}
+
+                {(isFavoriteMode && !favoriteBoards.length) && (isSideBarHover || isSidBarOpen) && <div className="no-result-favorite">
+                    <div className="img-container">
+                        <img className="img" src="https://cdn.monday.com/images/favorites-no-bg.gif" />
+                    </div>
+                    <div className="message">
+                        <b className="heading">No favorite boards yet</b>
+                        <span className="text">"Star" any board so that you can easily access it later</span>
+                    </div>
+                </div>}
+
             </section>
         </section >
     )
