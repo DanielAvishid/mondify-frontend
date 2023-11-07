@@ -8,7 +8,7 @@ import { DeletedBoard } from "../cmps/DeletedBoard";
 import { DragDropContext } from "react-beautiful-dnd";
 import { useDispatch } from "react-redux";
 import { SET_BOARD } from "../store/reducers/board.reducer";
-import { SOCKET_EMIT_SET_BOARD, socketService } from "../services/socket.service";
+import { SOCKET_EMIT_SET_BOARD, SOCKET_EVENT_UPDATE_BOARD, socketService } from "../services/socket.service";
 
 export function BoardDetails() {
     const boards = useSelector(storeState => storeState.boardModule.boards)
@@ -69,12 +69,13 @@ export function BoardDetails() {
         // const currBoard = boardService.getBoardById(boardId)
         // console.log('currBoard', currBoard);
         // socketService.on(SOCKET_EMIT_SET_BOARD, currBoard)
+        let currBoard
 
         const fetchBoard = async () => {
             try {
-                const currBoard = await boardService.getBoardById(boardId);
+                currBoard = await boardService.getBoardById(boardId);
                 console.log('currBoard', currBoard);
-                socketService.on(SOCKET_EMIT_SET_BOARD, currBoard);
+                socketService.on(SOCKET_EVENT_UPDATE_BOARD, currBoard);
             } catch (error) {
                 console.error('Error fetching board:', error);
             }
@@ -83,7 +84,7 @@ export function BoardDetails() {
         fetchBoard();
 
         return () => {
-            socketService.off(SOCKET_EMIT_SET_BOARD, currBoard)
+            socketService.off(SOCKET_EVENT_UPDATE_BOARD, currBoard)
         }
 
     }, [])
