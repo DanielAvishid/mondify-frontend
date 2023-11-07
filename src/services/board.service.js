@@ -673,7 +673,27 @@ function getEmptyBoard() {
                 "_id": "WOWOWO",
                 "fullname": "Ofir Kaspi",
                 "imgUrl": "https://ca.slack-edge.com/T057RE2PDLK-U05H4F34Z5K-127c79816e57-72"
-            }
+            },
+            {
+                "_id": "BABABA",
+                "fullname": "Hadas Fahri",
+                "imgUrl": "https://style.monday.com/static/media/person1.de30c8ee.png"
+            },
+            {
+                "_id": "DADADA",
+                "fullname": "Sergey Roytman",
+                "imgUrl": "https://style.monday.com/static/media/person2.24c7233e.png"
+            },
+            {
+                "_id": "FAFAFA",
+                "fullname": "Aviv kohavi",
+                "imgUrl": "https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg"
+            },
+            {
+                "_id": "GAGAGA",
+                "fullname": "Yossi Saadi",
+                "imgUrl": "https://style.monday.com/static/media/person3.3661bfe5.png"
+            },
         ],
 
         cmpsOrder: [
