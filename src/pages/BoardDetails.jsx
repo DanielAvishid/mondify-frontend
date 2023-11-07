@@ -63,12 +63,12 @@ export function BoardDetails() {
         }
     }, [board])
 
-    // useEffect(() => {
-    //     socketService.on(SOCKET_EMIT_SET_BOARD, board)
-    //     return () => {
-    //         socketService.off(SOCKET_EMIT_SET_BOARD, board)
-    //     }
-    // }, [])
+    useEffect(() => {
+        socketService.on(SOCKET_EMIT_SET_BOARD, board)
+        return () => {
+            socketService.off(SOCKET_EMIT_SET_BOARD, board)
+        }
+    }, [])
 
     function updateIsCollapse(value, currentIsCollapse) {
         const updatedIsCollapse = {};

@@ -210,8 +210,10 @@ async function update({ board, boardId, groupId, taskId, key, value }) {
     }
 
     try {
-        return await httpService.put(BASE_URL + board._id, board)
-        // socketService.emit(SOCKET_EVENT_UPDATE_BOARD, boardId)
+        let updatedBoard = await httpService.put(BASE_URL + board._id, board)
+        socketService.emit(SOCKET_EVENT_UPDATE_BOARD, boardId)
+        console.log(updatedBoard);
+        return updatedBoard
     } catch (err) {
         throw err
     }
