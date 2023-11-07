@@ -1,4 +1,5 @@
 .person-picker-container {
+
     border-radius: 8px;
     background-color: var(--secondary-background-color);
     color: var(--primary-text-color);
@@ -25,24 +26,42 @@
         align-items: center;
         gap: 5px;
 
-        .test {
+        // .test {
+        //     display: flex;
+        //     align-items: center;
+        //     justify-content: center;
+        //     width: 40px;
+        //     height: 40px;
+        //     border-radius: 50%;
+
+        //     &.selected {
+        //         background-color: var(--color-glitter);
+        //     }
+        // }
+        .person-img-container {
+
             display: flex;
             align-items: center;
             justify-content: center;
             width: 40px;
             height: 40px;
+            padding: 4px;
             border-radius: 50%;
+            background-color: $primary-background-color;
 
             &.selected {
                 background-color: var(--color-glitter);
+
             }
-        }
 
-        .avatar-img {
-            width: 32px;
-            height: 32px;
-            cursor: pointer;
+            .avatar-img {
+                width: 32px;
+                height: 32px;
+                cursor: pointer;
 
+
+
+            }
 
         }
     }
