@@ -54,6 +54,7 @@
         }
 
         .logo-img {
+            transform: scaleX(-1) rotate(180deg);
             width: 24px;
             height: 24px;
         }

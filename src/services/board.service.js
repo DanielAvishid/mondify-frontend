@@ -960,7 +960,7 @@ function _createUser() {
         // {
         //     "fullname": "Daniel Avishid",
         //     "username": "danielavishid",
-        //     "email": "danielavishid@mondify.com",
+        //     "email": "danielavishid@workit.com",
         //     "password": "danielavishid",
         //     "imgUrl": "https://hips.hearstapps.com/hmg-prod/images/happy-dog-outdoors-royalty-free-image-1652927740.jpg?crop=0.447xw:1.00xh;0.187xw,0&resize=980:*",
         //     // "mentions": [{ //optional
@@ -973,7 +973,7 @@ function _createUser() {
         // {
         //     "fullname": "Ofir Kaspi",
         //     "username": "ofirkaspi",
-        //     "email": "ofirkaspi@mondify.com",
+        //     "email": "ofirkaspi@workit.com",
         //     "password": "ofirkaspi",
         //     "imgUrl": "https://hips.hearstapps.com/hmg-prod/images/lonely-pug-royalty-free-image-1652974264.jpg?crop=0.447xw:1.00xh;0.355xw,0&resize=980:*",
         //     // "mentions": [{ //optional
@@ -986,7 +986,7 @@ function _createUser() {
         // {
         //     "fullname": "Carmel Amarillio",
         //     "username": "carmelamarillio",
-        //     "email": "carmelamarillio@mondify.com",
+        //     "email": "carmelamarillio@workit.com",
         //     "password": "carmelamarillio",
         //     "imgUrl": "https://hips.hearstapps.com/ghk.h-cdn.co/assets/16/08/gettyimages-464163411.jpg?crop=1.0xw:1xh;center,top&resize=980:*",
         //     // "mentions": [{ //optional

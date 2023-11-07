@@ -8,7 +8,7 @@ export function Signup() {
             <div className="sign-up-container">
                 <div className="content">
                     <div className="heading">
-                        <h1 className="title">Welcome to mondify</h1>
+                        <h1 className="title">Welcome to workit</h1>
                         <h2 className="sub-title">Get started - it's free. No credit card needed.</h2>
                     </div>
                     <div className="sign-up-fields">

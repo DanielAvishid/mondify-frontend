@@ -86,7 +86,7 @@ export function Home() {
                     <div className="logo">
                         <img src={imgUrl} alt="" />
                         <span className="span">
-                            mondify
+                            workit
                         </span>
                     </div>
                     <div className="get-started">
@@ -104,7 +104,7 @@ export function Home() {
                             A platform built for a new way of working
                         </h1>
                     </div>
-                    <h2 className="sub-title">What would you like to manage with mondify Work OS?</h2>
+                    <h2 className="sub-title">What would you like to manage with workit Work OS?</h2>
                 </div>
                 <div className="call-to-action">
                     <div className="cards-container">
@@ -232,7 +232,7 @@ export function Home() {
                         <h2>
                             <br />
                             <br />
-                            <span>Deliver your best work </span><b>with mondify.com</b>
+                            <span>Deliver your best work </span><b>with workit.com</b>
                         </h2>
                         <div className="small-words">
                             <span>No credit card needed   <span className="icon">✦</span>    Unlimited time on Free plan</span>
