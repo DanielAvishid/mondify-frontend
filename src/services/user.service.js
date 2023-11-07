@@ -86,7 +86,6 @@ async function signup({ username, password, fullname, imgUrl = 'https://cdn1.mon
         throw err
     }
     // const user = await storageService.post('user', userCred)
-    return _setLoggedinUser(user)
 }
 
 async function logout() {
