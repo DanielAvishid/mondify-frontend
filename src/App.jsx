@@ -14,6 +14,8 @@ import { Kanban } from './cmps/Kanban';
 import { BoardList } from './pages/BoardList';
 import { BoardActivity } from './pages/BoardActivity';
 import { Dashboard } from './cmps/Dashboard';
+import { Signup } from './pages/Signup';
+import { Login } from './pages/Login';
 
 
 export function App() {
@@ -23,6 +25,8 @@ export function App() {
         <main>
           <Routes>
             <Route element={<Home />} path="/" />
+            <Route element={<Signup />} path='/sign_up' />
+            <Route element={<Login />} path='/login' />
             <Route element={<AppIndex />} path="/board">
               <Route element={<BoardList />} path='' />
               <Route element={<BoardDetails />} path=":boardId">
