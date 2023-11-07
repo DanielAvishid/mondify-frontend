@@ -199,7 +199,9 @@ async function update({ board, boardId, groupId, taskId, key, value }) {
         }
         board.groups[groupIdx][key] = value;
     } else {
-        change = createChange(board[key], value, 'New Group', 'Group Created');
+        if (key !== 'isStarred') {
+            change = createChange(board[key], value, 'New Group', 'Group Created');
+        }
         board[key] = value;
     }
 

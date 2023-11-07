@@ -1,5 +1,6 @@
 import { Menu, MenuButton, Search as SearchInput, MenuItem, EditableHeading, MenuTitle, Button, MenuDivider, TabList, Tab, Table, SplitButton, SplitButtonMenu, IconButton, Icon, AvatarGroup, Avatar, Tooltip } from "monday-ui-react-core"
 import { NavigationChevronDown, Sort, DropdownChevronDown, DropdownChevronUp, Home, Delete, Download, Group, Search, PersonRound, CloseSmall, Chart, Edit, Favorite, ShortText, Info, AddSmall, Duplicate, Table as TableIcon, Menu as MenuIcon, Invite, SettingsKnobs } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
+import { GoStarFill } from "react-icons/go";
 import { useRef, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { boardService } from "../services/board.service"
@@ -88,7 +89,13 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                             size={IconButton.sizes.SMALL}
                             ariaLabel="Show board description"
                             onClick={() => setIsModalOpen(true)} />
-                        <IconButton iconClassName='info-icon' icon={Favorite} kind={IconButton.kinds.TERTIARY} size={IconButton.sizes.SMALL} ariaLabel="Add to favorites" />
+                        <IconButton
+                            iconClassName={`info-icon ${board.isStarred ? 'favorite' : ''}`}
+                            icon={board.isStarred ? GoStarFill : Favorite}
+                            kind={IconButton.kinds.TERTIARY}
+                            size={IconButton.sizes.SMALL}
+                            ariaLabel={board.isStarred ? "Remove from favorites" : "Add to favorites"}
+                            onClick={() => onSaveBoard({ board, key: 'isStarred', value: !board.isStarred })} />
                     </div>
                 </div>
                 <div className="options-container">

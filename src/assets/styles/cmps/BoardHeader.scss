@@ -71,6 +71,10 @@
 
             .info-icon {
                 color: $chat-icon-color;
+
+                &.favorite {
+                    color: #ffcb00;
+                }
             }
 
             .editableInputWrapper_8e7f29624b {

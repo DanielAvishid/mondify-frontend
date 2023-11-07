@@ -1,6 +1,7 @@
 import { Avatar, Button, Icon, Menu, MenuButton, MenuItem } from "monday-ui-react-core"
 import { useRef } from "react"
 import { Time, Delete } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
+import { utilService } from "../services/util.service"
 
 export function TaskDetailsUpdates({ task, onRemoveUpdate, onUpdateClick, setIsUpdateEditor, isUpdateEditor }) {
 
@@ -51,7 +52,7 @@ export function TaskDetailsUpdates({ task, onRemoveUpdate, onUpdateClick, setIsU
                                 <div className="update-info">
                                     <div className="flex align-center">
                                         <Icon icon={Time} className="time-icon" />
-                                        <span>39m</span>
+                                        <span>{utilService.getTimePassed(update.at)}</span>
                                     </div>
                                     <MenuButton
                                         className="update-menu">
