@@ -75,7 +75,7 @@ export function BoardDetails() {
             try {
                 currBoard = await boardService.getBoardById(boardId);
                 console.log('currBoard', currBoard);
-                socketService.on(SOCKET_EVENT_UPDATE_BOARD, currBoard);
+                socketService.on(SOCKET_EMIT_SET_BOARD, currBoard);
             } catch (error) {
                 console.error('Error fetching board:', error);
             }
@@ -84,10 +84,10 @@ export function BoardDetails() {
         fetchBoard();
 
         return () => {
-            socketService.off(SOCKET_EVENT_UPDATE_BOARD, currBoard)
+            socketService.off(SOCKET_EMIT_SET_BOARD, currBoard)
         }
 
-    }, [])
+    }, [boardId])
 
     function updateIsCollapse(value, currentIsCollapse) {
         const updatedIsCollapse = {};
