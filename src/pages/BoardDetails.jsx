@@ -1,7 +1,7 @@
 import { Outlet, useNavigate, useOutletContext, useParams } from "react-router-dom";
 import { BoardHeader } from "../cmps/BoardHeader";
 import { useEffect, useRef, useState } from "react";
-import { loadBoard } from "../store/actions/board.action";
+import { getById, loadBoard } from "../store/actions/board.action";
 import { useSelector } from "react-redux";
 import { boardService } from "../services/board.service";
 import { DeletedBoard } from "../cmps/DeletedBoard";
@@ -64,10 +64,28 @@ export function BoardDetails() {
     }, [board])
 
     useEffect(() => {
-        socketService.on(SOCKET_EMIT_SET_BOARD, board)
+        console.log('boardId', boardId);
+
+        // const currBoard = boardService.getBoardById(boardId)
+        // console.log('currBoard', currBoard);
+        // socketService.on(SOCKET_EMIT_SET_BOARD, currBoard)
+
+        const fetchBoard = async () => {
+            try {
+                const currBoard = await boardService.getBoardById(boardId);
+                console.log('currBoard', currBoard);
+                socketService.on(SOCKET_EMIT_SET_BOARD, currBoard);
+            } catch (error) {
+                console.error('Error fetching board:', error);
+            }
+        };
+
+        fetchBoard();
+
         return () => {
-            socketService.off(SOCKET_EMIT_SET_BOARD, board)
+            socketService.off(SOCKET_EMIT_SET_BOARD, currBoard)
         }
+
     }, [])
 
     function updateIsCollapse(value, currentIsCollapse) {
