@@ -321,7 +321,7 @@ function getEmptyBoard() {
         createdBy: {
             "_id": "UjCos",
             "fullname": "Carmel Amarillio",
-            "imgUrl": "https://hips.hearstapps.com/ghk.h-cdn.co/assets/16/08/gettyimages-464163411.jpg?crop=1.0xw:1xh;center,top&resize=980:*"
+            "imgUrl": "https://ca.slack-edge.com/T057RE2PDLK-U059L5BAL4X-c085d0e44c2f-512"
         },
         style: {
             backgroundImage: ""
@@ -662,17 +662,17 @@ function getEmptyBoard() {
             {
                 "_id": "UjCos",
                 "fullname": "Carmel Amarillio",
-                "imgUrl": "https://hips.hearstapps.com/ghk.h-cdn.co/assets/16/08/gettyimages-464163411.jpg?crop=1.0xw:1xh;center,top&resize=980:*"
+                "imgUrl": "https://ca.slack-edge.com/T057RE2PDLK-U059L5BAL4X-c085d0e44c2f-512"
             },
             {
                 "_id": "KKLLSS",
                 "fullname": "Daniel Avishid",
-                "imgUrl": "https://images.pexels.com/photos/2607544/pexels-photo-2607544.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                "imgUrl": "https://ca.slack-edge.com/T057RE2PDLK-U05GBTP3GBW-a584b2b1cd9d-72"
             },
             {
                 "_id": "WOWOWO",
                 "fullname": "Ofir Kaspi",
-                "imgUrl": "https://i.natgeofe.com/n/4f5aaece-3300-41a4-b2a8-ed2708a0a27c/domestic-dog_thumb_square.jpg?w=136&h=136"
+                "imgUrl": "https://ca.slack-edge.com/T057RE2PDLK-U05H4F34Z5K-127c79816e57-72"
             }
         ],
 
