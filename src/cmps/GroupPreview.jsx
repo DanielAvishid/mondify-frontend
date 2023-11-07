@@ -103,9 +103,24 @@ export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, 
         onSaveBoard({ boardId: board._id, groupId: group.id, key: 'tasks', value })
     }
 
-    function handleKeyPress(ev) {
+    function handleKeyPress(ev, key, idValue) {
+        console.log(ev);
+
         if (ev.key === 'Enter') {
-            onSaveBoard(({ key: 'title', value: ev.target.value, boardId: board._id, groupId: group.id }))
+
+            if (key === 'title') {
+                onSaveBoard(({ key, value: ev.target.value, boardId: board._id, groupId: group.id }))
+            } else if (key === 'cmpsOrder') {
+                const updatedCmpsOrder = board.cmpsOrder.map(cmp => {
+                    if (cmp.id === idValue) {
+                        return { ...cmp, title: ev.target.value }
+                    }
+                    return cmp;
+                })
+
+                onSaveBoard({ key, value: [...updatedCmpsOrder], boardId: board._id })
+            }
+
             ev.target.blur()
         }
     }
@@ -181,7 +196,7 @@ export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, 
                                         tooltipPosition="bottom"
                                         customColor={group.style.backgroundColor}
                                         onBlur={(ev) => onSaveBoard({ key: 'title', value: ev.target.value, boardId: board._id, groupId: group.id })}
-                                        onKeyDown={handleKeyPress}
+                                        onKeyDown={(ev) => handleKeyPress(ev, 'title')}
                                     />
                                     <span className="items-count">
                                         {group.tasks.length === 0 && "No items"}
@@ -205,9 +220,9 @@ export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, 
                                                     <EditableHeading
                                                         type={EditableHeading.types.h6}
                                                         value={cmp.title}
-                                                    // customColor={group.style.backgroundColor}
-                                                    // onBlur={(ev) => onSaveBoard({ key: 'title', value: ev.target.value, boardId: board._id, groupId: group.id })}
-                                                    // onKeyDown={handleKeyPress}
+                                                        // customColor={group.style.backgroundColor}
+                                                        // onBlur={(ev) => onSaveBoard({ key: 'title', value: ev.target.value, boardId: board._id, groupId: group.id })}
+                                                        onKeyDown={(ev) => handleKeyPress(ev, 'cmpsOrder', cmp.id)}
                                                     />
                                                 </span>
                                             </div>
