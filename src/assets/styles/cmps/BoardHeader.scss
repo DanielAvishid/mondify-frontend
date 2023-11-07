@@ -345,8 +345,8 @@
                 .filter-avatar {
                     position: absolute;
                     left: 5px;
-                    top: 53%;
-                    transform: translateY(-58%);
+                    top: 50%;
+                    transform: translateY(-50%);
                     z-index: 501;
                     width: 26px;
                     height: 26px;
@@ -379,9 +379,15 @@
 
             .person-btn,
             .sortby-btn {
+                display: flex;
+                align-items: center;
                 position: relative;
                 z-index: 500;
                 color: $icon-secondary-color;
+
+                svg {
+                    margin-inline-end: rem(6px);
+                }
             }
 
             .focused {
@@ -419,6 +425,7 @@
                     border-image-width: 1;
                     width: 20px;
                     height: 20px;
+                    margin-block-end: 2px;
                 }
 
                 .btn {
