@@ -338,6 +338,16 @@
                     }
                 }
 
+                .filter-avatar {
+                    position: absolute;
+                    left: 5px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    z-index: 501;
+                    width: 24px;
+                    height: 24px;
+                }
+
                 .remove-filter {
                     visibility: hidden;
                     color: $icon-secondary-color;
@@ -350,6 +360,11 @@
                     &.show {
                         visibility: visible;
                     }
+                }
+
+                .modal {
+                    left: -100px;
+                    transform: none;
                 }
             }
 

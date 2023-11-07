@@ -6,7 +6,6 @@ import { boardService } from "../services/board.service"
 import { BoardModal } from "./BoardModal"
 import { MembersFilterModal } from "./MembersFilterModal"
 import { useClickOutside } from "../hooks/useClickOutside"
-import { AvatarGroupCmp } from "./utilsCmps/AvatarGroupCmp"
 
 export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveBoard, onDuplicateBoard, filterBy, setFilterBy, sortBy, setSortBy, onAddGroup, isScrolling }) {
 
@@ -63,8 +62,9 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
         setIsInputFocus(true)
     }
 
-    const filteredMember = board.members.filter((member) => member._id = filterBy.person)
-    console.log(filteredMember);
+    const filteredPersonUrl = board.members
+        .filter(member => member._id === filterBy.person)
+        .map(member => member.imgUrl);
 
     return (
         <section className={`board-header full ${isCollapse ? 'collapse' : ''} ${isScrolling ? 'scrolling' : ''}`}>
@@ -227,11 +227,12 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                                         <div className="remove-filter show" onClick={() => setFilterBy({ ...filterBy, person: null })}>
                                             <Icon icon={CloseSmall} />
                                         </div>
-                                        {/* <Avatar
-                                            size={Avatar.sizes.SMALL}
+                                        <Avatar
+                                            size={Avatar.sizes.SMALLX}
                                             type={Avatar.types.IMG}
-                                            src={filteredMember.imgUrl}
-                                        /> */}
+                                            src={filteredPersonUrl}
+                                            className="filter-avatar"
+                                        />
                                     </>
                                 }
                             </div>
