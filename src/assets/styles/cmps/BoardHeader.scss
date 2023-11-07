@@ -341,11 +341,15 @@
                 .filter-avatar {
                     position: absolute;
                     left: 5px;
-                    top: 50%;
-                    transform: translateY(-50%);
+                    top: 53%;
+                    transform: translateY(-58%);
                     z-index: 501;
-                    width: 24px;
-                    height: 24px;
+                    width: 26px;
+                    height: 26px;
+
+                    >.circleImg_7ac18ef8a4 {
+                        border: 0;
+                    }
                 }
 
                 .remove-filter {
