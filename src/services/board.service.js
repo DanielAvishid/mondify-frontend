@@ -279,8 +279,9 @@ async function getBoardById(boardId, filterBy = { txt: '', person: null }, sortB
 
     if (filterBy.person) {
         board.groups = board.groups.map((group) => {
-            const filteredTasks = group.tasks.filter((task) => task.memberIds.includes(filterBy.person._id))
+            const filteredTasks = group.tasks.filter((task) => task.members.includes(filterBy.person))
 
+            console.log(filteredTasks);
             if (filteredTasks.length > 0) {
                 group.tasks = filteredTasks
                 return group;
