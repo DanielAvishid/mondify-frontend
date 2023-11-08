@@ -12,6 +12,7 @@ import { userService } from "../services/user.service"
 
 export function TaskDetails({ onSaveBoard, onRemoveTask, setIsResizing, width }) {
     const boards = useSelector(storeState => storeState.boardModule.boards)
+    const board = useSelector(storeState => storeState.boardModule.board)
     const user = useSelector(storeState => storeState.userModule.loggedinUser)
     const navigate = useNavigate()
     const { boardId, taskId } = useParams()
@@ -24,10 +25,13 @@ export function TaskDetails({ onSaveBoard, onRemoveTask, setIsResizing, width })
     let timeoutId
 
     useEffect(() => {
-        loadTask().then(
+        try {
+            loadTask()
             setOpen()
-        )
-    }, [boards, taskId, boardId])
+        } catch (err) {
+            throw err
+        }
+    }, [boards, taskId, boardId, board])
 
     useEffect(() => {
         return () => {
