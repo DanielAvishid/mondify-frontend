@@ -24,6 +24,7 @@ export function BoardDetails() {
     const containerRef = useRef()
 
     useEffect(() => {
+        if (!board) dispatch({ type: SET_BOARD, board: undefined })
         loadBoard(boardId, filterBy, sortBy)
     }, [boardId, filterBy, sortBy, boards])
 
