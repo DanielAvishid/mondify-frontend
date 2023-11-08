@@ -19,31 +19,16 @@ export function TaskDetails({ onSaveBoard, onRemoveTask, setIsResizing, width })
     const [task, setTask] = useState(null)
     const [filteredActivities, setFilteredActivities] = useState(null)
     const [searchTerm, setSearchTerm] = useState('')
-    const [isOpen, setIsOpen] = useState(false)
     const [currentTab, setCurrentTab] = useState('Updates')
     const [isUpdateEditor, setIsUpdateEditor] = useState(false)
     let timeoutId
 
     useEffect(() => {
-        try {
-            loadTask()
-            setOpen()
-        } catch (err) {
-            throw err
-        }
+        loadTask()
     }, [boards, taskId, boardId, board])
 
     useEffect(() => {
-        return () => {
-            clearTimeout(timeoutId)
-        }
     }, [])
-
-    function setOpen() {
-        timeoutId = setTimeout(() => {
-            setIsOpen(true)
-        }, 1000)
-    }
 
     async function loadTask() {
         try {
@@ -106,7 +91,7 @@ export function TaskDetails({ onSaveBoard, onRemoveTask, setIsResizing, width })
 
     return (
         <section
-            className={`task-details ${isOpen ? 'open' : ''}`}
+            className={`task-details`}
             style={{ width: width ? `calc(100vw - ${width}px)` : '570px' }}>
             <TaskDetailsHeader
                 boardId={boardId}
