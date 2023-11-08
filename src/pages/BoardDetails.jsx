@@ -70,22 +70,26 @@ export function BoardDetails() {
 
     useEffect(() => {
         socketService.emit(SOCKET_EMIT_SET_BOARD, boardId)
+        socketService.on(SOCKET_EVENT_CHANGE_BOARD, changeBoard)
         console.log('EMIT_SET_BOARD')
         return () => {
+            console.log('CHECK RETURN')
             socketService.off(SOCKET_EMIT_SET_BOARD, boardId)
-        }
-    }, [boardId])
-
-    useEffect(() => {
-        socketService.on(SOCKET_EVENT_CHANGE_BOARD, changeBoard)
-        console.log('EVENT_CHANGE_BOARD')
-        return () => {
             socketService.off(SOCKET_EVENT_CHANGE_BOARD, changeBoard)
         }
     }, [])
 
+    // useEffect(() => {
+    //     socketService.on(SOCKET_EVENT_CHANGE_BOARD, changeBoard)
+    //     console.log('EVENT_CHANGE_BOARD')
+    //     return () => {
+    //         socketService.off(SOCKET_EVENT_CHANGE_BOARD, changeBoard)
+    //     }
+    // }, [])
+
     function changeBoard(updatedBoard) {
-        console.log('CHECK HERE')
+        console.log('CHECK HERE', updatedBoard)
+        // loadBoard(boardId, filterBy, sortBy)
         dispatch({ type: SET_BOARD, board: updatedBoard })
     }
 

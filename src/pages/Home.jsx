@@ -240,7 +240,7 @@ export function Home() {
                         <div className="btn-container" >
                             <button
                                 className="btn"
-                                onClick={() => navigate('/login')}>
+                                onClick={() => navigate('/board')}>
                                 <span className="span">Get Started</span>
                                 <Icon className="icon" icon={MoveArrowRight} iconSize="18" />
                             </button>
