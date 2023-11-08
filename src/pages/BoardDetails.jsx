@@ -8,7 +8,7 @@ import { DeletedBoard } from "../cmps/DeletedBoard";
 import { DragDropContext } from "react-beautiful-dnd";
 import { useDispatch } from "react-redux";
 import { SET_BOARD } from "../store/reducers/board.reducer";
-import { SOCKET_EMIT_SET_BOARD, SOCKET_EVENT_UPDATE_BOARD, socketService } from "../services/socket.service";
+import { SOCKET_EMIT_SET_BOARD, SOCKET_EVENT_CHANGE_BOARD, socketService } from "../services/socket.service";
 
 export function BoardDetails() {
     const boards = useSelector(storeState => storeState.boardModule.boards)
@@ -24,7 +24,7 @@ export function BoardDetails() {
     const containerRef = useRef()
 
     useEffect(() => {
-        if (!board) dispatch({ type: SET_BOARD, board: undefined })
+        // if (!board) dispatch({ type: SET_BOARD, board: undefined })
         loadBoard(boardId, filterBy, sortBy)
     }, [boardId, filterBy, sortBy, boards])
 
@@ -64,31 +64,27 @@ export function BoardDetails() {
         }
     }, [board])
 
+
+    //emit SET_BOARD parameter boardId
+    //on UPDATE_BOARD
+
     useEffect(() => {
-        console.log('boardId', boardId);
-
-        // const currBoard = boardService.getBoardById(boardId)
-        // console.log('currBoard', currBoard);
-        // socketService.on(SOCKET_EMIT_SET_BOARD, currBoard)
-        let currBoard
-
-        const fetchBoard = async () => {
-            try {
-                currBoard = await boardService.getBoardById(boardId);
-                console.log('currBoard', currBoard);
-                socketService.on(SOCKET_EMIT_SET_BOARD, currBoard);
-            } catch (error) {
-                console.error('Error fetching board:', error);
-            }
-        };
-
-        fetchBoard();
-
+        socketService.emit(SOCKET_EMIT_SET_BOARD, boardId)
         return () => {
-            socketService.off(SOCKET_EMIT_SET_BOARD, currBoard)
+            socketService.off(SOCKET_EMIT_SET_BOARD, boardId)
         }
-
     }, [boardId])
+
+    useEffect(() => {
+        socketService.on(SOCKET_EVENT_CHANGE_BOARD, changeBoard)
+        return () => {
+            socketService.off(SOCKET_EVENT_CHANGE_BOARD, changeBoard)
+        }
+    }, [])
+
+    function changeBoard(updatedBoard) {
+        dispatch({ type: SET_BOARD, board: updatedBoard })
+    }
 
     function updateIsCollapse(value, currentIsCollapse) {
         const updatedIsCollapse = {};

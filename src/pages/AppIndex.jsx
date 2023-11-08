@@ -10,6 +10,7 @@ import { showSuccessMsg } from "../services/event-bus.service";
 import { TaskDetails } from "./TaskDetails";
 import { BoardActivity } from "./BoardActivity";
 import { logout } from "../store/actions/user.action";
+import { TaskDetailsMobile } from "./TaskDetailsMobile";
 
 export function AppIndex() {
 
@@ -20,10 +21,14 @@ export function AppIndex() {
     const location = useLocation()
     const [isResizing, setIsResizing] = useState(false)
     const [width, setWidth] = useState(null)
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth)
 
     useEffect(() => {
         onLoadBoards(filterBy)
     }, [filterBy])
+
+    useEffect(() => {
+    }, [])
 
     async function onLoadBoards(filterBy) {
         try {

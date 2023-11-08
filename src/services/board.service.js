@@ -2,7 +2,7 @@ import { storageService } from './async-storage.service.js'
 import { utilService } from './util.service.js'
 import { userService } from './user.service.js'
 import { httpService } from './http.service.js';
-import { SOCKET_EVENT_UPDATE_BOARD, socketService } from './socket.service.js';
+import { SOCKET_EMIT_UPDATE_BOARD, socketService } from './socket.service.js';
 
 const STORAGE_KEY = 'boardDB'
 const BASE_URL = 'board/'
@@ -148,6 +148,8 @@ async function addTaskFromHeader(board, task = getEmptyTask()) {
     // return savedBoard
 }
 
+//socket.service.emit CHANGE_BOARD
+
 async function update({ board, boardId, groupId, taskId, key, value }) {
     const user = userService.getLoggedinUser()
     if (!board) {
@@ -211,8 +213,7 @@ async function update({ board, boardId, groupId, taskId, key, value }) {
 
     try {
         let updatedBoard = await httpService.put(BASE_URL + board._id, board)
-        socketService.emit(SOCKET_EVENT_UPDATE_BOARD, boardId)
-        console.log(updatedBoard);
+        socketService.emit(SOCKET_EMIT_UPDATE_BOARD, board) //send board
         return updatedBoard
     } catch (err) {
         throw err

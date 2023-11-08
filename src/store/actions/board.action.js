@@ -1,4 +1,5 @@
 import { boardService } from "../../services/board.service";
+import { socketService } from "../../services/socket.service";
 import { ADD_BOARD, REMOVE_BOARD, SET_BOARD, SET_BOARDS, UPDATE_BOARD } from "../reducers/board.reducer";
 import { store } from "../store"
 
@@ -68,6 +69,7 @@ export async function saveBoard({ board, boardId, groupId, taskId, key, value })
         const type = (boardId || board._id) ? UPDATE_BOARD : ADD_BOARD
         if (boardId || board._id) {
             boardToSave = await boardService.update({ board, boardId, groupId, taskId, key, value })
+            // socketService.emit(SOCKET_EMIT_UPDATE_BOARD, boardToSave)
         } else {
             boardToSave = await boardService.addBoard(board)
         }

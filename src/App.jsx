@@ -16,6 +16,7 @@ import { BoardActivity } from './pages/BoardActivity';
 import { Dashboard } from './cmps/Dashboard';
 import { Signup } from './pages/Signup';
 import { Login } from './pages/Login';
+import { TaskDetailsMobile } from './pages/TaskDetailsMobile';
 
 
 export function App() {
@@ -32,6 +33,7 @@ export function App() {
               <Route element={<BoardDetails />} path=":boardId">
                 <Route element={<GroupList />} path="">
                   <Route element={<TaskDetails />} path="task/:taskId" />
+                  <Route element={<TaskDetailsMobile />} path="task/:taskId" />
                   <Route element={<BoardActivity />} path="activity_log" />
                 </Route>
                 <Route element={<Kanban />} path="views/kanban">

@@ -2,21 +2,19 @@ import io from 'socket.io-client'
 import { userService } from './user.service'
 
 export const SOCKET_EMIT_SET_BOARD = 'set-board'
-export const SOCKET_EVENT_UPDATE_BOARD = 'update-board'
+export const SOCKET_EMIT_UPDATE_BOARD = 'update-board'
+export const SOCKET_EVENT_CHANGE_BOARD = 'change-board'
 
-const SOCKET_EMIT_LOGIN = 'set-user-socket'
-const SOCKET_EMIT_LOGOUT = 'unset-user-socket'
-
+const SOCKET_EMIT_LOGIN = 'connection'
+const SOCKET_EMIT_LOGOUT = 'disconnect'
 
 const baseUrl = (process.env.NODE_ENV === 'production') ? '' : '//localhost:3030'
 export const socketService = createSocketService()
-// export const socketService = createDummySocketService()
 
 // for debugging from console
 window.socketService = socketService
 
 socketService.setup()
-
 
 function createSocketService() {
     var socket = null;
@@ -46,7 +44,6 @@ function createSocketService() {
         terminate() {
             socket = null
         },
-
     }
     return socketService
 }
