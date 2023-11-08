@@ -25,9 +25,6 @@ export function BoardDetails() {
 
     useEffect(() => {
         // if (!board) dispatch({ type: SET_BOARD, board: undefined })
-        if (board) {
-            return
-        }
         loadBoard(boardId, filterBy, sortBy)
     }, [boardId, filterBy, sortBy, boards, board])
 
