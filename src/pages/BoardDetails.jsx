@@ -77,17 +77,15 @@ export function BoardDetails() {
     }, [boardId])
 
     useEffect(() => {
-        socketService.on(SOCKET_EVENT_CHANGE_BOARD, changeBoards)
+        socketService.on(SOCKET_EVENT_CHANGE_BOARD, changeBoard)
         console.log('EVENT_CHANGE_BOARD')
         return () => {
-            socketService.off(SOCKET_EVENT_CHANGE_BOARD, changeBoards)
+            socketService.off(SOCKET_EVENT_CHANGE_BOARD, changeBoard)
         }
     }, [])
 
-    function changeBoards(updatedBoard) {
-        const boardIdx = boards.findIndex(board => board._id === updatedBoard._id)
-        boards[boardIdx] = updatedBoard
-        dispatch({ type: SET_BOARDS, boards: boards })
+    function changeBoard(updatedBoard) {
+        loadBoard(updatedBoard._id, filterBy, sortBy)
         // dispatch({ type: SET_BOARDS, boards: boards.splice(boardIdx, 1, updatedBoard) })
         // dispatch({ type: SET_BOARDS, boards })
     }
