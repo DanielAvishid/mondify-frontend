@@ -99,7 +99,7 @@
         background-color: $primary-background-color;
         border-inline-start: 6px solid;
         padding-inline-end: 0.5rem;
-        min-width: 100vw;
+        min-width: calc(100vw - 317px);
         // width: calc(100% - rem(40px));
 
         &.first {
