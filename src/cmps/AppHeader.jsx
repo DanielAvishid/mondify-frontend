@@ -1,16 +1,22 @@
 
-import { Avatar, IconButton } from "monday-ui-react-core";
-import { Switcher, Notifications, Inbox, Invite, Apps, Search, Help } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
+import { Avatar, Icon, IconButton } from "monday-ui-react-core";
+import { Switcher, Notifications, Inbox, Invite, Apps, Search, Help, LogOut } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { MsgModalSuccess } from "./MsgModalSuccess";
 import { useNavigate } from "react-router";
-import { login, logout, signup } from '../store/actions/user.action';
+import { login, signup } from '../store/actions/user.action';
 import { userService } from "../services/user.service";
+import { useState } from "react";
 
-export function AppHeader({ user }) {
+export function AppHeader({ user, onLogout }) {
 
+    const [isModalOpen, setIsModalOpen] = useState(false)
     const navigate = useNavigate()
 
     const defaultUser = userService.getDefaultUser()
+
+    function toggleModal() {
+        setIsModalOpen(!isModalOpen)
+    }
 
     return (
         <section className="app-header flex justify-between align-center">
@@ -48,7 +54,7 @@ export function AppHeader({ user }) {
                     icon={Help}
                     kind={IconButton.kinds.TERTIARY}
                     ariaLabel="Help" />
-                <button className="avatar-btn">
+                <button className={`avatar-btn ${isModalOpen ? 'open' : ''}`} onClick={toggleModal}>
                     <img
                         className='logo-img'
                         src={'https://cdn.monday.com/images/logos/monday_logo_icon.png'} />
@@ -57,9 +63,16 @@ export function AppHeader({ user }) {
                         size="medium"
                         src={user ? user.imgUrl : defaultUser.imgUrl}
                         type="img"
+                        ariaLabel={user ? user.fullname : ''}
                     />
                 </button>
             </section>
+            {isModalOpen && <div className="logout-modal">
+                <button className="logout-btn" onClick={onLogout}>
+                    <Icon className="logout-icon" icon={LogOut} />
+                    <span>Log out</span>
+                </button>
+            </div>}
             <MsgModalSuccess />
         </section>
     )

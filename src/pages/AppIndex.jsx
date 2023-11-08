@@ -9,6 +9,7 @@ import { store } from "../store/store";
 import { showSuccessMsg } from "../services/event-bus.service";
 import { TaskDetails } from "./TaskDetails";
 import { BoardActivity } from "./BoardActivity";
+import { logout } from "../store/actions/user.action";
 
 export function AppIndex() {
 
@@ -101,6 +102,11 @@ export function AppIndex() {
         }
     }
 
+    async function onLogout() {
+        await logout()
+        navigate('/login')
+    }
+
     function handleBoardsFilter(value) {
         filterBy.title = value
         setFilterBy(prevFilter => ({ ...prevFilter, ...filterBy }))
@@ -125,7 +131,7 @@ export function AppIndex() {
             className="app-index"
             onMouseMove={(ev) => handleMouseMove(ev)}
             onMouseUp={handleMouseUp}>
-            <AppHeader user={user} />
+            <AppHeader user={user} onLogout={onLogout} />
             <section className="main-container">
                 <AppSidebar
                     boards={boards}

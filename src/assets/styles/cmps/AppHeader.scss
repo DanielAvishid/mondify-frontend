@@ -1,4 +1,5 @@
 .app-header {
+    position: relative;
     padding-block: 10px;
     padding-inline-start: 8px;
     padding-inline-end: 34px;
@@ -53,6 +54,10 @@
             background-color: $primary-background-hover-color;
         }
 
+        &.open {
+            background-color: $primary-selected-color;
+        }
+
         .logo-img {
             transform: scaleX(-1) rotate(180deg);
             width: 24px;
@@ -71,5 +76,46 @@
         }
 
         height: 32px;
+    }
+
+    .logout-modal {
+        position: fixed;
+        right: 24px;
+        top: 48px;
+        z-index: 1000;
+        padding: 8px;
+        width: 220px;
+        border-radius: 8px;
+        background-color: $primary-background-color;
+        box-shadow: 0 4px 17px 6px rgba(0, 0, 0, .1);
+
+        .logout-btn {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            height: rem(32px);
+            padding: rem(4px) rem(16px);
+            background-color: transparent;
+            border: 0;
+            border-radius: 4px;
+
+            &:hover {
+                background-color: $primary-background-hover-color;
+            }
+
+            >.logout-icon {
+                color: $primary-text-color;
+                margin-inline-end: 8px;
+            }
+
+            span {
+                color: $primary-text-color;
+                font-size: rem(14px);
+                font-family: Figtree, Roboto, "Noto Sans Hebrew", "Noto Kufi Arabic", "Noto Sans JP", sans-serif;
+                font-weight: 400;
+                line-height: rem(24px);
+            }
+        }
     }
 }
