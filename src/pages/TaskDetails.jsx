@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useNavigate, useParams } from "react-router"
+import { useLocation, useNavigate, useParams } from "react-router"
 import { getById } from "../store/actions/board.action"
 import { Icon } from "monday-ui-react-core"
 import { Drag } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
@@ -18,12 +18,24 @@ export function TaskDetails({ onSaveBoard, onRemoveTask, setIsResizing, width })
     const [task, setTask] = useState(null)
     const [filteredActivities, setFilteredActivities] = useState(null)
     const [searchTerm, setSearchTerm] = useState('')
+    const [isOpen, setIsOpen] = useState(false)
     const [currentTab, setCurrentTab] = useState('Updates')
     const [isUpdateEditor, setIsUpdateEditor] = useState(false)
 
     useEffect(() => {
         loadTask()
     }, [boards, taskId, boardId])
+
+    useEffect(() => {
+        const timeoutId = setTimeout(() => {
+            setIsOpen(true)
+        }, 300)
+
+        return () => {
+            clearTimeout(timeoutId)
+            setIsOpen(false)
+        }
+    }, [])
 
     async function loadTask() {
         try {
@@ -86,7 +98,7 @@ export function TaskDetails({ onSaveBoard, onRemoveTask, setIsResizing, width })
 
     return (
         <section
-            className='task-details'
+            className={`task-details ${isOpen ? 'open' : ''}`}
             style={{ width: width ? `calc(100vw - ${width}px)` : '570px' }}>
             <TaskDetailsHeader
                 boardId={boardId}
