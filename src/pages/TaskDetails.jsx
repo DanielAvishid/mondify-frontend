@@ -21,21 +21,25 @@ export function TaskDetails({ onSaveBoard, onRemoveTask, setIsResizing, width })
     const [isOpen, setIsOpen] = useState(false)
     const [currentTab, setCurrentTab] = useState('Updates')
     const [isUpdateEditor, setIsUpdateEditor] = useState(false)
+    let timeoutId
 
     useEffect(() => {
-        loadTask()
+        loadTask().then(
+            setOpen()
+        )
     }, [boards, taskId, boardId])
 
     useEffect(() => {
-        const timeoutId = setTimeout(() => {
-            setIsOpen(true)
-        }, 300)
-
         return () => {
             clearTimeout(timeoutId)
-            setIsOpen(false)
         }
     }, [])
+
+    function setOpen() {
+        timeoutId = setTimeout(() => {
+            setIsOpen(true)
+        }, 1000)
+    }
 
     async function loadTask() {
         try {

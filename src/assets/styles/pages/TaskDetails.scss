@@ -12,7 +12,7 @@
     max-width: calc(100vw - 265px);
     background-color: $primary-background-color;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    transition: right .3s ease;
+    transition: right .5s ease;
 
     &.open {
         right: 0;
