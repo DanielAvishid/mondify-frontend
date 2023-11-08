@@ -25,9 +25,8 @@ export function BoardDetails() {
 
     useEffect(() => {
         // if (!board) dispatch({ type: SET_BOARD, board: undefined })
-        console.log('CHECK HERE')
         loadBoard(boardId, filterBy, sortBy)
-    }, [boardId, filterBy, sortBy, boards, board])
+    }, [boardId, filterBy, sortBy, boards])
 
     useEffect(() => {
         if (board && !isInitialSetupComplete) {
@@ -86,6 +85,7 @@ export function BoardDetails() {
     }, [])
 
     function changeBoard(updatedBoard) {
+        console.log('CHECK HERE')
         dispatch({ type: SET_BOARD, board: updatedBoard })
     }
 
