@@ -26,7 +26,7 @@ export function BoardDetails() {
     useEffect(() => {
         // if (!board) dispatch({ type: SET_BOARD, board: undefined })
         loadBoard(boardId, filterBy, sortBy)
-    }, [boardId, filterBy, sortBy, boards])
+    }, [boardId, filterBy, sortBy, boards, board])
 
     useEffect(() => {
         if (board && !isInitialSetupComplete) {
@@ -85,8 +85,9 @@ export function BoardDetails() {
     }, [])
 
     function changeBoard(updatedBoard) {
-        const boardIdx = boards.findIndex(board => board._id === updatedBoard._id)
-        dispatch({ type: SET_BOARDS, boards: boards.splice(boardIdx, 1, updatedBoard) })
+        dispatch({ type: SET_BOARD, board: updatedBoard })
+        // const boardIdx = boards.findIndex(board => board._id === updatedBoard._id)
+        // dispatch({ type: SET_BOARDS, boards: boards.splice(boardIdx, 1, updatedBoard) })
         // dispatch({ type: SET_BOARDS, boards })
     }
 
