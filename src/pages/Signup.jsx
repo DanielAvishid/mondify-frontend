@@ -1,7 +1,7 @@
 import { Icon } from "monday-ui-react-core"
 import { MoveArrowRight } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { Link, useNavigate } from "react-router-dom"
-import { useRef, useState } from "react"
+import { useRef, useState, useEffect } from "react"
 import { signup } from "../store/actions/user.action"
 import { showSuccessMsg } from "../services/event-bus.service"
 import { MsgModalSuccess } from "../cmps/MsgModalSuccess"
@@ -21,6 +21,13 @@ export function Signup() {
     const [credentials, setCredentials] = useState(getEmptyCredentials())
     const fileInputRef = useRef(null)
     const navigate = useNavigate()
+    let timeoutId
+
+    useEffect(() => {
+        return () => {
+            clearTimeout(timeoutId)
+        }
+    }, [])
 
     function handleCredentialsChange(ev) {
         const field = ev.target.name
@@ -45,7 +52,7 @@ export function Signup() {
         try {
             const user = await signup(credentials)
             navigate('/board')
-            setTimeout(() => {
+            timeoutId = setTimeout(() => {
                 showSuccessMsg(`Welcome ${user.fullname}, you successfully sign up`)
             }, 500)
             return user
