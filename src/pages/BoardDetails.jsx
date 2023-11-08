@@ -7,7 +7,7 @@ import { boardService } from "../services/board.service";
 import { DeletedBoard } from "../cmps/DeletedBoard";
 import { DragDropContext } from "react-beautiful-dnd";
 import { useDispatch } from "react-redux";
-import { SET_BOARD } from "../store/reducers/board.reducer";
+import { SET_BOARD, SET_BOARDS } from "../store/reducers/board.reducer";
 import { SOCKET_EMIT_SET_BOARD, SOCKET_EVENT_CHANGE_BOARD, socketService } from "../services/socket.service";
 
 export function BoardDetails() {
@@ -70,6 +70,7 @@ export function BoardDetails() {
 
     useEffect(() => {
         socketService.emit(SOCKET_EMIT_SET_BOARD, boardId)
+        console.log('EMIT_SET_BOARD')
         return () => {
             socketService.off(SOCKET_EMIT_SET_BOARD, boardId)
         }
@@ -77,13 +78,16 @@ export function BoardDetails() {
 
     useEffect(() => {
         socketService.on(SOCKET_EVENT_CHANGE_BOARD, changeBoard)
+        console.log('EVENT_CHANGE_BOARD')
         return () => {
             socketService.off(SOCKET_EVENT_CHANGE_BOARD, changeBoard)
         }
     }, [])
 
     function changeBoard(updatedBoard) {
-        dispatch({ type: SET_BOARD, board: updatedBoard })
+        const boardIdx = boards.findIndex(board => board._id === updatedBoard._id)
+        dispatch({ type: SET_BOARDS, boards: boards.splice(boardIdx, 1, updatedBoard) })
+        // dispatch({ type: SET_BOARDS, boards })
     }
 
     function updateIsCollapse(value, currentIsCollapse) {
