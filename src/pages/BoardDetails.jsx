@@ -13,7 +13,7 @@ import { SOCKET_EMIT_SET_BOARD, SOCKET_EVENT_CHANGE_BOARD, socketService } from 
 export function BoardDetails() {
     const boards = useSelector(storeState => storeState.boardModule.boards)
     const board = useSelector(storeState => storeState.boardModule.board)
-    const [socketBoard, setIsBoardChange] = useState(false)
+    const [isBoardChange, setIsBoardChange] = useState(false)
     const [onSaveBoard, onRemoveBoard, onRemoveGroup, onRemoveTask, onDuplicateBoard, onDuplicateGroup, onDuplicateTask] = useOutletContext()
     const [isScrolling, setIsScrolling] = useState(false)
     const { boardId } = useParams()
@@ -27,7 +27,7 @@ export function BoardDetails() {
     useEffect(() => {
         // if (!board) dispatch({ type: SET_BOARD, board: undefined })
         loadBoard(boardId, filterBy, sortBy)
-    }, [boardId, filterBy, sortBy, boards, socketBoard])
+    }, [boardId, filterBy, sortBy, boards, isBoardChange])
 
     useEffect(() => {
         if (board && !isInitialSetupComplete) {
@@ -87,7 +87,7 @@ export function BoardDetails() {
 
     function changeBoard(updatedBoard) {
         dispatch({ type: SET_BOARD, board: updatedBoard })
-        setIsBoardChange(!socketBoard)
+        setIsBoardChange(!isBoardChange)
     }
 
     function updateIsCollapse(value, currentIsCollapse) {
