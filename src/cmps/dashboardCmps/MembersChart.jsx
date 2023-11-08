@@ -14,7 +14,7 @@ export function MembersChart() {
     // Create an array to store datasets for each member
     const datasets = members.map((member) => {
         const memberData = {
-            fullname: member.fullname,
+            fullname: member.fullname.split(' ')[0],
             imgUrl: member.imgUrl,
         };
 
@@ -70,20 +70,28 @@ export function MembersChart() {
                 ticks: {
                     color: '#323338',
                     font: {
-                        size: 16,
+                        size: 14,
                     }
+                },
+                grid: {
+                    display: false,
                 }
             },
             y: {
                 stacked: true,
                 beginAtZero: true,
                 ticks: {
-                    // display: false,
+                    display: true,
                     color: '#323338',
                     font: {
-                        size: 16,
+                        size: 14,
                     }
-                }
+                },
+                grid: {
+                    drawTicks: true,
+                    drawOnChartArea: false
+                },
+
             },
         },
         plugins: {
@@ -91,8 +99,8 @@ export function MembersChart() {
                 color: '#ffffff',
                 // anchor: 'end',
                 // align: 'center',
-                backgroundColor: '#0000001a',
-                borderRadius: 5,
+                // backgroundColor: '#0000001a',
+                // borderRadius: 5,
                 font: {
                     size: 16,
 
@@ -110,31 +118,31 @@ export function MembersChart() {
     console.log(datasets);
 
 
-    const topLabels = {
-        id: 'topLabels',
-        afterDatasetsDraw(chart, args, pluginOptions) {
-            const { ctx, scales: { x, y } } = chart
+    // const topLabels = {
+    //     id: 'topLabels',
+    //     afterDatasetsDraw(chart, args, pluginOptions) {
+    //         const { ctx, scales: { x, y } } = chart
 
-            chart.data.datasets[0].data.forEach((datapoint, index) => {
-                const datasetArray = []
-                chart.data.datasets.forEach((dataset) => {
-                    datasetArray.push(dataset.data[index])
-                })
+    //         chart.data.datasets[0].data.forEach((datapoint, index) => {
+    //             const datasetArray = []
+    //             chart.data.datasets.forEach((dataset) => {
+    //                 datasetArray.push(dataset.data[index])
+    //             })
 
-                function totalSum(total, values) {
-                    return total + values
-                }
+    //             function totalSum(total, values) {
+    //                 return total + values
+    //             }
 
-                let sum = datasetArray.reduce(totalSum, 0)
+    //             let sum = datasetArray.reduce(totalSum, 0)
 
-                ctx.font = '18px sans-serif'
-                ctx.fillStyle = '#323338'
-                ctx.textAlign = 'center'
-                ctx.fillText(`${sum} Tasks`, x.getPixelForValue(index), 18)
-            })
+    //             ctx.font = '18px sans-serif'
+    //             ctx.fillStyle = '#323338'
+    //             ctx.textAlign = 'center'
+    //             ctx.fillText(`${sum} Tasks`, x.getPixelForValue(index), 18)
+    //         })
 
-        }
-    }
+    //     }
+    // }
 
     // const bgIimage = {
     //     id: 'bgIimage',
@@ -146,13 +154,16 @@ export function MembersChart() {
     // }
 
     return (
-        <div className='members-chart-container'>
-            <Bar
-                data={data}
-                options={options}
-                plugins={[ChartDataLabels, topLabels]}
-                className="custom-chart"
-            />
+        <div className='members-chart-container flex column'>
+            <h4 className='header'>Tasks per person</h4>
+            <div className='chart-container'>
+                <Bar
+                    data={data}
+                    options={options}
+                    plugins={[ChartDataLabels]}
+                    className="custom-chart"
+                />
+            </div>
         </div>
     );
 }
