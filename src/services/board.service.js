@@ -747,7 +747,7 @@ function getEmptyTask(title = 'New Item') {
         title,
         updates: [],
         status: "ls104",
-        priority: "lp105",
+        priority: "lp102",
         members: [],
         timeline: [1699522460000, 1699622460000],
         date: 1699522460000
