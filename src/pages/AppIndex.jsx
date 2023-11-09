@@ -21,14 +21,10 @@ export function AppIndex() {
     const location = useLocation()
     const [isResizing, setIsResizing] = useState(false)
     const [width, setWidth] = useState(null)
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth)
 
     useEffect(() => {
         onLoadBoards(filterBy)
     }, [filterBy])
-
-    useEffect(() => {
-    }, [])
 
     async function onLoadBoards(filterBy) {
         try {
@@ -147,8 +143,8 @@ export function AppIndex() {
                     filterBy={filterBy} />
                 <Outlet context={[onSaveBoard, onRemoveBoard, onRemoveGroup, onRemoveTask, onDuplicateBoard, onDuplicateGroup, onDuplicateTask, boards]} />
                 {location.pathname.includes('task') && <TaskDetails onSaveBoard={onSaveBoard} onRemoveTask={onRemoveTask} setIsResizing={setIsResizing} width={width} />}
-                {location.pathname.includes('activity') && <BoardActivity />}
             </section>
+            {location.pathname.includes('activity') && <BoardActivity />}
         </section>
     )
 }

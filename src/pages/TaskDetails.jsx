@@ -9,6 +9,7 @@ import { TaskDetailsHeader } from "../cmps/TaskDetailsHeader"
 import { TaskDetailsUpdates } from "../cmps/TaskDetailsUpdates"
 import { TaskDetailsActivity } from "../cmps/TaskDetailsActivity"
 import { userService } from "../services/user.service"
+import { TaskDetailsMobile } from "./TaskDetailsMobile"
 
 export function TaskDetails({ onSaveBoard, onRemoveTask, setIsResizing, width }) {
     const boards = useSelector(storeState => storeState.boardModule.boards)
@@ -27,8 +28,7 @@ export function TaskDetails({ onSaveBoard, onRemoveTask, setIsResizing, width })
         loadTask()
     }, [boards, taskId, boardId, board])
 
-    useEffect(() => {
-    }, [])
+
 
     async function loadTask() {
         try {
@@ -88,6 +88,8 @@ export function TaskDetails({ onSaveBoard, onRemoveTask, setIsResizing, width })
     }
 
     if (!task) return <span></span>
+    if (window.innerWidth < 500) return (<TaskDetailsMobile onSaveBoard={onSaveBoard} task={task} boardId={boardId} />)
+
 
     return (
         <section

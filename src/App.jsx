@@ -28,12 +28,12 @@ export function App() {
             <Route element={<Home />} path="/" />
             <Route element={<Signup />} path='/sign_up' />
             <Route element={<Login />} path='/login' />
+            <Route element={<TaskDetailsMobile />} path="demo-task" />
             <Route element={<AppIndex />} path="/board">
               <Route element={<BoardList />} path='' />
               <Route element={<BoardDetails />} path=":boardId">
                 <Route element={<GroupList />} path="">
                   <Route element={<TaskDetails />} path="task/:taskId" />
-                  <Route element={<TaskDetailsMobile />} path="task/:taskId" />
                   <Route element={<BoardActivity />} path="activity_log" />
                 </Route>
                 <Route element={<Kanban />} path="views/kanban">
