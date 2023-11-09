@@ -1,10 +1,15 @@
 import { useNavigate } from "react-router"
 import { Close, Home, Delete } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { Avatar, AvatarGroup, Button, EditableHeading, Icon, Menu, MenuButton, MenuItem, Tab, TabList } from "monday-ui-react-core"
+import { AvatarGroupCmp } from "./utilsCmps/AvatarGroupCmp"
+import { useSelector } from "react-redux"
 
 export function TaskDetailsHeader({ boardId, task, onRemoveTask, setCurrentTab, onTaskTitleChange }) {
 
     const navigate = useNavigate()
+    const board = useSelector(storeState => storeState.boardModule.board)
+
+    const membersArr = task.members.map((memberId) => board.members.find((member) => member._id === memberId))
 
     return (
         <section className="task-details-header">
@@ -24,15 +29,16 @@ export function TaskDetailsHeader({ boardId, task, onRemoveTask, setCurrentTab, 
                         value={task.title}
                         onBlur={(ev) => onTaskTitleChange(ev)} />
                     <div className="subscribe-container">
-                        <button className="subscribe-btn">
+                        <button className="subscribe-btn flex">
+                            {/* <AvatarGroupCmp members={membersArr} /> */}
                             <AvatarGroup
                                 className="avatar-group"
                                 size="small">
-                                {task.members && task.members.map(member =>
+                                {membersArr && membersArr.map(member =>
                                     <Avatar
-                                        key={member}
-                                        ariaLabel="Yossi Saadi"
-                                        src="https://style.monday.com/static/media/person3.3661bfe5.png"
+                                        key={member._id}
+                                        ariaLabel={member.fullname}
+                                        src={member.imgUrl}
                                         type="img"
                                     />
                                 )}
