@@ -4,8 +4,8 @@ import { useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router"
 import userImgUrl from '../assets/img/user-img.png'
 import updateImgUrl from '../assets/img/update-img.png'
-import { ActivityHeader } from "../cmps/ActivityHeader"
-import { ActivityDetails } from "../cmps/ActivityDetails"
+import { ActivityHeader } from "../cmps/activityCmps/ActivityHeader"
+import { ActivityDetails } from "../cmps/activityCmps/ActivityDetails"
 import { useState } from "react"
 
 export function BoardActivity() {

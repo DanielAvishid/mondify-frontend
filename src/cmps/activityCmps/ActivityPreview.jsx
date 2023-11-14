@@ -1,10 +1,10 @@
-import { utilService } from "../services/util.service";
-import { DateRange } from "./dynamicCmps/DateRange";
-import { GroupValue } from "./dynamicCmps/GroupValue";
-import { LabelValue } from "./dynamicCmps/LabelValue";
-import { MembersValue } from "./dynamicCmps/MembersValue";
-import { TasksValue } from "./dynamicCmps/TasksValue";
-import { TextValue } from "./dynamicCmps/TextValue";
+import { utilService } from "../../services/util.service";
+import { DateRange } from "../dynamicCmps/DateRange";
+import { GroupValue } from "../dynamicCmps/GroupValue";
+import { LabelValue } from "../dynamicCmps/LabelValue";
+import { MembersValue } from "../dynamicCmps/MembersValue";
+import { TasksValue } from "../dynamicCmps/TasksValue";
+import { TextValue } from "../dynamicCmps/TextValue";
 import { Add, Calendar, Comment, Delete, Edit, Favorite, File, Invite, Person, Status, TextCopy, Time, Timeline, Update } from "monday-ui-react-core/icons"
 import { Avatar, Icon } from "monday-ui-react-core";
 
