@@ -5,7 +5,7 @@ export function GroupTitle({ group, board, onSaveBoard, onDuplicateGroup,
     onRemoveGroup, handleKeyPress, isCollapse, setIsCollapse, updateIsCollapse }) {
 
     return (
-        <div className="title-header main-layout full">
+        <div className="group-title main-layout full">
             <div className="group-menu-container start flex justify-end align-center">
                 <MenuButton className="group-menu">
                     <Menu id="menu" size="large">
@@ -16,7 +16,7 @@ export function GroupTitle({ group, board, onSaveBoard, onDuplicateGroup,
                     </Menu>
                 </MenuButton>
             </div>
-            <div className="group-title flex align-center">
+            <div className="title-name flex align-center">
                 <span className="arrow-icon flex" style={{ color: group.style.backgroundColor }}>
 
                     <Icon
@@ -27,7 +27,7 @@ export function GroupTitle({ group, board, onSaveBoard, onDuplicateGroup,
                         onClick={() => setIsCollapse({ ...isCollapse, [group.id]: true })}
                     />
                 </span>
-                <span className="group-title-edit flex align-center">
+                <span className="title-name-edit flex align-center">
                     <EditableHeading
                         type={EditableHeading.types.h4}
                         value={group.title}
