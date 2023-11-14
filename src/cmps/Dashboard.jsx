@@ -1,6 +1,5 @@
 import { useOutletContext } from 'react-router-dom'
 import { MembersChart } from './dashboardCmps/membersChart'
-import { DoughnutChart } from './dashboardCmps/DoughnutChart'
 import { LaunchDate } from './dashboardCmps/LaunchDate'
 import { GroupListChart } from './dashboardCmps/GroupListChart'
 import { UpcomingFeatures } from './dashboardCmps/UpcomingFeatures'
