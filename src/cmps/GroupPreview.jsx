@@ -1,25 +1,20 @@
 
-import { Checkbox, EditableHeading, Icon, IconButton, Menu, MenuButton, MenuItem } from "monday-ui-react-core"
-import { Add, Duplicate, Delete, DropdownChevronDown, Minimize, Open } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
-import { TaskPreview } from "./TaskPreview";
-import { utilService } from "../services/util.service";
-import { boardService } from "../services/board.service";
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
-import { useEffect, useState } from "react";
-import { ProgressBar } from "./ProgressBar";
 import { GroupPreviewCollapse } from "./GroupPreviewCollapse";
-
 import { SET_SELECTED_TASKS } from "../store/reducers/board.reducer"
+import { Draggable } from "react-beautiful-dnd";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { GroupFooter } from "./GroupFooter";
 import { TaskList } from "./TaskList";
+import { GroupHeader } from "./GroupHeader";
 
-export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask, isCollapse, setIsCollapse, updateIsCollapse }) {
+export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, onRemoveTask,
+    onDuplicateGroup, onDuplicateTask, isCollapse, setIsCollapse, updateIsCollapse }) {
+
     const selectedTasks = useSelector(state => state.boardModule.selectedTasks)
     const dispatch = useDispatch()
 
-    const { title } = group
     const [tasks, setTasks] = useState(group.tasks)
 
     const tasksCheck = tasks.reduce((acc, task) => {
@@ -131,77 +126,18 @@ export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, 
                     className="group-preview main-layout full flex align-center justify-center"
                 >
 
-                    <div className="group-header main-layout full">
-                        {/* <div className="group-header main-layout full"> */}
-                        <div className="title-header main-layout full">
-                            <div className="group-menu-container start flex justify-end align-center">
-                                <MenuButton className="group-menu">
-                                    <Menu id="menu" size="large">
-                                        <MenuItem icon={Open} title="Expand all groups" onClick={() => updateIsCollapse(false, isCollapse)} />
-                                        <MenuItem icon={Minimize} title="Collapse all groups" onClick={() => updateIsCollapse(true, isCollapse)} />
-                                        <MenuItem icon={Duplicate} title="Duplicate this group" onClick={() => onDuplicateGroup({ boardId: board._id, groupId: group.id })} />
-                                        <MenuItem icon={Delete} title="Delete" onClick={() => onRemoveGroup({ boardId: board._id, groupId: group.id })} />
-                                    </Menu>
-                                </MenuButton>
-                            </div>
-                            <div className="group-title flex align-center">
-                                <span className="arrow-icon flex" style={{ color: group.style.backgroundColor }}>
-
-                                    <Icon
-                                        customColor={group.style.backgroundColor}
-                                        icon={DropdownChevronDown}
-                                        iconSize={22}
-                                        ariaLabel="Collapse group"
-                                        onClick={() => setIsCollapse({ ...isCollapse, [group.id]: true })}
-                                    />
-                                </span>
-                                <span className="group-title-edit flex align-center">
-                                    <EditableHeading
-                                        type={EditableHeading.types.h4}
-                                        value={title}
-                                        tooltip='Click to Edit'
-                                        tooltipPosition="bottom"
-                                        customColor={group.style.backgroundColor}
-                                        onBlur={(ev) => onSaveBoard({ key: 'title', value: ev.target.value, boardId: board._id, groupId: group.id })}
-                                        onKeyDown={(ev) => handleKeyPress(ev, 'title')}
-                                    />
-                                    <span className="items-count">
-                                        {group.tasks.length === 0 && "No items"}
-                                        {group.tasks.length === 1 && "1 project"}
-                                        {group.tasks.length > 1 && `${group.tasks.length} Items`}
-                                    </span>
-                                </span>
-                            </div>
-                        </div>
-                        <table className="table-header full main-layout">
-                            <thead className="table-container table first" style={{ borderColor: group.style.backgroundColor }}>
-                                <tr className="table-row flex">
-                                    <th className=" title-col flex align-center justify-center">
-                                        <div className="checkbox flex align-center justify-center"><Checkbox checked={masterChecked} onChange={handleMasterChange} /></div>
-                                        <div className="title-name flex align-center justify-center"><span>Item</span></div>
-                                    </th>
-                                    {board.cmpsOrder.map((cmp, idx) => (
-                                        <th key={idx} className={` cmp-title ${cmp.type}-col flex align-center justify-center`}>
-                                            <div className="inner-container">
-                                                <span>
-                                                    <EditableHeading
-                                                        type={EditableHeading.types.h6}
-                                                        value={cmp.title}
-                                                        // customColor={group.style.backgroundColor}
-                                                        // onBlur={(ev) => onSaveBoard({ key: 'title', value: ev.target.value, boardId: board._id, groupId: group.id })}
-                                                        onKeyDown={(ev) => handleKeyPress(ev, 'cmpsOrder', cmp.id)}
-                                                    />
-                                                </span>
-                                            </div>
-                                        </th>
-                                    ))}
-                                    <th className="add-column">
-                                        <IconButton className="add-btn" icon={Add} kind={IconButton.kinds.TERTIARY} ariaLabel="Add Column" />
-                                    </th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
+                    <GroupHeader
+                        group={group}
+                        board={board}
+                        onSaveBoard={onSaveBoard}
+                        onDuplicateGroup={onDuplicateGroup}
+                        onRemoveGroup={onRemoveGroup}
+                        masterChecked={masterChecked}
+                        handleMasterChange={handleMasterChange}
+                        handleKeyPress={handleKeyPress}
+                        isCollapse={isCollapse}
+                        setIsCollapse={setIsCollapse}
+                        updateIsCollapse={updateIsCollapse} />
 
                     <TaskList
                         index={index}
@@ -211,10 +147,12 @@ export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, 
                         onDuplicateTask={onDuplicateTask}
                         onRemoveTask={onRemoveTask}
                         checkboxes={checkboxes}
-                        handleCheckboxChange={handleCheckboxChange}
-                    />
+                        handleCheckboxChange={handleCheckboxChange} />
 
-                    <GroupFooter group={group} board={board} onSaveBoard={onSaveBoard} />
+                    <GroupFooter
+                        group={group}
+                        board={board}
+                        onSaveBoard={onSaveBoard} />
 
                 </div>
             )}
