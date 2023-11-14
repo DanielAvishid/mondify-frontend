@@ -12,16 +12,14 @@ import { GroupPreviewCollapse } from "./GroupPreviewCollapse";
 import { SET_SELECTED_TASKS } from "../store/reducers/board.reducer"
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import { GroupFooter } from "./GroupFooter";
 
 export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask, isCollapse, setIsCollapse, updateIsCollapse }) {
     const selectedTasks = useSelector(state => state.boardModule.selectedTasks)
     const dispatch = useDispatch()
 
-    const [opacity, setOpacity] = useState('80')
-    const { style, title } = group
+    const { title } = group
     const [tasks, setTasks] = useState(group.tasks)
-    const [addTaskBgc, setAddTaskBgc] = useState('')
-    const [taskTitleToAdd, setTaskTitleToAdd] = useState('')
 
     const tasksCheck = tasks.reduce((acc, task) => {
         acc[task.id] = false;
@@ -93,16 +91,6 @@ export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, 
         setMasterChecked(allChecked);
     }
 
-    function onAddTask(title) {
-        setAddTaskBgc('')
-        setOpacity('80')
-        if (title === '') return
-        const newTask = boardService.getEmptyTask(title)
-        const value = [...group.tasks, newTask]
-        setTaskTitleToAdd('')
-        onSaveBoard({ boardId: board._id, groupId: group.id, key: 'tasks', value })
-    }
-
     function handleKeyPress(ev, key, idValue) {
         console.log(ev);
 
@@ -136,16 +124,6 @@ export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, 
         setTasks(value)
     }
 
-    function onChangeBgc() {
-        setOpacity('')
-        setAddTaskBgc('focus-bgc')
-    }
-
-    function handleAddTask(ev) {
-        if (ev.key === 'Enter') {
-            onAddTask(ev.target.value)
-        }
-    }
 
     if (isCollapse[group.id]) return (
         <GroupPreviewCollapse index={index} handleKeyPress={handleKeyPress} board={board}
@@ -277,30 +255,7 @@ export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, 
                         )}
                     </Droppable>
 
-                    <div className="group-footer full main-layout">
-                        <table className="add-task full main-layout" onMouseEnter={() => setOpacity('')} onMouseLeave={() => setOpacity('80')}>
-                            <tbody className={`table-container table last ${addTaskBgc}`} style={{ borderColor: group.style.backgroundColor + opacity }}>
-                                <tr className="table-row flex">
-                                    <td className=" title-col flex align-center justify-center">
-                                        <div className="checkbox flex align-center justify-center"><Checkbox disabled /></div>
-                                        <div className="title-name flex align-center justify-center">
-                                            <input
-                                                type="text"
-                                                placeholder={"+ Add Item"}
-                                                value={taskTitleToAdd}
-                                                onBlur={(ev) => onAddTask(ev.target.value)}
-                                                onFocus={onChangeBgc}
-                                                onChange={(ev) => setTaskTitleToAdd(ev.target.value)}
-                                                onKeyPress={handleAddTask}
-                                            />
-                                            <span className="guidance" style={{ opacity: taskTitleToAdd ? 1 : 0 }}>Enter to add another item</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <ProgressBar board={board} group={group} />
-                    </div>
+                    <GroupFooter group={group} board={board} onSaveBoard={onSaveBoard} />
 
                 </div>
             )}

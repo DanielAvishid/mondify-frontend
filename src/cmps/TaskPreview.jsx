@@ -63,7 +63,6 @@ export function TaskPreview({ board, group, task, onSaveBoard, onDuplicateTask, 
 }
 
 const DynamicCmp = ({ task, group, board, cmpType, info, onSaveBoard, setIsTaskFocus }) => {
-    // NEED TO ADD BOARD ID AND ON SAVE BOARD TO THE CMPS PROPS
 
     switch (cmpType) {
         case "priority":

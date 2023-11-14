@@ -45,32 +45,22 @@ export function TaskDetailsMobile({ onSaveBoard, task, boardId }) {
             <div className="task-info-container">
                 <h2>{task.title}</h2>
                 <div className="group-info-container">
-                    <span>
-                        New Board
-                    </span>
+                    <span>New Board</span>
                     <Icon className="arrow-right-icon" icon={DropdownChevronRight} />
-                    <span>
-                        Group Title
-                    </span>
+                    <span>Group Title</span>
                 </div>
                 <div className="mode-nav-container">
                     <button className="btn">
                         <Icon className="icon" icon={Board} />
-                        <span>
-                            Columns
-                        </span>
+                        <span>Columns</span>
                     </button>
                     <button className="btn update-btn">
                         <Icon className="icon" icon={Update} />
-                        <span>
-                            Updates
-                        </span>
+                        <span>Updates</span>
                     </button>
                     <button className="btn">
                         <Icon className="icon" icon={AddNewDoc} />
-                        <span>
-                            Files
-                        </span>
+                        <span>Files</span>
                     </button>
                 </div>
                 {task.updates && task.updates.map(update =>
@@ -86,9 +76,7 @@ export function TaskDetailsMobile({ onSaveBoard, task, boardId }) {
                             <h3>{update.by.fullname}</h3>
                             <span>{utilService.getTimePassed(update.at)} ago</span>
                         </div>
-                        <div className="update-content">
-                            {update.text}
-                        </div>
+                        <div className="update-content">{update.text}</div>
                         <Icon className="menu-icon" icon={LuMoreVertical} />
                     </div>
                 )}
