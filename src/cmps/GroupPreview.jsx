@@ -13,6 +13,7 @@ import { SET_SELECTED_TASKS } from "../store/reducers/board.reducer"
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { GroupFooter } from "./GroupFooter";
+import { TaskList } from "./TaskList";
 
 export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask, isCollapse, setIsCollapse, updateIsCollapse }) {
     const selectedTasks = useSelector(state => state.boardModule.selectedTasks)
@@ -113,18 +114,6 @@ export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, 
         }
     }
 
-    function handleOnDragEnd(result) {
-        console.log(result);
-        if (!result.destination) return;
-        const value = [...tasks]
-        const task = value.splice(result.source.index, 1)[0];
-        value.splice(result.destination.index, 0, task)
-        console.log(value);
-        onSaveBoard({ boardId: board._id, groupId: group.id, key: 'tasks', value })
-        setTasks(value)
-    }
-
-
     if (isCollapse[group.id]) return (
         <GroupPreviewCollapse index={index} handleKeyPress={handleKeyPress} board={board}
             group={group} onDuplicateGroup={onDuplicateGroup} onSaveBoard={onSaveBoard}
@@ -214,46 +203,16 @@ export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, 
                         </table>
                     </div>
 
-                    <Droppable droppableId={group.id}>
-                        {(provided) => (
-                            <div
-                                className="task-list"
-                                {...provided.droppableProps}
-                                ref={provided.innerRef}
-                            >
-                                {board.groups[index].tasks.map((task, index) => (
-                                    <Draggable
-                                        key={task.id}
-                                        draggableId={task.id}
-                                        index={index}
-                                    >
-                                        {(provided) => (
-                                            <div
-                                                key={task.id}
-                                                className="dnd-task main-layout full"
-                                                {...provided.dragHandleProps}
-                                                {...provided.draggableProps}
-                                                ref={provided.innerRef}
-                                            >
-                                                <TaskPreview
-                                                    key={task.id}
-                                                    board={board}
-                                                    group={group}
-                                                    task={task}
-                                                    onSaveBoard={onSaveBoard}
-                                                    onDuplicateTask={onDuplicateTask}
-                                                    onRemoveTask={onRemoveTask}
-                                                    isChecked={checkboxes[task.id]}
-                                                    handleCheckboxChange={handleCheckboxChange}
-                                                />
-                                            </div>
-                                        )}
-                                    </Draggable>
-                                ))}
-                                {provided.placeholder}
-                            </div>
-                        )}
-                    </Droppable>
+                    <TaskList
+                        index={index}
+                        board={board}
+                        group={group}
+                        onSaveBoard={onSaveBoard}
+                        onDuplicateTask={onDuplicateTask}
+                        onRemoveTask={onRemoveTask}
+                        checkboxes={checkboxes}
+                        handleCheckboxChange={handleCheckboxChange}
+                    />
 
                     <GroupFooter group={group} board={board} onSaveBoard={onSaveBoard} />
 
