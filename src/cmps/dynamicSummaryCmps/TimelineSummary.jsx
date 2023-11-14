@@ -6,9 +6,12 @@ export function TimelineSummary({ group, type }) {
     const [isHover, setIsHover] = useState(false)
 
     const timelines = group.tasks.map(task => task[type]).filter(Boolean)
+    console.log(timelines);
     const flattenedTimelines = [].concat(...timelines)
     const minTimeline = Math.min(...flattenedTimelines)
     const maxTimeline = Math.max(...flattenedTimelines)
+    console.log(maxTimeline);
+
     const finalDates = [minTimeline, maxTimeline]
     const { text, percentage } = utilService.getDateToShow(finalDates)
 
@@ -26,9 +29,8 @@ export function TimelineSummary({ group, type }) {
             onMouseEnter={() => setIsHover(true)}
             onMouseLeave={() => setIsHover(false)}
             className="timeline-summary date-container"
-        // onClick={() => setIsModalOpen(!isModalOpen)}
         >
-            {timelines.length ? (
+            {timelines.length && minTimeline !== Infinity ? (
                 <span>{isHover ? `${utilService.calculateDaysDifference(finalDates)}d` : text}</span>
             ) : (
                 <span>{'-'}</span>

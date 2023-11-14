@@ -10,10 +10,9 @@ import { TaskDetails } from './pages/TaskDetails'
 import { AppIndex } from './pages/AppIndex'
 import { store } from './store/store'
 import { GroupList } from './cmps/GroupList';
-import { Kanban } from './cmps/Kanban';
 import { BoardList } from './pages/BoardList';
 import { BoardActivity } from './pages/BoardActivity';
-import { Dashboard } from './cmps/Dashboard';
+import { Dashboard } from './cmps/dashboardCmps/Dashboard';
 import { Signup } from './pages/Signup';
 import { Login } from './pages/Login';
 import { TaskDetailsMobile } from './pages/TaskDetailsMobile';
@@ -36,9 +35,6 @@ export function App() {
                   <Route element={<TaskDetails />} path="task/:taskId" />
                   <Route element={<BoardActivity />} path="activity_log" />
                 </Route>
-                <Route element={<Kanban />} path="views/kanban">
-                  <Route element={<TaskDetails />} path="task/:taskId" />
-                </Route>
                 <Route element={<Dashboard />} path="views/dashboard" />
               </Route>
             </Route>
@@ -48,22 +44,4 @@ export function App() {
     </Provider>
   )
 }
-
-{/* <Routes>
-  <Route element={<Home />} path="/" />
-  <Route element={<AppIndex />} path="/board">
-    <Route element={<BoardList />} path="" />
-    <Route element={<BoardDetails />} path=":boardId">
-      <Route element={<BoardTable />} path="">
-        <Route element={<TaskDetails />} path="task/:taskId" />
-        <Route element={<ActivityLog />} path="activity_log" />
-      </Route>
-      <Route element={<BoardKanban />} path="views/kanban">
-        <Route element={<TaskDetails />} path="task/:taskId" />
-        <Route element={<ActivityLog />} path="activity_log" />
-      </Route>
-    </Route>
-  </Route>
-</Routes>  */}
-
 

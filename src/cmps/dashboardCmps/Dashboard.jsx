@@ -1,8 +1,8 @@
 import { useOutletContext } from 'react-router-dom'
-import { MembersChart } from './dashboardCmps/membersChart'
-import { LaunchDate } from './dashboardCmps/LaunchDate'
-import { GroupListChart } from './dashboardCmps/GroupListChart'
-import { UpcomingFeatures } from './dashboardCmps/UpcomingFeatures'
+import { MembersChart } from './membersChart'
+import { LaunchDate } from './LaunchDate'
+import { GroupListChart } from './GroupListChart'
+import { UpcomingFeatures } from './UpcomingFeatures'
 
 export function Dashboard() {
     const [board] = useOutletContext()
