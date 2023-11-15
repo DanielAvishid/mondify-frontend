@@ -58,7 +58,7 @@ export function DueDate({ labelId, board, onSaveBoard, cmpType, info, setIsTaskF
                         :
                         <PiWarningCircleFill className="sign warning" />
                     }
-                    <span className={`${isDone ? 'done' : ''}`}>{dueDate}</span>
+                    <span className={`${isDatePass ? 'date-pass' : ''}`}>{dueDate}</span>
                     <AiOutlineClose className="remove-date" onClick={() => onSaveBoard({ board, taskId: task.id, key: "date", value: null })} />
                 </div>
                 :
