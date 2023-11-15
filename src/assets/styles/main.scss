@@ -15,7 +15,7 @@
 @import "pages/TaskDetails.scss";
 @import "pages/Home.scss";
 @import "pages/BoardList.scss";
-@import "pages/Activity.scss";
+@import "pages/BoardActivity.scss";
 @import "pages/Signup.scss";
 @import "pages/Login.scss";
 @import "pages/TaskDetailsMoblie.scss";
@@ -63,6 +63,11 @@
 @import "cmps/dashboardCharts/LaunchDate.scss";
 @import "cmps/dashboardCharts/MembersChart.scss";
 @import "cmps/dashboardCharts/DoughnutChart.scss";
+
+//activityCmps
+@import "cmps/activityCmps/ActivityDetails.scss";
+@import "cmps/activityCmps/ActivityHeader.scss";
+@import "cmps/activityCmps/ActivityPreview.scss";
 
 //utilsCmps
 @import "cmps/utilsCmps/AvatarGroupCmp.scss"
