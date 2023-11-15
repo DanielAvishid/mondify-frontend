@@ -33,6 +33,7 @@ export function GroupList() {
                                     board={board}
                                     group={group}
                                     onSaveBoard={onSaveBoard}
+                                    newOnSaveBoard={newOnSaveBoard}
                                     onRemoveGroup={onRemoveGroup}
                                     onRemoveTask={onRemoveTask}
                                     onDuplicateGroup={onDuplicateGroup}
@@ -47,7 +48,7 @@ export function GroupList() {
                     </section>
                 )}
             </Droppable>
-            {Object.keys(selectedTasks).length > 0 && <CheckboxModal board={board} onSaveBoard={onSaveBoard} />}
+            {Object.keys(selectedTasks).length > 0 && <CheckboxModal board={board} newOnSaveBoard={newOnSaveBoard} />}
             {board.groups.length !== 0 && <div className="add-group-container middle">
                 <Button
                     className="new-group-btn"
