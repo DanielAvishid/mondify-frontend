@@ -6,11 +6,9 @@ export function TimelineSummary({ group, type }) {
     const [isHover, setIsHover] = useState(false)
 
     const timelines = group.tasks.map(task => task[type]).filter(Boolean)
-    console.log(timelines);
     const flattenedTimelines = [].concat(...timelines)
     const minTimeline = Math.min(...flattenedTimelines)
     const maxTimeline = Math.max(...flattenedTimelines)
-    console.log(maxTimeline);
 
     const finalDates = [minTimeline, maxTimeline]
     const { text, percentage } = utilService.getDateToShow(finalDates)

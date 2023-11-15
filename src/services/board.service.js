@@ -11,6 +11,7 @@ export const boardService = {
     query,
     getById,
     update,
+    newUpdate,
     remove,
     duplicate,
     addBoard,
@@ -148,10 +149,46 @@ async function addTaskFromHeader(board, task = getEmptyTask()) {
     // return savedBoard
 }
 
-//socket.service.emit CHANGE_BOARD
+async function newUpdate({ type, board, groupId, taskId, key, value }) {
+
+    console.log('old board', board)
+
+    switch (type) {
+
+        case 'task':
+            board.groups = board.groups.map((group) => ({
+                ...group,
+                tasks: group.tasks.map((task) => (task.id === taskId ? { ...task, [key]: value } : task)),
+            }))
+            break
+
+        case 'group':
+            const groupIdx = board.groups.findIndex((group) => group.id === groupId)
+            board.groups[groupIdx][key] = value
+            break
+
+        case 'board':
+            if (key !== null && value !== null) board[key] = value
+            break
+
+        default:
+            throw new Error('Invalid update type')
+    }
+
+    console.log('new board', board)
+
+    try {
+        let updatedBoard = await httpService.put(BASE_URL + board._id, board);
+        return updatedBoard
+    } catch (err) {
+        throw err
+    }
+}
+
 
 async function update({ board, boardId, groupId, taskId, key, value }) {
     const user = userService.getLoggedinUser()
+
     if (!board) {
         try {
             board = await httpService.get(BASE_URL + boardId)
@@ -159,9 +196,6 @@ async function update({ board, boardId, groupId, taskId, key, value }) {
             throw err
         }
     }
-    // if (!board) {
-    //     board = await storageService.get(STORAGE_KEY, boardId);
-    // }
 
     const createChange = (prevValue, newValue, title, key) => ({
         prevValue,
@@ -213,13 +247,11 @@ async function update({ board, boardId, groupId, taskId, key, value }) {
 
     try {
         let updatedBoard = await httpService.put(BASE_URL + board._id, board)
-        // console.log('EMIT_UPDATE_BOARD')
-        // console.log('BOARD:', updatedBoard)
+
         return updatedBoard
     } catch (err) {
         throw err
     }
-    // return await storageService.put(STORAGE_KEY, board);
 }
 
 

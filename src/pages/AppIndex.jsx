@@ -3,7 +3,7 @@ import { AppHeader } from "../cmps/AppHeader";
 import { AppSidebar } from "../cmps/AppSidebar";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { duplicate, loadBoards, remove, saveBoard } from "../store/actions/board.action";
+import { duplicate, loadBoards, remove, saveBoard, newSaveBoard } from "../store/actions/board.action";
 import { SET_BOARDS } from "../store/reducers/board.reducer";
 import { store } from "../store/store";
 import { showSuccessMsg } from "../services/event-bus.service";
@@ -37,6 +37,16 @@ export function AppIndex() {
     async function onSaveBoard({ board, boardId, groupId, taskId, key, value }) {
         try {
             await saveBoard({ board, boardId, groupId, taskId, key, value })
+            console.log('ShowSuccessesMsg')
+        } catch (err) {
+            console.log('Had issues in save board', err)
+            console.log('ShowErrorMsg')
+        }
+    }
+
+    async function newOnSaveBoard({ type, board, groupId = null, taskId = null, key = null, value = null }) {
+        try {
+            await newSaveBoard({ type, board, groupId, taskId, key, value })
             console.log('ShowSuccessesMsg')
         } catch (err) {
             console.log('Had issues in save board', err)
@@ -137,7 +147,7 @@ export function AppIndex() {
                     boards={boards}
                     onDuplicateBoard={onDuplicateBoard}
                     onRemoveBoard={onRemoveBoard}
-                    onSaveBoard={onSaveBoard}
+                    newOnSaveBoard={newOnSaveBoard}
                     updateBoards={updateBoards}
                     handleBoardsFilter={handleBoardsFilter}
                     filterBy={filterBy} />
