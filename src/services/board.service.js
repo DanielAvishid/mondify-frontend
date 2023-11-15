@@ -151,8 +151,6 @@ async function addTaskFromHeader(board, task = getEmptyTask()) {
 
 async function newUpdate({ type, board, groupId, taskId, key, value }) {
 
-    console.log('old board', board)
-
     switch (type) {
 
         case 'task':
@@ -174,8 +172,6 @@ async function newUpdate({ type, board, groupId, taskId, key, value }) {
         default:
             throw new Error('Invalid update type')
     }
-
-    console.log('new board', board)
 
     try {
         let updatedBoard = await httpService.put(BASE_URL + board._id, board);

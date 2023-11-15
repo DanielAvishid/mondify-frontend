@@ -13,7 +13,7 @@ import { SOCKET_EMIT_SET_BOARD, SOCKET_EVENT_CHANGE_BOARD, socketService } from 
 export function BoardDetails() {
     const boards = useSelector(storeState => storeState.boardModule.boards)
     const board = useSelector(storeState => storeState.boardModule.board)
-    const [onSaveBoard, newOnSaveBoard, onRemoveBoard, onRemoveGroup, onRemoveTask, onDuplicateBoard, onDuplicateGroup, onDuplicateTask] = useOutletContext()
+    const [newOnSaveBoard, onRemoveBoard, onRemoveGroup, onRemoveTask, onDuplicateBoard, onDuplicateGroup, onDuplicateTask] = useOutletContext()
     const [isScrolling, setIsScrolling] = useState(false)
     const { boardId } = useParams()
     const [filterBy, setFilterBy] = useState({ txt: '', person: null })
@@ -209,7 +209,7 @@ export function BoardDetails() {
                 isScrolling={isScrolling}
             />}
             {board && < DragDropContext onDragEnd={onDragEnd} className="main-layout full">
-                <Outlet context={[board, onSaveBoard, newOnSaveBoard, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask, isCollapse, setIsCollapse, updateIsCollapse, onAddGroup]} />
+                <Outlet context={[board, newOnSaveBoard, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask, isCollapse, setIsCollapse, updateIsCollapse, onAddGroup]} />
             </DragDropContext>}
         </section >
     )

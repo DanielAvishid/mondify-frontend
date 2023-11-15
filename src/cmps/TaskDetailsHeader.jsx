@@ -4,7 +4,7 @@ import { Avatar, AvatarGroup, Button, EditableHeading, Icon, Menu, MenuButton, M
 import { AvatarGroupCmp } from "./utilsCmps/AvatarGroupCmp"
 import { useSelector } from "react-redux"
 
-export function TaskDetailsHeader({ boardId, task, onRemoveTask, setCurrentTab, onTaskTitleChange }) {
+export function TaskDetailsHeader({ boardId, task, onRemoveTask, setCurrentTab, onTaskTitleChange, handleKeyPress }) {
 
     const navigate = useNavigate()
     const board = useSelector(storeState => storeState.boardModule.board)
@@ -27,7 +27,8 @@ export function TaskDetailsHeader({ boardId, task, onRemoveTask, setCurrentTab, 
                         className="task-title-input"
                         type="h2"
                         value={task.title}
-                        onBlur={(ev) => onTaskTitleChange(ev)} />
+                        onBlur={(ev) => onTaskTitleChange(ev)}
+                        onKeyDown={handleKeyPress} />
                     <div className="subscribe-container">
                         <button className="subscribe-btn flex">
                             {/* <AvatarGroupCmp members={membersArr} /> */}

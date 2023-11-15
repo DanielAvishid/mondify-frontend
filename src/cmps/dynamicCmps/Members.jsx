@@ -5,7 +5,7 @@ import { useClickOutside } from "../../hooks/useClickOutside"
 import { AvatarGroupCmp } from "../utilsCmps/AvatarGroupCmp"
 
 
-export function Members({ info, task, board, onSaveBoard, setIsTaskFocus }) {
+export function Members({ info, task, board, newOnSaveBoard, setIsTaskFocus }) {
 
     const membersIds = info
     const participateMembers = membersIds.map((memberId) => {
@@ -38,7 +38,7 @@ export function Members({ info, task, board, onSaveBoard, setIsTaskFocus }) {
 
     const onRemoveMember = (memberId) => {
         const updatedMembersIds = membersIds.filter((id) => id !== memberId)
-        onSaveBoard({ board, taskId: task.id, key: "members", value: updatedMembersIds })
+        newOnSaveBoard({ type: 'task', board, taskId: task.id, key: "members", value: updatedMembersIds })
     }
 
     const onClickMembersCell = () => {
@@ -72,7 +72,7 @@ export function Members({ info, task, board, onSaveBoard, setIsTaskFocus }) {
                                 filteredMembers={filteredMembers}
                                 setIsInviteModalOpen={setIsInviteModalOpen}
                                 onRemoveMember={onRemoveMember}
-                                onSaveBoard={onSaveBoard}
+                                newOnSaveBoard={newOnSaveBoard}
                             /> :
 
                             <InviteMemberModal
@@ -80,7 +80,7 @@ export function Members({ info, task, board, onSaveBoard, setIsTaskFocus }) {
                                 task={task}
                                 membersIds={membersIds}
                                 setIsInviteModalOpen={setIsInviteModalOpen}
-                                onSaveBoard={onSaveBoard}
+                                newOnSaveBoard={newOnSaveBoard}
                             />
                         }
                     </div>

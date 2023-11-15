@@ -9,7 +9,7 @@ import { GroupFooter } from "./GroupFooter";
 import { TaskList } from "./TaskList";
 import { GroupHeader } from "./GroupHeader";
 
-export function GroupPreview({ index, board, group, onSaveBoard, newOnSaveBoard, onRemoveGroup, onRemoveTask,
+export function GroupPreview({ index, board, group, newOnSaveBoard, onRemoveGroup, onRemoveTask,
     onDuplicateGroup, onDuplicateTask, isCollapse, setIsCollapse, updateIsCollapse }) {
 
     const selectedTasks = useSelector(state => state.boardModule.selectedTasks)
@@ -145,7 +145,6 @@ export function GroupPreview({ index, board, group, onSaveBoard, newOnSaveBoard,
                         board={board}
                         group={group}
                         newOnSaveBoard={newOnSaveBoard}
-                        onSaveBoard={onSaveBoard}
                         onDuplicateTask={onDuplicateTask}
                         onRemoveTask={onRemoveTask}
                         checkboxes={checkboxes}

@@ -17,8 +17,6 @@ export function TableHeader({ group, board, masterChecked, handleMasterChange, h
                                     <EditableHeading
                                         type={EditableHeading.types.h6}
                                         value={cmp.title}
-                                        // customColor={group.style.backgroundColor}
-                                        // onBlur={(ev) => onSaveBoard({ key: 'title', value: ev.target.value, boardId: board._id, groupId: group.id })}
                                         onKeyDown={(ev) => handleKeyPress(ev, 'cmpsOrder', cmp.id)}
                                     />
                                 </span>

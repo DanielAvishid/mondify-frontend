@@ -2,7 +2,7 @@ import { Button } from "monday-ui-react-core";
 import { useState } from "react";
 import { utilService } from "../../services/util.service";
 
-export function InviteMemberModal({ board, task, membersIds, setIsInviteModalOpen, onSaveBoard }) {
+export function InviteMemberModal({ board, task, membersIds, setIsInviteModalOpen, newOnSaveBoard }) {
     const [emailToAdd, setEmailToAdd] = useState('')
     const [isButtonDisabled, setIsButtonDisabled] = useState(true)
 
@@ -15,13 +15,10 @@ export function InviteMemberModal({ board, task, membersIds, setIsInviteModalOpe
     const onInviteMember = () => {
         // console.log('hello');
         const memberId = utilService.makeId()
-        onSaveBoard({
-            board, key: "members", value: [...board.members, {
-                _id: memberId, fullname: emailToAdd, imgUrl: "https://as1.ftcdn.net/v2/jpg/02/43/12/34/1000_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg"
-            }]
-        })
+        const value = [...board.members, { _id: memberId, fullname: emailToAdd, imgUrl: "https://as1.ftcdn.net/v2/jpg/02/43/12/34/1000_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg" }]
 
-        onSaveBoard({ board, taskId: task.id, key: "members", value: [...membersIds, memberId] })
+        newOnSaveBoard({ type: 'board', board, key: "members", value })
+        newOnSaveBoard({ type: 'task', board, taskId: task.id, key: "members", value: [...membersIds, memberId] })
         setIsInviteModalOpen(false)
     }
 

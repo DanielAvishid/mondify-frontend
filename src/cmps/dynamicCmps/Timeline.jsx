@@ -4,7 +4,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import { TimelineModal } from "../dynamicModalCmps/TimelineModal";
 import { useClickOutside } from "../../hooks/useClickOutside";
 
-export function Timeline({ info, task, board, group, onSaveBoard, setIsTaskFocus }) {
+export function Timeline({ info, task, board, group, newOnSaveBoard, setIsTaskFocus }) {
 
     const [isHover, setIsHover] = useState(false)
     const [newDate, setNewDate] = useState(new Date())
@@ -28,7 +28,7 @@ export function Timeline({ info, task, board, group, onSaveBoard, setIsTaskFocus
         const startDate = (date.startDate) ? date.startDate._d.getTime() : null
         const endDate = (date.endDate) ? date.endDate._d.getTime() : null
         if (startDate && endDate) {
-            onSaveBoard({ board, taskId: task.id, key: "timeline", value: [startDate, endDate] })
+            newOnSaveBoard({ type: 'task', board, taskId: task.id, key: "timeline", value: [startDate, endDate] })
         }
     }
 
@@ -43,7 +43,7 @@ export function Timeline({ info, task, board, group, onSaveBoard, setIsTaskFocus
             className={`timeline timeline-col flex align-center justify-center ${isFocus ? 'focus' : ''}`}
             ref={timelineCell}
         >
-            {info.length > 0 && < AiOutlineClose className="remove-date" onClick={() => onSaveBoard({ board, taskId: task.id, key: "timeline", value: [] })} />}
+            {info.length > 0 && < AiOutlineClose className="remove-date" onClick={() => newOnSaveBoard({ type: 'task', board, taskId: task.id, key: "timeline", value: [] })} />}
             <div
                 style={style}
                 onMouseEnter={() => setIsHover(true)}

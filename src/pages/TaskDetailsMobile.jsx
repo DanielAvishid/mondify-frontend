@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { utilService } from "../services/util.service";
 
-export function TaskDetailsMobile({ onSaveBoard, task, boardId }) {
+export function TaskDetailsMobile({ newOnSaveBoard, task, board }) {
     const user = useSelector(storeState => storeState.userModule.loggedinUser)
     const inputRef = useRef()
 
@@ -25,7 +25,7 @@ export function TaskDetailsMobile({ onSaveBoard, task, boardId }) {
             }
         }
         value.unshift(update)
-        onSaveBoard({ key: 'updates', value, boardId, taskId: task.id })
+        newOnSaveBoard({ type: 'task', board, taskId: task.id, key: 'updates', value })
         inputRef.current.value = ''
     }
 

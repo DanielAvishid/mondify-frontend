@@ -1,7 +1,7 @@
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import { TaskPreview } from "./TaskPreview";
 
-export function TaskList({ index, board, group, onSaveBoard, newOnSaveBoard, onDuplicateTask, onRemoveTask, checkboxes, handleCheckboxChange }) {
+export function TaskList({ index, board, group, newOnSaveBoard, onDuplicateTask, onRemoveTask, checkboxes, handleCheckboxChange }) {
     return (
         <Droppable droppableId={group.id}>
             {(provided) => (
@@ -29,7 +29,6 @@ export function TaskList({ index, board, group, onSaveBoard, newOnSaveBoard, onD
                                         board={board}
                                         group={group}
                                         task={task}
-                                        onSaveBoard={onSaveBoard}
                                         newOnSaveBoard={newOnSaveBoard}
                                         onDuplicateTask={onDuplicateTask}
                                         onRemoveTask={onRemoveTask}

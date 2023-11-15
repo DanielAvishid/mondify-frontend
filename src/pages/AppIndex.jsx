@@ -34,15 +34,15 @@ export function AppIndex() {
         }
     }
 
-    async function onSaveBoard({ board, boardId, groupId, taskId, key, value }) {
-        try {
-            await saveBoard({ board, boardId, groupId, taskId, key, value })
-            console.log('ShowSuccessesMsg')
-        } catch (err) {
-            console.log('Had issues in save board', err)
-            console.log('ShowErrorMsg')
-        }
-    }
+    // async function onSaveBoard({ board, boardId, groupId, taskId, key, value }) {
+    //     try {
+    //         await saveBoard({ board, boardId, groupId, taskId, key, value })
+    //         console.log('ShowSuccessesMsg')
+    //     } catch (err) {
+    //         console.log('Had issues in save board', err)
+    //         console.log('ShowErrorMsg')
+    //     }
+    // }
 
     async function newOnSaveBoard({ type, board, groupId = null, taskId = null, key, value }) {
         try {
@@ -151,8 +151,8 @@ export function AppIndex() {
                     updateBoards={updateBoards}
                     handleBoardsFilter={handleBoardsFilter}
                     filterBy={filterBy} />
-                <Outlet context={[onSaveBoard, newOnSaveBoard, onRemoveBoard, onRemoveGroup, onRemoveTask, onDuplicateBoard, onDuplicateGroup, onDuplicateTask, boards]} />
-                {location.pathname.includes('task') && <TaskDetails onSaveBoard={onSaveBoard} onRemoveTask={onRemoveTask} setIsResizing={setIsResizing} width={width} />}
+                <Outlet context={[newOnSaveBoard, onRemoveBoard, onRemoveGroup, onRemoveTask, onDuplicateBoard, onDuplicateGroup, onDuplicateTask, boards]} />
+                {location.pathname.includes('task') && <TaskDetails newOnSaveBoard={newOnSaveBoard} onRemoveTask={onRemoveTask} setIsResizing={setIsResizing} width={width} />}
             </section>
             {location.pathname.includes('activity') && <BoardActivity />}
         </section>

@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import { CheckboxModal } from "./CheckboxModal";
 
 export function GroupList() {
-    const [board, onSaveBoard, newOnSaveBoard, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask, isCollapse, setIsCollapse, updateIsCollapse, onAddGroup] = useOutletContext()
+    const [board, newOnSaveBoard, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask, isCollapse, setIsCollapse, updateIsCollapse, onAddGroup] = useOutletContext()
     const selectedTasks = useSelector(state => state.boardModule.selectedTasks)
 
     return (
@@ -32,7 +32,6 @@ export function GroupList() {
                                     index={index}
                                     board={board}
                                     group={group}
-                                    onSaveBoard={onSaveBoard}
                                     newOnSaveBoard={newOnSaveBoard}
                                     onRemoveGroup={onRemoveGroup}
                                     onRemoveTask={onRemoveTask}
