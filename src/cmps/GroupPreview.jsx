@@ -93,7 +93,8 @@ export function GroupPreview({ index, board, group, onSaveBoard, newOnSaveBoard,
         if (ev.key === 'Enter') {
 
             if (key === 'title') {
-                newOnSaveBoard(({ type: 'group', board, groupId: group.id, key, value: ev.target.value }))
+                ev.target.blur()
+                // newOnSaveBoard(({ type: 'group', board, groupId: group.id, key, value: ev.target.value }))
             } else if (key === 'cmpsOrder') {
                 const updatedCmpsOrder = board.cmpsOrder.map(cmp => {
                     if (cmp.id === idValue) {
@@ -129,7 +130,7 @@ export function GroupPreview({ index, board, group, onSaveBoard, newOnSaveBoard,
                     <GroupHeader
                         group={group}
                         board={board}
-                        onSaveBoard={onSaveBoard}
+                        newOnSaveBoard={newOnSaveBoard}
                         onDuplicateGroup={onDuplicateGroup}
                         onRemoveGroup={onRemoveGroup}
                         masterChecked={masterChecked}

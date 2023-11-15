@@ -1,7 +1,7 @@
 import { EditableHeading, Icon, Menu, MenuButton, MenuItem } from "monday-ui-react-core"
 import { Duplicate, Delete, DropdownChevronDown, Minimize, Open } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 
-export function GroupTitle({ group, board, onSaveBoard, onDuplicateGroup,
+export function GroupTitle({ group, board, newOnSaveBoard, onDuplicateGroup,
     onRemoveGroup, handleKeyPress, isCollapse, setIsCollapse, updateIsCollapse }) {
 
     return (
@@ -34,7 +34,7 @@ export function GroupTitle({ group, board, onSaveBoard, onDuplicateGroup,
                         tooltip='Click to Edit'
                         tooltipPosition="bottom"
                         customColor={group.style.backgroundColor}
-                        onBlur={(ev) => onSaveBoard({ key: 'title', value: ev.target.value, boardId: board._id, groupId: group.id })}
+                        onBlur={(ev) => newOnSaveBoard({ type: 'group', board, groupId: group.id, key: 'title', value: ev.target.value })}
                         onKeyDown={(ev) => handleKeyPress(ev, 'title')}
                     />
                     <span className="items-count">
