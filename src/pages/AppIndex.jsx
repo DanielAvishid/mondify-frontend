@@ -44,7 +44,7 @@ export function AppIndex() {
         }
     }
 
-    async function newOnSaveBoard({ type, board, groupId = null, taskId = null, key = null, value = null }) {
+    async function newOnSaveBoard({ type, board, groupId = null, taskId = null, key, value }) {
         try {
             await newSaveBoard({ type, board, groupId, taskId, key, value })
             console.log('ShowSuccessesMsg')
@@ -151,7 +151,7 @@ export function AppIndex() {
                     updateBoards={updateBoards}
                     handleBoardsFilter={handleBoardsFilter}
                     filterBy={filterBy} />
-                <Outlet context={[onSaveBoard, onRemoveBoard, onRemoveGroup, onRemoveTask, onDuplicateBoard, onDuplicateGroup, onDuplicateTask, boards]} />
+                <Outlet context={[onSaveBoard, newOnSaveBoard, onRemoveBoard, onRemoveGroup, onRemoveTask, onDuplicateBoard, onDuplicateGroup, onDuplicateTask, boards]} />
                 {location.pathname.includes('task') && <TaskDetails onSaveBoard={onSaveBoard} onRemoveTask={onRemoveTask} setIsResizing={setIsResizing} width={width} />}
             </section>
             {location.pathname.includes('activity') && <BoardActivity />}

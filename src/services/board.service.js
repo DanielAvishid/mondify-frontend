@@ -168,7 +168,7 @@ async function newUpdate({ type, board, groupId, taskId, key, value }) {
             break
 
         case 'board':
-            if (key !== null && value !== null) board[key] = value
+            board[key] = value
             break
 
         default:

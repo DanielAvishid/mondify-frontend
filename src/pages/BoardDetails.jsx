@@ -13,7 +13,7 @@ import { SOCKET_EMIT_SET_BOARD, SOCKET_EVENT_CHANGE_BOARD, socketService } from 
 export function BoardDetails() {
     const boards = useSelector(storeState => storeState.boardModule.boards)
     const board = useSelector(storeState => storeState.boardModule.board)
-    const [onSaveBoard, onRemoveBoard, onRemoveGroup, onRemoveTask, onDuplicateBoard, onDuplicateGroup, onDuplicateTask] = useOutletContext()
+    const [onSaveBoard, newOnSaveBoard, onRemoveBoard, onRemoveGroup, onRemoveTask, onDuplicateBoard, onDuplicateGroup, onDuplicateTask] = useOutletContext()
     const [isScrolling, setIsScrolling] = useState(false)
     const { boardId } = useParams()
     const [filterBy, setFilterBy] = useState({ txt: '', person: null })
@@ -111,7 +111,8 @@ export function BoardDetails() {
             ...prevIsCollapse,
             [newGroup.id]: false
         }));
-        onSaveBoard({ boardId: board._id, key: 'groups', value })
+
+        newOnSaveBoard({ type: 'board', board, key: 'groups', value })
     }
 
     async function onAddTaskFromHeader(board) {
@@ -124,10 +125,11 @@ export function BoardDetails() {
         }
     }
 
-    async function onDragEnd(result) {
+    function onDragEnd(result) {
         const { destination, source, draggableId, type } = result
         if (!destination) return
         if (destination.droppableId === source.droppableId && destination.index === source.index) return
+
 
         if (type === 'groups') {
             const newGroups = [...board.groups]
@@ -135,7 +137,7 @@ export function BoardDetails() {
             newGroups.splice(destination.index, 0, removed)
             const newBoard = { ...board, groups: newGroups }
             dispatch({ type: SET_BOARD, board: newBoard })
-            await onSaveBoard({ board: board, boardId: board._id, key: 'groups', value: newGroups })
+            newOnSaveBoard({ type: 'board', board, key: 'groups', value: newGroups })
             return
         }
 
@@ -152,9 +154,10 @@ export function BoardDetails() {
             })
             const newBoard = { ...board, groups: newGroups }
             dispatch({ type: SET_BOARD, board: newBoard })
-            await onSaveBoard({ board: board, boardId: board._id, key: 'groups', value: newGroups })
+            newOnSaveBoard({ type: 'board', board, key: 'groups', value: newGroups })
             return
         }
+
         const startTasks = [...start.tasks]
         startTasks.splice(source.index, 1)
         const newStart = { ...start, tasks: startTasks }
@@ -169,7 +172,7 @@ export function BoardDetails() {
         })
         const newBoard = { ...board, groups: newGroups }
         dispatch({ type: SET_BOARD, board: newBoard })
-        await onSaveBoard({ board: board, boardId: board._id, key: 'groups', value: newGroups })
+        newOnSaveBoard({ type: 'board', board, key: 'groups', value: newGroups })
     }
 
     // if (board === undefined) return <DeletedBoard />
@@ -198,6 +201,7 @@ export function BoardDetails() {
                 board={board}
                 onRemoveBoard={onRemoveBoard}
                 onSaveBoard={onSaveBoard}
+                newOnSaveBoard={newOnSaveBoard}
                 filterBy={filterBy}
                 setFilterBy={setFilterBy}
                 sortBy={sortBy}
