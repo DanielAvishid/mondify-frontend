@@ -152,7 +152,7 @@ export function GroupPreview({ index, board, group, onSaveBoard, newOnSaveBoard,
                     <GroupFooter
                         group={group}
                         board={board}
-                        onSaveBoard={onSaveBoard} />
+                        newOnSaveBoard={newOnSaveBoard} />
 
                 </div>
             )}

@@ -3,7 +3,7 @@ import { ProgressBar } from "./ProgressBar";
 import { boardService } from "../services/board.service";
 import { Checkbox } from "monday-ui-react-core";
 
-export function GroupFooter({ group, board, onSaveBoard }) {
+export function GroupFooter({ group, board, newOnSaveBoard }) {
 
     const [taskTitleToAdd, setTaskTitleToAdd] = useState('')
     const [opacity, setOpacity] = useState('80')
@@ -17,7 +17,7 @@ export function GroupFooter({ group, board, onSaveBoard }) {
         const newTask = boardService.getEmptyTask(title)
         const value = [...group.tasks, newTask]
         setTaskTitleToAdd('')
-        onSaveBoard({ boardId: board._id, groupId: group.id, key: 'tasks', value })
+        newOnSaveBoard({ type: 'group', board, groupId: group.id, key: 'tasks', value })
     }
 
     function onChangeBgc() {
