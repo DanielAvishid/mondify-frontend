@@ -9,13 +9,8 @@ import { useSelector } from "react-redux";
 import { CheckboxModal } from "./CheckboxModal";
 
 export function GroupList() {
-    const [board, onSaveBoard, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask, isCollapse, setIsCollapse, updateIsCollapse, onAddGroup] = useOutletContext()
-    const [groups, setGroups] = useState(board.groups)
+    const [board, onSaveBoard, newOnSaveBoard, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask, isCollapse, setIsCollapse, updateIsCollapse, onAddGroup] = useOutletContext()
     const selectedTasks = useSelector(state => state.boardModule.selectedTasks)
-
-    useEffect(() => {
-        setGroups(board.groups)
-    }, [board])
 
     return (
         <div className="group-list main-layout full relative">

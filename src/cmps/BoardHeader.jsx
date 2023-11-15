@@ -8,7 +8,7 @@ import { BoardModal } from "./BoardModal"
 import { MembersFilterModal } from "./MembersFilterModal"
 import { useClickOutside } from "../hooks/useClickOutside"
 
-export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveBoard, onDuplicateBoard, filterBy, setFilterBy, sortBy, setSortBy, onAddGroup, isScrolling }) {
+export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, newOnSaveBoard, onDuplicateBoard, filterBy, setFilterBy, sortBy, setSortBy, onAddGroup, isScrolling }) {
 
     const [isCollapse, setIsCollapse] = useState(false)
     const [isInputFocus, setIsInputFocus] = useState(false)
@@ -26,7 +26,6 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
 
     function handleKeyPress(ev) {
         if (ev.key === 'Enter') {
-            onSaveBoard({ board, key: 'title', value: ev.target.value })
             ev.target.blur()
         }
     }
@@ -78,7 +77,7 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                         tooltip='Click to Edit'
                         tooltipPosition="bottom"
                         customColor="#323338" //change to variable
-                        onBlur={(ev) => onSaveBoard({ board, key: 'title', value: ev.target.value })}
+                        onBlur={(ev) => newOnSaveBoard({ type: 'board', board, key: 'title', value: ev.target.value })}
                         onKeyDown={handleKeyPress}
                     />
                     <div>
@@ -95,7 +94,7 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                             kind={IconButton.kinds.TERTIARY}
                             size={IconButton.sizes.SMALL}
                             ariaLabel={board.isStarred ? "Remove from favorites" : "Add to favorites"}
-                            onClick={() => onSaveBoard({ board, key: 'isStarred', value: !board.isStarred })} />
+                            onClick={() => newOnSaveBoard({ type: 'board', board, key: 'isStarred', value: !board.isStarred })} />
                     </div>
                 </div>
                 <div className="options-container">
@@ -143,7 +142,7 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                             tooltip='Click to Edit'
                             tooltipPosition="bottom"
                             customColor="#323338" //change to variable
-                            onBlur={(ev) => onSaveBoard({ board, key: 'title', value: ev.target.value })}
+                            onBlur={(ev) => newOnSaveBoard({ type: 'board', board, key: 'title', value: ev.target.value })}
                             onKeyDown={handleKeyPress}
                         />
                     </div>}
@@ -266,7 +265,7 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                     </Tooltip>
                 </div>
             </section>
-            {isModalOpen && <BoardModal board={board} onSaveBoard={onSaveBoard} onCloseModal={onCloseModal} />}
+            {isModalOpen && <BoardModal board={board} newOnSaveBoard={newOnSaveBoard} handleKeyPress={handleKeyPress} onCloseModal={onCloseModal} />}
         </section >
     )
 }

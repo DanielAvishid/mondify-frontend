@@ -200,7 +200,6 @@ export function BoardDetails() {
                 onDuplicateBoard={onDuplicateBoard}
                 board={board}
                 onRemoveBoard={onRemoveBoard}
-                onSaveBoard={onSaveBoard}
                 newOnSaveBoard={newOnSaveBoard}
                 filterBy={filterBy}
                 setFilterBy={setFilterBy}
@@ -210,7 +209,7 @@ export function BoardDetails() {
                 isScrolling={isScrolling}
             />}
             {board && < DragDropContext onDragEnd={onDragEnd} className="main-layout full">
-                <Outlet context={[board, onSaveBoard, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask, isCollapse, setIsCollapse, updateIsCollapse, onAddGroup]} />
+                <Outlet context={[board, onSaveBoard, newOnSaveBoard, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask, isCollapse, setIsCollapse, updateIsCollapse, onAddGroup]} />
             </DragDropContext>}
         </section >
     )
