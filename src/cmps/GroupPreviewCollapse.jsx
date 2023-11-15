@@ -6,7 +6,7 @@ import { LabelsSummary } from "./dynamicSummaryCmps/LabelsSummary";
 import { TimelineSummary } from "./dynamicSummaryCmps/TimelineSummary";
 import { Draggable } from "react-beautiful-dnd";
 
-export function GroupPreviewCollapse({ index, handleKeyPress, board, group, onDuplicateGroup, onSaveBoard, onRemoveGroup, isCollapse, setIsCollapse, updateIsCollapse }) {
+export function GroupPreviewCollapse({ index, handleKeyPress, board, group, onDuplicateGroup, newOnSaveBoard, onRemoveGroup, isCollapse, setIsCollapse, updateIsCollapse }) {
 
     const style = {
         borderColor: group.style.backgroundColor
@@ -48,7 +48,7 @@ export function GroupPreviewCollapse({ index, handleKeyPress, board, group, onDu
                     </div>
                     <div className="table table-container first last" style={style}>
                         <div className="table-row flex group-preview-collapse">
-                            <header className="flex column justify-center">
+                            <header className="title-col flex column justify-center">
                                 <div className="flex">
                                     <div className="flex align-center">
                                         <Icon
@@ -65,7 +65,7 @@ export function GroupPreviewCollapse({ index, handleKeyPress, board, group, onDu
                                             tooltip='Click to Edit'
                                             tooltipPosition="bottom"
                                             customColor={group.style.backgroundColor}
-                                            onBlur={(ev) => onSaveBoard({ key: 'title', value: ev.target.value, boardId: board._id, groupId: group.id })}
+                                            onBlur={(ev) => newOnSaveBoard({ type: 'group', board, groupId: group.id, key: 'title', value: ev.target.value })}
                                             onKeyDown={handleKeyPress}
                                         />
                                     </div>
@@ -77,8 +77,8 @@ export function GroupPreviewCollapse({ index, handleKeyPress, board, group, onDu
                                 </div>
                             </header>
                             {board.cmpsOrder.map((cmp, idx) => (
-                                <div className={`flex column align-center justify-center`}>
-                                    <div className={`${cmp.type}-col flex align-center justify-center`}>
+                                <div className={`${cmp.type}-container flex column align-center justify-center`}>
+                                    <div className="flex align-center justify-center">
                                         <span className="cmp-title">{cmp.title}</span>
                                     </div>
                                     <div key={idx} className={`${cmp.type}-col ${cmp.type} flex align-center justify-center`}>

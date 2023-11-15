@@ -9,7 +9,7 @@ import { GroupFooter } from "./GroupFooter";
 import { TaskList } from "./TaskList";
 import { GroupHeader } from "./GroupHeader";
 
-export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, onRemoveTask,
+export function GroupPreview({ index, board, group, onSaveBoard, newOnSaveBoard, onRemoveGroup, onRemoveTask,
     onDuplicateGroup, onDuplicateTask, isCollapse, setIsCollapse, updateIsCollapse }) {
 
     const selectedTasks = useSelector(state => state.boardModule.selectedTasks)
@@ -93,7 +93,7 @@ export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, 
         if (ev.key === 'Enter') {
 
             if (key === 'title') {
-                onSaveBoard(({ key, value: ev.target.value, boardId: board._id, groupId: group.id }))
+                newOnSaveBoard(({ type: 'group', board, groupId: group.id, key, value: ev.target.value }))
             } else if (key === 'cmpsOrder') {
                 const updatedCmpsOrder = board.cmpsOrder.map(cmp => {
                     if (cmp.id === idValue) {
@@ -102,7 +102,7 @@ export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, 
                     return cmp;
                 })
 
-                onSaveBoard({ key, value: [...updatedCmpsOrder], boardId: board._id })
+                newOnSaveBoard({ type: 'board', board, key, value: [...updatedCmpsOrder] })
             }
 
             ev.target.blur()
@@ -111,7 +111,7 @@ export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, 
 
     if (isCollapse[group.id]) return (
         <GroupPreviewCollapse index={index} handleKeyPress={handleKeyPress} board={board}
-            group={group} onDuplicateGroup={onDuplicateGroup} onSaveBoard={onSaveBoard}
+            group={group} onDuplicateGroup={onDuplicateGroup} newOnSaveBoard={newOnSaveBoard}
             onRemoveGroup={onRemoveGroup} isCollapse={isCollapse} setIsCollapse={setIsCollapse}
             updateIsCollapse={updateIsCollapse} />
     )

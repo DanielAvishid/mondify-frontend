@@ -1,5 +1,4 @@
 .collapse {
-    // padding-block-end: rem(14px);
 
     .table-container {
         height: rem(60px);
@@ -10,10 +9,14 @@
         height: rem(60px) !important;
         border-block-start: 1px solid $table-border;
 
-        header {
+        >* {
+            border-inline-end: 1px solid $table-border;
+        }
+
+        >.title-col {
+            height: rem(60px) !important;
             width: rem(390px);
             padding: rem(4px) rem(8px) rem(8px) 0;
-            border-inline-end: 1px solid $table-border;
 
             .Collapse-group {
                 margin-inline-start: rem(8px);
@@ -30,12 +33,22 @@
             color: $chat-icon-color;
         }
 
-
-        .members-col {
-            >span {
+        .members-container {
+            >* {
                 visibility: hidden;
             }
         }
+
+        .members-col,
+        .date-col,
+        .priority-col,
+        .status-col,
+        .timeline-col {
+            border-inline-end: none !important;
+        }
+
+
+
 
         .avatar-group-cmp {
             visibility: hidden;
