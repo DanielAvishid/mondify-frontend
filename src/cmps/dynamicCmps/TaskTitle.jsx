@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router"
 import { useEffect, useState, useRef } from "react"
 import { useClickOutside } from "../../hooks/useClickOutside"
 
-export function TaskTitle({ boardId, task, onSaveBoard, isChecked, handleCheckboxChange, setIsTaskFocus }) {
+export function TaskTitle({ board, task, newOnSaveBoard, isChecked, handleCheckboxChange, setIsTaskFocus }) {
 
     const navigate = useNavigate()
     const parameterName = useParams();
@@ -16,7 +16,6 @@ export function TaskTitle({ boardId, task, onSaveBoard, isChecked, handleCheckbo
 
     function handleKeyPress(ev) {
         if (ev.key === 'Enter') {
-            onSaveBoard({ boardId, taskId, key: 'title', value: ev.target.value })
             ev.target.blur()
         }
     }
@@ -25,7 +24,7 @@ export function TaskTitle({ boardId, task, onSaveBoard, isChecked, handleCheckbo
         setIsTaskFocus(true)
         setIsFocus(true)
 
-        const location = parameterName.taskId === taskId ? `/board/${boardId}` : `task/${taskId}`
+        const location = parameterName.taskId === taskId ? `/board/${board._id}` : `task/${taskId}`
         navigate(location)
     }
 
@@ -58,7 +57,7 @@ export function TaskTitle({ boardId, task, onSaveBoard, isChecked, handleCheckbo
                             tooltip='Click to Edit'
                             tooltipPosition="bottom"
                             customColor="#323338"
-                            onBlur={(ev) => onSaveBoard({ key: 'title', value: ev.target.value, boardId, taskId })}
+                            onBlur={(ev) => newOnSaveBoard({ type: 'task', board, taskId, key: 'title', value: ev.target.value })}
                             onKeyDown={handleKeyPress}
                         />
                     </div>

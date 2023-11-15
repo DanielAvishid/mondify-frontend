@@ -144,6 +144,7 @@ export function GroupPreview({ index, board, group, onSaveBoard, newOnSaveBoard,
                         index={index}
                         board={board}
                         group={group}
+                        newOnSaveBoard={newOnSaveBoard}
                         onSaveBoard={onSaveBoard}
                         onDuplicateTask={onDuplicateTask}
                         onRemoveTask={onRemoveTask}

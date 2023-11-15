@@ -4,7 +4,7 @@ import { useState } from "react";
 import { utilService } from "../../services/util.service";
 import { boardService } from "../../services/board.service";
 
-export function LabelModal({ keyName, board, onSaveBoard, task, group, cmpType }) {
+export function LabelModal({ keyName, board, newOnSaveBoard, task, cmpType }) {
     const [isEditMode, setIsEditMode] = useState(false)
     const [palleteOpenState, setPalleteOpenState] = useState({})
     const [hoverState, setHoverState] = useState({})
@@ -50,7 +50,7 @@ export function LabelModal({ keyName, board, onSaveBoard, task, group, cmpType }
     function onRemoveLabel(labelId) {
         const value = editableLabels.filter(label => label.id !== labelId)
         setEditableLabels(value)
-        onSaveBoard({ board, key: keyName, value })
+        newOnSaveBoard({ type: 'board', board, key: keyName, value })
     }
 
     function onAddLabel(ev) {
@@ -59,7 +59,7 @@ export function LabelModal({ keyName, board, onSaveBoard, task, group, cmpType }
         const newLabel = boardService.getEmptyStatusLabel()
         newLabels.push(newLabel)
         setEditableLabels(newLabels)
-        onSaveBoard({ board, key: keyName, value: newLabels })
+        newOnSaveBoard({ type: 'board', board, key: keyName, value: newLabels })
     }
 
     function handleTitleChange(ev, index) {
@@ -73,12 +73,12 @@ export function LabelModal({ keyName, board, onSaveBoard, task, group, cmpType }
         const newLabels = [...editableLabels]
         newLabels[index].color = colorToSave
         setEditableLabels(newLabels)
-        onSaveBoard({ board, key: keyName, value: editableLabels })
+        newOnSaveBoard({ type: 'board', board, key: keyName, value: editableLabels })
         setPalleteOpenState({})
     }
 
     function handleLabelPick(labelId) {
-        onSaveBoard({ board, taskId: task.id, groupId: group.id, key: cmpType, value: labelId })
+        newOnSaveBoard({ type: 'task', board, taskId: task.id, key: cmpType, value: labelId })
     }
 
     function stopPropagation(ev) {
@@ -121,7 +121,7 @@ export function LabelModal({ keyName, board, onSaveBoard, task, group, cmpType }
                                     placeholder={getPlaceHolder(label.isDefault)}
                                     value={editableLabels[index].title} type="text"
                                     onChange={(ev) => handleTitleChange(ev, index)}
-                                    onBlur={() => onSaveBoard({ board, key: keyName, value: editableLabels })} />
+                                    onBlur={() => newOnSaveBoard({ type: 'board', board, key: keyName, value: editableLabels })} />
                             </div>
                             {hoverState[label.id] && <Button
                                 size={Button.sizes.XXS}
