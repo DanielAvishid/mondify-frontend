@@ -30,8 +30,7 @@ export function MembersFilterModal({ members, setFilterBy, filterBy }) {
                                 text={utilService.getNameInitials(member.fullname)}
                                 backgroundColor={Avatar.colors.BLACKISH}
                                 ariaLabel={member.fullname}
-                                onClick={() => onSetFilterBy(member)}
-                            />
+                                onClick={() => onSetFilterBy(member)} />
                         ) : (
                             <Avatar
                                 className='avatar-img'
@@ -39,8 +38,7 @@ export function MembersFilterModal({ members, setFilterBy, filterBy }) {
                                 size={Avatar.sizes.SMALL}
                                 src={member.imgUrl}
                                 type="img"
-                                onClick={() => onSetFilterBy(member._id)}
-                            />
+                                onClick={() => onSetFilterBy(member._id)} />
                         )}
                     </div>
                 ))}

@@ -22,11 +22,12 @@ export function BoardDetails() {
     const [isInitialSetupComplete, setIsInitialSetupComplete] = useState(false);
     const dispatch = useDispatch()
     const containerRef = useRef()
+    console.log('filterBy', filterBy);
 
     useEffect(() => {
         if (!board) dispatch({ type: SET_BOARD, board: undefined })
-        loadBoard(boardId, sortBy)
-    }, [boardId, sortBy, boards])
+        loadBoard(boardId, filterBy, sortBy)
+    }, [boardId, filterBy, sortBy, boards])
 
     useEffect(() => {
         if (board && !isInitialSetupComplete) {

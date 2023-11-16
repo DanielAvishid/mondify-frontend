@@ -34,16 +34,6 @@ export function AppIndex() {
         }
     }
 
-    // async function onSaveBoard({ board, boardId, groupId, taskId, key, value }) {
-    //     try {
-    //         await saveBoard({ board, boardId, groupId, taskId, key, value })
-    //         console.log('ShowSuccessesMsg')
-    //     } catch (err) {
-    //         console.log('Had issues in save board', err)
-    //         console.log('ShowErrorMsg')
-    //     }
-    // }
-
     async function onSaveBoard({ type, board, groupId = null, taskId = null, key, value }) {
         try {
             await saveBoard({ type, board, groupId, taskId, key, value })
