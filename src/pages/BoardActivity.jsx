@@ -1,13 +1,10 @@
 import { Icon } from "monday-ui-react-core"
 import { Drag } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { useSelector } from "react-redux"
-import { useNavigate, useParams } from "react-router"
-import userImgUrl from '../assets/img/user-img.png'
-import updateImgUrl from '../assets/img/update-img.png'
+import { useParams } from "react-router"
 import { ActivityHeader } from "../cmps/activityCmps/ActivityHeader"
 import { ActivityDetails } from "../cmps/activityCmps/ActivityDetails"
-import { useEffect, useState } from "react"
-import { loadBoard } from "../store/actions/board.action"
+import { useState } from "react"
 
 export function BoardActivity({ setIsResizing, width }) {
 

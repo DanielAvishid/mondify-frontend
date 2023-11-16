@@ -35,6 +35,7 @@
          }
 
          .person {
+             margin-inline-start: rem(18px);
              color: $primary-text-color;
 
              >.icon {

@@ -2,7 +2,6 @@ import { NavigationChevronRight } from "/node_modules/monday-ui-react-core/src/c
 import { Icon } from "monday-ui-react-core";
 
 export function LabelValue({ activity, board, cmpType }) {
-    console.log('activity', activity);
 
     const prevLabel = board[cmpType + 'Labels'].find((label) => label.id === activity.prevValue)
     const newLabel = board[cmpType + 'Labels'].find((label) => label.id === activity.newValue)
