@@ -112,7 +112,7 @@ export function BoardDetails() {
             [newGroup.id]: false
         }));
 
-        onSaveBoard({ type: 'board', board, key: 'groups', value })
+        onSaveBoard({ board, key: 'groups', value })
     }
 
     async function onAddTaskFromHeader(board) {
@@ -137,7 +137,7 @@ export function BoardDetails() {
             newGroups.splice(destination.index, 0, removed)
             const newBoard = { ...board, groups: newGroups }
             dispatch({ type: SET_BOARD, board: newBoard })
-            onSaveBoard({ type: 'board', board, key: 'groups', value: newGroups })
+            onSaveBoard({ board, key: 'groups', value: newGroups })
             return
         }
 
@@ -154,7 +154,7 @@ export function BoardDetails() {
             })
             const newBoard = { ...board, groups: newGroups }
             dispatch({ type: SET_BOARD, board: newBoard })
-            onSaveBoard({ type: 'board', board, key: 'groups', value: newGroups })
+            onSaveBoard({ board, key: 'groups', value: newGroups })
             return
         }
 
@@ -172,7 +172,7 @@ export function BoardDetails() {
         })
         const newBoard = { ...board, groups: newGroups }
         dispatch({ type: SET_BOARD, board: newBoard })
-        onSaveBoard({ type: 'board', board, key: 'groups', value: newGroups })
+        onSaveBoard({ board, key: 'groups', value: newGroups })
     }
 
     // if (board === undefined) return <DeletedBoard />

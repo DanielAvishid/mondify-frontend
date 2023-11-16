@@ -26,7 +26,7 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
 
     function onAddBoard() {
         const board = boardService.getEmptyBoard()
-        onSaveBoard({ type: 'board', board })
+        onSaveBoard({ board })
     }
 
     function toggleSidebar() {
@@ -236,7 +236,7 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
                                                     <MenuItem
                                                         icon={Favorite}
                                                         title={board.isStarred ? 'Remove from favorite' : 'Add to favorite'}
-                                                        onClick={() => onSaveBoard({ type: 'board', board, key: 'isStarred', value: !board.isStarred })} />
+                                                        onClick={() => onSaveBoard({ board, key: 'isStarred', value: !board.isStarred })} />
                                                 </Menu>
                                             </MenuButton>
                                         </div>
@@ -303,7 +303,7 @@ export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoar
                                                     <MenuItem
                                                         icon={Favorite}
                                                         title={board.isStarred ? 'Remove from favorite' : 'Add to favorite'}
-                                                        onClick={() => onSaveBoard({ type: 'board', board, key: 'isStarred', value: !board.isStarred })} />
+                                                        onClick={() => onSaveBoard({ board, key: 'isStarred', value: !board.isStarred })} />
                                                 </Menu>
                                             </MenuButton>
                                         </div>

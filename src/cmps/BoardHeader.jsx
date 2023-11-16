@@ -77,7 +77,7 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                         tooltip='Click to Edit'
                         tooltipPosition="bottom"
                         customColor="#323338" //change to variable
-                        onBlur={(ev) => onSaveBoard({ type: 'board', board, key: 'title', value: ev.target.value })}
+                        onBlur={(ev) => onSaveBoard({ board, key: 'title', value: ev.target.value })}
                         onKeyDown={handleKeyPress}
                     />
                     <div>
@@ -94,7 +94,7 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                             kind={IconButton.kinds.TERTIARY}
                             size={IconButton.sizes.SMALL}
                             ariaLabel={board.isStarred ? "Remove from favorites" : "Add to favorites"}
-                            onClick={() => onSaveBoard({ type: 'board', board, key: 'isStarred', value: !board.isStarred })} />
+                            onClick={() => onSaveBoard({ board, key: 'isStarred', value: !board.isStarred })} />
                     </div>
                 </div>
                 <div className="options-container">
@@ -142,7 +142,7 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                             tooltip='Click to Edit'
                             tooltipPosition="bottom"
                             customColor="#323338" //change to variable
-                            onBlur={(ev) => onSaveBoard({ type: 'board', board, key: 'title', value: ev.target.value })}
+                            onBlur={(ev) => onSaveBoard({ board, key: 'title', value: ev.target.value })}
                             onKeyDown={handleKeyPress}
                         />
                     </div>}

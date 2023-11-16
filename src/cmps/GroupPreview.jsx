@@ -103,7 +103,7 @@ export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, 
                     return cmp;
                 })
 
-                onSaveBoard({ type: 'board', board, key, value: [...updatedCmpsOrder] })
+                onSaveBoard({ board, key, value: [...updatedCmpsOrder] })
             }
 
             ev.target.blur()

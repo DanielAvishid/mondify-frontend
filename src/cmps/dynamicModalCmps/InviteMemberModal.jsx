@@ -16,7 +16,7 @@ export function InviteMemberModal({ task, group, board, membersIds, setIsInviteM
         const memberId = utilService.makeId()
         const value = [...board.members, { _id: memberId, fullname: emailToAdd, imgUrl: "https://as1.ftcdn.net/v2/jpg/02/43/12/34/1000_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg" }]
 
-        onSaveBoard({ type: 'board', board, key: "members", value })
+        onSaveBoard({ board, key: "members", value })
         onSaveBoard({ type: 'task', board, groupId: group.id, taskId: task.id, key: "members", value: [...membersIds, memberId] })
         setIsInviteModalOpen(false)
     }

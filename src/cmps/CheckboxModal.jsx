@@ -21,7 +21,7 @@ export function CheckboxModal({ board, onSaveBoard }) {
             }
         }
 
-        onSaveBoard({ type: 'board', board, key: 'groups', value: updatedGroups })
+        onSaveBoard({ board, key: 'groups', value: updatedGroups })
         dispatch({ type: SET_SELECTED_TASKS, selectedTasks: {} })
     }
 
