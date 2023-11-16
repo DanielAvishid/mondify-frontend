@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { LabelModal } from "./LabelModal"
 import { useClickOutside } from "../../hooks/useClickOutside";
 
-export function Priority({ labelId, board, newOnSaveBoard, cmpType, setIsTaskFocus, task, group }) {
+export function Priority({ task, group, board, labelId, newOnSaveBoard, cmpType, setIsTaskFocus, }) {
     const [currLabel, setCurrLabel] = useState(getCurrLabel())
     const priorityCell = useRef();
     const { isFocus, setIsFocus } = useClickOutside(priorityCell);
@@ -35,11 +35,12 @@ export function Priority({ labelId, board, newOnSaveBoard, cmpType, setIsTaskFoc
             onClick={onClickPriorityCell}>
             <span>{currLabel.title}</span>
             {isModalOpen && <LabelModal
-                keyName={cmpType + 'Labels'}
+                task={task}
+                group={group}
                 board={board}
+                keyName={cmpType + 'Labels'}
                 labels={board[cmpType + 'Labels']}
                 newOnSaveBoard={newOnSaveBoard}
-                task={task}
                 cmpType={cmpType} />}
         </td>
     )

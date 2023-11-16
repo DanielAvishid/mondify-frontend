@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { LabelModal } from "./LabelModal"
 import { useClickOutside } from "../../hooks/useClickOutside"
 
-export function Status({ labelId, board, newOnSaveBoard, cmpType, setIsTaskFocus, task, group }) {
+export function Status({ task, group, board, labelId, newOnSaveBoard, cmpType, setIsTaskFocus, }) {
     const [currLabel, setCurrLabel] = useState(getCurrLabel())
     const statusCell = useRef()
     const { isFocus, setIsFocus } = useClickOutside(statusCell)
@@ -35,12 +35,12 @@ export function Status({ labelId, board, newOnSaveBoard, cmpType, setIsTaskFocus
             onClick={onClickStatusCell}>
             <span>{currLabel.title}</span>
             {isModalOpen && <LabelModal
-                keyName={cmpType + 'Labels'}
-                board={board}
-                labels={board[cmpType + 'Labels']}
-                newOnSaveBoard={newOnSaveBoard}
                 task={task}
                 group={group}
+                board={board}
+                keyName={cmpType + 'Labels'}
+                labels={board[cmpType + 'Labels']}
+                newOnSaveBoard={newOnSaveBoard}
                 cmpType={cmpType} />}
         </td>
     )

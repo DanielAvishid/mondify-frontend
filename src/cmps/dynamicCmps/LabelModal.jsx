@@ -4,7 +4,7 @@ import { useState } from "react";
 import { utilService } from "../../services/util.service";
 import { boardService } from "../../services/board.service";
 
-export function LabelModal({ keyName, board, newOnSaveBoard, task, cmpType }) {
+export function LabelModal({ task, group, board, keyName, newOnSaveBoard, cmpType }) {
     const [isEditMode, setIsEditMode] = useState(false)
     const [palleteOpenState, setPalleteOpenState] = useState({})
     const [hoverState, setHoverState] = useState({})
@@ -78,7 +78,7 @@ export function LabelModal({ keyName, board, newOnSaveBoard, task, cmpType }) {
     }
 
     function handleLabelPick(labelId) {
-        newOnSaveBoard({ type: 'task', board, taskId: task.id, key: cmpType, value: labelId })
+        newOnSaveBoard({ type: 'task', board, groupId: group.id, taskId: task.id, key: cmpType, value: labelId })
     }
 
     function stopPropagation(ev) {

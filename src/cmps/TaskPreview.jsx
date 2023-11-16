@@ -35,8 +35,9 @@ export function TaskPreview({ board, group, task, newOnSaveBoard, onDuplicateTas
                         ref={tableRow}
                     >
                         <TaskTitle
-                            board={board}
                             task={task}
+                            group={group}
+                            board={board}
                             newOnSaveBoard={newOnSaveBoard}
                             isChecked={isChecked}
                             handleCheckboxChange={handleCheckboxChange}
@@ -70,7 +71,7 @@ const DynamicCmp = ({ task, group, board, cmpType, info, newOnSaveBoard, setIsTa
         case "status":
             return <Status group={group} task={task} cmpType={cmpType} labelId={info} board={board} newOnSaveBoard={newOnSaveBoard} setIsTaskFocus={setIsTaskFocus} />;
         case "members":
-            return <Members info={info} task={task} board={board} newOnSaveBoard={newOnSaveBoard} setIsTaskFocus={setIsTaskFocus} />;
+            return <Members info={info} task={task} group={group} board={board} newOnSaveBoard={newOnSaveBoard} setIsTaskFocus={setIsTaskFocus} />;
         case "timeline":
             return <Timeline info={info} task={task} group={group} board={board} newOnSaveBoard={newOnSaveBoard} setIsTaskFocus={setIsTaskFocus} />
         case "date":

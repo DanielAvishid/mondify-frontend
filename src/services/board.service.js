@@ -150,28 +150,42 @@ async function addTaskFromHeader(board, task = getEmptyTask()) {
 }
 
 async function newUpdate({ type, board, groupId, taskId, key, value }) {
+    const user = userService.getLoggedinUser()
+    const groupIdx = board.groups.findIndex((group) => group.id === groupId);
+    let change = null
 
     switch (type) {
 
         case 'task':
-            board.groups = board.groups.map((group) => ({
-                ...group,
-                tasks: group.tasks.map((task) => (task.id === taskId ? { ...task, [key]: value } : task)),
-            }))
+            const taskIdx = board.groups[groupIdx].tasks.findIndex((task) => task.id === taskId)
+            const prevTask = board.groups[groupIdx].tasks[taskIdx]
+            board.groups[groupIdx].tasks[taskIdx] = { ...prevTask, [key]: value }
+            const updatedTask = board.groups[groupIdx].tasks[taskIdx]
+            change = newCreateChange(prevTask[key], value, updatedTask.title, key, user)
             break
 
         case 'group':
-            const groupIdx = board.groups.findIndex((group) => group.id === groupId)
+            const prevValue = board.groups[groupIdx][key]
             board.groups[groupIdx][key] = value
-            break
 
-        case 'board':
-            board[key] = value
+            switch (key) {
+                case 'tasks':
+                    change = newCreateChange(prevValue, value, value[value.length - 1].title, 'created', user)
+                    break
+                case 'title':
+                    change = newCreateChange(prevValue, value, board.groups[groupIdx].title, 'Group Title Change', user)
+                    break
+                default:
+                    change = newCreateChange(prevValue, value, board.groups[groupIdx].title, key, user)
+                    break
+            }
             break
 
         default:
-            throw new Error('Invalid update type')
+            board[key] = value
     }
+
+    if (change) board.activities.unshift(change)
 
     try {
         let updatedBoard = await httpService.put(BASE_URL + board._id, board);
@@ -180,6 +194,15 @@ async function newUpdate({ type, board, groupId, taskId, key, value }) {
         throw err
     }
 }
+
+const newCreateChange = (prevValue, newValue, title, key, user = null) => ({
+    prevValue,
+    newValue,
+    timestamp: Date.now(),
+    title,
+    key,
+    by: user ? user : userService.getDefaultUser()
+})
 
 
 async function update({ board, boardId, groupId, taskId, key, value }) {

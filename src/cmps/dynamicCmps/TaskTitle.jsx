@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router"
 import { useEffect, useState, useRef } from "react"
 import { useClickOutside } from "../../hooks/useClickOutside"
 
-export function TaskTitle({ board, task, newOnSaveBoard, isChecked, handleCheckboxChange, setIsTaskFocus }) {
+export function TaskTitle({ task, group, board, newOnSaveBoard, isChecked, handleCheckboxChange, setIsTaskFocus }) {
 
     const navigate = useNavigate()
     const parameterName = useParams();
@@ -57,7 +57,7 @@ export function TaskTitle({ board, task, newOnSaveBoard, isChecked, handleCheckb
                             tooltip='Click to Edit'
                             tooltipPosition="bottom"
                             customColor="#323338"
-                            onBlur={(ev) => newOnSaveBoard({ type: 'task', board, taskId, key: 'title', value: ev.target.value })}
+                            onBlur={(ev) => newOnSaveBoard({ type: 'task', board, groupId: group.id, taskId, key: 'title', value: ev.target.value })}
                             onKeyDown={handleKeyPress}
                         />
                     </div>

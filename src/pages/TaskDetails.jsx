@@ -22,6 +22,8 @@ export function TaskDetails({ newOnSaveBoard, onRemoveTask, setIsResizing, width
     const [searchTerm, setSearchTerm] = useState('')
     const [currentTab, setCurrentTab] = useState('Updates')
     const [isUpdateEditor, setIsUpdateEditor] = useState(false)
+    const groupId = board.groups.find((group) => group.tasks.some((task) => task.id === taskId))?.id || null;
+    console.log(groupId);
     let timeoutId
 
     useEffect(() => {
@@ -57,7 +59,7 @@ export function TaskDetails({ newOnSaveBoard, onRemoveTask, setIsResizing, width
 
     function onTaskTitleChange(ev) {
         if (!ev.target.value) return
-        newOnSaveBoard({ type: 'task', board, taskId, key: 'title', value: ev.target.value })
+        newOnSaveBoard({ type: 'task', board, groupId, taskId, key: 'title', value: ev.target.value })
         // onSaveBoard({ key: 'title', value: ev.target.value, boardId, taskId })
     }
 
@@ -74,13 +76,13 @@ export function TaskDetails({ newOnSaveBoard, onRemoveTask, setIsResizing, width
             }
         }
         value.unshift(update)
-        newOnSaveBoard({ type: 'task', board, taskId, key: 'updates', value })
+        newOnSaveBoard({ type: 'task', board, groupId, taskId, key: 'updates', value })
         setIsUpdateEditor(false)
     }
 
     function onRemoveUpdate(updateId) {
         const value = task.updates.filter(update => update.id !== updateId)
-        newOnSaveBoard({ type: 'task', board, taskId, key: 'updates', value })
+        newOnSaveBoard({ type: 'task', board, groupId, taskId, key: 'updates', value })
         // onSaveBoard({ key: 'updates', value, boardId, taskId })
     }
 
@@ -97,7 +99,7 @@ export function TaskDetails({ newOnSaveBoard, onRemoveTask, setIsResizing, width
 
 
     if (!task) return <span></span>
-    if (window.innerWidth < 500) return (<TaskDetailsMobile newOnSaveBoard={newOnSaveBoard} task={task} board={board} handleKeyPress={handleKeyPress} />)
+    if (window.innerWidth < 500) return (<TaskDetailsMobile task={task} groupId={groupId} board={board} newOnSaveBoard={newOnSaveBoard} handleKeyPress={handleKeyPress} />)
 
 
     return (

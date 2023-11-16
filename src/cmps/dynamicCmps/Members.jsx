@@ -5,7 +5,7 @@ import { useClickOutside } from "../../hooks/useClickOutside"
 import { AvatarGroupCmp } from "../utilsCmps/AvatarGroupCmp"
 
 
-export function Members({ info, task, board, newOnSaveBoard, setIsTaskFocus }) {
+export function Members({ info, task, group, board, newOnSaveBoard, setIsTaskFocus }) {
 
     const membersIds = info
     const participateMembers = membersIds.map((memberId) => {
@@ -38,7 +38,7 @@ export function Members({ info, task, board, newOnSaveBoard, setIsTaskFocus }) {
 
     const onRemoveMember = (memberId) => {
         const updatedMembersIds = membersIds.filter((id) => id !== memberId)
-        newOnSaveBoard({ type: 'task', board, taskId: task.id, key: "members", value: updatedMembersIds })
+        newOnSaveBoard({ type: 'task', board, groupId: group.id, taskId: task.id, key: "members", value: updatedMembersIds })
     }
 
     const onClickMembersCell = () => {
@@ -63,8 +63,9 @@ export function Members({ info, task, board, newOnSaveBoard, setIsTaskFocus }) {
                         <div className="pointer"></div>
                         {!isInviteModalOpen ?
                             <MembersModal
-                                board={board}
                                 task={task}
+                                group={group}
+                                board={board}
                                 membersIds={membersIds}
                                 handleSearch={handleSearch}
                                 searchTerm={searchTerm}
@@ -76,8 +77,9 @@ export function Members({ info, task, board, newOnSaveBoard, setIsTaskFocus }) {
                             /> :
 
                             <InviteMemberModal
-                                board={board}
                                 task={task}
+                                group={group}
+                                board={board}
                                 membersIds={membersIds}
                                 setIsInviteModalOpen={setIsInviteModalOpen}
                                 newOnSaveBoard={newOnSaveBoard}

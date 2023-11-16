@@ -1,7 +1,7 @@
 import { Avatar, Icon, Search } from "monday-ui-react-core"
 import { Invite, Close } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 
-export function MembersModal({ board, task, membersIds, handleSearch, searchTerm, participateMembers, filteredMembers, setIsInviteModalOpen, onRemoveMember, newOnSaveBoard }) {
+export function MembersModal({ task, group, board, membersIds, handleSearch, searchTerm, participateMembers, filteredMembers, setIsInviteModalOpen, onRemoveMember, newOnSaveBoard }) {
     return (
         <div className="members-modal">
             <section className="participate-members flex">
@@ -39,7 +39,7 @@ export function MembersModal({ board, task, membersIds, handleSearch, searchTerm
                 <div className="suggest-container">
                     <div className="suggest-header"><span>Suggested people</span></div>
                     {filteredMembers.map((member) => (
-                        <div className="member-row flex align-center" key={member._id} onClick={() => newOnSaveBoard({ type: 'task', board, taskId: task.id, key: "members", value: [...membersIds, member._id] })}>
+                        <div className="member-row flex align-center" key={member._id} onClick={() => newOnSaveBoard({ type: 'task', board, groupId: group.id, taskId: task.id, key: "members", value: [...membersIds, member._id] })}>
                             <div className="avatar-container flex align-center justify-center">
                                 <Avatar
                                     className="avatar"
