@@ -34,14 +34,3 @@ export async function logout() {
         throw err
     }
 }
-
-export function loginGuest() {
-    const user = userService.getDefaultUser()
-    console.log(user, 'Actions')
-    store.dispatch({ type: SET_USER, user })
-    const timeoutId = setTimeout(() => {
-        showSuccessMsg(`Welcome Guest, you successfully logged in`)
-        clearTimeout(timeoutId)
-    }, 500)
-    return user
-}

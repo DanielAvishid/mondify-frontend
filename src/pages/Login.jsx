@@ -3,7 +3,7 @@ import { MoveArrowRight, DisabledUser } from "/node_modules/monday-ui-react-core
 import { Link, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { MsgModalSuccess } from "../cmps/MsgModalSuccess"
-import { login, loginGuest } from "../store/actions/user.action"
+import { login } from "../store/actions/user.action"
 import { showSuccessMsg } from "../services/event-bus.service"
 
 function getEmptyCredentials() {
@@ -18,6 +18,7 @@ export function Login() {
     const [credentials, setCredentials] = useState(getEmptyCredentials())
     const navigate = useNavigate()
     let timeoutId
+    let guestTimeoutId
 
     useEffect(() => {
         return () => {
@@ -31,10 +32,19 @@ export function Login() {
         setCredentials(credentials => ({ ...credentials, [field]: value }))
     }
 
-    function onGuestClick() {
-        loginGuest()
-        navigate('/board')
-        return
+    async function onGuestClick() {
+        try {
+            const user = await login({ username: "Guest", password: "1234" })
+            navigate('/board')
+            guestTimeoutId = setTimeout(() => {
+                showSuccessMsg(`Welcome Guest, you successfully logged in`)
+                clearTimeout(guestTimeoutId)
+            }, 500)
+            return user
+        } catch (err) {
+            console.log('ShowErrorMsg')
+            throw err
+        }
     }
 
     async function onSubmit() {
