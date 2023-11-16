@@ -9,15 +9,6 @@
     border: 1px solid $table-border;
     position: relative;
 
-    &::-webkit-scrollbar {
-        position: absolute;
-        width: 12px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-        background: rgb(204, 204, 204);
-    }
-
     >.header {
         padding: rem(10px);
         z-index: 100;

@@ -27,12 +27,9 @@ export function TaskDetails({ onSaveBoard, onRemoveTask, setIsResizing, width })
 
     if (board) groupId = board.groups.find((group) => group.tasks.some((task) => task.id === taskId))?.id || null;
 
-
     useEffect(() => {
         loadTask()
     }, [boards, taskId, boardId, board])
-
-
 
     async function loadTask() {
         try {

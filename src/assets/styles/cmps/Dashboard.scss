@@ -33,15 +33,6 @@
         overflow-y: auto;
         position: relative;
 
-        &::-webkit-scrollbar {
-            position: absolute;
-            width: 12px;
-        }
-
-        &::-webkit-scrollbar-thumb {
-            background: rgb(204, 204, 204);
-        }
-
         h4 {
             padding: rem(10px);
             z-index: 100;

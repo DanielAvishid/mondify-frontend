@@ -144,7 +144,7 @@ export function AppIndex() {
                 <Outlet context={[onSaveBoard, onRemoveBoard, onRemoveGroup, onRemoveTask, onDuplicateBoard, onDuplicateGroup, onDuplicateTask, boards]} />
                 {location.pathname.includes('task') && <TaskDetails onSaveBoard={onSaveBoard} onRemoveTask={onRemoveTask} setIsResizing={setIsResizing} width={width} />}
             </section>
-            {location.pathname.includes('activity') && <BoardActivity />}
+            {location.pathname.includes('activity') && <BoardActivity setIsResizing={setIsResizing} width={width} />}
         </section>
     )
 }

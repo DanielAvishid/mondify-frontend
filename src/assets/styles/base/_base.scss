@@ -76,3 +76,12 @@ a.active {
 .monday-style-dialog-content-wrapper {
   z-index: 1000;
 }
+
+::-webkit-scrollbar {
+  position: absolute;
+  width: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(204, 204, 204);
+}

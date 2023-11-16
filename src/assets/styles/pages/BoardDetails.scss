@@ -20,15 +20,6 @@
     border-top-left-radius: rem(8px);
     overflow-y: auto;
 
-    &::-webkit-scrollbar {
-        position: absolute;
-        width: 12px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-        background: rgb(204, 204, 204);
-    }
-
     .loader-container {
         position: absolute;
         top: 40%;
