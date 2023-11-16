@@ -6,7 +6,7 @@ import { LabelsSummary } from "./dynamicSummaryCmps/LabelsSummary";
 import { TimelineSummary } from "./dynamicSummaryCmps/TimelineSummary";
 import { Draggable } from "react-beautiful-dnd";
 
-export function GroupPreviewCollapse({ index, handleKeyPress, board, group, onDuplicateGroup, newOnSaveBoard, onRemoveGroup, isCollapse, setIsCollapse, updateIsCollapse }) {
+export function GroupPreviewCollapse({ index, handleKeyPress, board, group, onDuplicateGroup, onSaveBoard, onRemoveGroup, isCollapse, setIsCollapse, updateIsCollapse }) {
 
     const style = {
         borderColor: group.style.backgroundColor
@@ -65,7 +65,7 @@ export function GroupPreviewCollapse({ index, handleKeyPress, board, group, onDu
                                             tooltip='Click to Edit'
                                             tooltipPosition="bottom"
                                             customColor={group.style.backgroundColor}
-                                            onBlur={(ev) => newOnSaveBoard({ type: 'group', board, groupId: group.id, key: 'title', value: ev.target.value })}
+                                            onBlur={(ev) => onSaveBoard({ type: 'group', board, groupId: group.id, key: 'title', value: ev.target.value })}
                                             onKeyDown={handleKeyPress}
                                         />
                                     </div>

@@ -9,7 +9,7 @@ import { GroupFooter } from "./GroupFooter";
 import { TaskList } from "./TaskList";
 import { GroupHeader } from "./GroupHeader";
 
-export function GroupPreview({ index, board, group, newOnSaveBoard, onRemoveGroup, onRemoveTask,
+export function GroupPreview({ index, board, group, onSaveBoard, onRemoveGroup, onRemoveTask,
     onDuplicateGroup, onDuplicateTask, isCollapse, setIsCollapse, updateIsCollapse }) {
 
     const selectedTasks = useSelector(state => state.boardModule.selectedTasks)
@@ -94,7 +94,7 @@ export function GroupPreview({ index, board, group, newOnSaveBoard, onRemoveGrou
 
             if (key === 'title') {
                 ev.target.blur()
-                // newOnSaveBoard(({ type: 'group', board, groupId: group.id, key, value: ev.target.value }))
+                // onSaveBoard(({ type: 'group', board, groupId: group.id, key, value: ev.target.value }))
             } else if (key === 'cmpsOrder') {
                 const updatedCmpsOrder = board.cmpsOrder.map(cmp => {
                     if (cmp.id === idValue) {
@@ -103,7 +103,7 @@ export function GroupPreview({ index, board, group, newOnSaveBoard, onRemoveGrou
                     return cmp;
                 })
 
-                newOnSaveBoard({ type: 'board', board, key, value: [...updatedCmpsOrder] })
+                onSaveBoard({ type: 'board', board, key, value: [...updatedCmpsOrder] })
             }
 
             ev.target.blur()
@@ -112,7 +112,7 @@ export function GroupPreview({ index, board, group, newOnSaveBoard, onRemoveGrou
 
     if (isCollapse[group.id]) return (
         <GroupPreviewCollapse index={index} handleKeyPress={handleKeyPress} board={board}
-            group={group} onDuplicateGroup={onDuplicateGroup} newOnSaveBoard={newOnSaveBoard}
+            group={group} onDuplicateGroup={onDuplicateGroup} onSaveBoard={onSaveBoard}
             onRemoveGroup={onRemoveGroup} isCollapse={isCollapse} setIsCollapse={setIsCollapse}
             updateIsCollapse={updateIsCollapse} />
     )
@@ -130,7 +130,7 @@ export function GroupPreview({ index, board, group, newOnSaveBoard, onRemoveGrou
                     <GroupHeader
                         group={group}
                         board={board}
-                        newOnSaveBoard={newOnSaveBoard}
+                        onSaveBoard={onSaveBoard}
                         onDuplicateGroup={onDuplicateGroup}
                         onRemoveGroup={onRemoveGroup}
                         masterChecked={masterChecked}
@@ -144,7 +144,7 @@ export function GroupPreview({ index, board, group, newOnSaveBoard, onRemoveGrou
                         index={index}
                         board={board}
                         group={group}
-                        newOnSaveBoard={newOnSaveBoard}
+                        onSaveBoard={onSaveBoard}
                         onDuplicateTask={onDuplicateTask}
                         onRemoveTask={onRemoveTask}
                         checkboxes={checkboxes}
@@ -153,7 +153,7 @@ export function GroupPreview({ index, board, group, newOnSaveBoard, onRemoveGrou
                     <GroupFooter
                         group={group}
                         board={board}
-                        newOnSaveBoard={newOnSaveBoard} />
+                        onSaveBoard={onSaveBoard} />
 
                 </div>
             )}

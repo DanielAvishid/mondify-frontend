@@ -3,7 +3,7 @@ import { SET_SELECTED_TASKS } from "../store/reducers/board.reducer";
 import { Icon } from "monday-ui-react-core"
 import { Close, Delete } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 
-export function CheckboxModal({ board, newOnSaveBoard }) {
+export function CheckboxModal({ board, onSaveBoard }) {
 
     const selectedTasks = useSelector(state => state.boardModule.selectedTasks)
     const dispatch = useDispatch()
@@ -21,7 +21,7 @@ export function CheckboxModal({ board, newOnSaveBoard }) {
             }
         }
 
-        newOnSaveBoard({ type: 'board', board, key: 'groups', value: updatedGroups })
+        onSaveBoard({ type: 'board', board, key: 'groups', value: updatedGroups })
         dispatch({ type: SET_SELECTED_TASKS, selectedTasks: {} })
     }
 

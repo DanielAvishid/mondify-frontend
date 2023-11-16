@@ -11,7 +11,7 @@ import { DueDate } from "./dynamicCmps/DueDate";
 import { Duplicate, Delete } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { Menu, MenuButton, MenuItem } from "monday-ui-react-core";
 
-export function TaskPreview({ board, group, task, newOnSaveBoard, onDuplicateTask, onRemoveTask, isChecked, handleCheckboxChange }) {
+export function TaskPreview({ board, group, task, onSaveBoard, onDuplicateTask, onRemoveTask, isChecked, handleCheckboxChange }) {
 
     const tableRow = useRef();
     const { isFocus: isTaskFocus, setIsFocus: setIsTaskFocus } = useClickOutside(tableRow);
@@ -38,7 +38,7 @@ export function TaskPreview({ board, group, task, newOnSaveBoard, onDuplicateTas
                             task={task}
                             group={group}
                             board={board}
-                            newOnSaveBoard={newOnSaveBoard}
+                            onSaveBoard={onSaveBoard}
                             isChecked={isChecked}
                             handleCheckboxChange={handleCheckboxChange}
                             setIsTaskFocus={setIsTaskFocus}
@@ -52,7 +52,7 @@ export function TaskPreview({ board, group, task, newOnSaveBoard, onDuplicateTas
                                 board={board}
                                 cmpType={cmp.type}
                                 info={task[cmp.type]}
-                                newOnSaveBoard={newOnSaveBoard}
+                                onSaveBoard={onSaveBoard}
                                 setIsTaskFocus={setIsTaskFocus}
                             />
                         ))}
@@ -63,19 +63,19 @@ export function TaskPreview({ board, group, task, newOnSaveBoard, onDuplicateTas
     )
 }
 
-const DynamicCmp = ({ task, group, board, cmpType, info, newOnSaveBoard, setIsTaskFocus }) => {
+const DynamicCmp = ({ task, group, board, cmpType, info, onSaveBoard, setIsTaskFocus }) => {
 
     switch (cmpType) {
         case "priority":
-            return <Priority group={group} task={task} cmpType={cmpType} labelId={info} board={board} newOnSaveBoard={newOnSaveBoard} setIsTaskFocus={setIsTaskFocus} />;
+            return <Priority group={group} task={task} cmpType={cmpType} labelId={info} board={board} onSaveBoard={onSaveBoard} setIsTaskFocus={setIsTaskFocus} />;
         case "status":
-            return <Status group={group} task={task} cmpType={cmpType} labelId={info} board={board} newOnSaveBoard={newOnSaveBoard} setIsTaskFocus={setIsTaskFocus} />;
+            return <Status group={group} task={task} cmpType={cmpType} labelId={info} board={board} onSaveBoard={onSaveBoard} setIsTaskFocus={setIsTaskFocus} />;
         case "members":
-            return <Members info={info} task={task} group={group} board={board} newOnSaveBoard={newOnSaveBoard} setIsTaskFocus={setIsTaskFocus} />;
+            return <Members info={info} task={task} group={group} board={board} onSaveBoard={onSaveBoard} setIsTaskFocus={setIsTaskFocus} />;
         case "timeline":
-            return <Timeline info={info} task={task} group={group} board={board} newOnSaveBoard={newOnSaveBoard} setIsTaskFocus={setIsTaskFocus} />
+            return <Timeline info={info} task={task} group={group} board={board} onSaveBoard={onSaveBoard} setIsTaskFocus={setIsTaskFocus} />
         case "date":
-            return <DueDate info={info} task={task} group={group} board={board} newOnSaveBoard={newOnSaveBoard} setIsTaskFocus={setIsTaskFocus} />
+            return <DueDate info={info} task={task} group={group} board={board} onSaveBoard={onSaveBoard} setIsTaskFocus={setIsTaskFocus} />
         default:
             break;
     }

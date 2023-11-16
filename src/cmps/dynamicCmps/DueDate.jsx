@@ -9,7 +9,7 @@ import { useClickOutside } from "../../hooks/useClickOutside";
 import { DueDateModal } from "../dynamicModalCmps/DueDateModal";
 
 
-export function DueDate({ info, task, group, board, newOnSaveBoard, setIsTaskFocus }) {
+export function DueDate({ info, task, group, board, onSaveBoard, setIsTaskFocus }) {
 
     const [newDate, setNewDate] = useState(new Date())
 
@@ -32,7 +32,7 @@ export function DueDate({ info, task, group, board, newOnSaveBoard, setIsTaskFoc
         const startDate = date._d.getTime()
         console.log('startDate', startDate);
         if (startDate) {
-            newOnSaveBoard({ type: 'task', board, groupId: group.id, taskId: task.id, key: "date", value: startDate })
+            onSaveBoard({ type: 'task', board, groupId: group.id, taskId: task.id, key: "date", value: startDate })
         }
     }
 
@@ -59,7 +59,7 @@ export function DueDate({ info, task, group, board, newOnSaveBoard, setIsTaskFoc
                         <PiWarningCircleFill className="sign warning" />
                     }
                     <span className={`${isDatePass ? 'date-pass' : ''}`}>{dueDate}</span>
-                    <AiOutlineClose className="remove-date" onClick={() => newOnSaveBoard({ type: 'task', board, groupId: group.id, taskId: task.id, key: "date", value: null })} />
+                    <AiOutlineClose className="remove-date" onClick={() => onSaveBoard({ type: 'task', board, groupId: group.id, taskId: task.id, key: "date", value: null })} />
                 </div>
                 :
                 <div className="empty-inner-container flex align-center">

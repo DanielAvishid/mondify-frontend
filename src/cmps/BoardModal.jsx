@@ -3,7 +3,7 @@ import { Close, Board } from "/node_modules/monday-ui-react-core/src/components/
 import { GoHomeFill } from "react-icons/go";
 import { utilService } from "../services/util.service";
 
-export function BoardModal({ board, newOnSaveBoard, handleKeyPress, onCloseModal }) {
+export function BoardModal({ board, onSaveBoard, handleKeyPress, onCloseModal }) {
 
     return (
         <section className="modal-full" onClick={onCloseModal}>
@@ -17,7 +17,7 @@ export function BoardModal({ board, newOnSaveBoard, handleKeyPress, onCloseModal
                             <div className="heading">
                                 <EditableHeading
                                     className="edit-board-title"
-                                    onBlur={(ev) => newOnSaveBoard({ type: 'board', board, key: 'title', value: ev.target.value })}
+                                    onBlur={(ev) => onSaveBoard({ type: 'board', board, key: 'title', value: ev.target.value })}
                                     onKeyDown={handleKeyPress}
                                     type="h1"
                                     value={board.title} />
@@ -28,7 +28,7 @@ export function BoardModal({ board, newOnSaveBoard, handleKeyPress, onCloseModal
                                     placeholder="Add a description here to make sure your team is aligned on the purpose"
                                     value={board.description}
                                     className="edit-description"
-                                    onBlur={(ev) => newOnSaveBoard({ type: 'board', board, key: 'description', value: ev.target.value })}
+                                    onBlur={(ev) => onSaveBoard({ type: 'board', board, key: 'description', value: ev.target.value })}
                                     onKeyDown={handleKeyPress}
                                     inputType="textarea"
                                     type="h6" />

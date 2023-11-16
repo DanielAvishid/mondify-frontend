@@ -11,7 +11,6 @@ export const boardService = {
     query,
     getById,
     update,
-    newUpdate,
     remove,
     duplicate,
     addBoard,
@@ -149,7 +148,7 @@ async function addTaskFromHeader(board, task = getEmptyTask()) {
     // return savedBoard
 }
 
-async function newUpdate({ type, board, groupId, taskId, key, value }) {
+async function update({ type, board, groupId, taskId, key, value }) {
     const user = userService.getLoggedinUser()
     const groupIdx = board.groups.findIndex((group) => group.id === groupId);
     let change = null
@@ -161,7 +160,8 @@ async function newUpdate({ type, board, groupId, taskId, key, value }) {
             const prevTask = board.groups[groupIdx].tasks[taskIdx]
             board.groups[groupIdx].tasks[taskIdx] = { ...prevTask, [key]: value }
             const updatedTask = board.groups[groupIdx].tasks[taskIdx]
-            change = newCreateChange(prevTask[key], value, updatedTask.title, key, user)
+            if (key === 'updates') break
+            change = createChange(prevTask[key], value, updatedTask.title, key, user)
             break
 
         case 'group':
@@ -170,13 +170,13 @@ async function newUpdate({ type, board, groupId, taskId, key, value }) {
 
             switch (key) {
                 case 'tasks':
-                    change = newCreateChange(prevValue, value, value[value.length - 1].title, 'created', user)
+                    change = createChange(prevValue, value, value[value.length - 1].title, 'created', user)
                     break
                 case 'title':
-                    change = newCreateChange(prevValue, value, board.groups[groupIdx].title, 'Group Title Change', user)
+                    change = createChange(prevValue, value, board.groups[groupIdx].title, 'Group Title Change', user)
                     break
                 default:
-                    change = newCreateChange(prevValue, value, board.groups[groupIdx].title, key, user)
+                    change = createChange(prevValue, value, board.groups[groupIdx].title, key, user)
                     break
             }
             break
@@ -195,7 +195,7 @@ async function newUpdate({ type, board, groupId, taskId, key, value }) {
     }
 }
 
-const newCreateChange = (prevValue, newValue, title, key, user = null) => ({
+const createChange = (prevValue, newValue, title, key, user = null) => ({
     prevValue,
     newValue,
     timestamp: Date.now(),
@@ -203,76 +203,6 @@ const newCreateChange = (prevValue, newValue, title, key, user = null) => ({
     key,
     by: user ? user : userService.getDefaultUser()
 })
-
-
-async function update({ board, boardId, groupId, taskId, key, value }) {
-    const user = userService.getLoggedinUser()
-
-    if (!board) {
-        try {
-            board = await httpService.get(BASE_URL + boardId)
-        } catch (err) {
-            throw err
-        }
-    }
-
-    const createChange = (prevValue, newValue, title, key) => ({
-        prevValue,
-        newValue,
-        timestamp: Date.now(),
-        title,
-        key,
-        by: user ? user : userService.getDefaultUser()
-    })
-
-    let change = null
-    let taskChange = null
-
-    if (taskId) {
-        const groupsToSave = board.groups.map((group) => {
-            const updatedTasks = group.tasks.map((task) => {
-                if (task.id === taskId) {
-                    change = createChange(task[key], value, task.title, key);
-                    taskChange = createChange(task[key], value, task.title, key)
-                    if (!task.activities) task.activities = []
-                    task.activities.unshift(taskChange)
-                    return { ...task, [key]: value };
-                }
-                return task;
-            })
-            return { ...group, tasks: updatedTasks };
-        })
-        board = { ...board, groups: groupsToSave }
-    } else if (groupId) {
-        const groupIdx = board.groups.findIndex((group) => group.id === groupId);
-        if (key === 'tasks') {
-            change = createChange(board.groups[groupIdx][key], value, value[value.length - 1].title, 'created')
-        } else if (key === 'title') {
-            change = createChange(board.groups[groupIdx][key], value, board.groups[groupIdx].title, 'Group Title Change')
-        } else {
-            change = createChange(board.groups[groupIdx][key], value, board.groups[groupIdx].title, key)
-        }
-        board.groups[groupIdx][key] = value;
-    } else {
-        if (key !== 'isStarred') {
-            change = createChange(board[key], value, 'New Group', 'Group Created');
-        }
-        board[key] = value;
-    }
-
-    if (change) {
-        board.activities.unshift(change);
-    }
-
-    try {
-        let updatedBoard = await httpService.put(BASE_URL + board._id, board)
-
-        return updatedBoard
-    } catch (err) {
-        throw err
-    }
-}
-
 
 async function duplicate({ boardId, groupId, taskId }) {
     let board

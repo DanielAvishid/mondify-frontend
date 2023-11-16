@@ -13,7 +13,7 @@ import { SOCKET_EMIT_SET_BOARD, SOCKET_EVENT_CHANGE_BOARD, socketService } from 
 export function BoardDetails() {
     const boards = useSelector(storeState => storeState.boardModule.boards)
     const board = useSelector(storeState => storeState.boardModule.board)
-    const [newOnSaveBoard, onRemoveBoard, onRemoveGroup, onRemoveTask, onDuplicateBoard, onDuplicateGroup, onDuplicateTask] = useOutletContext()
+    const [onSaveBoard, onRemoveBoard, onRemoveGroup, onRemoveTask, onDuplicateBoard, onDuplicateGroup, onDuplicateTask] = useOutletContext()
     const [isScrolling, setIsScrolling] = useState(false)
     const { boardId } = useParams()
     const [filterBy, setFilterBy] = useState({ txt: '', person: null })
@@ -112,7 +112,7 @@ export function BoardDetails() {
             [newGroup.id]: false
         }));
 
-        newOnSaveBoard({ type: 'board', board, key: 'groups', value })
+        onSaveBoard({ type: 'board', board, key: 'groups', value })
     }
 
     async function onAddTaskFromHeader(board) {
@@ -137,7 +137,7 @@ export function BoardDetails() {
             newGroups.splice(destination.index, 0, removed)
             const newBoard = { ...board, groups: newGroups }
             dispatch({ type: SET_BOARD, board: newBoard })
-            newOnSaveBoard({ type: 'board', board, key: 'groups', value: newGroups })
+            onSaveBoard({ type: 'board', board, key: 'groups', value: newGroups })
             return
         }
 
@@ -154,7 +154,7 @@ export function BoardDetails() {
             })
             const newBoard = { ...board, groups: newGroups }
             dispatch({ type: SET_BOARD, board: newBoard })
-            newOnSaveBoard({ type: 'board', board, key: 'groups', value: newGroups })
+            onSaveBoard({ type: 'board', board, key: 'groups', value: newGroups })
             return
         }
 
@@ -172,7 +172,7 @@ export function BoardDetails() {
         })
         const newBoard = { ...board, groups: newGroups }
         dispatch({ type: SET_BOARD, board: newBoard })
-        newOnSaveBoard({ type: 'board', board, key: 'groups', value: newGroups })
+        onSaveBoard({ type: 'board', board, key: 'groups', value: newGroups })
     }
 
     // if (board === undefined) return <DeletedBoard />
@@ -200,7 +200,7 @@ export function BoardDetails() {
                 onDuplicateBoard={onDuplicateBoard}
                 board={board}
                 onRemoveBoard={onRemoveBoard}
-                newOnSaveBoard={newOnSaveBoard}
+                onSaveBoard={onSaveBoard}
                 filterBy={filterBy}
                 setFilterBy={setFilterBy}
                 sortBy={sortBy}
@@ -209,7 +209,7 @@ export function BoardDetails() {
                 isScrolling={isScrolling}
             />}
             {board && < DragDropContext onDragEnd={onDragEnd} className="main-layout full">
-                <Outlet context={[board, newOnSaveBoard, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask, isCollapse, setIsCollapse, updateIsCollapse, onAddGroup]} />
+                <Outlet context={[board, onSaveBoard, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask, isCollapse, setIsCollapse, updateIsCollapse, onAddGroup]} />
             </DragDropContext>}
         </section >
     )

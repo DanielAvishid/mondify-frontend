@@ -6,7 +6,7 @@ import { boardService } from "../services/board.service";
 import { GoHomeFill, GoStarFill } from "react-icons/go";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
-export function AppSidebar({ boards, newOnSaveBoard, onDuplicateBoard, onRemoveBoard, updateBoards, handleBoardsFilter, filterBy }) {
+export function AppSidebar({ boards, onSaveBoard, onDuplicateBoard, onRemoveBoard, updateBoards, handleBoardsFilter, filterBy }) {
     const [isSideBarHover, setIsSideBarHover] = useState(false)
     const [isSidBarOpen, setIsSideBarOpen] = useState(true)
     const [showBorder, setShowBorder] = useState(false)
@@ -26,7 +26,7 @@ export function AppSidebar({ boards, newOnSaveBoard, onDuplicateBoard, onRemoveB
 
     function onAddBoard() {
         const board = boardService.getEmptyBoard()
-        newOnSaveBoard({ type: 'board', board })
+        onSaveBoard({ type: 'board', board })
     }
 
     function toggleSidebar() {
@@ -236,7 +236,7 @@ export function AppSidebar({ boards, newOnSaveBoard, onDuplicateBoard, onRemoveB
                                                     <MenuItem
                                                         icon={Favorite}
                                                         title={board.isStarred ? 'Remove from favorite' : 'Add to favorite'}
-                                                        onClick={() => newOnSaveBoard({ type: 'board', board, key: 'isStarred', value: !board.isStarred })} />
+                                                        onClick={() => onSaveBoard({ type: 'board', board, key: 'isStarred', value: !board.isStarred })} />
                                                 </Menu>
                                             </MenuButton>
                                         </div>
@@ -303,7 +303,7 @@ export function AppSidebar({ boards, newOnSaveBoard, onDuplicateBoard, onRemoveB
                                                     <MenuItem
                                                         icon={Favorite}
                                                         title={board.isStarred ? 'Remove from favorite' : 'Add to favorite'}
-                                                        onClick={() => newOnSaveBoard({ type: 'board', board, key: 'isStarred', value: !board.isStarred })} />
+                                                        onClick={() => onSaveBoard({ type: 'board', board, key: 'isStarred', value: !board.isStarred })} />
                                                 </Menu>
                                             </MenuButton>
                                         </div>

@@ -3,7 +3,7 @@ import { AppHeader } from "../cmps/AppHeader";
 import { AppSidebar } from "../cmps/AppSidebar";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { duplicate, loadBoards, remove, saveBoard, newSaveBoard } from "../store/actions/board.action";
+import { duplicate, loadBoards, remove, saveBoard } from "../store/actions/board.action";
 import { SET_BOARDS } from "../store/reducers/board.reducer";
 import { store } from "../store/store";
 import { showSuccessMsg } from "../services/event-bus.service";
@@ -44,9 +44,9 @@ export function AppIndex() {
     //     }
     // }
 
-    async function newOnSaveBoard({ type, board, groupId = null, taskId = null, key, value }) {
+    async function onSaveBoard({ type, board, groupId = null, taskId = null, key, value }) {
         try {
-            await newSaveBoard({ type, board, groupId, taskId, key, value })
+            await saveBoard({ type, board, groupId, taskId, key, value })
             console.log('ShowSuccessesMsg')
         } catch (err) {
             console.log('Had issues in save board', err)
@@ -147,12 +147,12 @@ export function AppIndex() {
                     boards={boards}
                     onDuplicateBoard={onDuplicateBoard}
                     onRemoveBoard={onRemoveBoard}
-                    newOnSaveBoard={newOnSaveBoard}
+                    onSaveBoard={onSaveBoard}
                     updateBoards={updateBoards}
                     handleBoardsFilter={handleBoardsFilter}
                     filterBy={filterBy} />
-                <Outlet context={[newOnSaveBoard, onRemoveBoard, onRemoveGroup, onRemoveTask, onDuplicateBoard, onDuplicateGroup, onDuplicateTask, boards]} />
-                {location.pathname.includes('task') && <TaskDetails newOnSaveBoard={newOnSaveBoard} onRemoveTask={onRemoveTask} setIsResizing={setIsResizing} width={width} />}
+                <Outlet context={[onSaveBoard, onRemoveBoard, onRemoveGroup, onRemoveTask, onDuplicateBoard, onDuplicateGroup, onDuplicateTask, boards]} />
+                {location.pathname.includes('task') && <TaskDetails onSaveBoard={onSaveBoard} onRemoveTask={onRemoveTask} setIsResizing={setIsResizing} width={width} />}
             </section>
             {location.pathname.includes('activity') && <BoardActivity />}
         </section>

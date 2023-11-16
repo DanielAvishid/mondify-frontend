@@ -4,7 +4,7 @@ import { useState } from "react";
 import { utilService } from "../../services/util.service";
 import { boardService } from "../../services/board.service";
 
-export function LabelModal({ task, group, board, keyName, newOnSaveBoard, cmpType }) {
+export function LabelModal({ task, group, board, keyName, onSaveBoard, cmpType }) {
     const [isEditMode, setIsEditMode] = useState(false)
     const [palleteOpenState, setPalleteOpenState] = useState({})
     const [hoverState, setHoverState] = useState({})
@@ -50,7 +50,7 @@ export function LabelModal({ task, group, board, keyName, newOnSaveBoard, cmpTyp
     function onRemoveLabel(labelId) {
         const value = editableLabels.filter(label => label.id !== labelId)
         setEditableLabels(value)
-        newOnSaveBoard({ type: 'board', board, key: keyName, value })
+        onSaveBoard({ type: 'board', board, key: keyName, value })
     }
 
     function onAddLabel(ev) {
@@ -59,7 +59,7 @@ export function LabelModal({ task, group, board, keyName, newOnSaveBoard, cmpTyp
         const newLabel = boardService.getEmptyStatusLabel()
         newLabels.push(newLabel)
         setEditableLabels(newLabels)
-        newOnSaveBoard({ type: 'board', board, key: keyName, value: newLabels })
+        onSaveBoard({ type: 'board', board, key: keyName, value: newLabels })
     }
 
     function handleTitleChange(ev, index) {
@@ -73,12 +73,12 @@ export function LabelModal({ task, group, board, keyName, newOnSaveBoard, cmpTyp
         const newLabels = [...editableLabels]
         newLabels[index].color = colorToSave
         setEditableLabels(newLabels)
-        newOnSaveBoard({ type: 'board', board, key: keyName, value: editableLabels })
+        onSaveBoard({ type: 'board', board, key: keyName, value: editableLabels })
         setPalleteOpenState({})
     }
 
     function handleLabelPick(labelId) {
-        newOnSaveBoard({ type: 'task', board, groupId: group.id, taskId: task.id, key: cmpType, value: labelId })
+        onSaveBoard({ type: 'task', board, groupId: group.id, taskId: task.id, key: cmpType, value: labelId })
     }
 
     function stopPropagation(ev) {
@@ -121,7 +121,7 @@ export function LabelModal({ task, group, board, keyName, newOnSaveBoard, cmpTyp
                                     placeholder={getPlaceHolder(label.isDefault)}
                                     value={editableLabels[index].title} type="text"
                                     onChange={(ev) => handleTitleChange(ev, index)}
-                                    onBlur={() => newOnSaveBoard({ type: 'board', board, key: keyName, value: editableLabels })} />
+                                    onBlur={() => onSaveBoard({ type: 'board', board, key: keyName, value: editableLabels })} />
                             </div>
                             {hoverState[label.id] && <Button
                                 size={Button.sizes.XXS}

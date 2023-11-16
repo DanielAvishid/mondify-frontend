@@ -1,7 +1,7 @@
 import { GroupTitle } from "./GroupTitle"
 import { TableHeader } from "./TableHeader"
 
-export function GroupHeader({ group, board, newOnSaveBoard, onDuplicateGroup, onRemoveGroup,
+export function GroupHeader({ group, board, onSaveBoard, onDuplicateGroup, onRemoveGroup,
     masterChecked, handleMasterChange, handleKeyPress, isCollapse, setIsCollapse, updateIsCollapse }) {
 
     return (
@@ -10,7 +10,7 @@ export function GroupHeader({ group, board, newOnSaveBoard, onDuplicateGroup, on
             <GroupTitle
                 group={group}
                 board={board}
-                newOnSaveBoard={newOnSaveBoard}
+                onSaveBoard={onSaveBoard}
                 onDuplicateGroup={onDuplicateGroup}
                 onRemoveGroup={onRemoveGroup}
                 handleKeyPress={handleKeyPress}

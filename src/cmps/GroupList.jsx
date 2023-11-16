@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import { CheckboxModal } from "./CheckboxModal";
 
 export function GroupList() {
-    const [board, newOnSaveBoard, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask, isCollapse, setIsCollapse, updateIsCollapse, onAddGroup] = useOutletContext()
+    const [board, onSaveBoard, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask, isCollapse, setIsCollapse, updateIsCollapse, onAddGroup] = useOutletContext()
     const selectedTasks = useSelector(state => state.boardModule.selectedTasks)
 
     return (
@@ -32,7 +32,7 @@ export function GroupList() {
                                     index={index}
                                     board={board}
                                     group={group}
-                                    newOnSaveBoard={newOnSaveBoard}
+                                    onSaveBoard={onSaveBoard}
                                     onRemoveGroup={onRemoveGroup}
                                     onRemoveTask={onRemoveTask}
                                     onDuplicateGroup={onDuplicateGroup}
@@ -47,7 +47,7 @@ export function GroupList() {
                     </section>
                 )}
             </Droppable>
-            {Object.keys(selectedTasks).length > 0 && <CheckboxModal board={board} newOnSaveBoard={newOnSaveBoard} />}
+            {Object.keys(selectedTasks).length > 0 && <CheckboxModal board={board} onSaveBoard={onSaveBoard} />}
             {board.groups.length !== 0 && <div className="add-group-container middle">
                 <Button
                     className="new-group-btn"

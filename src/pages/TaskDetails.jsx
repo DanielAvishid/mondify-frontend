@@ -11,7 +11,7 @@ import { TaskDetailsActivity } from "../cmps/TaskDetailsActivity"
 import { userService } from "../services/user.service"
 import { TaskDetailsMobile } from "./TaskDetailsMobile"
 
-export function TaskDetails({ newOnSaveBoard, onRemoveTask, setIsResizing, width }) {
+export function TaskDetails({ onSaveBoard, onRemoveTask, setIsResizing, width }) {
     const boards = useSelector(storeState => storeState.boardModule.boards)
     const board = useSelector(storeState => storeState.boardModule.board)
     const user = useSelector(storeState => storeState.userModule.loggedinUser)
@@ -59,7 +59,7 @@ export function TaskDetails({ newOnSaveBoard, onRemoveTask, setIsResizing, width
 
     function onTaskTitleChange(ev) {
         if (!ev.target.value) return
-        newOnSaveBoard({ type: 'task', board, groupId, taskId, key: 'title', value: ev.target.value })
+        onSaveBoard({ type: 'task', board, groupId, taskId, key: 'title', value: ev.target.value })
         // onSaveBoard({ key: 'title', value: ev.target.value, boardId, taskId })
     }
 
@@ -76,13 +76,13 @@ export function TaskDetails({ newOnSaveBoard, onRemoveTask, setIsResizing, width
             }
         }
         value.unshift(update)
-        newOnSaveBoard({ type: 'task', board, groupId, taskId, key: 'updates', value })
+        onSaveBoard({ type: 'task', board, groupId, taskId, key: 'updates', value })
         setIsUpdateEditor(false)
     }
 
     function onRemoveUpdate(updateId) {
         const value = task.updates.filter(update => update.id !== updateId)
-        newOnSaveBoard({ type: 'task', board, groupId, taskId, key: 'updates', value })
+        onSaveBoard({ type: 'task', board, groupId, taskId, key: 'updates', value })
         // onSaveBoard({ key: 'updates', value, boardId, taskId })
     }
 
@@ -99,7 +99,7 @@ export function TaskDetails({ newOnSaveBoard, onRemoveTask, setIsResizing, width
 
 
     if (!task) return <span></span>
-    if (window.innerWidth < 500) return (<TaskDetailsMobile task={task} groupId={groupId} board={board} newOnSaveBoard={newOnSaveBoard} handleKeyPress={handleKeyPress} />)
+    if (window.innerWidth < 500) return (<TaskDetailsMobile task={task} groupId={groupId} board={board} onSaveBoard={onSaveBoard} handleKeyPress={handleKeyPress} />)
 
 
     return (
