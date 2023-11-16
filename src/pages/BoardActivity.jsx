@@ -6,18 +6,13 @@ import userImgUrl from '../assets/img/user-img.png'
 import updateImgUrl from '../assets/img/update-img.png'
 import { ActivityHeader } from "../cmps/activityCmps/ActivityHeader"
 import { ActivityDetails } from "../cmps/activityCmps/ActivityDetails"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { loadBoard } from "../store/actions/board.action"
 
 export function BoardActivity() {
 
-    const boards = useSelector(storeState => storeState.boardModule.boards)
-    const navigate = useNavigate()
+    const board = useSelector(storeState => storeState.boardModule.board)
     const { boardId } = useParams()
-
-    const board = boards.find((board) => board._id === boardId);
-
-    const activities = board.activities
-    const [filteredActivities, setFilteredActivities] = useState(activities)
     const [searchTerm, setSearchTerm] = useState('')
 
     const handleSearch = (searchValue) => {
@@ -33,27 +28,15 @@ export function BoardActivity() {
         setFilteredActivities(filtered)
     }
 
+    if (!board) return
+
     return (
         <section className="board-activity flex column">
-            <ActivityHeader board={board} navigate={navigate} />
+            <ActivityHeader board={board} />
             <ActivityDetails
                 board={board}
-                filteredActivities={filteredActivities}
                 searchTerm={searchTerm}
                 handleSearch={handleSearch} />
-            {/* <MenuDivider className='menu-divider' /> */}
-
-
-
-            {/* show when empty */}
-
-            {/* <div className="no-updates-text">
-                <img src={updateImgUrl} />
-                <h1>No updates yet for this item</h1>
-                <p>Be the first one to update about progress, mention someone</p>
-                <p>or upload files to share with your team members</p>
-            </div> */}
         </section>
-
     )
 }

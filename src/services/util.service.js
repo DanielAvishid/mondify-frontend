@@ -171,7 +171,7 @@ function getTimePassed(timestamp) {
     if (hours < 24) return `${hours}h`;
 
     const date = new Date(timestamp);
-    const month = date.toLocaleString("default", { month: "short" });
+    const month = date.toLocaleString("en-US", { month: "short" });
     const day = date.getDate();
     return `${month} ${day}`;
 

@@ -3,7 +3,7 @@ import { Button, Icon, IconButton, SplitButton, TextField } from "monday-ui-reac
 import { DropdownChevronDown, PersonRound, Rotate, DocShareable } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { ActivityList } from "./ActivityList";
 
-export function ActivityDetails({ board, filteredActivities, searchTerm, handleSearch }) {
+export function ActivityDetails({ board, searchTerm, handleSearch }) {
     return (
         <main className="activity-details">
             <div className="automation-activity flex align-center justify-between">
@@ -35,7 +35,7 @@ export function ActivityDetails({ board, filteredActivities, searchTerm, handleS
                     <IconButton icon={DocShareable} kind={IconButton.kinds.TERTIARY} size={IconButton.sizes.SMALL} ariaLabel="Export" />
                 </div>
             </div>
-            <ActivityList board={board} filteredActivities={filteredActivities} />
+            <ActivityList board={board} />
         </main>
     )
 }

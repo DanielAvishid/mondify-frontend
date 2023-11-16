@@ -1,11 +1,17 @@
 .activity-preview {
     display: grid;
-    grid-template-columns: rem(56px) 2.8fr rem(16px) 1.2fr rem(16px) 2fr;
+    grid-template-columns: rem(60px) 2.8fr rem(16px) 1.2fr rem(16px) 2fr;
     height: rem(55px);
     padding: rem(8px) rem(8px) rem(8px) rem(16px);
 
     >.activity-time {
-        grid-column: 1 / 2
+        grid-column: 1 / 2;
+        position: relative;
+
+        .time-text {
+            left: 18px;
+            max-width: 66%;
+        }
     }
 
     >.activity-place {

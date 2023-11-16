@@ -1,6 +1,11 @@
+import { useState } from "react";
 import { ActivityPreview } from "./ActivityPreview";
 
-export function ActivityList({ board, filteredActivities }) {
+export function ActivityList({ board }) {
+
+    const activities = board.activities || []
+    const [filteredActivities, setFilteredActivities] = useState(activities)
+
     return (
         <section className="activity-list">
             {filteredActivities.map((activity, idx) => (

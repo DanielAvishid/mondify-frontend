@@ -22,9 +22,11 @@ export function TaskDetails({ onSaveBoard, onRemoveTask, setIsResizing, width })
     const [searchTerm, setSearchTerm] = useState('')
     const [currentTab, setCurrentTab] = useState('Updates')
     const [isUpdateEditor, setIsUpdateEditor] = useState(false)
-    const groupId = board.groups.find((group) => group.tasks.some((task) => task.id === taskId))?.id || null;
-    console.log(groupId);
+    let groupId
     let timeoutId
+
+    if (board) groupId = board.groups.find((group) => group.tasks.some((task) => task.id === taskId))?.id || null;
+
 
     useEffect(() => {
         loadTask()
@@ -35,8 +37,10 @@ export function TaskDetails({ onSaveBoard, onRemoveTask, setIsResizing, width })
     async function loadTask() {
         try {
             const task = await getById({ boardId, taskId })
+            // groupId = board.groups.find((group) => group.tasks.some((task) => task.id === taskId))?.id || null;
             setTask(task)
             setFilteredActivities(task.activities)
+
         } catch (err) {
             console.log('Had issues in board details', err)
             console.log('ShowErrorMsg')

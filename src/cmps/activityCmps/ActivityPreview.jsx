@@ -26,7 +26,7 @@ export function ActivityPreview({ board, activity }) {
         <div className="activity-preview flex align-center">
             <div className="activity-time flex">
                 <Icon icon={Time} className="flex align-center" />
-                <span>{time}</span>
+                <span className="ellipsis-text time-text">{time}</span>
             </div>
             <div className="activity-place flex align-center">
                 <Avatar

@@ -22,7 +22,6 @@ export function BoardDetails() {
     const [isInitialSetupComplete, setIsInitialSetupComplete] = useState(false);
     const dispatch = useDispatch()
     const containerRef = useRef()
-    console.log('filterBy', filterBy);
 
     useEffect(() => {
         if (!board) dispatch({ type: SET_BOARD, board: undefined })

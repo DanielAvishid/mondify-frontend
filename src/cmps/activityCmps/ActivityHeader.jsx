@@ -1,8 +1,12 @@
 import { Tab, TabList, IconButton } from "monday-ui-react-core"
 import { Close } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
+import { useNavigate } from "react-router-dom"
 
-export function ActivityHeader({ board, navigate }) {
+export function ActivityHeader({ board }) {
+
+    const navigate = useNavigate()
     const location = `/board/${board._id}`
+
     return (
         <header className="activity-header">
             <div className="close-container">
