@@ -223,3 +223,21 @@
         }
     }
 }
+
+@media (max-width: 600px) {
+    .login {
+
+        .label-container {
+            padding-inline-end: 0 !important;
+        }
+
+        .input-container {
+            width: 200px !important;
+        }
+
+        .login-btn {
+            width: rem(292px) !important;
+            margin: rem(16px) 0 !important;
+        }
+    }
+}
