@@ -4,8 +4,30 @@ import { MoveArrowRight, Check } from "/node_modules/monday-ui-react-core/src/co
 import imgUrl from '../assets/img/monday-img.png'
 import { useEffect, useState } from "react"
 import { utilService } from "../services/util.service"
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 
 export function Home() {
+
+    const responsive = {
+        superLargeDesktop: {
+            // the naming can be any, depends on you.
+            breakpoint: { max: 4000, min: 3000 },
+            items: 5
+        },
+        desktop: {
+            breakpoint: { max: 3000, min: 1024 },
+            items: 3
+        },
+        tablet: {
+            breakpoint: { max: 1024, min: 464 },
+            items: 2
+        },
+        mobile: {
+            breakpoint: { max: 464, min: 0 },
+            items: 1
+        }
+    };
 
     const [isHeroBtnHover, setIsHeroBtnHover] = useState(false)
     const [isCardHover, setIsCardHover] = useState([false, false, false, false, false, false, false, false, false])
@@ -107,27 +129,52 @@ export function Home() {
                     <h2 className="sub-title">What would you like to manage with workit Work OS?</h2>
                 </div>
                 <div className="call-to-action">
-                    <div className="cards-container">
+                    <div className="cards-container" >
                         {cardsTitles.map((card, idx) =>
-                            <div
-                                key={card}
-                                className="card"
-                                onMouseEnter={() => handleMouseHover(idx, true)}
-                                onMouseLeave={() => handleMouseHover(idx, false)}
-                                onClick={() => handleCardClick(idx, isCardChecked[idx])}
-                                style={{ borderColor: (isCardHover[idx] || isCardChecked[idx]) ? cardsColors[idx].color : '' }}>
+                            <div className="desktop">
+
                                 <div
-                                    className="checkbox"
-                                    style={{
-                                        borderColor: (isCardHover[idx] || isCardChecked[idx]) ? cardsColors[idx].color : '',
-                                        backgroundColor: isCardChecked[idx] ? cardsColors[idx].color : ''
-                                    }}>
-                                    {isCardChecked[idx] && <Icon className="check-icon" icon={Check} iconSize="20" />}
+                                    key={card}
+                                    className="card"
+                                    onMouseEnter={() => handleMouseHover(idx, true)}
+                                    onMouseLeave={() => handleMouseHover(idx, false)}
+                                    onClick={() => handleCardClick(idx, isCardChecked[idx])}
+                                    style={{ borderColor: (isCardHover[idx] || isCardChecked[idx]) ? cardsColors[idx].color : '' }}>
+                                    <div
+                                        className="checkbox"
+                                        style={{
+                                            borderColor: (isCardHover[idx] || isCardChecked[idx]) ? cardsColors[idx].color : '',
+                                            backgroundColor: isCardChecked[idx] ? cardsColors[idx].color : ''
+                                        }}>
+                                        {isCardChecked[idx] && <Icon className="check-icon" icon={Check} iconSize="20" />}
+                                    </div>
+                                    <img className="cluster-img" src={cardsIcon[idx]} />
+                                    <p>{cardsTitles[idx]}</p>
                                 </div>
-                                <img className="cluster-img" src={cardsIcon[idx]} />
-                                <p>{cardsTitles[idx]}</p>
                             </div>
                         )}
+                        <Carousel className="phone" responsive={responsive} infinite={true} autoPlay={true} arrows={false} centerMode={true}>
+                            {cardsTitles.map((card, idx) =>
+                                <div
+                                    key={card}
+                                    className="card"
+                                    onMouseEnter={() => handleMouseHover(idx, true)}
+                                    onMouseLeave={() => handleMouseHover(idx, false)}
+                                    onClick={() => handleCardClick(idx, isCardChecked[idx])}
+                                    style={{ borderColor: (isCardHover[idx] || isCardChecked[idx]) ? cardsColors[idx].color : '' }}>
+                                    <div
+                                        className="checkbox"
+                                        style={{
+                                            borderColor: (isCardHover[idx] || isCardChecked[idx]) ? cardsColors[idx].color : '',
+                                            backgroundColor: isCardChecked[idx] ? cardsColors[idx].color : ''
+                                        }}>
+                                        {isCardChecked[idx] && <Icon className="check-icon" icon={Check} iconSize="20" />}
+                                    </div>
+                                    <img className="cluster-img" src={cardsIcon[idx]} />
+                                    <p>{cardsTitles[idx]}</p>
+                                </div>
+                            )}
+                        </Carousel>
                     </div>
                     <div
                         className="bottom-container"
@@ -154,7 +201,7 @@ export function Home() {
                 <div className="title-container">
                     <h2>Trusted by 180,000+ customers worldwide</h2>
                 </div>
-                <div className="logos-container">
+                <div className="logos-container desktop">
                     {companiesLogos.map((logo, idx) =>
                         <div key={logo} className="logo">
                             <div className="flex align-center">
@@ -163,6 +210,15 @@ export function Home() {
                         </div>
                     )}
                 </div>
+                <Carousel className="logos-container phone" responsive={responsive} infinite={true} arrows={false} centerMode={true}>
+                    {companiesLogos.map((logo, idx) =>
+                        <div key={logo} className="logo">
+                            <div className="flex align-center">
+                                <img className="logo-img" src={companiesLogos[idx]} alt="" />
+                            </div>
+                        </div>
+                    )}
+                </Carousel>
             </div>
             <div className="side-by-side-text-section">
                 <div className="content">
