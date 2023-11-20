@@ -473,3 +473,24 @@
     margin-block-start: rem(-18px);
     margin-block-end: rem(15px);
 }
+
+@media (max-width: 600px) {
+    .board-header {
+        background-color: $primary-background-color;
+        width: 100vw;
+        border-block-end: 0.8px solid $table-border;
+
+        h1 {
+            font-size: rem(20px);
+        }
+
+        .info-icons-container,
+        .activity-btn,
+        .btn,
+        .second-row-container,
+        .split-btn,
+        .collapse-btn {
+            display: none !important;
+        }
+    }
+}

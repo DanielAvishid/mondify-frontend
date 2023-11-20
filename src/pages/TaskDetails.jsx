@@ -100,8 +100,7 @@ export function TaskDetails({ onSaveBoard, onRemoveTask, setIsResizing, width })
 
 
     if (!task) return <span></span>
-    if (window.innerWidth < 500) return (<TaskDetailsMobile task={task} groupId={groupId} board={board} onSaveBoard={onSaveBoard} handleKeyPress={handleKeyPress} />)
-
+    if (window.innerWidth < 600) return (<TaskDetailsMobile task={task} groupId={groupId} board={board} onSaveBoard={onSaveBoard} handleKeyPress={handleKeyPress} />)
 
     return (
         <section

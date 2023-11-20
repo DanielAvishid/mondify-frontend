@@ -50,8 +50,9 @@ export function BoardDetails() {
             scrollTimeout = setTimeout(() => {
                 const container = containerRef.current
                 const atTop = container.scrollTop === 0
-
-                setIsScrolling(atTop ? false : true)
+                if (window.innerWidth > 600) {
+                    setIsScrolling(atTop ? false : true)
+                }
             }, 2)
         }
 

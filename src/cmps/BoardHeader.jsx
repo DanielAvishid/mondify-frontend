@@ -1,5 +1,5 @@
 import { Menu, MenuButton, Search as SearchInput, MenuItem, EditableHeading, MenuTitle, Button, MenuDivider, TabList, Tab, Table, SplitButton, SplitButtonMenu, IconButton, Icon, AvatarGroup, Avatar, Tooltip } from "monday-ui-react-core"
-import { NavigationChevronDown, Sort, DropdownChevronDown, DropdownChevronUp, Home, Delete, Download, Group, Search, PersonRound, CloseSmall, Chart, Edit, Favorite, ShortText, Info, AddSmall, Duplicate, Table as TableIcon, Menu as MenuIcon, Invite, SettingsKnobs } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
+import { NavigationChevronLeft, Activity, Sort, DropdownChevronDown, DropdownChevronUp, Home, Delete, Download, Group, Search, PersonRound, CloseSmall, Chart, Edit, Favorite, ShortText, Info, AddSmall, Duplicate, Table as TableIcon, Menu as MenuIcon, Invite, SettingsKnobs } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { GoStarFill } from "react-icons/go";
 import { useRef, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
@@ -66,9 +66,13 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
         .filter(member => member._id === filterBy.person)
         .map(member => member.imgUrl);
 
+    // if (window.innerWidth < 600) return <BoardHeaderMobile />
+
     return (
         <section className={`board-header full ${isCollapse ? 'collapse' : ''} ${isScrolling ? 'scrolling' : ''}`}>
             {!isCollapse && !isScrolling && <section className="container first-row-container">
+                {window.innerWidth < 600 && <IconButton icon={NavigationChevronLeft} kind={IconButton.kinds.TERTIARY} />}
+
                 <div className="title-container">
                     <EditableHeading
                         className="board-title-input"
@@ -80,7 +84,7 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                         onBlur={(ev) => onSaveBoard({ board, key: 'title', value: ev.target.value })}
                         onKeyDown={handleKeyPress}
                     />
-                    <div>
+                    <div className="info-icons-container">
                         <IconButton
                             iconClassName='info-icon'
                             icon={Info}
@@ -117,6 +121,9 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
                         <Menu id="menu">
                             <MenuTitle caption="Board options" captionPosition={MenuTitle.positions.TOP} />
                             <MenuItem icon={Edit} iconType={MenuItem.iconType.SVG} title="Rename board" onClick={() => setIsModalOpen(true)} />
+                            <MenuItem icon={Activity} iconType={MenuItem.iconType.SVG} title="Activity log" onClick={() => navigate(activityUrl)} />
+                            <MenuItem icon={board.isStarred ? GoStarFill : Favorite} iconType={MenuItem.iconType.SVG} title={board.isStarred ? "Remove from favorites" : "Add to favorites"} onClick={() => onSaveBoard({ board, key: 'isStarred', value: !board.isStarred })} />
+                            <MenuItem icon={Info} iconType={MenuItem.iconType.SVG} title="Show board description" onClick={() => setIsModalOpen(true)} />
                             <MenuItem icon={Duplicate} iconType={MenuItem.iconType.SVG}
                                 title="Duplicate board" onClick={() => { onDuplicateBoard({ boardId: board._id }) }} />
                             <MenuItem icon={Delete} iconType={MenuItem.iconType.SVG} title="Delete board"
