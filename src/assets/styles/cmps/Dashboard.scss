@@ -79,3 +79,26 @@
         font-weight: 500;
     }
 }
+
+@media (max-width: 600px) {
+    .dashboard {
+        width: 100vw;
+        height: fit-content;
+        grid-template-columns: 1fr;
+
+        h4 {
+            text-align: center;
+        }
+
+        .overall-progress-container {
+            height: min-content;
+            padding: rem(20px);
+        }
+
+
+    }
+
+    .upcoming-features {
+        max-height: 500px;
+    }
+}

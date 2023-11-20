@@ -2,7 +2,6 @@ import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip, Lege
 import { Bar } from 'react-chartjs-2'
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { useSelector } from 'react-redux';
-
 ChartJS.register(Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 
 export function MembersChart() {
