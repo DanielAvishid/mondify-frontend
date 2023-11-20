@@ -6,13 +6,13 @@ export function ActivityDetails({ board, searchTerm, handleSearch }) {
     return (
         <main className="activity-details">
 
-            <div className="automation-activity flex align-center justify-between">
+            {/* <div className="automation-activity flex align-center justify-between">
                 <span>Other activities</span>
                 <div>
                     <Button size={Button.sizes.SMALL} kind={Button.kinds.TERTIARY}>Integration Activity</Button>
                     <Button size={Button.sizes.SMALL} kind={Button.kinds.TERTIARY}>Automations Activity</Button>
                 </div>
-            </div>
+            </div> */}
 
             <div className="activity-filter flex justify-between">
                 <div className="flex">
@@ -26,10 +26,10 @@ export function ActivityDetails({ board, searchTerm, handleSearch }) {
                         <span>person</span>
                     </Button>
                 </div>
-                <div className="options flex">
+                {/* <div className="options flex">
                     <IconButton icon={Rotate} kind={IconButton.kinds.TERTIARY} size={IconButton.sizes.SMALL} ariaLabel="Refresh" />
                     <IconButton icon={DocShareable} kind={IconButton.kinds.TERTIARY} size={IconButton.sizes.SMALL} ariaLabel="Export" />
-                </div>
+                </div> */}
             </div>
 
             <ActivityList board={board} />

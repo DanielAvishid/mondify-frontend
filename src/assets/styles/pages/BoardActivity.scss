@@ -61,3 +61,10 @@
         }
     }
 }
+
+@media (max-width: 600px) {
+    .board-activity {
+        min-width: 100vw;
+        // width: 100vw !important;
+    }
+}

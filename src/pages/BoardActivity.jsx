@@ -35,7 +35,7 @@ export function BoardActivity({ setIsResizing, width }) {
     return (
         <section
             className="board-activity flex column"
-            style={{ width: width ? `calc(100vw - ${width}px)` : '570px' }}>
+            style={{ width: width ? `calc(100vw - ${width}px)` : '' }}>
 
             <ActivityHeader board={board} />
             <ActivityDetails
