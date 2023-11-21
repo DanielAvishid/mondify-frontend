@@ -9,6 +9,11 @@ import { DragDropContext } from "react-beautiful-dnd";
 import { useDispatch } from "react-redux";
 import { SET_BOARD, SET_BOARDS } from "../store/reducers/board.reducer";
 import { SOCKET_EMIT_SET_BOARD, SOCKET_EVENT_CHANGE_BOARD, socketService } from "../services/socket.service";
+import { NavigationChevronDown, Sort, DropdownChevronDown, DropdownChevronUp, Home, Delete, Download, Group, Search, PersonRound, CloseSmall, Chart, Edit, Favorite, ShortText, Info, AddSmall, Duplicate, Table as TableIcon, Menu as MenuIcon, Invite, SettingsKnobs, MoveArrowLeft } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
+import { EditableHeading, Icon, Menu, MenuButton, MenuItem, MenuTitle } from "monday-ui-react-core";
+import { HiOutlineDotsVertical } from "react-icons/hi";
+
+
 
 export function BoardDetails() {
     const boards = useSelector(storeState => storeState.boardModule.boards)
@@ -20,8 +25,10 @@ export function BoardDetails() {
     const [sortBy, setSortBy] = useState(false)
     const [isCollapse, setIsCollapse] = useState({})
     const [isInitialSetupComplete, setIsInitialSetupComplete] = useState(false);
+    const [isAbove600px, setIsAbove600px] = useState(window.innerWidth > 600)
     const dispatch = useDispatch()
     const containerRef = useRef()
+    const navigate = useNavigate()
 
     useEffect(() => {
         if (!board) dispatch({ type: SET_BOARD, board: undefined })
@@ -55,8 +62,10 @@ export function BoardDetails() {
                 }
             }, 2)
         }
+        if (containerRef.current) {
+            containerRef.current.addEventListener('scroll', handleScroll)
+        }
 
-        containerRef.current.addEventListener('scroll', handleScroll)
 
         return () => {
             if (containerRef.current) {
@@ -65,9 +74,13 @@ export function BoardDetails() {
         }
     }, [board])
 
+    useEffect(() => {
+        window.addEventListener('resize', handleResize)
 
-    //emit SET_BOARD parameter boardId
-    //on UPDATE_BOARD
+        return () => {
+            window.removeEventListener('resize', handleResize)
+        }
+    }, [])
 
     useEffect(() => {
         socketService.emit(SOCKET_EMIT_SET_BOARD, boardId)
@@ -80,13 +93,9 @@ export function BoardDetails() {
         }
     }, [])
 
-    // useEffect(() => {
-    //     socketService.on(SOCKET_EVENT_CHANGE_BOARD, changeBoard)
-    //     console.log('EVENT_CHANGE_BOARD')
-    //     return () => {
-    //         socketService.off(SOCKET_EVENT_CHANGE_BOARD, changeBoard)
-    //     }
-    // }, [])
+    function handleResize() {
+        setIsAbove600px(window.innerWidth > 600)
+    }
 
     function changeBoard(updatedBoard) {
         console.log('CHECK HERE', updatedBoard)
@@ -187,31 +196,59 @@ export function BoardDetails() {
     // )
 
     return (
-        <section
-            className="board-details main-layout"
-            ref={containerRef}>
-            {board === undefined && <section className="waiting-load">
-                <div className="loader-container">
-                    <img src="https://cdn.monday.com/images/loader/loader.gif" alt="" />
+        <>
+            {isAbove600px && <section
+                className="board-details main-layout"
+                ref={containerRef}>
+                {board === undefined && <section className="waiting-load">
+                    <div className="loader-container">
+                        <img src="https://cdn.monday.com/images/loader/loader.gif" alt="" />
+                    </div>
+                </section>}
+                {board === null && <DeletedBoard />}
+                {board && <BoardHeader
+                    onAddTaskFromHeader={onAddTaskFromHeader}
+                    onDuplicateBoard={onDuplicateBoard}
+                    board={board}
+                    onRemoveBoard={onRemoveBoard}
+                    onSaveBoard={onSaveBoard}
+                    filterBy={filterBy}
+                    setFilterBy={setFilterBy}
+                    sortBy={sortBy}
+                    setSortBy={setSortBy}
+                    onAddGroup={onAddGroup}
+                    isScrolling={isScrolling}
+                />}
+                {board && < DragDropContext onDragEnd={onDragEnd} className="main-layout full">
+                    <Outlet context={[board, onSaveBoard, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask, isCollapse, setIsCollapse, updateIsCollapse, onAddGroup]} />
+                </DragDropContext>}
+            </section >}
+            {!isAbove600px && <section className="board-details-mobile">
+                <div className="header">
+                    <div className="board-options">
+                        <Icon className="arrow-icon" icon={MoveArrowLeft} onClick={() => navigate('/board')} />
+                        <EditableHeading
+                            className="board-title-input"
+                            type={EditableHeading.types.h2}
+                            value={board.title}
+                            onBlur={(ev) => onSaveBoard({ board, key: 'title', value: ev.target.value })}
+                            customColor="#323338" //change to variable
+                        />
+                        <MenuButton
+                            className="menu-btn" component={HiOutlineDotsVertical}>
+                            <Menu id="menu">
+                                <MenuTitle caption="Board options" captionPosition={MenuTitle.positions.TOP} />
+                                <MenuItem icon={Duplicate} iconType={MenuItem.iconType.SVG}
+                                    title="Duplicate board" onClick={() => { onDuplicateBoard({ boardId: board._id }) }} />
+                                <MenuItem icon={Delete} iconType={MenuItem.iconType.SVG} title="Delete board"
+                                    onClick={() => { onRemoveBoard({ board, boardId: board._id }) }} />
+                            </Menu>
+                        </MenuButton>
+                    </div>
+                    <div>
+                    </div>
                 </div>
             </section>}
-            {board === null && <DeletedBoard />}
-            {board && <BoardHeader
-                onAddTaskFromHeader={onAddTaskFromHeader}
-                onDuplicateBoard={onDuplicateBoard}
-                board={board}
-                onRemoveBoard={onRemoveBoard}
-                onSaveBoard={onSaveBoard}
-                filterBy={filterBy}
-                setFilterBy={setFilterBy}
-                sortBy={sortBy}
-                setSortBy={setSortBy}
-                onAddGroup={onAddGroup}
-                isScrolling={isScrolling}
-            />}
-            {board && < DragDropContext onDragEnd={onDragEnd} className="main-layout full">
-                <Outlet context={[board, onSaveBoard, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask, isCollapse, setIsCollapse, updateIsCollapse, onAddGroup]} />
-            </DragDropContext>}
-        </section >
+        </>
     )
 }
