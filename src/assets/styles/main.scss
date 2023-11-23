@@ -14,7 +14,6 @@
 @import "pages/BoardDetails.scss";
 @import "pages/TaskDetails.scss";
 @import "pages/Home.scss";
-@import "pages/BoardList.scss";
 @import "pages/BoardActivity.scss";
 @import "pages/Signup.scss";
 @import "pages/Login.scss";
@@ -70,6 +69,10 @@
 @import "cmps/activityCmps/ActivityPreview.scss";
 
 //activityCmps
+@import "cmps/boardListCmps/BoardListDesktop.scss";
+@import "cmps/boardListCmps/BoardListMobile.scss";
+
+//homePageCmps
 @import "cmps/homePageCmps/HomePageHeader.scss";
 @import "cmps/homePageCmps/Hero.scss";
 @import "cmps/homePageCmps/HeroCTA.scss";
