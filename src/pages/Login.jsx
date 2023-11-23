@@ -5,17 +5,11 @@ import { useEffect, useState } from "react"
 import { MsgModalSuccess } from "../cmps/MsgModalSuccess"
 import { login } from "../store/actions/user.action"
 import { showSuccessMsg } from "../services/event-bus.service"
-
-function getEmptyCredentials() {
-    return {
-        username: '',
-        password: ''
-    }
-}
+import { utilService } from "../services/util.service"
 
 export function Login() {
 
-    const [credentials, setCredentials] = useState(getEmptyCredentials())
+    const [credentials, setCredentials] = useState(utilService.getEmptyUserCredentials())
     const navigate = useNavigate()
     let timeoutId
     let guestTimeoutId
@@ -78,9 +72,7 @@ export function Login() {
                     <h1 className='login-title'><b>Log</b> In</h1>
                     <div className='login-container'>
                         <div className="label-container">
-                            <span className="label">
-                                Username
-                            </span>
+                            <span className="label">Username</span>
                             <div className="input-container">
                                 <input
                                     type="text"
@@ -89,9 +81,7 @@ export function Login() {
                             </div>
                         </div>
                         <div className="label-container">
-                            <span className="label">
-                                Password
-                            </span>
+                            <span className="label">Password</span>
                             <div className="input-container">
                                 <input
                                     type="text"
@@ -101,9 +91,7 @@ export function Login() {
                         </div >
                         <div className="login-btn-container">
                             <button className="login-btn" onClick={onSubmit}>
-                                <span className="btn-text">
-                                    Log in
-                                </span>
+                                <span className="btn-text">Log in</span>
                                 <Icon className="arrow-icon" icon={MoveArrowRight} />
                             </button>
                         </div>
@@ -120,9 +108,7 @@ export function Login() {
                     <div className="sign-up-container">
                         <span>Don't have an account yet?</span>
                         <Link className="flex align-center" to='/sign_up'>
-                            <span className="sign-up-link">
-                                Sign up
-                            </span>
+                            <span className="sign-up-link">Sign up</span>
                         </Link>
                     </div>
                 </div>

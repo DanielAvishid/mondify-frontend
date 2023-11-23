@@ -717,7 +717,7 @@ function getEmptyGroup() {
         archivedAt: Date.now(),
         tasks: [],
         style: {
-            backgroundColor: utilService.getRandomColor()
+            backgroundColor: utilService.getRandomLabelColor()
         }
     }
 }
