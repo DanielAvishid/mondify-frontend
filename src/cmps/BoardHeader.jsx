@@ -71,7 +71,7 @@ export function BoardHeader({ onAddTaskFromHeader, board, onRemoveBoard, onSaveB
     return (
         <section className={`board-header full ${isCollapse ? 'collapse' : ''} ${isScrolling ? 'scrolling' : ''}`}>
             {!isCollapse && !isScrolling && <section className="container first-row-container">
-                {window.innerWidth < 600 && <IconButton icon={NavigationChevronLeft} kind={IconButton.kinds.TERTIARY} />}
+                {window.innerWidth < 600 && <IconButton icon={NavigationChevronLeft} kind={IconButton.kinds.TERTIARY} onClick={() => navigate('/board')} />}
 
                 <div className="title-container">
                     <EditableHeading

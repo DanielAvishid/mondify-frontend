@@ -2,8 +2,10 @@ import { useNavigate } from "react-router-dom"
 import { userService } from "../../services/user.service"
 import { Icon, IconButton } from "monday-ui-react-core"
 import { Favorite, Board } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
+import { GoStarFill } from "react-icons/go";
 
-export function BoardListDesktop({ boards, user }) {
+
+export function BoardListDesktop({ boards, user, onSaveBoard }) {
 
     const navigate = useNavigate()
 
@@ -36,7 +38,12 @@ export function BoardListDesktop({ boards, user }) {
                                     <Icon className="board-icon" icon={Board} />
                                     <span className="board-title">{board.title}</span>
                                 </div>
-                                <IconButton className="favorite-btn" ariaLabel="Add to favorites" icon={Favorite} />
+                                <IconButton
+                                    className={`favorite-icon ${board.isStarred ? 'isFavorite' : ''}`}
+                                    icon={board.isStarred ? GoStarFill : Favorite}
+                                    onClick={(ev) => { ev.stopPropagation(); onSaveBoard({ board, key: 'isStarred', value: !board.isStarred }) }}
+                                    ariaLabel="Add to favorites"
+                                />
                             </div>
                         </div>)}
                 </div>

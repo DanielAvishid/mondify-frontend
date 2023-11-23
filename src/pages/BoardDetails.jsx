@@ -185,70 +185,34 @@ export function BoardDetails() {
         onSaveBoard({ board, key: 'groups', value: newGroups })
     }
 
-    // if (board === undefined) return <DeletedBoard />
+    if (board === undefined) return <DeletedBoard />
 
-    // if (board === null) return (
-    //     <section className="waiting-load">
-    //         <div className="loader-container">
-    //             <img src="https://cdn.monday.com/images/loader/loader.gif" alt="" />
-    //         </div>
-    //     </section>
-    // )
+    if (board === null) return (
+        <section className="waiting-load">
+            <div className="loader-container">
+                <img src="https://cdn.monday.com/images/loader/loader.gif" alt="" />
+            </div>
+        </section>
+    )
 
     return (
         <>
-            {isAbove600px && <section
-                className="board-details main-layout"
-                ref={containerRef}>
-                {board === undefined && <section className="waiting-load">
-                    <div className="loader-container">
-                        <img src="https://cdn.monday.com/images/loader/loader.gif" alt="" />
-                    </div>
-                </section>}
-                {board === null && <DeletedBoard />}
-                {board && <BoardHeader
-                    onAddTaskFromHeader={onAddTaskFromHeader}
-                    onDuplicateBoard={onDuplicateBoard}
-                    board={board}
-                    onRemoveBoard={onRemoveBoard}
-                    onSaveBoard={onSaveBoard}
-                    filterBy={filterBy}
-                    setFilterBy={setFilterBy}
-                    sortBy={sortBy}
-                    setSortBy={setSortBy}
-                    onAddGroup={onAddGroup}
-                    isScrolling={isScrolling}
-                />}
-                {board && < DragDropContext onDragEnd={onDragEnd} className="main-layout full">
-                    <Outlet context={[board, onSaveBoard, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask, isCollapse, setIsCollapse, updateIsCollapse, onAddGroup]} />
-                </DragDropContext>}
-            </section >}
-            {!isAbove600px && <section className="board-details-mobile">
-                <div className="header">
-                    <div className="board-options">
-                        <Icon className="arrow-icon" icon={MoveArrowLeft} onClick={() => navigate('/board')} />
-                        <EditableHeading
-                            className="board-title-input"
-                            type={EditableHeading.types.h2}
-                            value={board.title}
-                            onBlur={(ev) => onSaveBoard({ board, key: 'title', value: ev.target.value })}
-                            customColor="#323338" //change to variable
-                        />
-                        <MenuButton
-                            className="menu-btn" component={HiOutlineDotsVertical}>
-                            <Menu id="menu">
-                                <MenuTitle caption="Board options" captionPosition={MenuTitle.positions.TOP} />
-                                <MenuItem icon={Duplicate} iconType={MenuItem.iconType.SVG}
-                                    title="Duplicate board" onClick={() => { onDuplicateBoard({ boardId: board._id }) }} />
-                                <MenuItem icon={Delete} iconType={MenuItem.iconType.SVG} title="Delete board"
-                                    onClick={() => { onRemoveBoard({ board, boardId: board._id }) }} />
-                            </Menu>
-                        </MenuButton>
-                    </div>
-                    <div>
-                    </div>
-                </div>
-            </section>}
+            <BoardHeader
+                onAddTaskFromHeader={onAddTaskFromHeader}
+                onDuplicateBoard={onDuplicateBoard}
+                board={board}
+                onRemoveBoard={onRemoveBoard}
+                onSaveBoard={onSaveBoard}
+                filterBy={filterBy}
+                setFilterBy={setFilterBy}
+                sortBy={sortBy}
+                setSortBy={setSortBy}
+                onAddGroup={onAddGroup}
+                isScrolling={isScrolling}
+            />
+            < DragDropContext onDragEnd={onDragEnd} className="main-layout full">
+                <Outlet context={[board, onSaveBoard, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask, isCollapse, setIsCollapse, updateIsCollapse, onAddGroup]} />
+            </DragDropContext>
         </>
     )
 }
