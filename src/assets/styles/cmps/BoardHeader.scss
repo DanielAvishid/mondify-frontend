@@ -481,14 +481,34 @@
         width: 100vw;
         border-block-end: 0.8px solid $table-border;
 
-        h1 {
-            font-size: rem(20px);
+        .first-row-container {
+
+            h1 {
+                font-size: rem(20px);
+            }
+
+            input {
+                text-align: center;
+                font-size: rem(20px);
+            }
         }
 
-        input {
-            text-align: center;
-            font-size: rem(20px);
+        .search-container {
+
+            &.is-focus {
+                .search-input {
+                    width: 100px !important;
+                }
+            }
+
+            &.typing {
+                .search-input {
+                    width: 100px !important;
+                }
+            }
         }
+
+
 
         .info-icons-container,
         .activity-btn,
