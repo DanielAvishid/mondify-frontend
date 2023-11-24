@@ -196,8 +196,9 @@ export function BoardDetails() {
     )
 
     return (
-        <>
+        <section className="board-details main-layout">
             <BoardHeader
+
                 onAddTaskFromHeader={onAddTaskFromHeader}
                 onDuplicateBoard={onDuplicateBoard}
                 board={board}
@@ -213,6 +214,6 @@ export function BoardDetails() {
             < DragDropContext onDragEnd={onDragEnd} className="main-layout full">
                 <Outlet context={[board, onSaveBoard, onRemoveGroup, onRemoveTask, onDuplicateGroup, onDuplicateTask, isCollapse, setIsCollapse, updateIsCollapse, onAddGroup]} />
             </DragDropContext>
-        </>
+        </section>
     )
 }

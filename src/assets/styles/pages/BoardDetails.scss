@@ -15,6 +15,14 @@
     }
 }
 
+@media (max-width: 600px) {
+    .board-details {
+        width: 100vw;
+        height: 100vh;
+        overflow-x: auto;
+    }
+}
+
 .board-details-mobile {
     background-color: $primary-background-color;
     width: 100vw;

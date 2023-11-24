@@ -16,3 +16,11 @@
         display: block;
     }
 }
+
+@media (max-width: 600px) {
+
+    .app-index {
+        background-color: $primary-background-color;
+    }
+
+}

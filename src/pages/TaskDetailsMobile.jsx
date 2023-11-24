@@ -4,13 +4,14 @@ import { BsFillShareFill } from "react-icons/bs";
 import { MoveArrowLeft, DropdownChevronRight, Board, Update, AddNewDoc } from "/node_modules/monday-ui-react-core/src/components/Icon/Icons"
 import { useEffect, useRef, useState } from "react";
 import { getById } from "../store/actions/board.action";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { utilService } from "../services/util.service";
 
 export function TaskDetailsMobile({ task, groupId, board, onSaveBoard }) {
     const user = useSelector(storeState => storeState.userModule.loggedinUser)
     const inputRef = useRef()
+    const navigate = useNavigate()
 
     function onUpdateClick(updateValue) {
         const value = task.updates || []
@@ -32,7 +33,7 @@ export function TaskDetailsMobile({ task, groupId, board, onSaveBoard }) {
     return (
         < section className="task-details-mobile" >
             <div className="nav-container">
-                <Icon className="nav-icon" icon={MoveArrowLeft} />
+                <Icon className="nav-icon" icon={MoveArrowLeft} onClick={() => navigate(`/board/${board._id}`)} />
                 <div className="icon-container">
                     <div>
                         <Icon className="share-icon" icon={BsFillShareFill} />
