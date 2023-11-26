@@ -82,6 +82,7 @@
 
 @media (max-width: 600px) {
     .dashboard {
+        margin-block-start: rem(160px);
         width: 100vw;
         height: fit-content;
         grid-template-columns: 1fr;

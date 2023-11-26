@@ -1,6 +1,6 @@
 .group-list {
     white-space: nowrap;
-    margin-block-start: rem(16px);
+    // margin-block-start: rem(16px);
     background-color: $primary-background-color;
 
     .add-group-container {
@@ -16,5 +16,11 @@
                 height: rem(20px);
             }
         }
+    }
+}
+
+@media (max-width: 600px) {
+    .group-list {
+        margin-block-start: rem(160px);
     }
 }

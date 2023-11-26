@@ -74,3 +74,19 @@
         cursor: default;
     }
 }
+
+@media (max-width:600px) {
+    .title-col {
+        width: rem(280px) !important;
+
+        .open-details-container,
+        .collapse {
+            display: none;
+        }
+
+        h6 {
+            max-width: 190px;
+        }
+
+    }
+}

@@ -51,3 +51,11 @@
         }
     }
 }
+
+@media (max-width: 600px) {
+    .group-title {
+        height: 3rem;
+        position: sticky;
+        left: 0;
+    }
+}

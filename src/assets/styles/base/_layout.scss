@@ -41,3 +41,9 @@
         grid-column: 3;
     }
 }
+
+@media (max-width: 600px) {
+    .main-layout {
+        min-width: 1150px;
+    }
+}

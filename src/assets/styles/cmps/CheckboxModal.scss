@@ -79,3 +79,16 @@
         }
     }
 }
+
+@media (max-width:600px) {
+    .checkbox-modal {
+        width: fit-content;
+        position: fixed;
+
+        .close-checkbox-modal,
+        .tasks-count {
+            width: 40px !important;
+        }
+
+    }
+}
