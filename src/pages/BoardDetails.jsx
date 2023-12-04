@@ -185,13 +185,15 @@ export function BoardDetails() {
         onSaveBoard({ board, key: 'groups', value: newGroups })
     }
 
-    if (board === undefined) return <DeletedBoard />
+    if (board === null) return <DeletedBoard />
 
-    if (board === null) return (
-        <section className="waiting-load">
-            <div className="loader-container">
-                <img src="https://cdn.monday.com/images/loader/loader.gif" alt="" />
-            </div>
+    if (board === undefined) return (
+        <section className="board-details main-layout">
+            <section className="waiting-load">
+                <div className="loader-container">
+                    <img src="https://cdn.monday.com/images/loader/loader.gif" alt="" />
+                </div>
+            </section>
         </section>
     )
 
