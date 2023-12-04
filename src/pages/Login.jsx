@@ -20,6 +20,13 @@ export function Login() {
         }
     }, [])
 
+    function handleKeyPress(ev) {
+        if (ev.key === 'Enter') {
+            console.log('enter clicked');
+            onSubmit()
+        }
+    }
+
     function handleCredentialsChange(ev) {
         const field = ev.target.name
         const value = ev.target.value
@@ -62,7 +69,7 @@ export function Login() {
     return (
         <section className="login">
             <div className="login-header">
-                <div className="logo-container">
+                <div className="logo-container" onClick={() => navigate('/')}>
                     <img className="logo" src="https://res.cloudinary.com/dvcgvn34o/image/upload/v1699389325/monday-logo_oxvnvi.svg" alt="" />
                     <span className="brand-name">workit</span>
                 </div>
@@ -77,7 +84,8 @@ export function Login() {
                                 <input
                                     type="text"
                                     name="username"
-                                    onChange={handleCredentialsChange} />
+                                    onChange={handleCredentialsChange}
+                                    onKeyDown={handleKeyPress} />
                             </div>
                         </div>
                         <div className="label-container">
@@ -86,7 +94,8 @@ export function Login() {
                                 <input
                                     type="password"
                                     name="password"
-                                    onChange={handleCredentialsChange} />
+                                    onChange={handleCredentialsChange}
+                                    onKeyDown={handleKeyPress} />
                             </div>
                         </div >
                         <div className="login-btn-container">
