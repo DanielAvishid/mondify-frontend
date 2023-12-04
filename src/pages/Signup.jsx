@@ -88,7 +88,7 @@ export function Signup() {
                             </span>
                             <div className="input-container">
                                 <input
-                                    type="text"
+                                    type="password"
                                     name="password"
                                     onChange={handleCredentialsChange} />
                             </div>

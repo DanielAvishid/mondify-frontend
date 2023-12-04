@@ -63,8 +63,8 @@ export function Login() {
         <section className="login">
             <div className="login-header">
                 <div className="logo-container">
-                    <img src="https://res.cloudinary.com/dvcgvn34o/image/upload/v1699389325/monday-logo_oxvnvi.svg" alt="" />
-                    <span className='logo'>workit</span>
+                    <img className="logo" src="https://res.cloudinary.com/dvcgvn34o/image/upload/v1699389325/monday-logo_oxvnvi.svg" alt="" />
+                    <span className="brand-name">workit</span>
                 </div>
             </div>
             <div className="login-content">
@@ -84,7 +84,7 @@ export function Login() {
                             <span className="label">Password</span>
                             <div className="input-container">
                                 <input
-                                    type="text"
+                                    type="password"
                                     name="password"
                                     onChange={handleCredentialsChange} />
                             </div>
