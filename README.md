@@ -9,6 +9,10 @@
 
 Workit is a pixel-perfect web application inspired by the functionality of the Monday.com app. This project serves as the frontend component of the complete Workit system. Built as the final project during our coding academy web development bootcamp, it reflects the skills and knowledge gained throughout the program.
 
+## Pixel Perfect Design
+
+Workit boasts a pixel-perfect design, mirroring the intuitive and visually appealing layout of the Monday.com app. Every detail is meticulously crafted to ensure a seamless and professional user experience.
+
 ## Technologies Used
 
 - **React:** The core of the frontend, providing a dynamic and efficient user interface.
@@ -19,9 +23,10 @@ Workit is a pixel-perfect web application inspired by the functionality of the M
 - **Cloudinary:** Used for storing and managing images efficiently.
 - **HTML & JS:** Fundamental building blocks for the web application.
 
-## Pixel Perfect Design
+## View Workit in Action
 
-Workit boasts a pixel-perfect design, mirroring the intuitive and visually appealing layout of the Monday.com app. Every detail is meticulously crafted to ensure a seamless and professional user experience.
+To experience the full functionality and design of Workit, you can visit the live site [here](https://workit-main.onrender.com/). Explore the features, interact with the application, and get a firsthand look at how Workit simplifies collaborative project management. We welcome your feedback and hope you enjoy using Workit!
+
 
 ## Backend Repository
 
